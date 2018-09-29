@@ -1,0 +1,14 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "app", "camelCase"],
+    "component-selector": [
+      "disable-next-line",
+      true,
+      "element",
+      "kebab-case"
+    ],
+    "max-line-length": [true, 150],
+    "quotemark": [false]
+  }
+}

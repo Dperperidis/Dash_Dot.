@@ -1,0 +1,79 @@
+.navbar-brand > img {
+  height: 36px;
+}
+
+.navbar {
+  height: 75px;
+}
+
+.bg-info {
+  color: rgb(0, 0, 0);
+  height: 2rem;
+  background-color: rgba(255, 255, 255, 0.116) !important;
+}
+
+.fa-facebook-square {
+  font-size: 23px;
+}
+
+.fa-instagram {
+  font-size: 23px;
+}
+
+.fixed-top-2 {
+  margin-top: 45px;
+}
+
+.show-on-hover:hover > ul.dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  background-color: #000000 !important;
+  border-radius: 8px;
+  margin: 0px -15px;
+}
+
+.dropdown-menu > li > a:hover {
+  background-color: rgba(29, 27, 26, 0.808) !important;
+  color: white;
+}
+
+.dropdown-menu > li > a {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(187, 180, 180);
+  border: groove;
+  block-size: 34px;
+  border-radius: 7px;
+}
+
+#button-basic:hover{
+  border-radius: 10px 100px / 120px;
+
+}
+.nav {
+  font-size: 15px;
+}
+
+.nav:hover {
+  color: rgb(255, 255, 255);
+  background-color:black;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+
+}
+
+.nav_2 {
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+  background-color: white;
+  border-radius: 5px;
+}
+
+.btn{
+  padding:10px;
+}
+
+.show-on-hover>button{
+  text-transform: none;
+}
+

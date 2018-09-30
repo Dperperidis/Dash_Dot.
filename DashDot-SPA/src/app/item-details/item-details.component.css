@@ -1,0 +1,42 @@
+.mt-5{
+    margin-top:12rem!important;
+}
+
+.card-header{
+    background-color:black;
+    color:white;
+}
+
+.btn:disabed{
+    opacity: 1;
+}
+
+.btn-success{
+    background-color:rgb(13, 132, 11);;
+    margin: 0 13px;
+}
+
+.card-body>h5{
+    letter-spacing: 0px!important;
+}
+
+.custom-select{
+    width:50%;
+}
+
+.quantity{
+    width: 10%;
+}
+
+.btn{
+    border-radius: 7px;
+}
+
+.like_buttons>i{
+    font-size: 35px;
+}
+
+.icons{
+    display: inline-grid;
+    font-size: 15px;
+}

@@ -1,0 +1,53 @@
+.mt-5{
+    margin-top:12rem!important;
+}
+
+.form-inline{
+    font-weight: bold;
+    
+  
+}
+
+.form-control{
+    margin: 10px;
+    padding: 0 15px;
+}
+
+.form-group>a>i {
+    font-size: 30px;
+    
+}
+.fa-list:before {
+    margin: 14px;
+    
+}
+
+.fa{
+    font-size:17px; 
+    text-transform: none;
+
+}
+
+
+.card-body{
+    padding: 0.25rem;
+}
+
+.card:hover{
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+}
+
+.card img {
+    transform: scale(1, 1);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.card:hover img {
+    transform: scale(1.1, 1.1);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 1;
+
+}

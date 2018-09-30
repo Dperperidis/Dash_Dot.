@@ -52,6 +52,10 @@
   border-radius: 10px 100px / 120px;
 
 }
+
+#button-basic{
+  font-family: Georgia, 'Times New Roman', Times, serif
+}
 .nav {
   font-size: 15px;
 }

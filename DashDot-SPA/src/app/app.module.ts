@@ -9,12 +9,18 @@ import { routes } from "./routes";
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ItemsListComponent } from './items-list/items-list.component';
+import { FooterComponent } from './footer/footer.component';
+import { ItemDetailsComponent } from './item-details/item-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FrontpageComponent,
-    NavbarComponent
+    NavbarComponent,
+    ItemsListComponent,
+    FooterComponent,
+    ItemDetailsComponent
   ],
   imports: [
     BrowserModule,

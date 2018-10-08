@@ -8,7 +8,9 @@ import { Component, OnInit } from "@angular/core";
 export class FrontpageComponent implements OnInit {
 
 
+  
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

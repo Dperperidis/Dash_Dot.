@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class=" container">
     <a class="navbar-brand" href="#">
       <img src="../../assets/images/logo_dashndot.jpg" alt="">
@@ -8,9 +8,15 @@
       <li class="list-inline-item"><a href=""><i class="fa fa-instagram text-white mt-2"></i></a></li>
     </ul>
     <div class="btn-group">
-      <button type="button" class="btn btn-outline-secondary btn-sm">Login</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['/login']" *ngIf="!loggedIn()">Login</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['/']" *ngIf="loggedIn()" (click)="logout()">Logout</button>
       <button type="button" class="btn btn-outline-secondary btn-sm">Contact Us</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">Admin Page</button>
+      
     </div>
+    <a class="text-light" *ngIf="loggedIn()" >
+      Καλωσήρθες {{ authService.decodedToken?.firstname | titlecase}}
+    </a>
   </div>
 </nav>
 
@@ -38,7 +44,7 @@
       <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
         <li role="menuitem"><a class="dropdown-item  text-center" href="#">Παπιγιόν</a></li>
         <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Γιλέκα</a></li>
+        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Μανικετόκουμπα</a></li>
         <li class="divider dropdown-divider"></li>
         <li role="menuitem"><a class="dropdown-item  text-center" href="#">Γραβάτες</a></li>
       </ul>

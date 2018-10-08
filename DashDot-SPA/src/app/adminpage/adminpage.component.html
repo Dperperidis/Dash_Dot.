@@ -1,0 +1,19 @@
+<div class="admin_page">
+  <div class="card-body">
+    <div class="container">
+      <br>
+      <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
+        <h1 class="display-3 text-white font-weight-bold" style="text-transform:none" [routerLink]="['/']"  >dāsh&dot.</h1>
+        <h5 class="text-white">Admin System</h5>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Email" required name="email" [(ngModel)]="admin.email">
+        </div>
+        <Br>
+        <input class="form-control mr-sm-2" type="password" placeholder="Kωδικός" required name="password" [(ngModel)]="admin.password">
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Εισοδος</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

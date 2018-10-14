@@ -24,10 +24,18 @@ namespace DashnDotApp.Helpers
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
             });
             CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<Products, ProductForDetailedDto>().ForMember(dest => dest.PhotoUrl, opt =>
+            {
+                opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
+            });
             CreateMap<UserForRegisterDto, User>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<Photo, PhotoForDetailedDto>();
             CreateMap<ProductForRegisterDto, Products>();
+            CreateMap<Products, ProductForListDto>().ForMember(dest => dest.PhotoUrl, opt =>
+            {
+                opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
+            });
         }
     }
 }

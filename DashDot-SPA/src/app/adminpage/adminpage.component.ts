@@ -11,24 +11,27 @@ import { Router } from '@angular/router';
 })
 export class AdminpageComponent implements OnInit {
 
-  admin: any ={}
+  admin: any = {}
 
   constructor(private authService: AuthService, private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
+    if (this.authService.isAdmin) {
+      this.router.navigate(['/admin/main']);
+    }
   }
 
 
-  loginCustomer(){
-    this.authService.login(this.admin).subscribe(res =>{
-      if (this.authService.decodedToken.isAdmin == 'True'){
+  loginCustomer() {
+    this.authService.login(this.admin).subscribe(res => {
+      if (this.authService.decodedToken.isAdmin == 'True') {
         this.toastr.success("Καλωσήρθες");
         this.router.navigate(["/admin/main"]);
       } else {
         this.toastr.warning("Δεν έχετε πρόσβαση")
       }
-     
+
     }, error => {
       this.toastr.error("Email/Κωδικός δεν ταιριάζουν");
     });

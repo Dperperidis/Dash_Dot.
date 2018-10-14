@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from "ngx-bootstrap";
 import { JwtModule } from "../../node_modules/@auth0/angular-jwt";
 import { routes } from "./routes";
+import {ImageZoomModule} from 'angular2-image-zoom';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -26,6 +28,15 @@ import { PhotoEditorComponent } from './admin-main/photo-editor/photo-editor.com
 import { ProductService } from './_services/product.service';
 import { AdminNavbarComponent } from './admin-main/admin-navbar/admin-navbar.component';
 import { AdminCardsComponent } from './admin-main/admin-cards/admin-cards.component';
+import { PhotoUploadResolver } from './_resolvers/photo-upload.resolver';
+import { ProductEditResolver } from './_resolvers/product-edit.resolver';
+import { ErrorInterceptorProvider } from './_resolvers/error.interceptor';
+import { ProductDetailComponent } from './admin-main/product-detail/product-detail.component';
+import { AdminAuthGuard } from './_guards/admin-auth-guard.service';
+import { AdminChartsComponent } from './admin-main/admin-charts/admin-charts.component';
+import { Routing } from './_services/routing.service';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -46,7 +57,9 @@ export function tokenGetter() {
     EditProductComponent,
     PhotoEditorComponent,
     AdminNavbarComponent,
-    AdminCardsComponent
+    AdminCardsComponent,
+    ProductDetailComponent,
+    AdminChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +68,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     JwtModule,
     ReactiveFormsModule,
+    ImageZoomModule,
+    FileUploadModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(routes),
@@ -71,7 +86,13 @@ export function tokenGetter() {
   ],
   providers: [
     AuthService,
-    ProductService
+    Routing,
+    ProductService,
+    PreventUnsavedChanges,
+    PhotoUploadResolver,
+    ProductEditResolver,
+    ErrorInterceptorProvider,
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })

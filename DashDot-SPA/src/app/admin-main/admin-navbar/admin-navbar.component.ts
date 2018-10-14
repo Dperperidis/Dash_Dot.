@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-admin-navbar',
   templateUrl: './admin-navbar.component.html',
@@ -8,9 +12,20 @@ import { Component, OnInit } from '@angular/core';
 export class AdminNavbarComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(
+    private authService: AuthService, private router: Router,
+    private route: ActivatedRoute, private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
   }
 
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
+    this.toastr.success("Logout Success");
+    this.router.navigate(['/']);
+  }
 }

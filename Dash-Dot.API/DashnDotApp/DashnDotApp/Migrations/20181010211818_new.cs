@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DashnDotApp.Migrations
 {
-    public partial class add2 : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Product",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Category = table.Column<string>(nullable: true),
                     Price = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
@@ -29,7 +30,7 @@ namespace DashnDotApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,15 +56,15 @@ namespace DashnDotApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ProductId = table.Column<string>(nullable: true)
+                    ProductId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Items_Products_ProductId",
+                        name: "FK_Items_Product_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -77,15 +78,15 @@ namespace DashnDotApp.Migrations
                     Url = table.Column<string>(nullable: true),
                     isMain = table.Column<bool>(nullable: false),
                     PublicId = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: true)
+                    ProductId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photos_Products_ProductId",
+                        name: "FK_Photos_Product_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -140,7 +141,7 @@ namespace DashnDotApp.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Product");
         }
     }
 }

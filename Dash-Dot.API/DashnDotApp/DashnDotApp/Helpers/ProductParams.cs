@@ -9,5 +9,6 @@ namespace DashnDotApp.Helpers
     {
         public int ProductId { get; set; }
         public string Category { get; set; }
+        public string OrderBy { get; set; }
     }
 }

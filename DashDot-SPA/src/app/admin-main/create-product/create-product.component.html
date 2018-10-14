@@ -20,11 +20,8 @@
             <div class="form-group col-sm-6">
               <h4>Όνομα Προϊόντος</h4>
               <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
-
             </div>
           </div>
-
-
           <div class="row">
             <div class="form-group col-md-6">
               <h4>Σύνθεση</h4>
@@ -71,9 +68,6 @@
               </div>
             </div>
           </div>
-
-
-
           <div class="row">
             <div class="form-group col-md-6">
 
@@ -90,14 +84,10 @@
               </select>
             </div>
           </div>
-
           <div class="row">
             <div class="form-group col-md-6">
               <h4>Χρώμα</h4>
-              <textarea name="color" class="form-control" id="exampleSelect1" [(ngModel)]="product.colorForeignKey">
-
-
-
+              <textarea name="color" class="form-control" id="exampleSelect1" [(ngModel)]="product.color">
               </textarea>
             </div>
             <div class="form-group col-md-6">
@@ -105,8 +95,6 @@
               <input name="price" rows="6" class="form-control" [(ngModel)]="product.price">
             </div>
           </div>
-
-
           <div class="row">
             <div class="form-group col-md-6">
               <h4>Απόθεμα</h4>
@@ -120,10 +108,9 @@
           </div>
           <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success">Save</button>
         </form>
-
       </tab>
       <tab heading="Edit/Insert Photos">
-        <app-photo-editor></app-photo-editor>
+       
       </tab>
     </tabset>
   </div>

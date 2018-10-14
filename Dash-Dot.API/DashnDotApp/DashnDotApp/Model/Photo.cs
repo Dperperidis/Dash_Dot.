@@ -12,6 +12,7 @@ namespace DashnDotApp.Model
         public bool isMain { get; set; }
         public string PublicId { get; set; }
         public Products Product { get; set; }
+        public int productId { get; set; }
 
 
     }

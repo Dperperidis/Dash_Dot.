@@ -15,14 +15,7 @@ namespace DashnDotApp.Data
         public DbSet<ShoppingCarts> ShoppingCarts { get; set; }
         public DbSet<Items> Items { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Colors> Colors { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Colors>()
-     .HasOne(a => a.Product).WithOne(b => b.Color)
-     .HasForeignKey<Products>(e => e.ColorOfColorId);
-
-        }
+ 
     }
 }

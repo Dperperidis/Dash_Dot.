@@ -10,7 +10,7 @@
 
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <img style="height: 100%; width: 100%; display: block;" src="https://www.cloking.es/wp-content/uploads/2017/07/0889_2017_Top7_a-700x700.jpg">
+      <img  [imageZoom]="zoomedImageSrc" src="{{product.photoUrl}}">
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="card border-light mb-3" style="max-width: 100;">
@@ -18,7 +18,7 @@
         <div class="card-body">
           <h5 class="text-dark" style="text-transform: none;"><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']">
               dāsh&dot.</a></h5>
-          <h5 class="text-dark" style="text-transform: none;"><strong>Κωδικός προϊόντος:</strong> 14564254</h5>
+          <h5 class="text-dark" style="text-transform: none;"><strong>Κωδικός προϊόντος:</strong> {{product.code}}</h5>
           <h5 class="text-dark" style="text-transform: none;"><strong>Διαθεσιμότητα:</strong><button type="text" class="btn btn-success static"
               disabled>διαθεσιμο</button></h5>
           <hr>

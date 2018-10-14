@@ -1,19 +1,19 @@
 import { Photo } from "./photo";
-import { Color } from "./color";
 
 export class Product {
-    id: string;
+    id: number;
     category: string;
     price: string;
     title: string;
     size: string;
     code: string;
     season: string;
+    photoUrl: string;
     material: string;
     description: string;
     sleeve: string;
     quantity: string;
-    ColorOfColorId: Color[];
+    color: string;
     line:string;
     discount: string;
     photos?: Photo[];

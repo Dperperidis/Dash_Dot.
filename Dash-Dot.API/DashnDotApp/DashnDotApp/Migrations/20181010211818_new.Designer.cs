@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181007181453_add5")]
-    partial class add5
+    [Migration("20181010211818_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,24 +21,12 @@ namespace DashnDotApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DashnDotApp.Model.Colors", b =>
-                {
-                    b.Property<string>("ColorsId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Color");
-
-                    b.HasKey("ColorsId");
-
-                    b.ToTable("Colors");
-                });
-
             modelBuilder.Entity("DashnDotApp.Model.Items", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ProductId");
+                    b.Property<int?>("ProductId");
 
                     b.HasKey("Id");
 
@@ -53,7 +41,7 @@ namespace DashnDotApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId");
+                    b.Property<int?>("ProductId");
 
                     b.Property<string>("PublicId");
 
@@ -70,14 +58,15 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.Products", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Category");
 
                     b.Property<string>("Code");
 
-                    b.Property<string>("ColorOfColorId");
+                    b.Property<string>("Color");
 
                     b.Property<string>("Description");
 
@@ -100,10 +89,6 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ColorOfColorId")
-                        .IsUnique()
-                        .HasFilter("[ColorOfColorId] IS NOT NULL");
 
                     b.ToTable("Product");
                 });
@@ -159,13 +144,6 @@ namespace DashnDotApp.Migrations
                     b.HasOne("DashnDotApp.Model.Products", "Product")
                         .WithMany("Photos")
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("DashnDotApp.Model.Products", b =>
-                {
-                    b.HasOne("DashnDotApp.Model.Colors", "Color")
-                        .WithOne("Product")
-                        .HasForeignKey("DashnDotApp.Model.Products", "ColorOfColorId");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>

@@ -51,10 +51,10 @@ namespace DashnDotApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForProduct(string productId, [FromForm]PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhotoForProduct(int productId, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
-            // για να δουμε αν ειναι authorize o χρηστης
-            //if (productId != int.Parse(Product.FindFirst(ClaimTypes.NameIdentifier).Value))
+
+            //if (productId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) 
             //    return Unauthorized();
 
             var productFromRepo = await _repo.GetProduct(productId);
@@ -70,7 +70,7 @@ namespace DashnDotApp.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(300).Height(300).Crop("fill").Gravity("face")
+                        Transformation = new Transformation().Width(740).Height(1100).Crop("fit")
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
@@ -99,5 +99,75 @@ namespace DashnDotApp.Controllers
 
         }
 
+        [HttpPost("{id}/setMain")]
+        public async Task<IActionResult> SetMainPhoto(int productId, int id)
+        {
+           
+
+            var product = await _repo.GetProduct(productId);
+
+            if (!product.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            if (photoFromRepo.isMain)
+                return BadRequest("Είναι ήδη η βασική φωτογραφία");
+
+            var currentMainPhoto = await _repo.GetMainPhotoForProduct(productId);
+            currentMainPhoto.isMain = false;
+
+            photoFromRepo.isMain = true;
+
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Δεν ήταν δυνατό να γίνει η βασική φωτογραφία");
+
+        }
+
+        [HttpDelete("{id}")]
+
+        public async Task<IActionResult> DeletePhoto(int productId, int id)
+        {
+            var product = await _repo.GetProduct(productId);
+
+            if (!product.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            if (photoFromRepo.isMain)
+                return BadRequest("Δεν μπορεις να σβήσεις την βασική σου φωτογραφία");
+
+            if (photoFromRepo.PublicId != null)
+            {
+
+                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+
+                var result = _cloudinary.Destroy(deleteParams);
+
+           
+                    _repo.Delete(photoFromRepo);
+                
+            }
+
+            if(photoFromRepo.PublicId == null)
+            {
+                _repo.Delete(photoFromRepo);
+            }
+
+
+            if (await _repo.SaveAll())
+            {
+                return Ok();
+            }
+                     
+            return BadRequest("Υπήρξε Σφάλμα");
+
+        }
+         
     }
 }

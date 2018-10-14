@@ -13,8 +13,10 @@ namespace DashnDotApp.Dtos
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
-        Task<Products> GetProducts();
-        Task<Products> GetProduct(string id);
+        Task <IEnumerable<Products>> GetProducts(ProductParams productParams);
+        Task<Products> GetProduct(int id);
+        Task<Products> GetProduct(string code);
         Task<Photo> GetPhoto(int id);
+        Task<Photo> GetMainPhotoForProduct(int productId);
     }
 }

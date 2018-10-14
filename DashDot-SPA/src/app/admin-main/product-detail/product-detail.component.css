@@ -12,6 +12,10 @@
     margin-right: 0;
 }
 
-li>a{
-    cursor: pointer;
+.form-control{
+    padding:0 2rem;
+}
+
+img{
+    width: 100px;
 }

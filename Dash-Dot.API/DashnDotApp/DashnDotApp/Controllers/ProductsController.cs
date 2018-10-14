@@ -32,20 +32,21 @@ namespace DashnDotApp.Controllers
             _mapper = mapper;
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery]ProductParams productParams)
         {
 
-            var products = await _repo.GetProducts();
+            var products = await _repo.GetProducts(productParams);
 
-            var productsToReturn = _mapper.Map <IEnumerable< ProductForListDto>>(products);
+            var productsToReturn = _mapper.Map<IEnumerable<ProductForListDto>>(products);
 
             return Ok(productsToReturn);
 
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(string id)
+        public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _repo.GetProduct(id);
 
@@ -61,6 +62,34 @@ namespace DashnDotApp.Controllers
             var result = _ctx.Product.Add(product);
             _ctx.SaveChanges();
             return Ok(result.Entity);
+        }
+
+        [Route("getProductByCode/{code}")]
+        [HttpGet]
+        public  async Task<IActionResult> GetProductByCode(string code)
+        {
+
+            var productByCode = await _repo.GetProduct(code);
+            var productToReturn = _mapper.Map<ProductForDetailedDto>(productByCode);
+            return Ok(productToReturn);
+            
+           
+           
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, ProductForUpdateDto productForUpdateDto)
+        {
+           
+
+            var productFromRepo  = await _repo.GetProduct(id);
+
+            _mapper.Map(productForUpdateDto, productFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating Product {id} failed on save");
         }
 
 

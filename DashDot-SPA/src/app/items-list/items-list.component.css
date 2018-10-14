@@ -25,7 +25,17 @@
 .fa{
     font-size:17px; 
     text-transform: none;
+}
 
+h6{
+    letter-spacing: 1px;
+}
+
+img{
+    max-height: 15rem;
+    max-width: 11rem;
+    margin: 0 auto;
+    margin-top:10px;
 }
 
 

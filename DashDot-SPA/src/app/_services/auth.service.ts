@@ -17,10 +17,7 @@ export class AuthService {
     decodedToken: any;
     currentUser: User;
 
-    constructor(private http: HttpClient) {
-    }
-
-
+    constructor(private http: HttpClient) { }
 
     private isAdminInSubject$ = new BehaviorSubject<boolean>(false);
     isAdmin$ = this.isAdminInSubject$.asObservable();

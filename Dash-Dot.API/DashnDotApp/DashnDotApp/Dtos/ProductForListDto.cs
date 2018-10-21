@@ -22,7 +22,7 @@ namespace DashnDotApp.Dtos
         public string Sleeve { get; set; }
         public string Discount { get; set; }
         public string Color { get; set; }
-
+        public string Active { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

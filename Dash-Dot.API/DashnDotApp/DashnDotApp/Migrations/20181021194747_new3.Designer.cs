@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181011180656_photo")]
-    partial class photo
+    [Migration("20181021194747_new3")]
+    partial class new3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace DashnDotApp.Migrations
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DashnDotApp.Model.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RGB");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+                });
 
             modelBuilder.Entity("DashnDotApp.Model.Items", b =>
                 {
@@ -56,17 +71,17 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.Products", b =>
+            modelBuilder.Entity("DashnDotApp.Model.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Active");
+
                     b.Property<string>("Category");
 
                     b.Property<string>("Code");
-
-                    b.Property<string>("Color");
 
                     b.Property<string>("Description");
 
@@ -78,11 +93,7 @@ namespace DashnDotApp.Migrations
 
                     b.Property<string>("Price");
 
-                    b.Property<string>("Quantity");
-
                     b.Property<string>("Season");
-
-                    b.Property<string>("Size");
 
                     b.Property<string>("Sleeve");
 
@@ -91,6 +102,44 @@ namespace DashnDotApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("SizeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductSizes");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ProductsSizeColor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ColorId");
+
+                    b.Property<int>("Count");
+
+                    b.Property<int>("ProductSizeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductSizeId");
+
+                    b.ToTable("ProductsSizeColors");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
@@ -107,6 +156,21 @@ namespace DashnDotApp.Migrations
                     b.HasIndex("itemsId");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Region");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.User", b =>
@@ -134,16 +198,37 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.Items", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Products", "Product")
+                    b.HasOne("DashnDotApp.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Products", "Product")
+                    b.HasOne("DashnDotApp.Model.Product", "Product")
                         .WithMany("Photos")
                         .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
+                {
+                    b.HasOne("DashnDotApp.Model.Product")
+                        .WithMany("ProductSizes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DashnDotApp.Model.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ProductsSizeColor", b =>
+                {
+                    b.HasOne("DashnDotApp.Model.ProductSize")
+                        .WithMany("Colors")
+                        .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

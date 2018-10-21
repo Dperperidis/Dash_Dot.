@@ -1,21 +1,25 @@
-#wrapper{
-    background-color:black;
-    height: 100vh;
-
-}
-
-.nav-item>a{
-    color:white;
-}
-
-.row{
-    margin-right: 0;
-}
 
 .form-control{
     padding:0 2rem;
 }
 
 img{
-    width: 100px;
+    width: 50px;
+    
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    margin:auto 0;
+}
+
+.btn-sm{
+    cursor: pointer;
+}
+
+.width-140{
+    width: 131px;
+}
+.table-bordered th, .table-bordered td {
+    border: 2px outset #dee2e6;
 }

@@ -18,10 +18,10 @@ namespace DashnDotApp.Dtos
         public string Material { get; set; }
         public string Description { get; set; }
         public string Quantity { get; set; }
+        public string Active { get; set; }
         public string Sleeve { get; set; }
         public string Discount { get; set; }
         public string Color { get; set; }
-        public ICollection<Photo> Photos { get; set; }
 
     }
 }

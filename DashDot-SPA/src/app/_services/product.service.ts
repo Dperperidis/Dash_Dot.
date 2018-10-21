@@ -11,8 +11,6 @@ import { Observable, BehaviorSubject } from "rxjs";
 export class ProductService {
     baseUrl = environment.apiUrl;
     currentProduct: any;
-    show = false;
-    editShow = false;
 
     constructor(private http: HttpClient) { }
 
@@ -40,6 +38,20 @@ export class ProductService {
     deletePhoto(productId: number, id: number) {
         return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + id);
     }
+
+    updateProduct(id: number, product: Product) {
+        return this.http.put(this.baseUrl + 'products/' + id, product)
+    }
+
+    deleteProduct(id: number){
+        return this.http.delete(this.baseUrl + 'products/'+ id)
+    }
+
+    getProductsByCategory(category: string) : Observable<Product[]>{
+        return this.http.get<Product[]>(this.baseUrl + 'products/getProductsByCategory/'+ category)
+    }
+
+    
 
 
 

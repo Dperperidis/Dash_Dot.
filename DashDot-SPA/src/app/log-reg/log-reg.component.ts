@@ -14,7 +14,7 @@ export class LogRegComponent implements OnInit {
   user: User;
   registerForm: FormGroup;
   customer: any = {}
-  
+
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private toastr: ToastrService,
@@ -65,9 +65,13 @@ export class LogRegComponent implements OnInit {
     }
   }
 
-  loginCustomer(){
-    this.authService.login(this.customer).subscribe(res =>{
-      if(this.authService.decodedToken.isAdmin == 'True'){
+  loginCustomer() {
+    this.authService.login(this.customer).subscribe(res => {
+      if (this.authService.decodedToken.isAdmin == 'True') {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        this.authService.decodedToken = null;
+        this.authService.currentUser = null;
         this.toastr.info('Για διαχείριση site κάνε Log In εδώ');
         this.router.navigate(['/admin']);
         return null;
@@ -78,4 +82,5 @@ export class LogRegComponent implements OnInit {
       this.toastr.error("Email/Κωδικός δεν ταιριάζουν");
     });
   }
+
 }

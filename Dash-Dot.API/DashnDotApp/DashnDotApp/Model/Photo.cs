@@ -11,7 +11,7 @@ namespace DashnDotApp.Model
         public string Url { get; set; }
         public bool isMain { get; set; }
         public string PublicId { get; set; }
-        public Products Product { get; set; }
+        public Product Product { get; set; }
         public int productId { get; set; }
 
 

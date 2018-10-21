@@ -1,7 +1,11 @@
 <app-navbar></app-navbar>
+
 <div class="container mt-5">
+  
   <form class="form-inline">
+      
     <div class="form-group">
+
       <label for="exampleSelect1" class="text-dark">ΤΑΞΙΝΟΜΗΣΗ:</label>
       <br>
       <select class="form-control" id="exampleSelect1">
@@ -40,7 +44,7 @@
       <div class="card" style="width: 100%">
         <img class="card-img-top" src="{{product.photoUrl}}" alt="Card image cap">
         <br>
-        <h6 class="text-center" style="text-transform:none;">Κωδ: {{product.code}}</h6>
+        <h6 class="text-center">Κωδ: {{product.code}}</h6>
         <hr>
         <div class="card-body text-center">
           <h6 class="card-text text-dark font-weight-bold ">{{product.title}}</h6>
@@ -48,7 +52,8 @@
         </div>
         <div class="btn-toolbar">
           <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket"></i> Καλαθι</button>
-          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/slimfit/details/',product.id]"><i class="fa fa-info-circle"></i>
+          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/slimfit/details/',product.id]"><i
+              class="fa fa-info-circle"></i>
             λεπτομερειες</button>
         </div>
       </div>
@@ -85,4 +90,5 @@
   </div>
 
 </div>
+
 <app-footer></app-footer>

@@ -4,12 +4,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from "ngx-bootstrap";
 import { JwtModule } from "../../node_modules/@auth0/angular-jwt";
 import { routes } from "./routes";
-import {ImageZoomModule} from 'angular2-image-zoom';
+import { ImageZoomModule } from 'angular2-image-zoom';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { BreadcrumbsModule } from "ng6-breadcrumbs";
+import { ModalModule } from 'ngx-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
@@ -36,6 +40,8 @@ import { AdminAuthGuard } from './_guards/admin-auth-guard.service';
 import { AdminChartsComponent } from './admin-main/admin-charts/admin-charts.component';
 import { Routing } from './_services/routing.service';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ProductSettingsComponent } from './admin-main/product-settings/product-settings.component';
+import { ProdSettingsService } from './_services/prodsettings.service';
 
 
 export function tokenGetter() {
@@ -59,7 +65,8 @@ export function tokenGetter() {
     AdminNavbarComponent,
     AdminCardsComponent,
     ProductDetailComponent,
-    AdminChartsComponent
+    AdminChartsComponent,
+    ProductSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,9 +74,13 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     BrowserAnimationsModule,
     JwtModule,
+    ModalModule.forRoot(),
     ReactiveFormsModule,
     ImageZoomModule,
     FileUploadModule,
+    CollapseModule.forRoot(),
+    ChartsModule,
+    BreadcrumbsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(routes),
@@ -92,7 +103,8 @@ export function tokenGetter() {
     PhotoUploadResolver,
     ProductEditResolver,
     ErrorInterceptorProvider,
-    AdminAuthGuard
+    AdminAuthGuard,
+    ProdSettingsService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,6 @@ namespace DashnDotApp.Model
     public class Items
     {
         public string Id { get; set; }
-        public Products Product { get; set; }
+        public Product Product { get; set; }
     }
 }

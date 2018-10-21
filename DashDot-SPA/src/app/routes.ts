@@ -10,28 +10,56 @@ import { EditProductComponent } from "./admin-main/edit-product/edit-product.com
 import { AdminAuthGuard } from "./_guards/admin-auth-guard.service";
 import { CreateProductComponent } from "./admin-main/create-product/create-product.component";
 import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
+import { ProductDetailComponent } from "./admin-main/product-detail/product-detail.component";
+import { AdminChartsComponent } from "./admin-main/admin-charts/admin-charts.component";
+import { ProductSettingsComponent } from "./admin-main/product-settings/product-settings.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
-    { path: 'andrika-poukamisa/slimfit', component: ItemsListComponent },
-    { path: 'slimfit/details/:id', component: ItemDetailsComponent,resolve: { product: PhotoUploadResolver } },
-    { path: 'login', component: LogRegComponent },
-    { path: 'admin', component: AdminpageComponent },
-    
-
     {
-        path: '',
-        runGuardsAndResolvers: "always",
-        canActivate: [AdminAuthGuard],
-        children: [
-            { path: 'admin/create-product', component: CreateProductComponent},
-            { path: 'admin/edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges] },
-            { path: 'admin/main', component: AdminMainComponent },
-            { path: 'admin/details', component: AdminMainComponent },
-            
-        ]
+        path: 'andrika-poukamisa',
+        data: {
+            breadcrumb: 'andrika-poukamisa'
+        },
+        children: [{
+            path: '', component: ItemsListComponent, children: [
+                { path: 'slim_fit', component: ItemsListComponent, }]
+        }]
     },
 
+
+    { path: 'slimfit/details/:id', component: ItemDetailsComponent, resolve: { product: PhotoUploadResolver } },
+    { path: 'login', component: LogRegComponent },
+    { path: 'admin', component: AdminpageComponent },
+
+    {
+        path: 'admin/main',
+        runGuardsAndResolvers: "always",
+        canActivate: [AdminAuthGuard],
+        data: {
+            breadcrumb: 'Admin'
+        },
+
+        children: [
+            {
+                path: '', component: AdminMainComponent, children: [
+                    {
+                        path: 'details', component: ProductDetailComponent, data: {
+                            breadcrumb: 'details'
+                        }
+                    }, {
+                        path: 'edit/:id', component: EditProductComponent, data: {
+                            breadcrumb: 'edit'
+                        }, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
+                    }, {
+                        path: 'create-product', component: CreateProductComponent, data: { breadcrumb: 'create-product' }
+                    }, { path: '', component: AdminChartsComponent },
+                    {path: 'product-settings', component: ProductSettingsComponent}
+                ]
+            },
+        ]
+    },
     { path: '**', redirectTo: '', pathMatch: "full" },
 
 ];
+

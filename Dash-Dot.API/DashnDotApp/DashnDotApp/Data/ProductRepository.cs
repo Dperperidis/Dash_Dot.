@@ -42,7 +42,7 @@ namespace DashnDotApp.Dtos
         }
 
 
-        public async Task<Products> GetProduct(int id)
+        public async Task<Product> GetProduct(int id)
         {
             var product = await _context.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
             return product;
@@ -55,16 +55,23 @@ namespace DashnDotApp.Dtos
             return await _context.Photos.Where(u => u.productId == productId).FirstOrDefaultAsync(p => p.isMain);
         }
 
-        public async Task<IEnumerable<Products>> GetProducts(ProductParams productParams)
+        public async Task<IEnumerable<Product>> GetProducts(ProductParams productParams)
         {
             var products = await _context.Product.Include(p => p.Photos).ToListAsync();
             return products;
         }
 
-        public async Task<Products> GetProduct(string code)
+        public async Task<Product> GetProduct(string code)
         {
             var product = await _context.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Code == code);
             return product;
+        }
+
+        public async Task<IEnumerable<Product>> GetProducts(string category)
+        {
+            var products = await _context.Product.Include(p => p.Photos).ToListAsync();
+            var productsToReturn = products.Where(x => x.Category == category);
+            return productsToReturn;
         }
     }
 }

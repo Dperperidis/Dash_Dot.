@@ -35,6 +35,8 @@ namespace DashnDotApp.Dtos
         public string Discount { get; set; }
         [Required]
         public string Color { get; set; }
+        [Required]
+        public string Active { get; set; }
 
 
 

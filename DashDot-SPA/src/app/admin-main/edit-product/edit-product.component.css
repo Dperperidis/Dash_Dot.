@@ -1,24 +1,26 @@
 
 h4{
     text-transform: none;
-    font-size: 16px;
+    font-size: 12px;
+    display: flex;
 }
 
 .form-control{
-    padding: 0 2rem;
+    padding: 0 10px;
 }
 
 img{
     margin: 0 auto;
     margin-top: 69px;
-    width: 100%;
-
+    width: 80%;
 }
 
-#wrapper{
-    background-color:black;
-    height: 100vh;
-    overflow: hidden;
+.red {
+    background-color:red;
+}
+
+.green {
+    background-color: green;
 }
 
 .nav-item>a{
@@ -29,15 +31,48 @@ img{
     margin-right: 0;
 }
 
-.btn{
+.btn-active{
     margin-bottom: 17px;
+    opacity: 3;
+    color:black;
 }
 
 .back{
     margin:30px;
 }
 
-span{
-    font-size:14px;
+.input-group-append>span{
+    padding: 0.75rem 1rem;
+    line-height: 0.5rem;
 }
 
+
+
+.card{
+    background-color:rgba(128, 128, 128, 0.315);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+    padding: 15px;
+}
+
+.c_product{
+    padding: 0 150px;
+}
+@media only screen and (max-width: 1580px) {
+    .c_product{
+        padding: 0;
+    }
+    .input-group-append>span{
+        padding: 0.75rem 8px;
+        line-height: 0.5rem;
+    }
+}
+
+.textarea{
+    height: 90px;
+}
+
+.btn-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

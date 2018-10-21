@@ -1,135 +1,137 @@
-<app-admin-navbar></app-admin-navbar>
-
-<div class="row">
-
-  <div class="container">
-
-      <button class="btn btn-default back" [routerLink]="['/admin/details']" (click)="backClicked()"><span class="fa fa-arrow-left pull-left mt-1"></span>Πισω</button>
-    <hr>
-
-    <div class="row">
-      <div class="col-md-8 col-lg-4 col-sm-12 text-center">
+<div class="c_product">
+  <div class="row">
+    <div class="col-md-12 col-lg-4 col-sm-12 text-center">
+      <div class="" style="background-color:white;">
         <h3 class="card-header" style="text-transform: none;">{{product.title}}</h3>
         <h5 class="card-title">{{product.material}}</h5>
+        <h6 class="card-title">Code: {{product.code}}</h6>
         <img class="d-flex d-none" src="{{product.photoUrl || '/../../../../assets/images/emptyimg.jpg'}}" [imageZoom]="zoomedImageSrc"
           alt="Card image cap">
-
-      </div>
-      <div class="col-md-12 col-lg-8 col-sm-12 card">
-        <h3 class="text-center">Eπεξεργασια Προιοντος</h3>
-        <div class="tab-panel">
-          <tabset class="member-tabset">
-            <tab heading="Edit Product">
-              <form #editForm="ngForm" id="editForm" (ngSubmit)="saveProduct()" class="mt-2 text-center">
-                <div class="row">
-                  <div class="form-group col-sm-6">
-                    <h4>Κατηγορία Προϊόντος</h4>
-                    <select name="category" class="form-control" id="exampleSelect1" [(ngModel)]="product.category">
-                      <option>Πουκάμισο</option>
-                      <option>Γραβάτα</option>
-                      <option>Παπιγιόν</option>
-                      <option>Ζώνες</option>
-                      <option>Γιλέκα</option>
-                      <option>Πλεκτά</option>
-                      <option>Κασκόλ</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-sm-6">
-                    <h4>Όνομα Προϊόντος</h4>
-                    <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <h4>Σύνθεση</h4>
-                    <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
-                      <option value=""></option>
-                      <option>100% Cotton</option>
-                      <option>80% Cotton-20% Polyester</option>
-                      <option>95% Cotton-5% Lycra</option>
-                      <option>70% Cotton-30 Polyester</option>
-                      <option>100% Linnen</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <h4>Μέγεθος</h4>
-                    <select name="size" class="form-control" id="exampleSelect1" [(ngModel)]="product.size">
-                      <option value=""></option>
-                      <option>xxs</option>
-                      <option>xs</option>
-                      <option>m</option>
-                      <option>l</option>
-                      <option>XL</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <h4>Γραμμή</h4>
-                    <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
-                      <option value=""></option>
-                      <option>Slim Fit</option>
-                      <option>Regular Fit</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <h4>Μανίκι</h4>
-                    <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve">
-                      <option value=""></option>
-                      <option>Κοντομάνικο</option>
-                      <option>Μακρυμάνικο</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <h4>Κωδικός</h4>
-                    <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <h4>Season</h4>
-                    <select name="season" class="form-control" id="exampleSelect1" [(ngModel)]="product.season">
-                      <option value=""></option>
-                      <option>Autumn/Winter</option>
-                      <option>Spring/Summer</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <h4>Χρώμα</h4>
-                    <textarea name="color" class="form-control" id="exampleSelect1" [(ngModel)]="product.color">
-                              </textarea>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <h4>Τιμή</h4>
-                    <input name="price" rows="6" class="form-control" [(ngModel)]="product.price">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <h4>Απόθεμα</h4>
-                    <input name="quantity" rows="6" class="form-control" [(ngModel)]="product.quantity">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <h4>Έκπτωση</h4>
-                    <input name="quantity" rows="6" class="form-control" [(ngModel)]="product.discount">
-                  </div>
-
-                </div>
-                <h4>Περιγραφή</h4>
-                <textarea name="description" rows="6" class="form-control" [(ngModel)]="product.description"></textarea>
-                <br>
-                <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-dark btn-block">Save</button>
-              </form>
-            </tab>
-            <tab heading="Edit/Insert Photos">
-              <app-photo-editor [photos]="product.photos" (getProductPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
-            </tab>
-          </tabset>
-        </div>
       </div>
     </div>
-    <hr>
+    <div class="col-md-12 col-lg-8 col-sm-12 card">
+      <h3 class="text-center">Eπεξεργασια Προιοντος</h3>
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Edit Product">
+            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateProduct()" class="mt-2 text-center">
+              <div class="row">
+
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Κατηγορία</h4>
+                  <select name="category" class="form-control" id="exampleSelect1" [(ngModel)]="product.category">
+                    <option>Πουκάμισο</option>
+                    <option>Γραβάτα</option>
+                    <option>Παπιγιόν</option>
+                    <option>Ζώνες</option>
+                    <option>Γιλέκα</option>
+                    <option>Πλεκτά</option>
+                    <option>Κασκόλ</option>
+                  </select>
+
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Όνομα</h4>
+                  <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Σύνθεση</h4>
+                  <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
+                    <option value=""></option>
+                    <option>100% Cotton</option>
+                    <option>80% Cotton-20% Polyester</option>
+                    <option>95% Cotton-5% Lycra</option>
+                    <option>70% Cotton-30 Polyester</option>
+                    <option>100% Linnen</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+
+
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Γραμμή</h4>
+                  <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
+                    <option value=""></option>
+                    <option>Slim Fit</option>
+                    <option>Regular Fit</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Μανίκι</h4>
+                  <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve">
+                    <option value=""></option>
+                    <option>Κοντομάνικο</option>
+                    <option>Μακρυμάνικο</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Κωδικός</h4>
+                  <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                  <h4>Season</h4>
+                  <select name="season" class="form-control" id="exampleSelect1" [(ngModel)]="product.season">
+                    <option value=""></option>
+                    <option>Autumn/Winter</option>
+                    <option>Spring/Summer</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-lg-2 col-md-6">
+                  <h4>Τιμή</h4>
+                  <div class="input-group-append">
+                    <input name="price" rows="6" class="form-control" [(ngModel)]="product.price">
+                    <span class="input-group-text">€</span>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-6 form-group">
+                  <h4>Έκπτωση</h4>
+                  <div class="input-group-append d-flex">
+                    <input name="price" rows="6" class="form-control" [(ngModel)]="product.discount">
+                    <span class="input-group-text">€</span>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 form-group">
+                  <h4>Κατάσταση</h4>
+                  <select name="active" class="form-control" [(ngModel)]="product.active">
+                    <option selected>Ενεργοποιημένο</option>
+                    <option>Απενεργοποιημένο</option>
+                  </select>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 form-group">
+                  <h4>Περιγραφή</h4>
+                  <textarea name="description" rows="6" class="form-control" [(ngModel)]="product.description"></textarea>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mt-5">
+                    <button class="btn btn-active" disabled *ngIf="product.active == 'Ενεργοποιημένο'" [ngClass]="{green: product.active == 'Ενεργοποιημένο'}">Ενεργοποιημενο</button>
+                    <button class="btn btn-active" disabled *ngIf="product.active == 'Απενεργοποιημένο'" [ngClass]="{red: product.active == 'Απενεργοποιημένο'}">Aπενεργοποιημενο</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+   
+            <div class="btn-group">
+
+              <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-dark mr-1 ">Αποθηκευση</button>
+              <button class="btn btn-danger" (click)="deleteProduct(product.id)">διαγραφη</button>
+            </div>
+
+          </tab>
+          <tab heading="Edit/Insert Photos">
+            <app-photo-editor [photos]="product.photos" (getProductPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+          </tab>
+        </tabset>
+      </div>
+    </div>
   </div>
 </div>

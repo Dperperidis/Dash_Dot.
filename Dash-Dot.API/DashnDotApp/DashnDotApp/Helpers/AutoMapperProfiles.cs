@@ -13,26 +13,27 @@ namespace DashnDotApp.Helpers
 
         public AutoMapperProfiles()
         {
-            CreateMap<Products, ProductForListDto>()
+            CreateMap<Product, ProductForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt =>
                 {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
                 });
 
-            CreateMap<Products, ProductForDetailedDto>().ForMember(dest => dest.PhotoUrl, opt =>
+            CreateMap<Product, ProductForDetailedDto>().ForMember(dest => dest.PhotoUrl, opt =>
             {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
             });
             CreateMap<Photo, PhotoForReturnDto>();
-            CreateMap<Products, ProductForDetailedDto>().ForMember(dest => dest.PhotoUrl, opt =>
+            CreateMap<Product, ProductForDetailedDto>().ForMember(dest => dest.PhotoUrl, opt =>
             {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
             });
             CreateMap<UserForRegisterDto, User>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Photo, PhotoForDetailedDto>();
-            CreateMap<ProductForRegisterDto, Products>();
-            CreateMap<Products, ProductForListDto>().ForMember(dest => dest.PhotoUrl, opt =>
+            CreateMap<ProductForRegisterDto, Product>();
+            CreateMap<Product, ProductForListDto>().ForMember(dest => dest.PhotoUrl, opt =>
             {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url);
             });

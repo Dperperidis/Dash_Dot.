@@ -24,18 +24,23 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchProduct() {
-    this.routing.prodSearch().subscribe(res => {
+  searchProduct(category) {
+    this.productService.getProductsByCategory(category).subscribe(res=>{
       this.productList = res;
     })
+   
+
   }
 
   searchProductByCode(code) {
     this.productService.getProductByCode(code).subscribe(res => {
       this.productService.currentProduct = res;
-      this.router.navigate(['/admin/edit/' + res.id]);
-    },error =>{
-      this.toastr.error(error);
+      if (res == null) {
+        this.toastr.error('Δεν βρέθηκε προιόν με αυτόν τον κωδικό.')
+      }
+      this.router.navigate(['/admin/main/edit/' + res.id]);
+    }, error => {
+      this.toastr.error("error");
     })
   }
 }

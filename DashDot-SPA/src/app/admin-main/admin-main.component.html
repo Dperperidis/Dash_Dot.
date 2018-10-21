@@ -2,38 +2,63 @@
 
 <div class="row">
     <div class="col-md-2">
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Simpleicons_Interface_user-black-close-up-shape.svg"
+                class="img-thumbnail">
+            <h6 class="text-center" style="text-transform: none;">Καλωσήρθες {{ authService.decodedToken?.firstname |
+                titlecase}}</h6>
+        </div>
         <div id="wrapper">
             <ul class="sidebar navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" (click)="routingService.productShow()" >
-                        <i class="fa fa-fw fa-tachometer" ></i>
-                        <span>Δημιουργία Προιόντος</span>
+                    <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><i
+                            class="fa fa-fw fa-tachometer"></i>Dashboard<i class="fa fa-angle-down pull-right"></i>
                     </a>
+                    <div id="collapseBasic" [collapse]="isCollapsed" class="ml-3">
+                        <a class="nav-link text-white" [routerLink]="['/admin/main']">
+                            <i class="fa fa-fw fa-tachometer"></i>
+                            Αρχική σελίδα
+
+                        </a>
+                        <a class="nav-link text-white" [routerLink]="['/admin/main/create-product']" routerLinkActive="router-link-active">
+                            <i class="fa fa-plus-circle"></i>
+                            Δημιουργία Προιόντος
+                        </a>
+
+                    </div>
+                    <hr>
                 </li>
-                <li class="nav-item" (click)="routingService.findProduct()">
+                <li class="nav-item active">
+
+                </li>
+                <li class="nav-item" [routerLink]="['/admin/main/details']" routerLinkActive="router-link-active">
                     <a class="nav-link">
                         <i class="fa fa-fw fa-line-chart"></i>
                         <span>Λίστα Προιόντος</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
+                    <a class="nav-link" [routerLink]="['/admin/main/product-settings']" >
                         <i class="fa fa-fw fa-table"></i>
-                        <span>Tables</span></a>
+                        <span>Ρυθμίσεις Προιόντος</span></a>
                 </li>
-                <li class="nav-item" (click)="routingService.findProduct()" >
-                    <a class="nav-link" >
+                <li class="nav-item">
+                    <a class="nav-link">
                         <i class="fa fa-fw fa-edit"></i>
                         <span>Επεξεργασία Προιόντος</span></a>
                 </li>
             </ul>
         </div>
 
+
+
+
+
     </div>
     <div class="col-md-10">
-        <app-admin-cards></app-admin-cards>
-        <hr>
-        <app-create-product *ngIf="routingService.show"></app-create-product>
-        <app-product-detail  *ngIf="routingService.find"></app-product-detail>
-      
+
+        <!-- <breadcrumb [allowBootstrap]="true"></breadcrumb> -->
+        <router-outlet></router-outlet>
+
+
     </div>
 </div>

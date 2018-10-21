@@ -1,3 +1,60 @@
-<p>
-  admin-charts works!
-</p>
+
+<app-admin-cards></app-admin-cards>
+<hr>
+<div style="display: block" class="jumbotron">
+  <h2>Traffic</h2>
+  <h4>November 2018</h4>
+  <div class="row">
+    <div class="col-md-6">
+
+      <canvas baseChart [data]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <div class="col-md-12 text-center" style="margin-top: 10px;height: 50%">
+    <button (click)="randomizeType()" style="display: inline-block">Toggle</button>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Column heading</th>
+        <th scope="col">Column heading</th>
+        <th scope="col">Column heading</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-active">
+        <th scope="row">Active</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+      <tr>
+        <th scope="row">Default</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+      <tr class="table-primary">
+        <th scope="row">Primary</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+      <tr class="table-secondary">
+        <th scope="row">Secondary</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

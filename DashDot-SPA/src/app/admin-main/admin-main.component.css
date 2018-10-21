@@ -1,8 +1,24 @@
 #wrapper{
-    background-color:black;
-    height: 100vh;
+    background-color:rgb(121, 117, 117);
+    min-height: 100vh;
+    padding: 17px;
+    
 
 }
+
+img{
+    border-radius: 50%;
+    height: 100px;
+    margin:0 auto;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+  }
+
+
 
 .nav-item>a{
     color:white;
@@ -15,3 +31,9 @@
 li>a{
     cursor: pointer;
 }
+
+
+/* 
+breadcrumb/deep/.breadcrumb{
+background-color:rgba(128, 128, 128, 0.493)!important;
+} */

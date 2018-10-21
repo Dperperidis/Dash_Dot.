@@ -19,7 +19,6 @@ export class ItemDetailsComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.product = data["product"];
     });
-    console.log(this.product)
   }
 
 

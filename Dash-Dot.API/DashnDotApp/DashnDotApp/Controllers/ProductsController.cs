@@ -57,12 +57,20 @@ namespace DashnDotApp.Controllers
 
         [Route("addProduct")]
         [HttpPost]
-        public IActionResult Post([FromBody]Products product)
+        public async Task<IActionResult> AddProduct([FromBody]Product product)
         {
+           if ( _ctx.Product.Any(x=>x.Code == product.Code))
+            {
+                return BadRequest("Το προιον ήδη υπάρχει");
+            }
+
+
             var result = _ctx.Product.Add(product);
             _ctx.SaveChanges();
             return Ok(result.Entity);
         }
+
+
 
         [Route("getProductByCode/{code}")]
         [HttpGet]
@@ -73,23 +81,44 @@ namespace DashnDotApp.Controllers
             var productToReturn = _mapper.Map<ProductForDetailedDto>(productByCode);
             return Ok(productToReturn);
             
-           
-           
+        }
+
+        [Route("getProductsByCategory/{category}")]
+        [HttpGet]
+        public async Task<IActionResult> GetProductByCategory(string category)
+        {
+
+            var productsByCategory = await _repo.GetProducts(category);
+            var productsToReturn = _mapper.Map<IEnumerable<ProductForListDto>>(productsByCategory);
+
+            return Ok(productsToReturn);
+
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, ProductForUpdateDto productForUpdateDto)
+        public async Task<IActionResult> UpdateProduct(int id, ProductForUpdateDto productForUpdateDto)
         {
-           
-
-            var productFromRepo  = await _repo.GetProduct(id);
+            var productFromRepo = await _repo.GetProduct(id);
 
             _mapper.Map(productForUpdateDto, productFromRepo);
 
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Updating Product {id} failed on save");
+            throw new Exception($"Updating product {id} failed on save");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var productFromRepo = await _repo.GetProduct(id);
+
+            var result = _ctx.Product.Remove(productFromRepo);
+            
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Deleting product {id} failed");
         }
 
 

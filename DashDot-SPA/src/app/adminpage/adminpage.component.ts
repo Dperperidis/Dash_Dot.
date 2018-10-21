@@ -17,9 +17,7 @@ export class AdminpageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if (this.authService.isAdmin) {
-      this.router.navigate(['/admin/main']);
-    }
+
   }
 
 

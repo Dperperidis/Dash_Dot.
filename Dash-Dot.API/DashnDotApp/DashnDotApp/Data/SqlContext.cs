@@ -16,9 +16,9 @@ namespace DashnDotApp.Data
         public DbSet<Items> Items { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
-        public DbSet<Color> Colors { get; set; }
-        public DbSet<Size> Sizes { get; set; }
-        public DbSet<ProductsSizeColor> ProductsSizeColors { get; set; }
+        public DbSet<Color> Color { get; set; }
+        public DbSet<Size> Size { get; set; }
+        public DbSet<ProductSizeColor> ProductSizeColors { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -26,7 +26,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var result = _ctx.Colors.Add(color);
+                var result = _ctx.Color.Add(color);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
             }
@@ -44,7 +44,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var result = _ctx.Colors.ToList();
+                var result = _ctx.Color.ToList();
                 return Ok(result);
 
             }
@@ -63,7 +63,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var result = _ctx.Sizes.Add(size);
+                var result = _ctx.Size.Add(size);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
             }
@@ -81,7 +81,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var result = _ctx.Sizes.ToList();
+                var result = _ctx.Size.ToList();
                 return Ok(result);
 
             }

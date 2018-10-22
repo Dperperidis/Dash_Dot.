@@ -14,9 +14,9 @@ import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 })
 export class CreateProductComponent implements OnInit {
   product = new Product();
-  size: Size;
-  color: Color;
-  productSize: Array<ProductSize>;
+  sizes = new Array<Size>();
+  colors = new Array<Color>();
+  productSize: ProductSize;
   productSizeColor: ProductSizeColor;
 
 
@@ -31,16 +31,18 @@ export class CreateProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  this.prodSettings.getColors().subscribe(res=>{
-    this.color = res;
-  })
-  this.prodSettings.getSizes().subscribe(res=>{
-    this.size =res;
-  })
+    this.prodSettings.getColors().subscribe(res => {
+      this.colors = res;
+    })
+    this.prodSettings.getSizes().subscribe(res => {
+      this.sizes = res;
+    })
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+    this.productSize = new ProductSize();
+    this.productSizeColor = new ProductSizeColor();
   }
 
   saveProduct() {
@@ -52,6 +54,24 @@ export class CreateProductComponent implements OnInit {
     }, error => {
       this.toastr.error('Υπάρχει ήδη προιον με αυτον τον κωδικό')
     });
+  }
+
+  addColor() {
+    this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
+    this.productSize.productSizeColor.push(this.productSizeColor);
+    this.productSizeColor = new ProductSizeColor();
+  }
+
+  addSize() {
+    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId)
+    this.product.productSizes.push(this.productSize);
+    this.modalRef.hide();
+
+  }
+
+  editSize(s: ProductSize, template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+    this.productSize = s;
   }
 
 

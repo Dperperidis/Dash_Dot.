@@ -4,14 +4,16 @@ using DashnDotApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20181022201414_new7")]
+    partial class new7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace DashnDotApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Color");
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Items", b =>
@@ -135,8 +137,6 @@ namespace DashnDotApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ColorId");
-
                     b.HasIndex("ProductSizeId");
 
                     b.ToTable("ProductSizeColors");
@@ -170,7 +170,7 @@ namespace DashnDotApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Size");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.User", b =>
@@ -226,13 +226,8 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.ProductSizeColor", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DashnDotApp.Model.ProductSize")
-                        .WithMany("Color")
+                        .WithMany("Colors")
                         .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

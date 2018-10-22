@@ -79,6 +79,12 @@
             <option>Spring/Summer</option>
           </select>
         </div>
+        <div>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let s of product.productSizes">{{s.size.title}} - {{s.productSizeColor.length + ' Χρώματα'}} 
+              <button (click)="editSize(s,template)"> edit</button></li>
+          </ul>
+        </div>
       </div>
       <div class="row">
 
@@ -103,15 +109,10 @@
           <option>Απενεργοποιημένο</option>
         </select>
       </div>
-      <button [disabled]="!product.code"  (click)="saveProduct()" class="btn btn-success">Save</button>
+      <button (click)="saveProduct()" class="btn btn-success">Save</button>
     </form>
-
-
   </div>
 </div>
-
-
-
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Modal</h4>
@@ -120,19 +121,28 @@
     </button>
   </div>
   <div class="modal-body">
-    <h4>Χρώμα</h4>
-    <select  class="form-control" id="title" name="title" [(ngModel)]="color.title">
-      <option *ngFor="let col of color">{{col.title}}</option>
-  
-
-    </select>
     <h4>Μέγεθος</h4>
-    <select  class="form-control" id="title" name="title" [(ngModel)]="size.title">
-      <option *ngFor="let s of size">{{s.title}}</option>
+    <select class="form-control" id="title" name="title" [(ngModel)]="productSize.sizeId">
+      <option *ngFor="let s of sizes" value="{{s.id}}">{{s.title}}</option>
 
     </select>
-    <h4>Aπόθεμα</h4>
-          <input name="count" rows="6" class="form-control" (ngModel)="productSizeColor.count">
+
+    <h4>Εισαγωγή Χρωμάτων</h4>
+    <div class="form-inline">
+      <div class="form-group mb-2">
+        <select class="form-control" id="title" name="title" [(ngModel)]="productSizeColor.colorId">
+          <option *ngFor="let col of colors" value="{{col.id}}">{{col.title}}</option>
+        </select>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <input name="count" rows="6" class="form-control" placeholder="Aπόθεμα" [(ngModel)]="productSizeColor.count">
+      </div>
+      <button (click)="addColor()" class="btn btn-primary mb-2">Προσθήκη</button>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let pcl of productSize.productSizeColor">{{pcl.color.title}} - {{pcl.count}}</li>
+    </ul>
+
   </div>
-  <button [disabled]="!product.code"  (click)="saveProduct()" class="btn btn-success">Save</button>
+  <button (click)="addSize()" class="btn btn-success">Προσθήκη Μεγέθους</button>
 </ng-template>

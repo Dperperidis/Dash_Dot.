@@ -8,25 +8,25 @@ import { Color, Size } from "../_models/product";
     providedIn: "root"
 })
 export class ProdSettingsService {
-    baseUrl = environment.apiUrl+ 'sizescolors';
+    baseUrl = environment.apiUrl + 'sizescolors';
     constructor(private http: HttpClient) { }
 
 
 
-    addColor(color: Color): Observable<Color>{
+    addColor(color: Color): Observable<Color> {
         return this.http.post<Color>(this.baseUrl + '/addColor', color);
     }
 
-    addSize(size: Size): Observable<Size>{
+    addSize(size: Size): Observable<Size> {
         return this.http.post<Size>(this.baseUrl + '/addSize', size);
     }
 
-    getColors(): Observable<Color>{
-        return this.http.get<Color>(this.baseUrl +'/getColors');
+    getColors(): Observable<Array<Color>> {
+        return this.http.get<Array<Color>>(this.baseUrl + '/getColors');
     }
 
-    getSizes(): Observable<Size>{
-        return this.http.get<Size>(this.baseUrl +'/getSizes');
+    getSizes(): Observable<Array<Size>> {
+        return this.http.get<Array<Size>>(this.baseUrl + '/getSizes');
     }
 
 

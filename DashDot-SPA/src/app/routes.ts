@@ -26,8 +26,6 @@ export const routes: Routes = [
                 { path: 'slim_fit', component: ItemsListComponent, }]
         }]
     },
-
-
     { path: 'slimfit/details/:id', component: ItemDetailsComponent, resolve: { product: PhotoUploadResolver } },
     { path: 'login', component: LogRegComponent },
     { path: 'admin', component: AdminpageComponent },
@@ -38,9 +36,7 @@ export const routes: Routes = [
         canActivate: [AdminAuthGuard],
         data: {
             breadcrumb: 'Admin'
-        },
-
-        children: [
+        }, children: [
             {
                 path: '', component: AdminMainComponent, children: [
                     {

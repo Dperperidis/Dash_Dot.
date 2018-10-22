@@ -33,14 +33,15 @@ namespace DashnDotApp.Model
         public int ProductId { get; set; }
         public int SizeId { get; set; }
         public virtual Size Size { get; set; }
-        public ICollection<ProductsSizeColor> Colors { get; set; }
+        public ICollection<ProductSizeColor> ProductSizeColor { get; set; }
     }
 
-   public class ProductsSizeColor
+   public class ProductSizeColor
     {
         public int Id { get; set; }
         public int ProductSizeId { get; set; }
         public int ColorId { get; set; }
+        public virtual Color Color { get; set; }
         public int Count { get; set; }
 
     }
@@ -57,6 +58,6 @@ namespace DashnDotApp.Model
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string RGB { get; set; }
+        public string rgb { get; set; }
     }
 }

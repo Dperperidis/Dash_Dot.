@@ -17,19 +17,27 @@ export class Product {
     discount: string;
     photos?: Photo[];
     productSizes: Array<ProductSize>
+    constructor() {
+        this.productSizes = new Array<ProductSize>();
+    }
 }
 
 export class ProductSize {
     id: number;
     productId: number;
     sizeId: number;
+    size: Size;
     productSizeColor: Array<ProductSizeColor>
+    constructor() {
+        this.productSizeColor = new Array<ProductSizeColor>();
+    }
 }
 
 export class ProductSizeColor {
     id: number;
     productSizeId: number;
     colorId: number;
+    color: Color;
     count: number;
 }
 

@@ -4,14 +4,16 @@ using DashnDotApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20181022200743_new4")]
+    partial class new4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace DashnDotApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Color");
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Items", b =>
@@ -121,7 +123,7 @@ namespace DashnDotApp.Migrations
                     b.ToTable("ProductSizes");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ProductSizeColor", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ProductsSizeColor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,7 +141,7 @@ namespace DashnDotApp.Migrations
 
                     b.HasIndex("ProductSizeId");
 
-                    b.ToTable("ProductSizeColors");
+                    b.ToTable("ProductsSizeColors");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
@@ -170,7 +172,7 @@ namespace DashnDotApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Size");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.User", b =>
@@ -224,15 +226,15 @@ namespace DashnDotApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ProductSizeColor", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ProductsSizeColor", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Color", "Color")
+                    b.HasOne("DashnDotApp.Model.Color", "color")
                         .WithMany()
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DashnDotApp.Model.ProductSize")
-                        .WithMany("Color")
+                        .WithMany("Colors")
                         .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

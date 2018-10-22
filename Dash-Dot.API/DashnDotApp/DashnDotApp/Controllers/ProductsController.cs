@@ -57,7 +57,7 @@ namespace DashnDotApp.Controllers
 
         [Route("addProduct")]
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody]Product product)
+        public IActionResult AddProduct([FromBody]Product product)
         {
            if ( _ctx.Product.Any(x=>x.Code == product.Code))
             {

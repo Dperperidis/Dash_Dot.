@@ -15,6 +15,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BreadcrumbsModule } from "ng6-breadcrumbs";
 import { ModalModule } from 'ngx-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -77,6 +78,7 @@ export function tokenGetter() {
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ImageZoomModule,
+    CarouselModule.forRoot(),
     FileUploadModule,
     CollapseModule.forRoot(),
     ChartsModule,

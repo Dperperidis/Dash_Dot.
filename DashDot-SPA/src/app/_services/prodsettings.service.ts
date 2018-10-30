@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
-import { Color, Size } from "../_models/product";
+import { Color, Size, ProductSize } from "../_models/product";
 
 @Injectable({
     providedIn: "root"
@@ -29,6 +29,9 @@ export class ProdSettingsService {
         return this.http.get<Array<Size>>(this.baseUrl + '/getSizes');
     }
 
+    getColorsBySize(id: number): Observable<Array<ProductSize>>{
+        return this.http.get<Array<ProductSize>>(this.baseUrl + '/getSizeColor/' + id )
+    }
 
 
 }

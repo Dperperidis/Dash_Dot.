@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../_services/product.service';
+
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../_models/product';
+import { Product, Size, Color, ProductSize, ProductSizeColor } from '../_models/product';
+
+import { ProdSettingsService } from '../_services/prodsettings.service';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-item-details',
@@ -11,16 +15,32 @@ import { Product } from '../_models/product';
 export class ItemDetailsComponent implements OnInit {
 
   product = new Product();
+  sizes = new Array<any>();
+  color: Color;
+  productSize = new Array<ProductSize>();
+  productSizeColor= new Array<Color>();
 
-  constructor(private productService: ProductService,
+  constructor(private prodSettings: ProdSettingsService,
+    private toastr: ToastrService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.product = data["product"];
     });
+    this.sizes = this.product.productSizes;
+
+
   }
 
-
+  onChange(deviceValue: number) {
+    this.prodSettings.getColorsBySize(deviceValue).subscribe(res => {
+      this.productSize = res;
+      console.log(res);
+        },error=>{
+      this.toastr.error(error);
+    })
+  }
 
 }
+

@@ -1,148 +1,190 @@
+<!-- *ngIf="product.category == 'Πουκάμισο' || product.category == 'Γραβάτα' || product.category == 'Γραβάτα' || product.category == 'Γραβάτα'" -->
 <div class="container mt-5">
-  <h2 class="text-center">Καταχωρησε τα στοιχεια Προϊοντος</h2>
-  <br>
-  <div class="card">
-    <form #editForm="ngForm" id="editForm">
-
-      <div class="row">
-        <div class="form-group col-sm-6">
-          <h4>Κατηγορία Προϊόντος</h4>
-          <select name="category" class="form-control" id="exampleSelect1" [(ngModel)]="product.category">
-            <option>Πουκάμισο</option>
-            <option>Γραβάτα</option>
-            <option>Παπιγιόν</option>
-            <option>Ζώνες</option>
-            <option>Γιλέκα</option>
-            <option>Πλεκτά</option>
-            <option>Κασκόλ</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-6">
-          <h4>Όνομα Προϊόντος</h4>
-          <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
-
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
-      <div class="row">
-        <div class="form-group col-md-6">
-          <h4>Σύνθεση</h4>
-          <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
-            <option value=""></option>
-            <option>100% Cotton</option>
-            <option>80% Cotton-20% Polyester</option>
-            <option>95% Cotton-5% Lycra</option>
-            <option>70% Cotton-30 Polyester</option>
-            <option>100% Linnen</option>
-          </select>
-        </div>
-
-        <div class="form-group col-md-6">
-
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col-md-6">
-          <h4>Γραμμή</h4>
-          <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
-            <option value=""></option>
-            <option>Slim Fit</option>
-            <option>Regular Fit</option>
-          </select>
-        </div>
-        <div class="form-group col-md-6">
-
-          <h4>Μανίκι</h4>
-          <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve">
-            <option value=""></option>
-            <option>Κοντομάνικο</option>
-            <option>Μακρυμάνικο</option>
-          </select>
-          <div class="input-group">
+  <div class="card border-primary mb-3">
+    <div class="card-header">Πληροφορίες Προϊόντος</div>
+    <div class="card-body">
+      <form #editForm="ngForm" id="editForm">
+        <div class="row">
+          <div class="form-group col-md-2">
+            <h4>Κατηγορία Προϊόντος</h4>
+            <select name="category" class="form-control" id="exampleSelect1" [(ngModel)]="product.category">
+              <option>Πουκάμισο</option>
+              <option>Γραβάτα</option>
+              <option>Παπιγιόν</option>
+              <option>Ζώνες</option>
+              <option>Γιλέκα</option>
+              <option>Πλεκτά</option>
+              <option>Κασκόλ</option>
+            </select>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-6">
 
-          <h4>Κωδικός</h4>
-          <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">
+        <hr>
+        <div class="row">
+          <div class="col-md-3">
+            <h4>Όνομα Προϊόντος</h4>
+            <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
+          </div>
+          <div class="col-md-3">
+            <h4>Σύνθεση</h4>
+            <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
+              <option value=""></option>
+              <option>100% Cotton</option>
+              <option>80% Cotton-20% Polyester</option>
+              <option>95% Cotton-5% Lycra</option>
+              <option>70% Cotton-30 Polyester</option>
+              <option>100% Linnen</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+
+            <h4>Γραμμή</h4>
+            <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
+              <option value=""></option>
+              <option>Slim Fit</option>
+              <option>Regular Fit</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <h4>Μανίκι</h4>
+            <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve">
+              <option value=""></option>
+              <option>Κοντομάνικο</option>
+              <option>Μακρυμάνικο</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group col-md-6">
+        <br>
+        <div class="row">
+          <div class="col-md-3">
+            <h4>Περίοδος</h4>
+            <select name="season" class="form-control" id="exampleSelect1" [(ngModel)]="product.season">
+              <option value=""></option>
+              <option>Autumn/Winter</option>
+              <option>Spring/Summer</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <h4>Κωδικός</h4>
+            <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Τιμή</h4>
+                <input name="price" rows="6" class="form-control" [(ngModel)]="product.price">
+              </div>
+              <div class="col-md-6">
+                <h4>Έκπτωση</h4>
+                <input name="discount" rows="6" class="form-control" [(ngModel)]="product.discount">
+              </div>
+            </div>
 
-          <h4>Season</h4>
-          <select name="season" class="form-control" id="exampleSelect1" [(ngModel)]="product.season">
-            <option value=""></option>
-            <option>Autumn/Winter</option>
-            <option>Spring/Summer</option>
-          </select>
+          </div>
+          <div class="col-md-3">
+            <h4>Κατάσταση</h4>
+            <select name="active" class="form-control" id="exampleSelect1" [(ngModel)]="product.active">
+              <option>Ενεργοποιημένο</option>
+              <option>Απενεργοποιημένο</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let s of product.productSizes">{{s.size.title}} - {{s.productSizeColor.length + ' Χρώματα'}} 
-              <button (click)="editSize(s,template)"> edit</button></li>
-          </ul>
+        <br>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Σχέδιο</h4>
+                <select name="design" class="form-control" id="exampleSelect1" [(ngModel)]="product.design">
+                  <option value=""></option>
+                  <option>Μονόχρωμο</option>
+                  <option>Ριγέ</option>
+                  <option>Καρώ</option>
+                  <option>Μικροσχέδιο</option>
+                  <option>Εμπριμέ</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <h4>Απόθεμα</h4>
+                <input name="quantity" rows="6" class="form-control" [(ngModel)]="product.quantity">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <br>
+            <button type="button" class="btn btn-primary btn-block" (click)="openModal(template)">Εισαγώγη
+              Μεγέθη/Ποσότητα</button>
+          </div>
         </div>
-      </div>
-      <div class="row">
+        <div class="row">
+          <br>
+          <div class="col-md-6">
+            <h4>Περιγραφή</h4>
+            <textarea name="description" rows="6" class="form-control" [(ngModel)]="product.description" value="Ενεργοποιημένο"></textarea>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6 " *ngFor="let s of product.productSizes">
+                <ul class="list-group">
+                  <li class="list-group-item" >{{s.size.title}} -
+                    {{s.productSizeColor.length + ' Χρώματα'}}
+                    <button type="button" class="btn-outline-danger ml-1 btn-sm"><i class="fa fa-times"></i></button>
+                    <button type="button" (click)="editSize(s,template)" class="btn-outline-warning btn-sm ml-2"><i class="fa fa-edit"></i></button>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-        <div class="form-group col-md-6">
-          <h4>Τιμή</h4>
-          <input name="price" rows="6" class="form-control" [(ngModel)]="product.price">
+          </div>
         </div>
-      </div>
-      <div class="row">
-
-        <div class="form-group col-md-6">
-
-          <h4>Περιγραφή</h4>
-          <textarea name="description" rows="6" class="form-control" [(ngModel)]="product.description" value="Ενεργοποιημένο"></textarea>
-        </div>
-      </div>
-      <div class="form-group">
-
-        <h4>Κατάσταση</h4>
-        <select name="active" class="form-control" id="exampleSelect1" [(ngModel)]="product.active">
-          <option>Ενεργοποιημένο</option>
-          <option>Απενεργοποιημένο</option>
-        </select>
-      </div>
-      <button (click)="saveProduct()" class="btn btn-success">Save</button>
-    </form>
+        <br>
+        <button (click)="saveProduct()" class="btn btn-primary">Αποθήκευση</button>
+      </form>
+    </div>
   </div>
 </div>
+
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">Μεγέθη & Ποσότητες</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <h4>Μέγεθος</h4>
-    <select class="form-control" id="title" name="title" [(ngModel)]="productSize.sizeId">
-      <option *ngFor="let s of sizes" value="{{s.id}}">{{s.title}}</option>
-
-    </select>
-
-    <h4>Εισαγωγή Χρωμάτων</h4>
-    <div class="form-inline">
-      <div class="form-group mb-2">
-        <select class="form-control" id="title" name="title" [(ngModel)]="productSizeColor.colorId">
-          <option *ngFor="let col of colors" value="{{col.id}}">{{col.title}}</option>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Μέγεθος</h4>
+        <select class="form-control" id="title" name="sizeId" [(ngModel)]="productSize.sizeId">
+          <option *ngFor="let s of sizes" value="{{s.id}}">{{s.title}}</option>
         </select>
       </div>
-      <div class="form-group mx-sm-3 mb-2">
-        <input name="count" rows="6" class="form-control" placeholder="Aπόθεμα" [(ngModel)]="productSizeColor.count">
-      </div>
-      <button (click)="addColor()" class="btn btn-primary mb-2">Προσθήκη</button>
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let pcl of productSize.productSizeColor">{{pcl.color.title}} - {{pcl.count}}</li>
-    </ul>
+      <div class="col-md-4">
+        <h4>Χρώμα</h4>
 
+        <select class="form-control" id="title" name="colorId" [(ngModel)]="productSizeColor.colorId">
+          <option *ngFor="let col of colors" value="{{col.id}}">{{col.title}}</option>
+        </select>
+
+      </div>
+      <div class="col-md-4">
+        <h4>Απόθεμα</h4>
+        <input name="count" rows="6" class="form-control" [(ngModel)]="productSizeColor.count">
+      </div>
+    </div>
+    <br>
+    <button (click)="addColor()" class="btn btn-primary">Προσθήκη</button>
+    <br>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let pcl of productSize.productSizeColor">
+        <ul class="list-group">
+          <li class="list-group-item" (click)="deleteEntity(pcl.color.id)">{{pcl.color.title}} -
+            {{pcl.count}}</li>
+        </ul>
+        <br>
+      </div>
+    </div>
   </div>
-  <button (click)="addSize()" class="btn btn-success">Προσθήκη Μεγέθους</button>
+  <button (click)="addSize()" class="btn btn-primary">Προσθήκη Μεγέθους</button>
 </ng-template>

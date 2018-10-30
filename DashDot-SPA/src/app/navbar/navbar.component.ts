@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 export class NavbarComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
   isAdmin = false;
-
+  public isCollapsed = false;
 
   constructor(private authService: AuthService,
     private router: Router,

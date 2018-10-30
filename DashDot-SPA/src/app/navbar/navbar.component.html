@@ -1,88 +1,107 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class=" container">
     <a class="navbar-brand" href="#">
-      <img src="../../assets/images/logo_dashndot.jpg" alt="">
+      <img src="../../assets/images/logo_dashndot.png" alt="">
     </a>
     <ul class="social-links circle large clearfix hidden-sm-down input-group">
       <li class="list-inline-item"><a href=""><i class="fa fa-facebook-square mt-2 text-white"></i></a></li>
       <li class="list-inline-item"><a href=""><i class="fa fa-instagram text-white mt-2"></i></a></li>
     </ul>
-    <div class="btn-group">
-      <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['/login']" *ngIf="!loggedIn()">Login</button>
-      <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['/']" *ngIf="loggedIn()" (click)="logout()">Logout</button>
-      <button type="button" class="btn btn-outline-secondary btn-sm">Contact Us</button>
-      <button type="button" class="btn btn-outline-secondary btn-sm" *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">Admin Page</button>
-      
-    </div>
-    <a class="text-light" *ngIf="loggedIn()" >
-      Καλωσήρθες {{ authService.decodedToken?.firstname | titlecase}}
-    </a>
+    <ul class="input-group mt-3 ml-5">
+      <li class="m-1"><a><i class="fa fa-envelope mr-1"></i>Contact Us</a></li>
+      <li class="m-1"><a *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">Admin Page</a></li>
+      <li class="m-1"><a [routerLink]="['/']" *ngIf="loggedIn()" (click)="logout()">Logout</a></li>
+      <li class="m-1"><a [routerLink]="['/login']" *ngIf="!loggedIn()"><i class="fa fa-user mr-1"></i>Ο λογαριασμός μου</a></li>
+    </ul>
   </div>
 </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
 
-<nav class="navbar fixed-top fixed-top-2">
-  <div class="nav_2 justify-content-between container">
-    <div class="btn-group show-on-hover">
-      <button id="button-basic" type="button" class="btn  btn-sm nav text-center" aria-controls="dropdown-basic">
-        Ανδρικά Πουκάμισα<span class="caret"></span>
-      </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"  [routerLink]="['/andrika-poukamisa/slim_fit']" ><a class="dropdown-item  text-center">Slim Fit</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/andrika-poukamisa/regular_fit']" >Regular Fit</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Oδηγός μεγεθών</a></li>
-      </ul>
-    </div>
 
-    <div class="btn-group show-on-hover">
-      <button id="button-basic" type="button" class="btn  btn-sm nav" aria-controls="dropdown-basic">
-        Αξεσουάρ<span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Παπιγιόν</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Μανικετόκουμπα</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Γραβάτες</a></li>
-      </ul>
-    </div>
-    <div class="btn-group show-on-hover">
-      <button id="button-basic" type="button" class="btn  btn-sm nav" aria-controls="dropdown-basic">
-        dāsh&dot's World<span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Blog news</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Social media</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Eπώνυμοι</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Στυλιστικός οδηγός</a></li>
-      </ul>
-    </div>
-    <div class="btn-group show-on-hover">
-      <button id="button-basic" type="button" class="btn  btn-sm aria-controls nav" dropdown-basic>
-        Καταστήματα<span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες παραλαβές</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες προσφορές</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Ωράρια καταστημάτων</a></li>
-      </ul>
-    </div>
-    <div class="btn-group show-on-hover">
-      <button id="button-basic" type="button" class="btn  btn-sm aria-controls nav" dropdown-basic>
-        Χονδρική<span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item  text-center" href="#">Τιμές Χονδρικής</a></li>
-      </ul>
-    </div>
+    <div class="container">
+      <div class="btn-group show-on-hover ">
+        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav ">
+          Ανδρικα Πουκαμισα
+        </a>
 
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <div class="row">
+            <a class="col-md-4 text-white text-center" [routerLink]="['/andrika-poukamisa/slim_fit']">
+              <img src="../../assets/images/2.png" alt="">
+              <br>
+
+              <h5>Slim Fit</h5>
+            </a>
+            <div class="col-md-4 text-center text-white">
+              <img src="../../assets/images/4.png" alt="">
+              <br>
+
+              <h5>Regular Fit</h5>
+            </div>
+            <div class="col-md-4 text-center text-white">
+              <img src="../../assets/images/9.png" alt="">
+              <br>
+              <h5>ΜΕΓΕΘΟΛΟΓΙΟ</h5>
+            </div>
+          </div>
+        </ul>
+      </div>
+
+      <div class="btn-group show-on-hover">
+        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav">
+          Αξεσουαρ
+        </a>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Παπιγιόν</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Μανικετόκουμπα</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Γραβάτες</a></li>
+        </ul>
+
+      </div>
+      <div class="btn-group show-on-hover">
+        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav">
+          dāsh&dot's World
+        </a>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Blog news</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Social media</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Eπώνυμοι</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Στυλιστικός οδηγός</a></li>
+        </ul>
+      </div>
+      <div class="btn-group show-on-hover">
+        <a id="button-basic" aria-controls dropdown-basic class="btn nav">
+          Καταστηματα
+        </a>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες παραλαβές</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες προσφορές</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Ωράρια καταστημάτων</a></li>
+        </ul>
+      </div>
+      <div class="btn-group show-on-hover">
+        <a id="button-basic" aria-controls dropdown-basic class="btn nav">
+          Χονδρικη
+        </a>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Τιμές Χονδρικής</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </nav>

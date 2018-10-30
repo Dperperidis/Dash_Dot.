@@ -57,7 +57,7 @@ namespace DashnDotApp.Controllers
             //if (productId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) 
             //    return Unauthorized();
 
-            var productFromRepo = await _repo.GetProduct(productId);
+            var productFromRepo = _repo.GetProduct(productId);
 
             var file = photoForCreationDto.File;
 
@@ -104,7 +104,7 @@ namespace DashnDotApp.Controllers
         {
            
 
-            var product = await _repo.GetProduct(productId);
+            var product =  _repo.GetProduct(productId);
 
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
@@ -132,7 +132,7 @@ namespace DashnDotApp.Controllers
 
         public async Task<IActionResult> DeletePhoto(int productId, int id)
         {
-            var product = await _repo.GetProduct(productId);
+            var product = _repo.GetProduct(productId);
 
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();

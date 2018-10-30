@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row mt-5 ">
-    <div class="form-group col-sm-6 text-center">
-      <h4>Κατηγορια Προϊοντος</h4>
+  <div class="row mt-4">
+    <div class="form-group">
+      <h4>Κατηγορια </h4>
       <select name="category" class="form-control" id="exampleSelect1" #category>
         <option>Πουκάμισο</option>
         <option>Γραβάτα</option>
@@ -13,23 +13,26 @@
       </select>
       <button class="btn btn-primary" (click)="searchProduct(category.value)">Αναζήτηση</button>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group ml-2">
       <h4>Κωδικος</h4>
       <input #prodCode name="code" rows="6" class="form-control" (keyup.enter)='searchProductByCode(prodCode.value)'>
       <button class="btn btn-primary" (click)="searchProductByCode(prodCode.value)">Αναζήτηση</button>
     </div>
-
+  </div>
+  <hr>
+  <div class="pull-right">
+    <button type="button" class="btn btn-primary" aria-hidden="true" (click)="newProduct()"><i class="fa fa-plus"></i>Προσθήκη
+      Προϊόντος</button>
   </div>
 
-
-  <table class="table table-striped table-bordered mt-3">
+  <table class="table table-striped table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Όνομα Προϊοντος</th>
-        <th scope="col">Υλικο</th>
-        <th scope="col">Κωδικος</th>
-        <th scope="col">Τιμη</th>
+        <th scope="col">ΥΛΙΚΟ</th>
+        <th scope="col">ΚΩΔΙΚΟΣ</th>
+        <th scope="col">ΤΙΜΗ</th>
         <th scope="col">Εποχη</th>
         <th scope="col">Βασικη Φωτογραφια</th>
         <th scope="col">Ενεργειες</th>
@@ -40,8 +43,19 @@
         <th scope="row">{{i + 1}}</th>
         <td>{{p.material}}</td>
         <td>{{p.title}}</td>
-        <td>{{p.code}}</td>
-        <td>{{p.price | currency:'EUR':symbol }}</td>
+        <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code"  placeholder="Κωδικός Προϊόντος"></td>
+        <td style="width:100px">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input name="price" class="form-control" [(ngModel)]="p.price" disabled placeholder="">
+              <div class="input-group-append">
+                <span class="input-group-text">€</span>
+              </div>
+            </div>
+          </div>
+
+        </td>
+        <!-- <td>{{p.price | currency:'EUR':symbol }}</td> -->
         <td>{{p.season}}</td>
         <td style="width:100px;"><img src="{{p.photoUrl}}" class="ml-4"></td>
         <td>
@@ -53,3 +67,4 @@
     </tbody>
   </table>
 </div>
+

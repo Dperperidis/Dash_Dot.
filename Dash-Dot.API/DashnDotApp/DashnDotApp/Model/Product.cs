@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace DashnDotApp.Model
 {
@@ -18,13 +19,18 @@ namespace DashnDotApp.Model
         public string Material { get; set; }
         public string Description { get; set; }
         public string Sleeve { get; set; }
+        public string Design { get; set; }
+        public string Quantity { get; set; }
         public string Discount { get; set; }
         public string Active { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public virtual IList<Photo> Photos { get; set; }
+        public virtual IList<ProductSize> ProductSizes { get; set; }
+        public Product()
+        {
+            ProductSizes = new List<ProductSize>();
+            Photos = new List<Photo>();
+        }
 
-        public ICollection<ProductSize> ProductSizes { get; set; }
-  
-        
     }
 
     public class ProductSize
@@ -32,16 +38,22 @@ namespace DashnDotApp.Model
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int SizeId { get; set; }
-        public virtual Size Size { get; set; }
-        public ICollection<ProductSizeColor> ProductSizeColor { get; set; }
+        public Size Size { get; set; }
+        public IList<ProductSizeColor> ProductSizeColor { get; set; }
+        public ProductSize()
+        {
+            ProductSizeColor = new List<ProductSizeColor>();
+        }
     }
 
-   public class ProductSizeColor
+    public class ProductSizeColor
     {
+
         public int Id { get; set; }
         public int ProductSizeId { get; set; }
+        public ProductSize ProductSizes { get; set; }
         public int ColorId { get; set; }
-        public virtual Color Color { get; set; }
+        public Color Color { get; set; }
         public int Count { get; set; }
 
     }
@@ -49,7 +61,7 @@ namespace DashnDotApp.Model
     public class Size
     {
         public int Id { get; set; }
-        public string  Title { get; set; }
+        public string Title { get; set; }
         public string Region { get; set; }
 
     }
@@ -58,6 +70,6 @@ namespace DashnDotApp.Model
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string rgb { get; set; }
+        public string RGB { get; set; }
     }
 }

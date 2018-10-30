@@ -1,11 +1,5 @@
 .mt-5{
-    margin-top:12rem!important;
-}
-
-.form-inline{
-    font-weight: bold;
-    
-  
+    margin-top:10rem!important;
 }
 
 .form-control{
@@ -17,21 +11,9 @@
     font-size: 30px;
     
 }
-.fa-list:before {
-    margin: 14px;
-    
-}
-
-.fa{
-    font-size:17px; 
-}
-
-h6{
-    letter-spacing: 1px;
-}
 
 img{
-    max-height: 14rem;
+    max-height: 13rem;
     max-width: 10rem;
     margin: 0 auto;
     margin-top:10px;
@@ -43,7 +25,7 @@ img{
 }
 
 .card:hover{
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22);
     overflow: hidden;
 }
 
@@ -58,5 +40,4 @@ img{
     transition-duration: 500ms;
     transition-timing-function: ease-out;
     opacity: 1;
-
 }

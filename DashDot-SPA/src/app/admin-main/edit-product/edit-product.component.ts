@@ -45,7 +45,7 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct() {
-    this.productService.updateProduct(this.productService.currentProduct.id, this.product).subscribe(res => {
+    this.productService.updateProduct(this.product).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
       this.editForm.reset(this.product);
     }, error => {

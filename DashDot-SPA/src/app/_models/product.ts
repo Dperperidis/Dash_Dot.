@@ -11,6 +11,8 @@ export class Product {
     photoUrl: string;
     material: string;
     active: string;
+    design: string;
+    quantity: string; 
     description: string;
     sleeve: string;
     line: string;
@@ -36,8 +38,9 @@ export class ProductSize {
 export class ProductSizeColor {
     id: number;
     productSizeId: number;
+    productSizes:ProductSize;
     colorId: number;
-    color: Color;
+    color: Color; 
     count: number;
 }
 

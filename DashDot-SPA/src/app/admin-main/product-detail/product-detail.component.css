@@ -1,6 +1,6 @@
 
 .form-control{
-    padding:0 2rem;
+    padding: 0 7px;
 }
 
 img{
@@ -12,6 +12,9 @@ img{
     padding: 0.5rem;
     margin:auto 0;
 }
+.table.mt-5{
+    margin-top:4rem!important;
+}
 
 .btn-sm{
     cursor: pointer;
@@ -22,4 +25,8 @@ img{
 }
 .table-bordered th, .table-bordered td {
     border: 2px outset #dee2e6;
+}
+
+.container{
+    max-width:1500px;
 }

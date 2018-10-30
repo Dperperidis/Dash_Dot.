@@ -12,64 +12,68 @@ namespace DashnDotApp.Dtos
     public class ProductRepository : IProductRepository
     {
 
-        private readonly SqlContext _context;
+        private readonly SqlContext _ctx;
 
 
         public ProductRepository(SqlContext context)
         {
-            _context = context;
+            _ctx = context;
         }
 
         public void Add<T>(T entity) where T : class
         {
-            _context.Add(entity);
+            _ctx.Add(entity);
         }
 
         public void Delete<T>(T entity) where T : class
         {
-            _context.Remove(entity);
+            _ctx.Remove(entity);
         }
 
         public async Task<Photo> GetPhoto(int Id)
         {
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == Id);
+            var photo = await _ctx.Photos.FirstOrDefaultAsync(p => p.Id == Id);
             return photo;
         }
 
         public async Task<bool> SaveAll()
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _ctx.SaveChangesAsync() > 0;
         }
 
 
-        public async Task<Product> GetProduct(int id)
+        public Product GetProduct(int id)
         {
-            var product = await _context.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
-            return product;
+            var temp = _ctx.Product.Include("ProductSizes")
+                .Include("ProductSizes.ProductSizeColor")
+                .Include("ProductSizes.Size").Include("ProductSizes.ProductSizeColor.Color")
+                .Include(p=> p.Photos)
+                .FirstOrDefault(c => c.Id == id);
+            return temp;
 
         }
 
 
         public async Task<Photo> GetMainPhotoForProduct(int productId)
         {
-            return await _context.Photos.Where(u => u.productId == productId).FirstOrDefaultAsync(p => p.isMain);
+            return await _ctx.Photos.Where(u => u.productId == productId).FirstOrDefaultAsync(p => p.isMain);
         }
 
         public async Task<IEnumerable<Product>> GetProducts(ProductParams productParams)
         {
-            var products = await _context.Product.Include(p => p.Photos).ToListAsync();
+            var products = await _ctx.Product.Include(p => p.Photos).ToListAsync();
             return products;
         }
 
         public async Task<Product> GetProduct(string code)
         {
-            var product = await _context.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Code == code);
+            var product = await _ctx.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Code == code);
             return product;
         }
 
         public async Task<IEnumerable<Product>> GetProducts(string category)
         {
-            var products = await _context.Product.Include(p => p.Photos).ToListAsync();
+            var products = await _ctx.Product.Include(p => p.Photos).ToListAsync();
             var productsToReturn = products.Where(x => x.Category == category);
             return productsToReturn;
         }

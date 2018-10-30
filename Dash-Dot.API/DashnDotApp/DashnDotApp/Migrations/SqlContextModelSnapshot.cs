@@ -83,6 +83,8 @@ namespace DashnDotApp.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("Design");
+
                     b.Property<string>("Discount");
 
                     b.Property<string>("Line");
@@ -90,6 +92,8 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Material");
 
                     b.Property<string>("Price");
+
+                    b.Property<string>("Quantity");
 
                     b.Property<string>("Season");
 
@@ -231,8 +235,8 @@ namespace DashnDotApp.Migrations
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("DashnDotApp.Model.ProductSize")
-                        .WithMany("Color")
+                    b.HasOne("DashnDotApp.Model.ProductSize", "ProductSizes")
+                        .WithMany("ProductSizeColor")
                         .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

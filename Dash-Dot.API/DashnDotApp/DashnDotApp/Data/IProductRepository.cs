@@ -14,7 +14,7 @@ namespace DashnDotApp.Dtos
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task <IEnumerable<Product>> GetProducts(ProductParams productParams);
-        Task<Product> GetProduct(int id);
+        Product GetProduct(int id);
         Task<Product> GetProduct(string code);
         Task<Photo> GetPhoto(int id);
 

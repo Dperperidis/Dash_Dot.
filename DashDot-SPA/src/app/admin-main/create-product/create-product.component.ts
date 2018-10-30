@@ -18,6 +18,7 @@ export class CreateProductComponent implements OnInit {
   colors = new Array<Color>();
   productSize: ProductSize;
   productSizeColor: ProductSizeColor;
+  colorSizeTitle: string;
 
 
 
@@ -49,6 +50,7 @@ export class CreateProductComponent implements OnInit {
     console.log(this.product)
     this.productService.addProduct(this.product).subscribe(res => {
       this.productService.currentProduct = res;
+      console.log(res)
       this.router.navigate(['/admin/main/edit/' + res.id]);
       this.toastr.success('Η καταχώρηση έγινε επιτυχώς');
     }, error => {
@@ -74,5 +76,9 @@ export class CreateProductComponent implements OnInit {
     this.productSize = s;
   }
 
+  deleteEntity(id){
+    const index = this.productSize.productSizeColor.findIndex(x=>x.colorId==id);
+    this.productSize.productSizeColor.splice(index, 1);
+  }
 
 }

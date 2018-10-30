@@ -4,17 +4,19 @@
   background-size: cover;
   height: 57rem;
   z-index: 1;
+
+}
+.bg-light{
+  background-image:linear-gradient(white,rgb(134, 121, 107))
 }
 
 .p-md-5 {
   padding: 1rem !important;
 }
-.jumbotron-top {
-  padding: 1rem 2rem;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
-  border-radius: 15px;
-}
 
+.featurette{
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+}
 
 
 .px-0 {
@@ -29,21 +31,19 @@
 }
 
 .row > .col-6 > img {
-  width: 38rem;
+
   max-height: 40rem;
   float: right;
   margin-top:20px;
+  max-width: 39rem;
 }
 
-.blog{
-  margin-top: 300px;
-}
 
 .mid-banner {
   margin-top: 160px;
 }
 
-.display-5{
+.display-3{
   text-transform:none;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
 }
@@ -74,13 +74,48 @@
   text-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
 }
 
-.row>.col-6>img{
-  width: 60rem;
-  max-height: 42;
-  margin-top:0px;
-}
-
 .jumbotron-bot{
   padding: 0 0rem;
   margin-bottom:0rem;
 }
+
+.thumbnail>img{
+  width:100%;
+  max-height: 22rem;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+  transition: .5s ease;
+  
+}
+
+.thumbnail:hover{
+  box-shadow: 0 0 0 10px #df8633ee;
+  transition: .5s ease;
+}
+
+
+.container{
+  max-width: 1500px;
+}
+
+.thumbnail {
+  position: relative;
+  color:white;
+}
+
+h3{
+  font-size:30px;
+  text-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+
+}
+
+.caption {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+}
+
+.mt-5{
+  margin-top:8rem!important;
+}
+

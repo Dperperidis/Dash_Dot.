@@ -39,8 +39,8 @@ export class ProductService {
         return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + id);
     }
 
-    updateProduct(id: number, product: Product) {
-        return this.http.put(this.baseUrl + 'products/' + id, product)
+    updateProduct(product: Product) {
+        return this.http.put(this.baseUrl + 'products/' ,product)
     }
 
     deleteProduct(id: number){

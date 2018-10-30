@@ -18,9 +18,6 @@ export const routes: Routes = [
     { path: '', component: FrontpageComponent },
     {
         path: 'andrika-poukamisa',
-        data: {
-            breadcrumb: 'andrika-poukamisa'
-        },
         children: [{
             path: '', component: ItemsListComponent, children: [
                 { path: 'slim_fit', component: ItemsListComponent, }]
@@ -40,17 +37,13 @@ export const routes: Routes = [
             {
                 path: '', component: AdminMainComponent, children: [
                     {
-                        path: 'details', component: ProductDetailComponent, data: {
-                            breadcrumb: 'details'
-                        }
+                        path: 'details', component: ProductDetailComponent
                     }, {
-                        path: 'edit/:id', component: EditProductComponent, data: {
-                            breadcrumb: 'edit'
-                        }, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
+                        path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
                     }, {
-                        path: 'create-product', component: CreateProductComponent, data: { breadcrumb: 'create-product' }
+                        path: 'create-product', component: CreateProductComponent
                     }, { path: '', component: AdminChartsComponent },
-                    {path: 'product-settings', component: ProductSettingsComponent}
+                    { path: 'product-settings', component: ProductSettingsComponent }
                 ]
             },
         ]

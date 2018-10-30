@@ -3,15 +3,15 @@ h4{
     font-size:14px;
 }
 
-.form-control{
-    padding: 0 2rem;
-}
 
 form{
     padding: 30px;
 }
 
-.card{
-    background-color:rgba(128, 128, 128, 0.315);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+input ,select, textarea{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+}
+
+li{
+    cursor: pointer;
 }

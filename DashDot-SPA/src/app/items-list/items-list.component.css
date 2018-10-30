@@ -19,6 +19,10 @@ img{
     margin-top:10px;
 }
 
+.thumbnail>img{
+    max-width:120rem!important;
+}
+
 
 .card-body{
     padding: 0.25rem;
@@ -40,4 +44,8 @@ img{
     transition-duration: 500ms;
     transition-timing-function: ease-out;
     opacity: 1;
+}
+
+h2{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

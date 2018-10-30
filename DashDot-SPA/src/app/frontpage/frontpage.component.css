@@ -94,7 +94,7 @@
 
 
 .container{
-  max-width: 1500px;
+  max-width: 1400px;
 }
 
 .thumbnail {
@@ -119,3 +119,7 @@ h3{
   margin-top:8rem!important;
 }
 
+
+.fa-facebook-square, .fa-instagram, .fa-phone-square, .fa-map-marker, .fa-clock-o {
+  font-size: 20px;
+}

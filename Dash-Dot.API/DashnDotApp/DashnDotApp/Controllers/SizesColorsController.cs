@@ -93,13 +93,13 @@ namespace DashnDotApp.Controllers
 
         }
 
-        [Route("getSizeColor/{sizeId}")]
+        [Route("getSizeColor/{productId}")]
         [HttpGet]
-        public ActionResult GetSizes(int sizeId)
+        public ActionResult GetSizes(int productId)
         {
             try
             {
-                var result = _ctx.ProductSizes.Include("ProductSizeColor").Include("ProductSizeColor.Color").FirstOrDefault(x => x.SizeId == sizeId);
+                var result = _ctx.ProductSizes.Include("ProductSizeColor").Include("ProductSizeColor.Color").FirstOrDefault(x => x.ProductId == productId);
                 return Ok(result);
 
             }

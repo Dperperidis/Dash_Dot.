@@ -1,37 +1,26 @@
 <app-navbar></app-navbar>
 
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-6">
-      <h6><i class="fa fa-truck mr-1"></i>
-        ΓΙΑ ΠΑΡΑΓΓΕΛΙΕΣ ΑΝΩ ΤΩΝ 30€ ΔΩΡΕΑΝ ΑΠΟΣΤΟΛΗ ΣΕ ΟΛΗ ΤΗΝ ΕΛΛΑΔΑ
-      </h6>
+
+
+
+
+  <div class="thumbnail text-center">
+    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
+    <div class="caption">
+      <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
+
     </div>
-    <div class="col-md-6">
-      <div class="pull-right" dropdown placement="bottom right">
-        <i class="fa fa-shopping-bag mr-1"></i>
-        <a id="button-basic" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-basic">
-          Το καλάθι σας είναι άδειο <span class="caret"></span>
-        </a>
-        <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-alignment">
-          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
-        </ul>
-      </div>
-    </div>
+
+
   </div>
-</div>
-<hr>
-<div class="container">
+  <hr>
 
   <form class="form-inline">
 
     <div class="form-group">
 
-      <label for="exampleSelect1" class="text-dark">ΤΑΞΙΝΟΜΗΣΗ:</label>
+      <label for="exampleSelect1" class="text-dark font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
       <br>
       <select class="form-control" id="exampleSelect1">
         <option>Προεπιλογή</option>
@@ -42,7 +31,7 @@
       </select>
     </div>
     <div class="form-group text-center ">
-      <label for="exampleSelect1" class="text-dark">ΕΜΦΑΝΙΣΗ:</label>
+      <label for="exampleSelect1" class="text-dark font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
       <br>
       <select class="form-control" id="exampleSelect1">
         <option>20</option>
@@ -77,7 +66,8 @@
           <a class="card-link text-dark font-weight-bold ">{{product.price | currency:'EUR':symbol }}</a>
         </div>
         <div class="btn-toolbar">
-          <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>Προσθήκη στο καλάθι</button>
+          <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>Προσθήκη
+            στο καλάθι</button>
           <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/slimfit/details/',product.id]"><i
               class="fa fa-info-circle"></i>
             Λεπτομέρειες</button>

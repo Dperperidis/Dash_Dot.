@@ -18,7 +18,7 @@ export class ItemDetailsComponent implements OnInit {
   sizes = new Array<any>();
   color: Color;
   productSize = new Array<ProductSize>();
-  productSizeColor= new Array<Color>();
+  productSizeColor = new Array<Color>();
 
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
@@ -34,13 +34,15 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   onChange(deviceValue: number) {
+    if (deviceValue == 0){
+     this.productSize = new Array<ProductSize>();
+     return;
+    }
     this.prodSettings.getColorsBySize(deviceValue).subscribe(res => {
       this.productSize = res;
       console.log(res);
-        },error=>{
-      this.toastr.error(error);
-    })
+    });
+    console.log(deviceValue)
   }
-
 }
 

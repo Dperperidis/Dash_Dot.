@@ -14,7 +14,7 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="card border-light mb-3" style="max-width: 100;">
-        <div class="card-header font-weight-bold">ΠΟΥΚΑΜΙΣΟ ΜΕ ΣΧΕΔΙΟ</div>
+        <div class="card-header font-weight-bold text-uppercase">{{product.title}}</div>
         <div class="card-body">
           <h5 class="text-dark" ><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']">
               dāsh&dot_.</a></h5>
@@ -32,7 +32,7 @@
             <h6>Eπέλεξε Μέγεθος: </h6>
             <select class="custom-select" name="sizeId" #size (change)="onChange(size.value)">
               <option selected=""></option>
-              <option *ngFor="let s of sizes" value="{{s.sizeId}}">{{s.size.title}}</option>
+              <option *ngFor="let s of sizes" value="{{s.productId}}">{{s.size.title}}</option>
              
             </select>
           </div>

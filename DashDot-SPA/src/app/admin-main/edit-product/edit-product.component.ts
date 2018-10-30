@@ -54,18 +54,16 @@ export class EditProductComponent implements OnInit {
   }
 
   deleteProduct(id) {
-    this.productService.deleteProduct(id).subscribe(res => {
-      this.toastr.success("Η διαγραφή έγινε επιτυχώς")
-      this.router.navigate(['/admin/main/details'])
-    }, error => {
-      this.toastr.error(error);
-    });
-
+    if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε το προϊόν;")) {
+      this.productService.deleteProduct(id).subscribe(res => {
+        this.toastr.success("Η διαγραφή έγινε επιτυχώς")
+        this.router.navigate(['/admin/main/details']);
+      }, error => {
+        this.toastr.error(error);
+      });
+    } else {
+      return true;
+    }
   }
 
-
-
 }
-
-
-

@@ -20,6 +20,7 @@ namespace DashnDotApp.Dtos
         public string Design { get; set; }
         public string Quantity { get; set; }
         public string Sleeve { get; set; }
+        public string seoUrl { get; set; }
         public string Discount { get; set; }
         public string Active { get; set; }
         public string PhotoUrl { get; set; }

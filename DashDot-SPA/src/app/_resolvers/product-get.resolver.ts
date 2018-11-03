@@ -6,7 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 @Injectable()
-export class PhotoUploadResolver implements Resolve<Product> {
+export class GetProductResolver implements Resolve<Product> {
 
 
     constructor(
@@ -16,7 +16,7 @@ export class PhotoUploadResolver implements Resolve<Product> {
     ) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Product> {
-        return this.productService.getProductById(route.params["id"]).pipe(
+        return this.productService.getProductBySeoUrl(route.params["id"]).pipe(
             catchError(error => {
                 this.toastr.error("Προβλημα");
                 this.router.navigate(['/']);

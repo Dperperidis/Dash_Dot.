@@ -10,38 +10,49 @@
 
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <img  [imageZoom]="zoomedImageSrc" src="{{product.photoUrl}}">
+      <img src="{{product.photoUrl}}" (click)="lgModal.show()" style="cursor:pointer">
+      <hr>
+      <div class="row ml-5 ">
+
+        <div class="ml-4" style="cursor:pointer;" *ngFor="let photos of product.photos">
+          <img src="{{photos.url}}" alt="" class="photosArray" (click)="onImgChange(photos.url)">
+        </div>
+
+
+
+      </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="card border-light mb-3" style="max-width: 100;">
-        <div class="card-header font-weight-bold text-uppercase">{{product.title}}</div>
+        <div class="card-header font-weight-bold">{{product.title}}</div>
         <div class="card-body">
-          <h5 class="text-dark" ><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']">
+          <h5 class="text-dark"><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']">
               dāsh&dot_.</a></h5>
-          <h5 class="text-dark" ><strong>Κωδικός προϊόντος:</strong> {{product.code}}</h5>
-          <h5 class="text-dark" ><strong>Διαθεσιμότητα:</strong><button type="text" class="btn btn-success static"
+          <h5 class="text-dark"><strong>Κωδικός προϊόντος:</strong> {{product.code}}</h5>
+          <h5 class="text-dark"><strong>Διαθεσιμότητα:</strong><button type="text" class="btn btn-success static"
               disabled>Διαθέσιμο</button></h5>
           <hr>
 
 
-          <h4 class="card-title">Τιμή: <span class="font-weight-bold text-dark">{{product.price | currency:'EUR':symbol}}</span></h4>
+          <h4 class="card-title">Τιμή: <span class="font-weight-bold text-dark">{{product.price |
+              currency:'EUR':symbol}}</span></h4>
           <hr>
           <h6 class="card-text">Επιλογές</h6>
 
           <div class="form-group">
             <h6>Eπέλεξε Μέγεθος: </h6>
-            <select class="custom-select" name="sizeId" #size (change)="onChange(size.value)">
+            <select class="custom-select" name="sizeId" (change)="onChange($event.target.value)">
               <option selected=""></option>
-              <option *ngFor="let s of sizes" value="{{s.productId}}">{{s.size.title}}</option>
-             
+              <option *ngFor="let s of sizes" value="{{s.sizeId}}">{{s.size.title}}</option>
             </select>
           </div>
-          <div class="form-group" >
+          <div class="form-group">
             <h6>Επέλεξε Χρώμα: </h6>
-          
+
             <select class="custom-select" placeholder="dialekse">
-              <option  selected=""></option>
-              <option *ngFor="let col of productSize.productSizeColor" value="{{col.color.title}}">{{col.color.title}}</option>
+              <option selected=""></option>
+              <option *ngFor="let col of productSize.productSizeColor" value="{{col.color.title}}">{{col.color.title}}
+              </option>
             </select>
             <button type="button" class="btn btn-info pull-right btn-sm">Μεγεθολόγιο</button>
           </div>
@@ -50,28 +61,54 @@
             <label for="exampleInputEmail1"><strong>Ποσότητα: </strong></label>
             <input type="number" min="0" class="quantity text-center ml-2" placeholder="0">
             <button type="button" class="btn btn-primary ml-3"><i class="fa fa-shopping-basket"></i>Προσθήκη στο Καλάθι</button>
-
             <div class="icons ml-4">
               <span> <i class="fa fa-thumbs-up"></i> <a href="www.facebook.com">facebook</a></span>
               <span> <i class="fa fa-heart"></i> <a href="www.facebook.com">Instagram</a></span>
             </div>
-
-
           </div>
-
           <hr>
         </div>
       </div>
     </div>
+
   </div>
-
-
+  <br>
   <div class="card border-light mb-3" style="max-width:100%">
-      <div class="card-header">Περιγραφή</div>
-      <div class="card-body">
-        <h4 class="card-title">Συνθεση 100% βαμβακι _.</h4>
-        <p class="card-text">Για να διατηρήσετε το αγαπημένο σας dash&dot πουκάμισο σε άριστη κατάσταση, να προτιμάτε χλιαρό νερό, πλύσιμο στο χέρι και πάντα να ακολουθείτε τις οδηγίες πλυσίματος που αναγράφονται στην ετικέτα φροντίδας.</p>
+    <div class="card-header">Περιγραφή</div>
+    <div class="card-body">
+      <h4 class="card-title">Συνθεση 100% βαμβακι _.</h4>
+      <p class="card-text">Για να διατηρήσετε το αγαπημένο σας dash&dot πουκάμισο σε άριστη κατάσταση, να προτιμάτε
+        χλιαρό νερό, πλύσιμο στο χέρι και πάντα να ακολουθείτε τις οδηγίες πλυσίματος που αναγράφονται στην ετικέτα
+        φροντίδας.</p>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+        <carousel [interval]="false">
+          <slide  >
+              <div class="text-center" style="cursor:pointer;">
+                  <img src="{{product.photoUrl}}" alt="">
+                </div>
+           
+          </slide>
+        </carousel>
       </div>
     </div>
+  </div>
 </div>
+
+
+
+
 <app-footer></app-footer>

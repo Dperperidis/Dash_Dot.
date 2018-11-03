@@ -1,10 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
-import { ProductService } from '../_services/product.service';
 
-import { Routing } from '../_services/routing.service';
-import { AdminChartsComponent } from './admin-charts/admin-charts.component';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { AuthService } from '../_services/auth.service';
 
 

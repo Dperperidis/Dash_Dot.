@@ -3,6 +3,7 @@ using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Helpers;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
 {
-
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -46,16 +47,16 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(int id)
+        public IActionResult GetProduct(int id)
         {
             var product = _repo.GetProduct(id);
 
             var productToReturn = _mapper.Map<ProductForDetailedDto>(product);
 
             return Ok(productToReturn);
-
-
         }
+
+   
 
         [Route("addProduct")]
         [HttpPost]
@@ -94,33 +95,40 @@ namespace DashnDotApp.Controllers
         }
 
 
-
-
-
         [Route("getProductByCode/{code}")]
         [HttpGet]
         public ActionResult GetProductByCode(string code)
         {
 
-            //var productByCode = await _repo.GetProduct(code);
-            //var productToReturn = _mapper.Map<ProductForDetailedDto>(productByCode);
-            //return Ok(productToReturn);
-            var temp = _ctx.Product.Include("ProductSizes").Include("ProductSizes.ProductSizeColor").Include("ProductSizes.Size").Include("ProductSizes.ProductSizeColor.Color").FirstOrDefault(c => c.Code == code);
+            var temp = _ctx.Product.Include("ProductSizes")
+                .Include("ProductSizes.ProductSizeColor")
+                .Include("ProductSizes.Size").
+                Include("ProductSizes.ProductSizeColor.Color").FirstOrDefault(c => c.Code == code);
             return Ok(temp);
 
         }
 
         [Route("getProductsByCategory/{category}")]
         [HttpGet]
-        public async Task<IActionResult> GetProductByCategory(string category)
+        public  IActionResult GetProductByCategory(string category)
         {
+            try
+            {
+               
+                var products =  _ctx.Product.Include(p => p.Photos).ToList();
+                var productsToReturn = products.FindAll(y => y.Category == category);
+                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
+                return Ok(productsFull);
 
-            var productsByCategory = await _repo.GetProducts(category);
-            var productsToReturn = _mapper.Map<IEnumerable<ProductForListDto>>(productsByCategory);
-
-            return Ok(productsToReturn);
-
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Σφάλμα");
+            }
+        
         }
+
+    
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
@@ -136,9 +144,26 @@ namespace DashnDotApp.Controllers
             throw new Exception($"Deleting product {id} failed");
         }
 
+        [Route("updateProduct")]
+        [HttpPost]
+        public IActionResult UpdateProduct([FromBody]Product product)
+        {
+            try
+            {
+                var savedProduct = _ctx.Product.Update(product);
+                _ctx.SaveChanges();
+                return Ok(savedProduct.Entity);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν έγινε ανανέωση του προϊόντος");
+            }
+        }
 
 
     }
+
 
 
 

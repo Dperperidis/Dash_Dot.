@@ -46,17 +46,25 @@ img{
     line-height: 0.5rem;
 }
 
-
+input, textarea, select{
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+}
 
 .card{
-    background-color:rgba(128, 128, 128, 0.315);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+    background-image:linear-gradient(50deg, rgba(81, 119, 126, 0.596), white);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
     padding: 15px;
+}
+
+.card-header{
+    background-image:linear-gradient( rgba(150, 153, 153, 0.596), white);
 }
 
 .c_product{
     padding: 0 150px;
+    margin-top:150px;
 }
+
 @media only screen and (max-width: 1580px) {
     .c_product{
         padding: 0;
@@ -68,7 +76,7 @@ img{
 }
 
 .textarea{
-    height: 90px;
+    height: 50px;
 }
 
 .btn-group{

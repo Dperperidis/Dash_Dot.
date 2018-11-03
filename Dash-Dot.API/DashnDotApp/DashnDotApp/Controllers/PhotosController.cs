@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Helpers;
 using DashnDotApp.Model;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
 {
+    //[Authorize]
     [Route("api/products/{productId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
@@ -22,13 +24,15 @@ namespace DashnDotApp.Controllers
         private readonly IProductRepository _repo;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
+        private SqlContext _ctx;
         private readonly Cloudinary _cloudinary;
 
-        public PhotosController(IProductRepository repo, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public PhotosController(IProductRepository repo, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig, SqlContext ctx)
         {
             _repo = repo;
             _mapper = mapper;
             _cloudinaryConfig = cloudinaryConfig;
+            _ctx = ctx;
 
             Account acc = new Account(
                  _cloudinaryConfig.Value.CloudName,
@@ -106,6 +110,7 @@ namespace DashnDotApp.Controllers
 
             var product =  _repo.GetProduct(productId);
 
+
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
 
@@ -127,6 +132,7 @@ namespace DashnDotApp.Controllers
             return BadRequest("Δεν ήταν δυνατό να γίνει η βασική φωτογραφία");
 
         }
+
 
         [HttpDelete("{id}")]
 

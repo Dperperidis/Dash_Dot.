@@ -23,6 +23,10 @@ export class ProductService {
         return this.http.get<Product>(this.baseUrl + "products/" + id);
     }
 
+    getProductBySeoUrl(seoUrl: string): Observable<Product> {
+        return this.http.get<Product>(this.baseUrl + "customers/getProductBySeoUrl/" + seoUrl);
+    }
+
     getProductByCode(code: string): Observable<Product> {
         return this.http.get<Product>(this.baseUrl + "products/getProductByCode/" + code);
     }
@@ -31,24 +35,13 @@ export class ProductService {
         return this.http.get<Product[]>(this.baseUrl + "products")
     }
 
-    setMainPhoto(productId: number, id: number){
-        return this.http.post(this.baseUrl + "products/" + productId + "/photos/" + id + "/setMain", {})
-    }
-
-    deletePhoto(productId: number, id: number) {
-        return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + id);
-    }
-
-    updateProduct(product: Product) {
-        return this.http.put(this.baseUrl + 'products/' ,product)
-    }
-
-    deleteProduct(id: number){
-        return this.http.delete(this.baseUrl + 'products/'+ id)
-    }
 
     getProductsByCategory(category: string) : Observable<Product[]>{
         return this.http.get<Product[]>(this.baseUrl + 'products/getProductsByCategory/'+ category)
+    }
+
+    getProductsByLine(line: string) : Observable<Product[]>{
+        return this.http.get<Product[]>(this.baseUrl+ 'customers/getProductsByLine/'+ line)
     }
 
     

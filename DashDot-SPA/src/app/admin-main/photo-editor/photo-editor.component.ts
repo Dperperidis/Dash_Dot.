@@ -6,6 +6,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/_models/product';
 import { ActivatedRoute } from '@angular/router';
+import { AdminProductService } from 'src/app/_services/adminproduct.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -24,6 +25,7 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(private productService: ProductService, private toastr: ToastrService,
     private route: ActivatedRoute,
+    private adminProdService: AdminProductService,
   ) { }
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   setMainPhoto(photo: Photo) {
-    this.productService.setMainPhoto(this.productService.currentProduct.id, photo.id).subscribe(() => {
+    this.adminProdService.setMainPhoto(this.productService.currentProduct.id, photo.id).subscribe(() => {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
       this.currentMain.isMain = false;
       photo.isMain = true;
@@ -69,9 +71,13 @@ export class PhotoEditorComponent implements OnInit {
     })
   }
 
+  setColorCode(photo: Photo){
+
+  }
+
   deletePhoto(id: number) {
     if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε την φωτογραφία;")) {
-      this.productService.deletePhoto(this.productService.currentProduct.id, id).subscribe(res => {
+      this.adminProdService.deletePhoto(this.productService.currentProduct.id, id).subscribe(res => {
         this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
         this.toastr.success("H Φωτογραφία διαγράφηκε!")
       }, error => {

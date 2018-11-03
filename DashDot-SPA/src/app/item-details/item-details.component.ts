@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Product, Size, Color, ProductSize, ProductSizeColor } from '../_models/product';
@@ -6,6 +6,8 @@ import { Product, Size, Color, ProductSize, ProductSizeColor } from '../_models/
 import { ProdSettingsService } from '../_services/prodsettings.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { Url } from 'url';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-item-details',
@@ -20,6 +22,8 @@ export class ItemDetailsComponent implements OnInit {
   productSize = new Array<ProductSize>();
   productSizeColor = new Array<Color>();
 
+
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private route: ActivatedRoute) { }
@@ -27,22 +31,28 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.product = data["product"];
+      console.log(this.product)
     });
     this.sizes = this.product.productSizes;
-
-
   }
 
-  onChange(deviceValue: number) {
-    if (deviceValue == 0){
-     this.productSize = new Array<ProductSize>();
-     return;
+  
+  onChange(sizeId: number) {
+    if (sizeId == 0) {
+      this.productSize = new Array<ProductSize>();
+      return;
     }
-    this.prodSettings.getColorsBySize(deviceValue).subscribe(res => {
+    this.prodSettings.getColorsBySize(sizeId, this.product.id).subscribe(res => {
       this.productSize = res;
-      console.log(res);
     });
-    console.log(deviceValue)
   }
+
+  onImgChange(imgUrl) {
+   this.product.photoUrl = imgUrl;
+  }
+
+
 }
+
+
 

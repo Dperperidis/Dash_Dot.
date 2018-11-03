@@ -77,5 +77,22 @@ namespace DashnDotApp.Dtos
             var productsToReturn = products.Where(x => x.Category == category);
             return productsToReturn;
         }
+
+        public Product GetProductByTitle(string seoUrl)
+        {
+            var temp = _ctx.Product.Include("ProductSizes")
+                .Include("ProductSizes.ProductSizeColor")
+                .Include("ProductSizes.Size").Include("ProductSizes.ProductSizeColor.Color")
+                .Include(p => p.Photos)
+                .FirstOrDefault(c => c.seoUrl == seoUrl);
+            return temp;
+
+        }
+
+        public Color GetColor(int id)
+        {
+            var color = _ctx.Color.Find(id);
+                return color;
+        }
     }
 }

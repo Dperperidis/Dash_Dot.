@@ -14,6 +14,7 @@ import { ImageZoomModule } from 'angular2-image-zoom';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BreadcrumbsModule } from "ng6-breadcrumbs";
 import { ModalModule } from 'ngx-bootstrap';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { FileUploadModule } from 'ng2-file-upload';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
@@ -39,10 +40,11 @@ import { ErrorInterceptorProvider } from './_resolvers/error.interceptor';
 import { ProductDetailComponent } from './admin-main/product-detail/product-detail.component';
 import { AdminAuthGuard } from './_guards/admin-auth-guard.service';
 import { AdminChartsComponent } from './admin-main/admin-charts/admin-charts.component';
-import { Routing } from './_services/routing.service';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ProductSettingsComponent } from './admin-main/product-settings/product-settings.component';
 import { ProdSettingsService } from './_services/prodsettings.service';
+import { GetProductResolver } from './_resolvers/product-get.resolver';
+import { AdminProductService } from './_services/adminproduct.service';
 
 
 export function tokenGetter() {
@@ -77,6 +79,7 @@ export function tokenGetter() {
     JwtModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
+    ColorPickerModule,
     ImageZoomModule,
     CarouselModule.forRoot(),
     FileUploadModule,
@@ -99,13 +102,14 @@ export function tokenGetter() {
   ],
   providers: [
     AuthService,
-    Routing,
     ProductService,
     PreventUnsavedChanges,
     PhotoUploadResolver,
     ProductEditResolver,
     ErrorInterceptorProvider,
+    GetProductResolver,
     AdminAuthGuard,
+    AdminProductService,
     ProdSettingsService
   ],
   bootstrap: [AppComponent]

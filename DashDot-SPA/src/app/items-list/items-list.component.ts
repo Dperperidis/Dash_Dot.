@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
+import { ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-items-list',
@@ -10,17 +12,58 @@ import { Product } from '../_models/product';
   styleUrls: ['./items-list.component.css']
 })
 export class ItemsListComponent implements OnInit {
-  private subscriptions = new Array<Subscription>();
-  isAdmin = false;
+
   product: Product[];
 
-  constructor(private authService: AuthService, private productService: ProductService) { }
+  constructor(private authService: AuthService, private productService: ProductService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.subscriptions.push(this.authService.isAdmin$.subscribe(isAdmin => {
-      this.isAdmin = isAdmin;
-    }));
-    this.getProds();
+    this.route.params.subscribe((param: Params) => {
+      const id = param['id']
+      
+      switch (id) {
+        case "Slim-Fit":
+          this.productService.getProductsByLine(id).subscribe(res => {
+            this.product = res;
+            console.log(res)
+          })
+          break;
+          case "Regular-Fit":
+          this.productService.getProductsByLine(id).subscribe(res => {
+            this.product = res;
+          })
+          break;
+          case "Cardigans":
+            const a = "Ζακέτα"
+          this.productService.getProductsByCategory(a).subscribe(res => {
+            this.product = res;
+          })
+          case "Sweaters":
+          const b = "Πουλόβερ"
+          this.productService.getProductsByCategory(b).subscribe(res => {
+            this.product = res;
+          })
+          case "Sweater Vests":
+            const c = "Καζάκα"
+          this.productService.getProductsByCategory(c).subscribe(res => {
+            this.product = res;
+          })
+          case "Vests":
+          const d = "Γιλέκο"
+          this.productService.getProductsByCategory(d).subscribe(res => {
+            this.product = res;
+          })
+          case "Ties":
+          const i = "Γραβάτα"
+          console.log(i);
+          this.productService.getProductsByCategory(i).subscribe(res => {
+            this.product = res;
+          })
+        default:
+          break;
+      }
+    });
   }
 
   getProds() {

@@ -7,7 +7,8 @@
 
 }
 .bg-light{
-  background-image:linear-gradient(white,rgb(134, 121, 107))
+  background-image:linear-gradient(white,rgb(134, 121, 107));
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
 
 .p-md-5 {
@@ -16,6 +17,7 @@
 
 .featurette{
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 15px 15px rgba(0, 0, 0, 0.22);
+ 
 }
 
 

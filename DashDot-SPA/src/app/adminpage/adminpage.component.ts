@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-adminpage',
   templateUrl: './adminpage.component.html',
@@ -17,7 +18,13 @@ export class AdminpageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
+    if (this.authService.decodedToken == null) {
+      return;
+    } else {
+      if (this.authService.decodedToken.isAdmin == 'True') {
+        this.router.navigate(["/admin/main"]);
+      }
+    }
   }
 
 

@@ -47,7 +47,6 @@ export class CreateProductComponent implements OnInit {
   }
 
   saveProduct() {
-    console.log(this.product)
     this.productService.addProduct(this.product).subscribe(res => {
       this.productService.currentProduct = res;
       console.log(res)
@@ -61,6 +60,7 @@ export class CreateProductComponent implements OnInit {
   addColor() {
     this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
     this.productSize.productSizeColor.push(this.productSizeColor);
+    console.log(this.productSizeColor)
     this.productSizeColor = new ProductSizeColor();
   }
 

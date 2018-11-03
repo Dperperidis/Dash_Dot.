@@ -1,10 +1,5 @@
 <app-navbar></app-navbar>
-
 <div class="container mt-5">
-
-
-
-
   <div class="thumbnail text-center">
     <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
     <div class="caption">
@@ -12,14 +7,11 @@
 
     </div>
 
-
   </div>
   <hr>
 
   <form class="form-inline">
-
     <div class="form-group">
-
       <label for="exampleSelect1" class="text-dark font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
       <br>
       <select class="form-control" id="exampleSelect1">
@@ -45,17 +37,10 @@
       <a href="#"><i class="fa fa-th text-primary"></i></a>
     </div>
   </form>
-  <!-- <select class="form-control" id="exampleSelect1" *ngIf="isAdmin">
-      <option>ΕΜΦΑΝΙΣΕ ΤΑ ΚΑΛΟΚΑΙΡΙΝΑ</option>
-      <option>ΕΜΦΑΝΙΣΕ ΧΕΙΜΩΝΙΑΤΙΚΑ</option>
-
-    </select> -->
-
-
   <div class="row ">
 
-    <div class="col-lg-3 col-sm-6 col-12" *ngFor="let product of product">
-      <div class="card text-center " style="width: 100%">
+    <div class="col-lg-3 col-sm-6 col-12" *ngFor="let product of product" >
+      <div class="card text-center"  style="width: 100%" >
         <img class="card-img-top" src="{{product.photoUrl}}" alt="Card image cap">
         <br>
         <h6 class="card-text text-dark font-weight-bold">{{product.title}}</h6>
@@ -68,7 +53,7 @@
         <div class="btn-toolbar">
           <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>Προσθήκη
             στο καλάθι</button>
-          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/slimfit/details/',product.id]"><i
+          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/product',product.seoUrl]"><i
               class="fa fa-info-circle"></i>
             Λεπτομέρειες</button>
         </div>

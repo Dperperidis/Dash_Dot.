@@ -7,7 +7,7 @@
         <option>Γραβάτα</option>
         <option>Παπιγιόν</option>
         <option>Ζώνες</option>
-        <option>Γιλέκα</option>
+        <option>Γιλέκο</option>
         <option>Πλεκτά</option>
         <option>Κασκόλ</option>
       </select>
@@ -29,21 +29,19 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Όνομα Προϊοντος</th>
-        <th scope="col">ΥΛΙΚΟ</th>
+        <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
         <th scope="col">ΚΩΔΙΚΟΣ</th>
         <th scope="col">ΤΙΜΗ</th>
-        <th scope="col">Εποχη</th>
-        <th scope="col">Βασικη Φωτογραφια</th>
-        <th scope="col">Ενεργειες</th>
+        <th scope="col">ΕΚΠΤΩΣΗ</th>
+        <th scope="col">ΦΩΤΟΓΡΑΦΙΑ</th>
+        <th scope="col">Ενέργειες</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of productList;let i = index">
+      <tr *ngFor="let p of product;let i = index">
         <th scope="row">{{i + 1}}</th>
-        <td>{{p.material}}</td>
         <td>{{p.title}}</td>
-        <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code"  placeholder="Κωδικός Προϊόντος"></td>
+        <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code" placeholder="Κωδικός Προϊόντος"></td>
         <td style="width:100px">
           <div class="form-group">
             <div class="input-group mb-3">
@@ -55,13 +53,25 @@
           </div>
 
         </td>
-        <!-- <td>{{p.price | currency:'EUR':symbol }}</td> -->
-        <td>{{p.season}}</td>
+        <td style="width:100px">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input name="price" class="form-control" [(ngModel)]="p.discount" disabled placeholder="">
+              <div class="input-group-append">
+                <span class="input-group-text">€</span>
+              </div>
+            </div>
+          </div>
+        </td>
         <td style="width:100px;"><img src="{{p.photoUrl}}" class="ml-4"></td>
         <td>
           <div class="mt-3 btn-group">
-            <button type="button" class="btn-outline-danger mr-2 btn-sm"><i class="fa fa-times"></i></button>
-            <button type="button" class="btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+            <button type="button" class="btn-outline-danger mr-2 btn-sm" (click)="deleteProduct(p.id)"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn-outline-warning btn-sm" [routerLink]="['/admin/main/edit/', p.id]"  ><i class="fa fa-edit"></i></button>
+            <select name="active" class="form-control ml-2" id="exampleSelect1" [(ngModel)]="p.active">
+              <option>Ενεργοποιημένο</option>
+              <option>Απενεργοποιημένο</option>
+            </select>
           </div>
       </tr>
     </tbody>

@@ -6,19 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using DashnDotApp.Dtos;
 
 namespace DashnDotApp.Controllers
 {
-
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SizesColorsController : ControllerBase
     {
         private SqlContext _ctx;
+        private readonly IProductRepository _repo;
 
-        public SizesColorsController(SqlContext ctx)
+        public SizesColorsController(SqlContext ctx, IProductRepository repo)
         {
             _ctx = ctx;
+            _repo = repo;
         }
 
         [Route("addColor")]
@@ -27,6 +31,11 @@ namespace DashnDotApp.Controllers
         {
             try
             {
+                if (_ctx.Color.Any(x => x.Title == color.Title))
+                {
+                    return BadRequest("Το χρώμα ήδη υπάρχει!");
+                }
+
                 var result = _ctx.Color.Add(color);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
@@ -36,6 +45,48 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Could not add color");
             }
             
+
+        }
+
+
+        [Route("updateColor")]
+        [HttpPost]
+        public IActionResult UpdateColor([FromBody]Color color)
+        {
+            try
+            {
+
+                var result = _ctx.Color.Update(color);
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not add color");
+            }
+
+
+        }
+
+
+        [Route("deleteColor/{id}")]
+        [HttpDelete]
+        public ActionResult DeleteColor(int id)
+        {
+            try
+            {
+
+                var color = _repo.GetColor(id);
+
+                var result = _ctx.Color.Remove(color);
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not add color");
+            }
+
 
         }
 
@@ -93,22 +144,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-        [Route("getSizeColor/{productId}")]
-        [HttpGet]
-        public ActionResult GetSizes(int productId)
-        {
-            try
-            {
-                var result = _ctx.ProductSizes.Include("ProductSizeColor").Include("ProductSizeColor.Color").FirstOrDefault(x => x.ProductId == productId);
-                return Ok(result);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Κάτι πήγε στραβά");
-            }
-
-        }
+      
 
     }
 

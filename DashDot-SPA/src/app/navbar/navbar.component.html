@@ -52,45 +52,68 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse text-center" id="navbarColor01">
+  <div class="collapse navbar-collapse text-center" id="navbarColor01" >
     <div class="container">
       <div class="btn-group show-on-hover ">
         <a id="button-basic" aria-controls="dropdown-basic" class="btn nav ">
-          Ανδρικα Πουκαμισα
+          Πουκάμισα
         </a>
 
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic" style="width:500px;">
-          <div class="row">
-            <a class="col-md-4 text-white text-center" [routerLink]="['/andrika-poukamisa/slim_fit']">
-              <img src="../../assets/images/2.png" alt="">
-              <br>
-
-              <h5>Slim Fit</h5>
-            </a>
-            <div class="col-md-4 text-center text-white">
-              <img src="../../assets/images/4.png" alt="">
-              <br>
-
-              <h5>Regular Fit</h5>
-            </div>
-            <div class="col-md-4 text-center text-white">
-              <img src="../../assets/images/9.png" alt="">
-              <br>
-              <h5>ΜΕΓΕΘΟΛΟΓΙΟ</h5>
-            </div>
-          </div>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/shirts/','Slim-Fit']">Slim
+              Fit</a></li>
+              <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/shirts/','Regular-Fit']">Regular Fit</a></li>
+          <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item  text-center" >ΜΕΓΕΘΟΛΟΓΙΟ</a></li>
         </ul>
+
+      </div>
+      <div class="btn-group show-on-hover ">
+        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav ">
+          Πλεκτά
+        </a>
+
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear','Cardigans']">Ζακέτες</a></li>
+          <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear', 'Sweaters']"  >Πουλόβερ</a></li>
+          <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear','Sweater Vests']" >Καζάκα</a></li>
+          <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear', 'Vests']">Γιλέκα</a></li>
+        </ul>
+
       </div>
       <div class="btn-group show-on-hover">
         <a id="button-basic" aria-controls="dropdown-basic" class="btn nav">
           Αξεσουαρ
         </a>
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Παπιγιόν</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Μανικετόκουμπα</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Γραβάτες</a></li>
+        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic" style="width:300px;">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Παπιγιόν</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Μανικετόκουμπα</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center"[routerLink]="['/accessories','Ties']">Γραβάτες</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Κλιπ Γραβάτας</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Κασκώλ</a></li>
+            </div>
+            <div class="col-md-6">
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Σκουφάκια</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Φουλάρια</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Ζώνες</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Τιράντες</a></li>
+              <div class="dropdown-divider"></div>
+              <li role="menuitem"><a class="dropdown-item  text-center" href="#">Καπέλα</a></li>
+            </div>
+          </div>
         </ul>
 
       </div>
@@ -100,11 +123,11 @@
         </a>
         <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Blog news</a></li>
-          <li class="divider dropdown-divider"></li>
+          <div class="dropdown-divider"></div>
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Social media</a></li>
-          <li class="divider dropdown-divider"></li>
+          <div class="dropdown-divider"></div>
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Eπώνυμοι</a></li>
-          <li class="divider dropdown-divider"></li>
+          <div class="dropdown-divider"></div>
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Στυλιστικός οδηγός</a></li>
         </ul>
       </div>
@@ -114,9 +137,9 @@
         </a>
         <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες παραλαβές</a></li>
-          <li class="divider dropdown-divider"></li>
+          <div class="dropdown-divider"></div>
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες προσφορές</a></li>
-          <li class="divider dropdown-divider"></li>
+          <div class="dropdown-divider"></div>
           <li role="menuitem"><a class="dropdown-item  text-center" href="#">Ωράρια καταστημάτων</a></li>
         </ul>
       </div>

@@ -15,9 +15,10 @@ namespace DashnDotApp.Dtos
         Task<bool> SaveAll();
         Task <IEnumerable<Product>> GetProducts(ProductParams productParams);
         Product GetProduct(int id);
+        Product GetProductByTitle(string title);
         Task<Product> GetProduct(string code);
         Task<Photo> GetPhoto(int id);
-
+        Color GetColor(int id);
         Task<Photo> GetMainPhotoForProduct(int productId);
         Task<IEnumerable<Product>> GetProducts(string category);
 

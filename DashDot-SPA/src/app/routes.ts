@@ -13,17 +13,14 @@ import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
 import { ProductDetailComponent } from "./admin-main/product-detail/product-detail.component";
 import { AdminChartsComponent } from "./admin-main/admin-charts/admin-charts.component";
 import { ProductSettingsComponent } from "./admin-main/product-settings/product-settings.component";
+import { GetProductResolver } from "./_resolvers/product-get.resolver";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
-    {
-        path: 'andrika-poukamisa',
-        children: [{
-            path: '', component: ItemsListComponent, children: [
-                { path: 'slim_fit', component: ItemsListComponent, }]
-        }]
-    },
-    { path: 'slimfit/details/:id', component: ItemDetailsComponent, resolve: { product: PhotoUploadResolver } },
+    {path: 'shirts/:id', component:  ItemsListComponent,},
+    {path: 'accessories/:id', component:  ItemsListComponent  },
+    {path: 'knitt-wear/:id', component:  ItemsListComponent  },
+    { path: 'product/:id', component: ItemDetailsComponent, resolve: { product: GetProductResolver } },
     { path: 'login', component: LogRegComponent },
     { path: 'admin', component: AdminpageComponent },
 

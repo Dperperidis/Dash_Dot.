@@ -46,6 +46,7 @@ export class EditProductComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.productService.currentProduct = data["product"];
       this.product = this.productService.currentProduct;
+      console.log(this.product)
     });
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DashnDotApp.Migrations
 {
-    public partial class @new : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,7 @@ namespace DashnDotApp.Migrations
                     Description = table.Column<string>(nullable: true),
                     Sleeve = table.Column<string>(nullable: true),
                     Design = table.Column<string>(nullable: true),
+                    seoUrl = table.Column<string>(nullable: true),
                     Quantity = table.Column<string>(nullable: true),
                     Discount = table.Column<string>(nullable: true),
                     Active = table.Column<string>(nullable: true)

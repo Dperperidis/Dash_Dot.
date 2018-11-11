@@ -101,6 +101,8 @@ namespace DashnDotApp.Migrations
 
                     b.Property<string>("Title");
 
+                    b.Property<string>("TotalCost");
+
                     b.Property<string>("seoUrl");
 
                     b.HasKey("Id");
@@ -219,7 +221,7 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Product", "Product")
+                    b.HasOne("DashnDotApp.Model.Product")
                         .WithMany("ProductSizes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);

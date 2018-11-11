@@ -1,29 +1,42 @@
 <app-navbar></app-navbar>
-<div class="container mt-5">
-  <div class="thumbnail text-center">
+<div class="container ">
+  <div class="thumbnail text-center mt-5">
     <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
     <div class="caption">
       <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
-
     </div>
-
   </div>
   <hr>
-
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="exampleSelect1" class="text-dark font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
+  <div class="form-inline">
+    <div class="form-group ml-3">
+      <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
       <br>
-      <select class="form-control" id="exampleSelect1">
-        <option>Προεπιλογή</option>
-        <option>Newest > oldest</option>
+      <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
+        <option></option>
+        <option>Newest > Oldest</option>
         <option>Oldest > Newest</option>
         <option>Τιμή (Χαμηλή > Υψηλή)</option>
         <option>Τιμή (Υψηλή > Χαμηλή)</option>
       </select>
     </div>
+    <div class="form-group ml-3">
+      <label for="exampleSelect1" class="font-weight-bold" >ΜΕΓΕΘΟΣ:</label>
+      <br>
+      <select class="form-control" id="exampleSelect1" #size (change)="sortBySize(size.value)">
+        <option></option>
+        <option>Small</option>
+        <option>Medium</option>
+        <option>Large</option>
+        <option>XLarge</option>
+        <option>XXLarge</option>
+        <option>3XLarge</option>
+        <option>4XLarge</option>
+        <option>5XLarge</option>
+        <option>6XLarge</option>
+      </select>
+    </div>
     <div class="form-group text-center ">
-      <label for="exampleSelect1" class="text-dark font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
+      <label for="exampleSelect1" class=" font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
       <br>
       <select class="form-control" id="exampleSelect1">
         <option>20</option>
@@ -33,36 +46,68 @@
       </select>
     </div>
     <div class="form-group">
-      <a href="#"><i class="fa fa-list mr-2 text-primary"></i></a>
-      <a href="#"><i class="fa fa-th text-primary"></i></a>
+      <a style="cursor:pointer"><i class="fa fa-list mr-2 text-primary" (click)="hideBox()"></i></a>
+      <a style="cursor:pointer"><i class="fa fa-th text-primary" (click)="hideList()"></i></a>
     </div>
-  </form>
-  <div class="row ">
+  </div>
+  <br>
+  <div class="row " *ngIf="box">
+    <div class="col-lg-3 col-sm-6 col-12 " *ngFor="let product of product">
+      <div class="card text-center p-3">
+        <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
+        <img class="card-img-top img-fluid" src="{{product.photoUrl}}" alt="Card image cap">
 
-    <div class="col-lg-3 col-sm-6 col-12" *ngFor="let product of product" >
-      <div class="card text-center"  style="width: 100%" >
-        <img class="card-img-top" src="{{product.photoUrl}}" alt="Card image cap">
-        <br>
-        <h6 class="card-text text-dark font-weight-bold">{{product.title}}</h6>
-
+        <h6 class="card-text text-dark font-weight-bold mt-3">{{product.title}}</h6>
         <hr>
         <div class="card-body text-center">
           <h6>Κωδ: {{product.code}}</h6>
-          <a class="card-link text-dark font-weight-bold ">{{product.price | currency:'EUR':symbol }}</a>
+          <h4 class="card-title">Τιμή:
+            <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+              (product.price - product.discount) |
+              currency:'EUR':symbol}}</span>
+            <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+              product.price |
+              currency:'EUR':symbol}}</span></h4>
         </div>
         <div class="btn-toolbar">
-          <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>Προσθήκη
-            στο καλάθι</button>
-          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/product',product.seoUrl]"><i
-              class="fa fa-info-circle"></i>
+          <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
+            Kαλάθι</button>
+          <button type="button" class="btn btn-secondary btn-block" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-info-circle"></i>
             Λεπτομέρειες</button>
         </div>
       </div>
       <br>
     </div>
   </div>
-
-
+  <div class="row" *ngIf="list">
+    <div class="featurette col-md-12" *ngFor="let product of product">
+      <div class="row">
+        <div class="col-md-8 order-md-2 mt-4 ">
+          <h4 class="featurette-heading card-header">{{product.title}}</h4>
+          <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>
+          <br>
+          <h6 class="font-weight-bold">Κωδ: {{product.code}}</h6>
+          <p class="lead">{{product.description}}</p>
+          <h4 class="card-title">Τιμή:
+            <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+              (product.price - product.discount) |
+              currency:'EUR':symbol}}</span>
+            <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+              product.price |
+              currency:'EUR':symbol}}</span></h4>
+          <div class="btn-toolbar mt-3">
+            <button type="button" class="btn btn-primary mr-2"><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>
+            <button type="button" class="btn btn-secondary mr-2" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-info-circle"></i>
+              Λεπτομέρειες</button>
+          </div>
+        </div>
+        <div class="col-md-4 order-md-1  text-center">
+          <img class=" img-fluid mx-auto" src="{{product.photoUrl}}" alt="Generic placeholder image">
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
   <br>
   <div>
     <ul class="pagination ">
@@ -89,7 +134,5 @@
       </li>
     </ul>
   </div>
-
 </div>
-
 <app-footer></app-footer>

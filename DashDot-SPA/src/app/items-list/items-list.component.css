@@ -1,6 +1,8 @@
 .mt-5{
-    margin-top:10rem!important;
+    margin-top:13rem!important;
 }
+
+
 
 .form-control{
     margin: 10px;
@@ -8,21 +10,24 @@
 }
 
 .form-group>a>i {
-    font-size: 30px;
-    
+    font-size: 30px;  
 }
 
 img{
     max-height: 13rem;
-    max-width: 10rem;
+    max-width: 9rem;
     margin: 0 auto;
     margin-top:10px;
 }
 
+.card-header{
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
+}
+
+
 .thumbnail>img{
     max-width:120rem!important;
 }
-
 
 .card-body{
     padding: 0.25rem;
@@ -30,18 +35,18 @@ img{
 
 .card:hover{
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22);
-    overflow: hidden;
+  
 }
 
 .card img {
     transform: scale(1, 1);
-    transition-duration: 500ms;
+    transition-duration:400ms;
     transition-timing-function: ease-out;
 }
 
 .card:hover img {
     transform: scale(1.1, 1.1);
-    transition-duration: 500ms;
+    transition-duration: 400ms;
     transition-timing-function: ease-out;
     opacity: 1;
 }
@@ -49,3 +54,75 @@ img{
 h2{
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+.form-inline{
+    background-image:linear-gradient(60deg,white,rgb(161, 162, 165), rgb(212, 132, 25))
+}
+
+.order-md-1 img{
+    transform: scale(1, 1);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.order-md-1:hover img{
+    transform: scale(1.1, 1.1);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 1;
+}
+
+.card-title{
+    font-size:18px;
+}
+
+.discount{
+    text-decoration: line-through;
+    font-size:15px;
+}
+
+
+.ribbon {
+    position: absolute;
+    right: -5px; top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 80px; height: 80px;
+    text-align: right;
+  }
+
+.ribbon span {
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    background: #79A70A;
+    background: linear-gradient(#F79E05 0%, #8F5408 100%);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    position: absolute;
+    top: 19px; right: -20px;
+  }
+  .ribbon span::before {
+    content: "";
+    position: absolute; left: 0px; top: 100%;
+    z-index: -1;
+    border-left: 3px solid #8F5408;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #8F5408;
+  }
+  .ribbon span::after {
+    content: "";
+    position: absolute; right: 0px; top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #8F5408;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #8F5408;
+  }

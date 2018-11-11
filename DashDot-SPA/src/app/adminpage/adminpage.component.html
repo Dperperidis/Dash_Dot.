@@ -2,8 +2,8 @@
   <div class="card-body">
     <div class="container">
       <br>
-      <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
-        <h1 class="display-3 text-white font-weight-bold" [routerLink]="['/']"  >dāsh&dot.</h1>
+      <form class="form my-2 my-lg-0 text-center" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
+        <img src="../../assets/images/logo_dashndot.png" alt="" class="" [routerLink]="['/']"  >
         <h5 class="text-white">Admin System</h5>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Email" required name="email" [(ngModel)]="admin.email">
@@ -11,6 +11,10 @@
         <Br>
         <input class="form-control mr-sm-2" type="password" placeholder="Kωδικός" required name="password" [(ngModel)]="admin.password">
         <div class="modal-footer">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked=""   [(ngModel)]="admin.saveUser">
+            <label class="custom-control-label text-white" for="saveUser">Remember me</label>
+          </div>
           <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Είσοδος</button>
         </div>
       </form>

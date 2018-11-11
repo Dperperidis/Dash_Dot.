@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181024193306_test")]
-    partial class test
+    [Migration("20181106172557_photo")]
+    partial class photo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -95,13 +95,15 @@ namespace DashnDotApp.Migrations
 
                     b.Property<string>("Price");
 
-                    b.Property<int>("Quantity");
+                    b.Property<string>("Quantity");
 
                     b.Property<string>("Season");
 
                     b.Property<string>("Sleeve");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("seoUrl");
 
                     b.HasKey("Id");
 
@@ -219,7 +221,7 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Product")
+                    b.HasOne("DashnDotApp.Model.Product", "Product")
                         .WithMany("ProductSizes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);

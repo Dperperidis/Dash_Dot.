@@ -24,6 +24,20 @@ namespace DashnDotApp.Dtos
         public string Discount { get; set; }
         public string Active { get; set; }
         public string PhotoUrl { get; set; }
+        public int TotalCost
+        {
+            get
+            {
+                if (Discount == null)
+                {
+                    return int.Parse(Price);
+
+                }
+                return int.Parse(Price) - int.Parse(Discount);
+
+            }
+
+        }
         public ICollection<PhotoForDetailedDto> Photos { get; set; }
         public virtual IList<ProductSize> ProductSizes { get; set; }
         public virtual IList<ProductSizeColor> ProductSizeColors { get; set; }

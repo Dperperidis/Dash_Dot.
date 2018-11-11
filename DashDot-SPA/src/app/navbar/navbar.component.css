@@ -1,76 +1,77 @@
 .navbar-brand > img {
-  height: 36px;
+  height: 45px;
 }
 
 .bg-primary {
-  height: 3rem;
+  height: 4rem;
+  margin-top:2rem;
+  box-shadow:0px -2px 5px #000000;
   background-color: rgb(30, 30, 32)!important;
   background-image:url('http://madeindesign.co/wp-content/uploads/2018/08/dark-brick-wall-vinyl-mural-hd.jpg')
 }
 
 .navbar-light{
-  margin-top:3rem!important;
+  margin-top:6rem!important;
   height:40px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 15px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(0, 0, 0, 0.22);
   background-image:linear-gradient(white,rgb(134, 121, 107))
   }
   
 
+.dropdown-menu{
+  background-color:black;
+  margin:0;
+  left: 50% !important;
+  right: auto !important;
+  text-align: center !important;
+  transform: translate(-50%, 0) !important;
+}
 
-.show-on-hover>.btn{
-  font-size:13px;
+.btn-group>.btn{
+  font-size:14px;
   font-weight: bold;
-  padding: 11px 1.75rem;
+  padding: 8px 1.75rem;
   color:rgb(7, 0, 0); 
-  border-radius: 15px 50px;
+
 }
 
-.show-on-hover:hover > ul.dropdown-menu {
+ .btn-group:hover > ul {
   display: block;
-}
-
-.dropdown-menu {
-  background-color:rgb(255, 251, 251);
-  border-radius: 8px;
-  position: absolute;
-  
-}
+} 
 
 
 
+.dropdown-menu > li>a:hover {
+   color: rgb(212, 132, 25);
+   background-color:rgba(255, 255, 255, 0);
 
-.dropdown-menu > li > a:hover {
-  background-image:linear-gradient(rgba(0, 0, 0, 0.514),rgb(247, 150, 39));
-   color: rgb(255, 255, 255);
-
-   /* background-color:rgba(255, 0, 0, 0); */
 }
 
 .dropdown-menu > li > a {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   block-size: 34px;
+  transition: color 0.3s linear ;
 }
 
 .col-md-6> li > a {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   block-size: 34px;
+  transition: color 0.3s linear ;
 }
 
 .col-md-6 > li > a:hover {
-  background-image:linear-gradient(rgba(0, 0, 0, 0.514),rgba(247, 150, 39, 0.904));
-  color: rgb(255, 255, 255);
-
+  text-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+   color: rgb(212, 132, 25);
+   background-color:rgba(255, 255, 255, 0);
 }
 
-
-.nav:hover {
-  color: rgb(255, 255, 255)!important;
-  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  background-color:rgba(161, 93, 3, 0.836);
+.bg-white{
+  height:10px;
+  background-color:rgb(212, 132, 25)!important;
 }
 
 ul {
@@ -93,19 +94,11 @@ ul {
 
 .navbar-light>.container{
   justify-content: center;
- 
 }
 
 
-
-h5{
-  text-decoration: underline overline;
-  color:rgb(247, 150, 39)
-  
-}
 
 .text-center>img{
-
   width:70px;
   max-height: 130px;
 }
@@ -113,13 +106,46 @@ h5{
 
 @media (max-width:995px){
   .navbar-light{
-    margin-top:85px!important;
+    margin-top:130px!important;
   }
   .bg-primary{
-    height: 86px;
+    height: 100px;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     left: -50px!important;
     right: auto;
   }
+}
+
+
+
+.btn-group>a{
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+.btn-group>a:hover{
+  color:rgb(212, 132, 25);
+}
+
+.btn-group>a:before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.btn-group>a:hover:before{
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
 }

@@ -24,6 +24,7 @@ namespace DashnDotApp.Model
         public string Quantity { get; set; }
         public string Discount { get; set; }
         public string Active { get; set; }
+        public string TotalCost { get; set; }
         public virtual IList<Photo> Photos { get; set; }
         public virtual IList<ProductSize> ProductSizes { get; set; }
         public Product()
@@ -38,7 +39,6 @@ namespace DashnDotApp.Model
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public Product Product { get; set; }
         public int SizeId { get; set; }
         public Size Size { get; set; }
         public IList<ProductSizeColor> ProductSizeColor { get; set; }

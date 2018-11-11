@@ -43,28 +43,31 @@ namespace DashnDotApp.Controllers
             userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.Email))
-                return BadRequest("There is already an account with this email");
+                return BadRequest("Υπάρχει ήδη λογαριασμός με αυτό το E-mail!");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            //var userToReturn = _mapper.Map<UserForRegisterDto>(createdUser);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
 
-            return Ok(201);
+            return CreatedAtRoute("Get User", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
 
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
-            if (userFromRepo == null)
-                return Unauthorized();
-
-            var claims = new[]
+            try
             {
+                var userFromRepo = await _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
+
+                if (userFromRepo == null)
+                    return Unauthorized();
+
+                var claims = new[]
+                {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userForLoginDto.Email),
                 new Claim("isAdmin", userFromRepo.IsAdmin.ToString()),
@@ -73,27 +76,38 @@ namespace DashnDotApp.Controllers
 
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddDays(1),
+                    SigningCredentials = creds
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                return Ok(new
+                {
+                    token = tokenHandler.WriteToken(token)
+                });
+            }
+            catch
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
+                throw new Exception("Κάτι πήγε στραβά");
+            }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+           
         }
     }
 
-    
 }
+
+
+
+    
+

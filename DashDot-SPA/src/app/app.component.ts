@@ -11,9 +11,8 @@ export class AppComponent {
   jwtHelper = new JwtHelperService();
 
 
-
   constructor(private authService: AuthService,
-  ){
+  ) {
 
   }
 
@@ -24,6 +23,14 @@ export class AppComponent {
       this.authService.isAdmin =
         this.authService.decodedToken.isAdmin === "True";
     }
+    else {
+      const token = sessionStorage.getItem("token")
+      if (token) {
+        this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+        this.authService.isAdmin =
+          this.authService.decodedToken.isAdmin === "True";
+      }
 
+    }
   }
 }

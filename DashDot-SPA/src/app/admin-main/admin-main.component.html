@@ -1,5 +1,4 @@
 <app-admin-navbar></app-admin-navbar>
-
 <div class="row">
     <div class="col-md-2">
         <div class="card">
@@ -15,31 +14,56 @@
                             class="fa fa-fw fa-tachometer"></i>Dashboard<i class="fa fa-angle-down pull-right"></i>
                     </a>
                     <div id="collapseBasic" [collapse]="isCollapsed" class="ml-3">
-                       
+
                         <a class="nav-link text-white" [routerLink]="['/admin/main']">
                             <hr>
                             <i class="fa fa-fw fa-tachometer"></i>
                             Αρχική σελίδα
-
                         </a>
-                        <a class="nav-link text-white" [routerLink]="['/admin/main/create-product']" routerLinkActive="router-link-active">
+                    </div>
+                    <hr>
+                </li>
+                <li class="nav-item active">
+                    <a (click)="isCollapsed1 = !isCollapsed1" [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic1"><i
+                            class="fa fa-archive" aria-hidden="true"></i>
+                        Προϊόντα<i class="fa fa-angle-down pull-right"></i>
+                    </a>
+                    <div id="collapseBasic1" [collapse]="isCollapsed1" class="ml-3">
+                        <hr>
+                        <!-- <a class="nav-link text-white" [routerLink]="['/admin/main']">
+                           
+                            <i class="fa fa-search"></i>
+                           Αναζήτηση Προϊόντος
+                        </a> -->
+                        <a class="nav-link  text-white" [routerLink]="['/admin/main/create-product']">
                             <i class="fa fa-plus-circle"></i>
                             Δημιουργία Προιόντος
                         </a>
+                        <a class="nav-link text-white " [routerLink]="['/admin/main/details']">
+                            <i class="fa fa-list mr-1 " aria-hidden="true"></i>
+                            Λίστα Προϊόντων</a>
 
                     </div>
                     <hr>
                 </li>
                 <li class="nav-item active">
-
+                    <a (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic2"><i
+                            class="fa fa-user mr-1"></i>Πελάτες<i class="fa fa-angle-down pull-right"></i>
+                    </a>
+                    <div id="collapseBasic2" [collapse]="isCollapsed2" class="ml-3">
+                            <hr>
+                        <a class="nav-link text-white" [routerLink]="['/admin/main']">
+                           
+                            <i class="fa fa-list-ol" aria-hidden="true"></i>
+                            Λίστα Πελατών
+                        </a>
+                    </div>
+                    <hr>
                 </li>
-                <li class="nav-item" [routerLink]="['/admin/main/details']" routerLinkActive="router-link-active">
-                    <a class="nav-link">
-                        <i class="fa fa-fw fa-line-chart"></i>
-                        <span>Λίστα Προιόντος</span></a>
+                <li class="nav-item active">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/admin/main/product-settings']" >
+                    <a class="nav-link" [routerLink]="['/admin/main/product-settings']">
                         <i class="fa fa-fw fa-table"></i>
                         <span>Προσθήκη Χρωμάτων & Μεγεθών</span></a>
                 </li>
@@ -51,16 +75,9 @@
             </ul>
         </div>
 
-
-
-
-
     </div>
     <div class="col-md-10">
-
-        <!-- <breadcrumb [allowBootstrap]="true"></breadcrumb> -->
         <router-outlet></router-outlet>
-
 
     </div>
 </div>

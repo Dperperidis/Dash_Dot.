@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
   isAdmin = false;
   public isCollapsed = false;
-  product = new Array<Product>();
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -26,10 +25,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     }));
-    this.productService.getProducts().subscribe(res => {
-      this.product = res;
-    })
-
   }
 
   loggedIn() {
@@ -44,6 +39,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.toastr.success("Logout Success");

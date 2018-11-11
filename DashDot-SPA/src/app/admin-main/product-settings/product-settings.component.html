@@ -10,50 +10,46 @@
 
             </div>
 
+        </div>
+
+
+        <div class="col-md-6">
             <div class="form-group ml-3">
                 <label for="exampleInputEmail1">Προσθήκη Χρωμάτων</label>
                 <input name="title" class="form-control" [(ngModel)]="colorNew.title">
                 <label for="exampleInputEmail1">Προσθήκη Κωδικού</label>
-                <input name="title" class="form-control" [(ngModel)]="colorNew.rgb" >
+                <input name="title" class="form-control" [(ngModel)]="colorNew.rgb">
                 <br>
-                <button class="btn btn-primary mr-5" (click)="addOrUpdateColor()" [disabled]="!colorNew.title || !colorNew.rgb">{{colorNew.id ? "Αποθήκευση":"Καταχώρηση Χρώματος"}} </button>
-                <input [value]="color" [style.background]="color" [(colorPicker)]="color" class=""/>
+                <button class="btn btn-primary mr-5" (click)="addOrUpdateColor()" [disabled]="!colorNew.title || !colorNew.rgb">{{colorNew.id
+                    ? "Αποθήκευση":"Καταχώρηση Χρώματος"}} </button>
+                <input [value]="color" [style.background]="color" [(colorPicker)]="color" class="" />
             </div>
-        </div>
-        <div class="col-md-6">
 
         </div>
-
-        <hr>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Χρώμα</th>
-                    <th scope="col">Κωδικός</th>
-                    <th scope="col">Ενέργειες</th>
-                </tr>
-            </thead>
-            <tbody >
-                <tr *ngFor="let color of totalColors; let i= index" style.background-color="{{color.rgb}}">
-                    <th scope="row">{{i + 1}}</th>
-                    <td class="font-weight-bold" >{{color.title}}</td>
-                    <td class="font-weight-bold">{{color.rgb}}</td>
-                    <td style="background-color:white; width:100px"> 
-                        <button type="button" class="btn-outline-danger ml-1 btn-sm" (click)="deleteColor(color.id)" ><i class="fa fa-times"></i></button>
-                        <button type="button" (click)="editColor(i)" class="btn-outline-warning btn-sm ml-2"><i
-                                class="fa fa-edit"></i></button></td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
     </div>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Χρώμα</th>
+                <th scope="col">Κωδικός</th>
+                <th scope="col">Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let color of totalColors; let i= index" style.background-color="{{color.rgb}}">
+                <th scope="row">{{i + 1}}</th>
+                <td class="font-weight-bold">{{color.title}}</td>
+                <td class="font-weight-bold">{{color.rgb}}</td>
+                <td style="background-color:white; width:100px">
+                    <button type="button" class="btn-outline-danger ml-1 btn-sm" (click)="deleteColor(color.id)"><i
+                            class="fa fa-times"></i></button>
+                    <button type="button" (click)="editColor(i)" class="btn-outline-warning btn-sm ml-2"><i class="fa fa-edit"></i></button></td>
+            </tr>
 
+        </tbody>
 
-
-
-
+    </table>
 
 </div>

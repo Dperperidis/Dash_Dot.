@@ -37,7 +37,7 @@ namespace DashnDotApp.Controllers
             try
             {
 
-                var products = _ctx.Product.Include(p => p.Photos).ToList();
+                var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes").Include("SizeId").ToList();
                 var productsToReturn = products.FindAll(x => x.Active == "Ενεργοποιημένο").Where(y => y.Category == category);
                 var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
                 return Ok(productsFull);
@@ -47,14 +47,12 @@ namespace DashnDotApp.Controllers
             {
                 return BadRequest("Σφάλμα");
             }
-
         }
 
         [Route("getProductBySeoUrl/{seoUrl}")]
         [HttpGet]
         public IActionResult GetProduct(string seoUrl)
         {
-
             try
             {
                 var product = _repo.GetProductByTitle(seoUrl);
@@ -67,9 +65,6 @@ namespace DashnDotApp.Controllers
             {
                 return BadRequest("Σφάλμα");
             }
-
-
-
         }
 
         [Route("getSizeColor/{sizeId}/{prodId}")]
@@ -90,7 +85,6 @@ namespace DashnDotApp.Controllers
             {
                 return BadRequest("Κάτι πήγε στραβά");
             }
-
         }
 
         [Route("getProductsByLine/{line}")]
@@ -99,7 +93,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var products = _ctx.Product.Include(p => p.Photos).ToList();
+                var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes").Include("ProductSizes.Size").ToList();
                 var productsToReturn = products.FindAll(x => x.Active == "Ενεργοποιημένο").Where(x => x.Line == line);
                 var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
                 return Ok(productsFull);

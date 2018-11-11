@@ -6,8 +6,7 @@ import { Product, Size, Color, ProductSize, ProductSizeColor } from '../_models/
 import { ProdSettingsService } from '../_services/prodsettings.service';
 
 import { ToastrService } from 'ngx-toastr';
-import { Url } from 'url';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+
 
 @Component({
   selector: 'app-item-details',
@@ -21,6 +20,7 @@ export class ItemDetailsComponent implements OnInit {
   color: Color;
   productSize = new Array<ProductSize>();
   productSizeColor = new Array<Color>();
+  productModal = new Product();
 
 
 
@@ -34,6 +34,7 @@ export class ItemDetailsComponent implements OnInit {
       console.log(this.product)
     });
     this.sizes = this.product.productSizes;
+    this.productModal.photoUrl= this.product.photoUrl;
   }
 
   
@@ -49,8 +50,11 @@ export class ItemDetailsComponent implements OnInit {
 
   onImgChange(imgUrl) {
    this.product.photoUrl = imgUrl;
+   this.productModal.photoUrl = imgUrl; 
   }
-
+  onImgModalChange(imgUrl){
+    this.productModal.photoUrl = imgUrl;
+  }
 
 }
 

@@ -1,9 +1,11 @@
-import { Component, OnInit, TemplateRef} from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Product } from 'src/app/_models/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -12,23 +14,30 @@ import { AdminProductService } from 'src/app/_services/adminproduct.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product = new Array<Product>();
-  productList: any[] = [];
+  product : Product[];
+  editProd= true;
+  
 
 
   constructor(private productService: ProductService,
     private adminProdService: AdminProductService,
-     private router: Router,
+    private router: Router,
     private toastr: ToastrService,
 
   ) { }
 
   ngOnInit() {
+    const category = sessionStorage.getItem("category")
+    this.productService.getProductsByCategory(category).subscribe(res => {
+      this.product = res;
+    })
+
   }
 
   searchProduct(category) {
     this.productService.getProductsByCategory(category).subscribe(res => {
       this.product = res;
+      sessionStorage.setItem('category', category)
     }, error => {
       this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.')
     })
@@ -61,4 +70,20 @@ export class ProductDetailComponent implements OnInit {
       return true;
     }
   }
+
+  edit(){
+    this.editProd = false;
+
+   }
+
+   updateProduct(i) {
+
+    this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
+      this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
+    }, error => {
+      this.toastr.error(error);
+    })
+  }
+
+
 }

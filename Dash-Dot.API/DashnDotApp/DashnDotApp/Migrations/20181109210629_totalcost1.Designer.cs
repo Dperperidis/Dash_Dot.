@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181103083056_koy")]
-    partial class koy
+    [Migration("20181109210629_totalcost1")]
+    partial class totalcost1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,6 +102,8 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Sleeve");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("TotalCost");
 
                     b.Property<string>("seoUrl");
 
@@ -221,7 +223,7 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Product", "Product")
+                    b.HasOne("DashnDotApp.Model.Product")
                         .WithMany("ProductSizes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);

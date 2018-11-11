@@ -1,0 +1,25 @@
+agm-map {
+    height: 500px;
+  }
+
+ .map{
+   margin-top:130px;
+   
+ }
+
+ .card{
+  padding: 10px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
+ }
+
+ .jumbotron{
+   background-image:linear-gradient(white,rgba(236, 231, 231, 0.705))
+ }
+
+.tab-style{
+  background-color:black;
+}
+
+.fa-home, .fa-phone{
+  font-size:15px;
+}

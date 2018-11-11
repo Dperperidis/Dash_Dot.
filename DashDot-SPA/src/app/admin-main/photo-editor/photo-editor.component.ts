@@ -52,6 +52,7 @@ export class PhotoEditorComponent implements OnInit {
         const photo = {
           id: res.id,
           url: res.url,
+          dateAdded: res.dateAdded,
           isMain: res.isMain
         };
         this.photos.push(photo);

@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 })
 export class AdminProductService {
     baseUrl = environment.apiUrl;
+    currentProduct: any;
 
     constructor(private http: HttpClient) { }
 
@@ -28,5 +29,9 @@ export class AdminProductService {
 
     deleteProduct(id: number){
         return this.http.delete(this.baseUrl + 'products/'+ id)
+    }
+    
+    addProduct(product: Product): Observable<Product> {
+        return this.http.post<Product>(this.baseUrl + "products/addProduct", product);
     }
 }

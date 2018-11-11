@@ -23,9 +23,11 @@ export class AdminNavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.toastr.success("Logout Success");
-    this.router.navigate(['/']);
+    this.router.navigate(['/admin']);
   }
 }

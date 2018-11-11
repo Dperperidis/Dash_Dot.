@@ -1,73 +1,74 @@
 <app-navbar></app-navbar>
 <div class="login_page">
-  
   <hr>
   <div class="row container">
     <div class="col-6">
-      <div class="card-body">
-        <div class="container">
-          <div class="card-header">
-            <h4 class="modal-title text-center">Eίσοδος Χρήστη</h4>
-           
+      <h5>ΣΥΝΔΕΘΕΙΤΕ</h5>
+      <div class="card p-4">
+        <h6>Έχετε ήδη λογαριασμό;</h6>
+        <br>
+        <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
+          <h6 class="text-muted">Διεύθυνση ηλεκτρονικού ταχυδρομείου</h6>
+          <input type="text" class="form-control" required name="email" [(ngModel)]="customer.email">
+          <Br>
+          <h6 class="text-muted">Κωδικός Πρόσβασης</h6>
+          <input class="form-control mr-sm-2" type="password" required name="password" [(ngModel)]="customer.password">
+          <div class="modal-footer">
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
+                  <label class="custom-control-label" for="saveUser" >Remember me</label>
+                </div>
+            <button type="submit" class="btn btn-primary">Σύνδεση</button>
           </div>
-          <hr>
-          <br>
-          <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Email" required name="email" [(ngModel)]="customer.email">
-            </div>
-            <Br>
-            <input class="form-control mr-sm-2" type="password" placeholder="Kωδικός" required name="password"
-              [(ngModel)]="customer.password">
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Είσοδος</button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
     <div class="col-6">
-      <div class="card-body">
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-          <h2 class="text-center text-primary">Εγγραφη Χρηστη</h2>
-          <hr>
+      <h5 class="text-primary">ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ</h5>
+      <div class="card p-4">
+        <h6 class="">Δημιουργία λογαριασμού</h6>
+        <br>
+        <form [formGroup]="registerForm" (ngSubmit)="register()" class="form my-2 my-lg-0">
+
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Όνομα" formControlName="firstname" [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}"
+            <h6 class="text-muted">Όνομα</h6>
+            <input type="text" class="form-control" formControlName="firstname" [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}"
               required>
-            <div class="invalid-feedback">Παρακαλώ εισάγετε το όνομα σας.</div>
+            <div class="invalid-feedback">Αυτό το πεδίο είναι υποχρεωτικό.</div>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Επίθετο" formControlName="lastname" [ngClass]="{'is-invalid': registerForm.get('lastname').errors && registerForm.get('lastname').touched}"
+            <h6 class="text-muted">Επίθετο</h6>
+            <input type="text" class="form-control" formControlName="lastname" [ngClass]="{'is-invalid': registerForm.get('lastname').errors && registerForm.get('lastname').touched}"
               required>
-            <div class="invalid-feedback">Παρακαλώ εισάγετε το επιθετό σας.</div>
+            <div class="invalid-feedback">Αυτό το πεδίο είναι υποχρεωτικό.</div>
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
-              required>
-            <div class="invalid-feedback">Παρακαλώ εισάγετε
-              το email σας.
+            <h6 class="text-muted">Διεύθυνση ηλεκτρονικού ταχυδρομείου</h6>
+            <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
+              required email>
+            <div class="invalid-feedback">Εισάγετε ένα έγκυρο Email.
             </div>
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Kωδικός πρόσβασης" formControlName="password"
-              [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched}"
+            <h6 class="text-muted">Κωδικός</h6>
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched}"
               required>
-            <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">Παρακαλώ
-              εισάγετε τον κωδικό πρόσβασης σας.</div>
+            <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">Αυτό
+              το πεδίο είναι υποχρεωτικό.</div>
           </div>
           <div class="form-group">
-            <input type="password" required class="form-control" placeholder="Επιβεβαίωση κωδικού" formControlName="confirmPassword"
-              [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched 
+            <h6 class="text-muted">Επανάληψη κωδικού</h6>
+            <input type="password" required class="form-control" formControlName="confirmPassword" [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched 
         || registerForm.get('confirmPassword').touched && registerForm.hasError('mismatch')}">
-            <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.get('confirmPassword').touched">Παρακαλώ
-              ξανα-εισάγετε τον κωδικό σας.</div>
+            <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.get('confirmPassword').touched">Αυτό
+              το πεδίο είναι υποχρεωτικό.</div>
             <div class="invalid-feedback" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword').touched">Οι
               κωδικοί πρέπει να ταιριάζουν.
             </div>
           </div>
           <div class="form-group text-center">
-            <button class="btn btn-success" type="submit" [disabled]="registerForm.invalid">Εγγραφη</button>
-            <button class="btn btn-default" type="button">Ακυρωση</button>
+            <button class="btn btn-primary mr-1" type="submit" [disabled]="registerForm.invalid">Εγγραφή</button>
+            <button class="btn btn-default" type="button">Ακύρωση</button>
           </div>
         </form>
       </div>

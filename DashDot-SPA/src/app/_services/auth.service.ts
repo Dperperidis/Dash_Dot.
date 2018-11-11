@@ -29,25 +29,39 @@ export class AuthService {
         return this.http.post(this.baseUrl + "auth/register", user);
     }
 
-    login(user: any) {
-        return this.http.post(this.baseUrl + "auth/login", user).pipe(
+    login(customer: any) {
+        return this.http.post(this.baseUrl + "auth/login", customer).pipe(
             map((response: any) => {
                 const user = response;
                 if (user) {
-                    localStorage.setItem("token", user.token);
-                    localStorage.setItem("user", JSON.stringify(user.user));
-                    this.decodedToken = this.jwtHelper.decodeToken(user.token);
-                    this.isAdmin = this.decodedToken.isAdmin === 'True';
-                    this.currentUser = user.user;
-
+                    if (customer.saveUser == true) {
+                        localStorage.setItem("token", user.token);
+                        localStorage.setItem("user", JSON.stringify(user.user));
+                        this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        this.isAdmin = this.decodedToken.isAdmin === 'True';
+                        this.currentUser = user.user;
+                    } else {
+                        sessionStorage.setItem("token", user.token);
+                        sessionStorage.setItem("user", JSON.stringify(user.user));
+                        this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        this.isAdmin = this.decodedToken.isAdmin === 'True';
+                        this.currentUser = user.user;
+                    }
                 }
             })
         );
     }
 
     loggedIn() {
-        const token = localStorage.getItem("token");
-        return !this.jwtHelper.isTokenExpired(token);
+        if (localStorage.getItem("token")) {
+            const token = localStorage.getItem("token")
+            return !this.jwtHelper.isTokenExpired(token);
+
+        } else {
+            const token = sessionStorage.getItem("token")
+            return !this.jwtHelper.isTokenExpired(token);
+        }
     }
+
 
 }

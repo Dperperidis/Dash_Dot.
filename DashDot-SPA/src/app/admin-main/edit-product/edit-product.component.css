@@ -47,7 +47,7 @@ img{
 }
 
 input, textarea, select{
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
 }
 
 .card{
@@ -83,4 +83,8 @@ input, textarea, select{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.list-group-item{
+    padding: 0 1.25rem;
 }

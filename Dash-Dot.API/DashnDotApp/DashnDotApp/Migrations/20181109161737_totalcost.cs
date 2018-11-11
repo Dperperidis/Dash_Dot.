@@ -2,12 +2,12 @@
 
 namespace DashnDotApp.Migrations
 {
-    public partial class koy : Migration
+    public partial class totalcost : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "seoUrl",
+                name: "TotalCost",
                 table: "Product",
                 nullable: true);
         }
@@ -15,7 +15,7 @@ namespace DashnDotApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "seoUrl",
+                name: "TotalCost",
                 table: "Product");
         }
     }

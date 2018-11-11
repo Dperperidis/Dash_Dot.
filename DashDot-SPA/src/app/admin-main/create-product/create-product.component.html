@@ -8,7 +8,7 @@
           <div class="form-group col-md-2">
             <h4>Κατηγορία Προϊόντος</h4>
             <select name="category" class="form-control" id="exampleSelect1" [(ngModel)]="product.category">
-              <option>Πουκάμισο</option>        
+              <option>Πουκάμισο</option>
               <option>Παπιγιόν</option>
               <option>Γιλέκο</option>
               <option>Πλεκτό</option>
@@ -24,11 +24,12 @@
               <option>Τιράντα</option>
               <option>Καπέλο</option>
               <option>Σκουφάκι</option>
+              <option>Τ-Shirt</option>
             </select>
           </div>
           <div class="col-md-3">
             <h4>Seo Url</h4>
-            <input name="seoUrl" rows="6" class="form-control" [(ngModel)]="product.seoUrl">
+            <input name="seoUrl" class="form-control" [(ngModel)]="product.seoUrl">
           </div>
         </div>
 
@@ -36,11 +37,11 @@
         <div class="row">
           <div class="col-md-3">
             <h4>Όνομα Προϊόντος</h4>
-            <input name="title" rows="6" class="form-control" [(ngModel)]="product.title">
+            <input name="title" class="form-control" [(ngModel)]="product.title">
           </div>
-          <div class="col-md-3" >
+          <div class="col-md-3">
             <h4>Σύνθεση</h4>
-            <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material" >
+            <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
               <option value=""></option>
               <option>100% Cotton</option>
               <option>80% Cotton-20% Polyester</option>
@@ -49,15 +50,15 @@
               <option>100% Linnen</option>
             </select>
           </div>
-          <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο'">
+          <div class="col-md-3">
 
-              <h4>Κωδικός</h4>
-              <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">
-           
+            <h4>Κωδικός</h4>
+            <input name="code" class="form-control" [(ngModel)]="product.code">
+
           </div>
           <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο'">
             <h4>Μανίκι</h4>
-            <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve" >
+            <select name="sleeve" class="form-control" id="exampleSelect1" [(ngModel)]="product.sleeve">
               <option value=""></option>
               <option>Κοντομάνικο</option>
               <option>Μακρυμάνικο</option>
@@ -74,28 +75,26 @@
               <option>Spring/Summer</option>
             </select>
           </div>
-          <div class="col-md-3">
-              <h4>Γραμμή</h4>
-              <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
-                <option value=""></option>
-                <option>Slim-Fit</option>
-                <option>Regular-Fit</option>
-              </select>
-
-
+          <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο' ">
+            <h4>Γραμμή</h4>
+            <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
+              <option value=""></option>
+              <option>Slim-Fit</option>
+              <option>Regular-Fit</option>
+            </select>
           </div>
           <div class="col-md-3">
             <div class="row">
               <div class="col-md-6">
                 <h4>Τιμή</h4>
-                <input name="price" rows="6" class="form-control" [(ngModel)]="product.price" placeholder="€">
+                <input name="price" class="form-control" [(ngModel)]="product.price" placeholder="€">
               </div>
               <div class="col-md-6">
                 <h4>Έκπτωση</h4>
-                <input name="discount" rows="6" class="form-control" [(ngModel)]="product.discount" placeholder="€">
+                <input name="discount" class="form-control" [(ngModel)]="product.discount" placeholder="€">
               </div>
-            </div>
 
+            </div>
           </div>
           <div class="col-md-3">
             <h4>Κατάσταση</h4>
@@ -123,7 +122,7 @@
               </div>
               <div class="col-md-6">
                 <h4>Απόθεμα</h4>
-                <input name="quantity" rows="6" class="form-control" [(ngModel)]="product.quantity">
+                <input name="quantity" class="form-control" [(ngModel)]="product.quantity">
               </div>
             </div>
           </div>
@@ -134,19 +133,23 @@
           </div>
         </div>
         <br>
-        <div class="row">      
+        <div class="row">
           <div class="col-md-6">
             <h4>Περιγραφή</h4>
-            <textarea name="description" rows="6" class="form-control" [(ngModel)]="product.description" value="Ενεργοποιημένο"></textarea>
+            <textarea name="description" class="form-control" [(ngModel)]="product.description" value="Ενεργοποιημένο"
+              style="height:100px;"></textarea>
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-6 " *ngFor="let s of product.productSizes">
+              <div class="col-md-12 " *ngFor="let s of product.productSizes">
                 <ul class="list-group">
-                  <li class="list-group-item" >{{s.size.title}} -
+                  <li class="list-group-item">{{s.size.title}} -
                     {{s.productSizeColor.length + ' Χρώματα'}}
-                    <button type="button" class="btn-outline-danger ml-1 btn-sm"><i class="fa fa-times"></i></button>
-                    <button type="button" (click)="editSize(s,template)" class="btn-outline-warning btn-sm ml-2"><i class="fa fa-edit"></i></button>
+                    <div class="pull-right">
+                      <button type="button" class="btn-outline-danger ml-1 btn-sm"><i class="fa fa-times"></i></button>
+                      <button type="button" (click)="editSize(s,template)" class="btn-outline-warning btn-sm ml-2"><i
+                          class="fa fa-edit"></i></button>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -186,21 +189,24 @@
       </div>
       <div class="col-md-4">
         <h4>Απόθεμα</h4>
-        <input name="count" rows="6" class="form-control" [(ngModel)]="productSizeColor.count">
+        <input name="count" class="form-control" type="number" [(ngModel)]="productSizeColor.count">
       </div>
     </div>
     <br>
-    <button (click)="addColor()" class="btn btn-primary">Προσθήκη</button>
+    <button (click)="addColor()" class="btn btn-primary" [disabled]="!productSizeColor.colorId && !productSizeColor.colorId">Προσθήκη</button>
     <br>
     <div class="row">
+      
       <div class="col-md-6" *ngFor="let pcl of productSize.productSizeColor">
+        <br>
         <ul class="list-group">
-          <li class="list-group-item" (dblclick)="deleteEntity(pcl.color.id)" style.background-color="{{pcl.color.rgb}}">{{pcl.color.title}} -
+          <li class="list-group-item" (dblclick)="deleteEntity(pcl.color.id)" style.background-color="{{pcl.color.rgb}}">{{pcl.color.title}}
+            -
             {{pcl.count}} τεμ.</li>
         </ul>
-        <br>
       </div>
     </div>
   </div>
-  <button (click)="addSize()" class="btn btn-primary">Προσθήκη Μεγέθους</button>
+  <button (click)="addSize()" class="btn btn-primary" [disabled]="!productSize.sizeId && !productSizeColor.colorId">Προσθήκη
+    Μεγέθους</button>
 </ng-template>

@@ -10,7 +10,9 @@ import { AuthService } from '../_services/auth.service';
 })
 export class AdminMainComponent implements OnInit {
   photoUrl: string;
-  public isCollapsed = false;
+  public isCollapsed = true;
+  public isCollapsed1 = true;
+  public isCollapsed2 = true;
 
 
 

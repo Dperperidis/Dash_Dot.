@@ -14,6 +14,7 @@ export class AdminpageComponent implements OnInit {
 
   admin: any = {}
 
+
   constructor(private authService: AuthService, private toastr: ToastrService,
     private router: Router) { }
 
@@ -36,7 +37,6 @@ export class AdminpageComponent implements OnInit {
       } else {
         this.toastr.warning("Δεν έχετε πρόσβαση")
       }
-
     }, error => {
       this.toastr.error("Email/Κωδικός δεν ταιριάζουν");
     });

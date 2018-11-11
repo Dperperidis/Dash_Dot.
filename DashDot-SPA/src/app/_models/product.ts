@@ -17,6 +17,7 @@ export class Product {
     description: string;
     sleeve: string;
     line: string;
+    totalCost: number;
     discount: string;
     photos?: Photo[];
     productSizes: Array<ProductSize>

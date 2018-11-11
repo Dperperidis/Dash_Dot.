@@ -11,13 +11,11 @@ import { Observable, BehaviorSubject } from "rxjs";
 export class ProductService {
     baseUrl = environment.apiUrl;
     currentProduct: any;
+    currentSortByList: any[];
 
     constructor(private http: HttpClient) { }
 
 
-    addProduct(product: Product): Observable<Product> {
-        return this.http.post<Product>(this.baseUrl + "products/addProduct", product);
-    }
 
     getProductById(id: number): Observable<Product> {
         return this.http.get<Product>(this.baseUrl + "products/" + id);
@@ -40,11 +38,15 @@ export class ProductService {
         return this.http.get<Product[]>(this.baseUrl + 'products/getProductsByCategory/'+ category)
     }
 
+
     getProductsByLine(line: string) : Observable<Product[]>{
         return this.http.get<Product[]>(this.baseUrl+ 'customers/getProductsByLine/'+ line)
     }
 
-    
+    getProductsByOrder(order: string){
+        return
+
+    }
 
 
 

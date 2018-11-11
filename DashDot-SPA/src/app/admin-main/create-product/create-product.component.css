@@ -9,9 +9,13 @@ form{
 }
 
 input ,select, textarea{
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
 }
 
 li{
     cursor: pointer;
+}
+
+.list-group-item{
+    padding: 0 1.25rem;
 }

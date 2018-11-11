@@ -14,6 +14,7 @@ import { ProductDetailComponent } from "./admin-main/product-detail/product-deta
 import { AdminChartsComponent } from "./admin-main/admin-charts/admin-charts.component";
 import { ProductSettingsComponent } from "./admin-main/product-settings/product-settings.component";
 import { GetProductResolver } from "./_resolvers/product-get.resolver";
+import { StoreMapsComponent } from "./store-maps/store-maps.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'product/:id', component: ItemDetailsComponent, resolve: { product: GetProductResolver } },
     { path: 'login', component: LogRegComponent },
     { path: 'admin', component: AdminpageComponent },
+    {path: 'stores', component: StoreMapsComponent},
 
     {
         path: 'admin/main',

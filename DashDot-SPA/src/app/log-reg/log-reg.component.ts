@@ -22,7 +22,17 @@ export class LogRegComponent implements OnInit {
 
   ngOnInit() {
     this.createRegisterForm();
+    if (this.authService.decodedToken == null){
+      return;
+    } else {
+      this.router.navigate(['/'])
+      this.toastr.warning('Είσαι ήδη συνδεδεμένος/η')
+    }
   }
+
+
+
+  
 
   createRegisterForm() {
     this.registerForm = this.fb.group({
@@ -56,7 +66,6 @@ export class LogRegComponent implements OnInit {
 
       }, error => {
         this.toastr.error(error);
-        console.log(error);
       }, () => {
         this.authService.login(this.user).subscribe(next => {
           this.router.navigate(['/']);
@@ -79,7 +88,7 @@ export class LogRegComponent implements OnInit {
       this.toastr.success("Καλωσήρθες");
       this.router.navigate(["/"]);
     }, error => {
-      this.toastr.error("Email/Κωδικός δεν ταιριάζουν");
+      this.toastr.error("Το e-mail ή ο κωδικός πρόσβασης σας είναι λανθασμένοι");
     });
   }
 

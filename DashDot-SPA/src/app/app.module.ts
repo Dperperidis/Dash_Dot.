@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
@@ -10,13 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from "ngx-bootstrap";
 import { JwtModule } from "../../node_modules/@auth0/angular-jwt";
 import { routes } from "./routes";
-import { ImageZoomModule } from 'angular2-image-zoom';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BreadcrumbsModule } from "ng6-breadcrumbs";
 import { ModalModule } from 'ngx-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import localeFr from '@angular/common/locales/fr'
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -45,11 +46,23 @@ import { ProductSettingsComponent } from './admin-main/product-settings/product-
 import { ProdSettingsService } from './_services/prodsettings.service';
 import { GetProductResolver } from './_resolvers/product-get.resolver';
 import { AdminProductService } from './_services/adminproduct.service';
+import { StoreMapsComponent } from './store-maps/store-maps.component';
+import { registerLocaleData } from '@angular/common';
+import { SortByService } from './_services/sortbyservice';
 
+registerLocaleData(localeFr);
 
 export function tokenGetter() {
-  return localStorage.getItem("token");
+  if (localStorage.getItem("token")) {
+    return localStorage.getItem("token");
+  } else {
+   if (sessionStorage.getItem("token"))
+  return sessionStorage.getItem("token");
+  }
 }
+
+
+
 
 @NgModule({
   declarations: [
@@ -69,7 +82,8 @@ export function tokenGetter() {
     AdminCardsComponent,
     ProductDetailComponent,
     AdminChartsComponent,
-    ProductSettingsComponent
+    ProductSettingsComponent,
+    StoreMapsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,9 +94,11 @@ export function tokenGetter() {
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule,
-    ImageZoomModule,
     CarouselModule.forRoot(),
     FileUploadModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyCjQ0-_ZDIeusY968G40BkJen-adCm3yWI'
+    }),
     CollapseModule.forRoot(),
     ChartsModule,
     BreadcrumbsModule,
@@ -100,7 +116,10 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [
+  providers: [{
+  provide: LOCALE_ID,
+  useValue: 'fr-FR'
+  },  
     AuthService,
     ProductService,
     PreventUnsavedChanges,
@@ -109,6 +128,7 @@ export function tokenGetter() {
     ErrorInterceptorProvider,
     GetProductResolver,
     AdminAuthGuard,
+    SortByService,
     AdminProductService,
     ProdSettingsService
   ],

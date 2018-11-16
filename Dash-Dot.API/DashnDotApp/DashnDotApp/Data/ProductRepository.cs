@@ -59,10 +59,10 @@ namespace DashnDotApp.Dtos
             return await _ctx.Photos.Where(u => u.productId == productId).FirstOrDefaultAsync(p => p.isMain);
         }
 
-        public async Task<IEnumerable<Product>> GetProducts(ProductParams productParams)
+        public PagedList<Product> GetProducts(ProductParams productParams)
         {
-            var products = await _ctx.Product.Include(p => p.Photos).ToListAsync();
-            return products;
+            var product = _ctx.Product.Include(p => p.Photos);
+            return  PagedList<Product>.Create(product, productParams.PageNumber, productParams.PageSize);
         }
 
         public async Task<Product> GetProduct(string code)
@@ -73,7 +73,7 @@ namespace DashnDotApp.Dtos
 
         public async Task<IEnumerable<Product>> GetProducts(string category)
         {
-            var products = await _ctx.Product.Include(p => p.Photos).ToListAsync();
+            var products = await _ctx.Product.Include(p => p.Photos).OrderByDescending(u=>u.Created).ToListAsync();
             var productsToReturn = products.Where(x => x.Category == category);
             return productsToReturn;
         }
@@ -93,6 +93,60 @@ namespace DashnDotApp.Dtos
         {
             var color = _ctx.Color.Find(id);
                 return color;
+        }
+
+        public PagedList<Product> GetProductByLine(ProductParams productParams,string line)
+        {
+
+            var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes")
+               .Include("ProductSizes.ProductSizeColor")
+               .Include("ProductSizes.Size").
+               Include("ProductSizes.ProductSizeColor.Color");
+            var productsToReturn = products.Where(x => x.Active == "Ενεργοποιημένο").Where(x => x.Line == line);
+            return PagedList<Product>.Create(productsToReturn, productParams.PageNumber, productParams.PageSize);
+
+        }
+
+        public PagedList<Product> GetProductByCategory(ProductParams productParams, string category)
+        {
+            var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes")
+              .Include("ProductSizes.ProductSizeColor")
+              .Include("ProductSizes.Size").
+              Include("ProductSizes.ProductSizeColor.Color");
+            var productsToReturn = products.Where(x => x.Active == "Ενεργοποιημένο").Where(y => y.Category == category).OrderBy(y=>y.Code);
+            return PagedList<Product>.Create(productsToReturn, productParams.PageNumber, productParams.PageSize);
+        }
+
+        public PagedList<Product> GetProductByCategoryForAdmin(ProductParams productParams, string category, string sortBy)
+        {
+            var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes")
+              .Include("ProductSizes.ProductSizeColor")
+              .Include("ProductSizes.Size").
+              Include("ProductSizes.ProductSizeColor.Color");
+            var productsToReturn = products.Where(y => y.Category == category).OrderBy(y => y.Active);
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "created":
+                        productsToReturn = productsToReturn.OrderByDescending(u => u.Created);
+                        break;
+                    case "totalCost":
+                        productsToReturn = productsToReturn.OrderBy(u => u.Price);
+                        break;
+                    case "code":
+                        productsToReturn = productsToReturn.OrderByDescending(u => u.Code);
+                        break;
+                    case "active":
+                        productsToReturn = productsToReturn.OrderBy(u => u.Active);
+                        break;
+                    default:
+                        productsToReturn = productsToReturn.OrderByDescending(u => u.Id);
+                        break;
+                }
+            }
+            return PagedList<Product>.Create(productsToReturn, productParams.PageNumber, productParams.PageSize);
         }
     }
 }

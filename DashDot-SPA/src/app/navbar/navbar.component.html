@@ -1,157 +1,159 @@
-<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top">
-  <div class="container">
-    <h5>Για τηλεφωνικες παραγγελίες καλεστε:</h5>
-  </div>
-  
-</nav>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container">
-
-    <a class="navbar-brand" href="#">
-      <img src="../../assets/images/logo_dashndot.png" alt="">
-    </a>
-
-    <ul class="input-group navbar-nav d-flex ">
-
-      <div class="text-white mr-2 dropdown" dropdown style="cursor:pointer;">
-        <i class="fa fa-shopping-bag mr-1"></i>
-        <a dropdownToggle class="dropdown-toggle">
-          Το καλάθι σας είναι άδειο <span class="caret"></span>
-        </a>
-        <div *dropdownMenu class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <a class="divider dropdown-divider"></a>
-          <a class="dropdown-item" href="#">Separated ank</a>
-        </div>
-      </div>
-      <div class="dropdown" dropdown *ngIf="loggedIn()" style="cursor:pointer;">
-        <a class=" dropdown-toggle text-light mr-2" dropdownToggle>
-          Καλωσήρθες {{ authService.decodedToken?.firstname | titlecase}}
-        </a>
-        <div class="dropdown-menu " *dropdownMenu>
-          <a class="dropdown-item">
-            <i class="fa fa-barcode mr-1"></i>Οι παραγγελίες μου</a>
-          <a class="dropdown-item">
-            <i class="fa fa-heart mr-1"></i>Τα αγαπημένα μου</a>
-          <a class="dropdown-item">
-            <i class="fa fa-user mr-1" aria-hidden="true"></i>O λογαριασμός μου</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">
-            <i class="fa fa-sign-out"></i>Έξοδος</a>
-        </div>
-      </div>
-      <li class="mr-2"><a *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">Admin Page</a></li>
-      <li class="mr-2"><a [routerLink]="['/login']" *ngIf="!loggedIn()"><i class="fa fa-user mr-1"></i>Ο λογαριασμός
-          μου</a></li>
-    </ul>
-
-  </div>
-</nav>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01"
-    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+  <a class="navbar-brand animated fadeInDown" [routerLink]="['/']"><img src="../../assets/images/new_logo1.jpg" alt=""
+      style="height:70px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse text-center" id="navbarColor01">
-    <div class="container">
-      <div class="btn-group text-center">
-        <a id="button-basic" aria-controls="dropdown-basic" data-toggle="dropdown" class="btn nav " aria-haspopup="true"
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
           Πουκάμισα
         </a>
-
-        <ul id="dropdown-basic" class="dropdown-menu dropdown-menu-center" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/shirts/','slim-fit']">Slim
-              Fit</a></li>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item " [routerLink]="['/shirts/','slim-fit']">Slim
+            Fit</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/shirts/','regular-fit']">Regular
-              Fit</a></li>
+          <a class="dropdown-item " [routerLink]="['/shirts/','regular-fit']">Regular
+            Fit</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center">ΜΕΓΕΘΟΛΟΓΙΟ</a></li>
-        </ul>
-
-      </div>
-      <div class="btn-group ">
-        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav ">
-          Πλεκτά
-        </a>
-
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear','cardigans']">Ζακέτες</a></li>
-          <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear', 'sweaters']">Πουλόβερ</a></li>
-          <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear','sweater-Vests']">Καζάκα</a></li>
-          <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/knitt-wear', 'vests']">Γιλέκα</a></li>
-        </ul>
-
-      </div>
-      <div class="btn-group">
-        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav">
+          <a class="dropdown-item ">ΜΕΓΕΘΟΛΟΓΙΟ</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
           Αξεσουάρ
         </a>
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic" style="width:300px;">
-          <div class="row no-gutters">
-            <div class="col-md-6">
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','bow-tie']">Παπιγιόν</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','cuff-links']">Μανικετόκουμπα</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','ties']">Γραβάτες</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','ties-clip']">Κλιπ Γραβάτας</a></li>
-            </div>
-            <div class="col-md-6">
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','beanies']">Σκουφάκια</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','scarfs']">Φουλάρια</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','belts']">Ζώνες</a></li>
-              <div class="dropdown-divider"></div>
-              <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/accessories','suspenders']">Τιράντες</a></li>
-            </div>
-          </div>
-        </ul>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown ">
 
-      </div>
-      <div class="btn-group">
-        <a id="button-basic" aria-controls="dropdown-basic" class="btn nav">
+          <a class="dropdown-item " [routerLink]="['/accessories','bow-tie']">Παπιγιόν</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','cuff-links']">Μανικετόκουμπα</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','ties']">Γραβάτες</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','ties-clip']">Κλιπ
+            Γραβάτας</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','beanies']">Σκουφάκια</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','scarfs']">Φουλάρια</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','belts']">Ζώνες</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/accessories','suspenders']">Τιράντες</a>
+        </div>
+
+
+      </li>
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Πλεκτά
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item " [routerLink]="['/knitt-wear','cardigans']">Ζακέτες</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/knitt-wear', 'sweaters']">Πουλόβερ</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/knitt-wear','sweater-Vests']">Καζάκα</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item " [routerLink]="['/knitt-wear', 'vests']">Γιλέκα</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
           dāsh&dot's World
         </a>
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Blog news</a></li>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item " href="#">Blog news</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Social media</a></li>
+          <a class="dropdown-item " href="#">Social media</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Eπώνυμοι</a></li>
+          <a class="dropdown-item " href="#">Eπώνυμοι</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Στυλιστικός οδηγός</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
-        <a id="button-basic" aria-controls dropdown-basic class="btn nav">
-          Καταστηματα
+          <a class="dropdown-item " href="#">Στυλιστικός οδηγός</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Καταστήματα
         </a>
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες παραλαβές</a></li>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item " href="#">Νέες παραλαβές</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Νέες προσφορές</a></li>
+          <a class="dropdown-item " href="#">Νέες προσφορές</a>
           <div class="dropdown-divider"></div>
-          <li role="menuitem"><a class="dropdown-item  text-center" [routerLink]="['/stores']">Ωράρια καταστημάτων</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
-        <a id="button-basic" aria-controls dropdown-basic class="btn nav">
-          Χονδρικη
+          <a class="dropdown-item " [routerLink]="['/stores']">Ωράρια καταστημάτων</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown  mt-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Χονδρική
         </a>
-        <ul id="dropdown-basic" class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item  text-center" href="#">Τιμές Χονδρικής</a></li>
-        </ul>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item " href="#">Τιμές Χονδρικής</a>
+        </div>
+      </li>
+
+
+    </ul>
+    <div class="p-0" style="list-style-type: none;">
+      <div class="row ">
+        <li class="nav-item dropdown" *ngIf="!loggedIn()">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" [routerLink]="['/login']"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user mr-1"></i>Ο
+            λογαριασμός
+            μου
+          </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="loggedIn()">
+
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa fa-user"></i>
+            Καλωσήρθες {{ authService.decodedToken?.firstname | titlecase}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item">
+              <i class="fa fa-barcode mr-1"></i>Οι παραγγελίες μου</a>
+            <a class="dropdown-item">
+              <i class="fa fa-heart mr-1"></i>Τα αγαπημένα μου</a>
+            <a class="dropdown-item" *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">
+              <i class="fa fa-user-secret mr-1" aria-hidden="true"></i>Admin Page</a>
+            <a class="dropdown-item">
+              <i class="fa fa-user mr-1" aria-hidden="true"></i>O λογαριασμός μου</a>
+            <div class="dropdown-divider "></div>
+            <a class="dropdown-item" (click)="logout()">
+              <i class="fa fa-sign-out"></i>Έξοδος</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa fa-shopping-bag "></i>
+            0 Προϊόντα
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item">Action</a>
+            <a class="dropdown-item">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item">Something else here</a>
+          </div>
+        </li>
+
+
       </div>
     </div>
   </div>

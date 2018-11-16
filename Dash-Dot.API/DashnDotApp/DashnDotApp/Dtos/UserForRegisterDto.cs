@@ -20,6 +20,13 @@ namespace DashnDotApp.Dtos
         [Required]
         [StringLength(20, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 20 numbers and letters")]
         public string Password { get; set; }
-        
+
+        public DateTime Created { get; set; }
+
+        public UserForRegisterDto()
+        {
+            Created = DateTime.Now;
+        }
+
     }
 }

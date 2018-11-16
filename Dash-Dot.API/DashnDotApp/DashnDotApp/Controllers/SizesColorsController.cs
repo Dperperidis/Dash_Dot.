@@ -84,7 +84,7 @@ namespace DashnDotApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Could not add color");
+                return BadRequest("Could not delete color");
             }
 
 
@@ -142,6 +142,25 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Κάτι πήγε στραβά");
             }
 
+        }
+
+        [Route("deleteProductColor/{id}")]
+        [HttpDelete]
+        public ActionResult DeleteProductColor(int id)
+        {
+            try
+            {
+
+                var color = _ctx.ProductSizeColors.FirstOrDefault(x => x.Id == id);
+
+                var result = _ctx.ProductSizeColors.Remove(color);
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not delete color");
+            }
         }
 
       

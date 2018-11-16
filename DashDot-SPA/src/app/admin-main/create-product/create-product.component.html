@@ -1,5 +1,13 @@
-<!-- *ngIf="product.category == 'Πουκάμισο' || product.category == 'Γραβάτα' || product.category == 'Γραβάτα' || product.category == 'Γραβάτα'" -->
+
+<ngx-spinner
+bdColor = "rgba(253,253,253,0.8)"
+size = "large"
+color = "#000000"
+type = "line-scale-party"
+></ngx-spinner>
 <div class="container mt-5">
+  <h2 class="text-center">Εισαγωγή Προϊόντος</h2>
+  <hr>
   <div class="card border-primary mb-3">
     <div class="card-header">Πληροφορίες Προϊόντος</div>
     <div class="card-body">
@@ -11,7 +19,6 @@
               <option>Πουκάμισο</option>
               <option>Παπιγιόν</option>
               <option>Γιλέκο</option>
-              <option>Πλεκτό</option>
               <option>Κασκόλ</option>
               <option>Zακέτα</option>
               <option>Πουλόβερ</option>
@@ -48,6 +55,10 @@
               <option>95% Cotton-5% Lycra</option>
               <option>70% Cotton-30 Polyester</option>
               <option>100% Linnen</option>
+              <option>100% Δέρμα</option>
+              <option>100% Polyester</option>
+              <option>Δερμάτινο</option>
+              <option>Ξύλινο</option>
             </select>
           </div>
           <div class="col-md-3">
@@ -75,7 +86,7 @@
               <option>Spring/Summer</option>
             </select>
           </div>
-          <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο' ">
+          <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο'">
             <h4>Γραμμή</h4>
             <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
               <option value=""></option>
@@ -128,7 +139,7 @@
           </div>
           <div class="col-md-6">
             <br>
-            <button type="button" class="btn btn-primary btn-block" (click)="openModal(template)">Εισαγώγη
+            <button type="button" class="btn btn-primary btn-block" (click)="openModal(template)">Εισαγωγή
               Μεγέθη/Ποσότητα</button>
           </div>
         </div>
@@ -141,12 +152,12 @@
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-12 " *ngFor="let s of product.productSizes">
+              <div class="col-md-12 " *ngFor="let s of product.productSizes; let i = index">
                 <ul class="list-group">
                   <li class="list-group-item">{{s.size.title}} -
                     {{s.productSizeColor.length + ' Χρώματα'}}
                     <div class="pull-right">
-                      <button type="button" class="btn-outline-danger ml-1 btn-sm"><i class="fa fa-times"></i></button>
+                      <button type="button" class="btn-outline-danger ml-1 btn-sm" (click)="deleteCurSize(i)"><i class="fa fa-times"></i></button>
                       <button type="button" (click)="editSize(s,template)" class="btn-outline-warning btn-sm ml-2"><i
                           class="fa fa-edit"></i></button>
                     </div>
@@ -154,11 +165,10 @@
                 </ul>
               </div>
             </div>
-
           </div>
         </div>
         <br>
-        <button (click)="saveProduct()" class="btn btn-primary">Αποθήκευση</button>
+        <button (click)="saveProduct()" class="btn btn-primary" [disabled]="!product.price">Αποθήκευση</button>
       </form>
     </div>
   </div>
@@ -193,10 +203,10 @@
       </div>
     </div>
     <br>
-    <button (click)="addColor()" class="btn btn-primary" [disabled]="!productSizeColor.colorId && !productSizeColor.colorId">Προσθήκη</button>
+    <button (click)="addColor()" (keyup.enter)="addColor()" class="btn btn-primary" [disabled]="!productSizeColor.colorId && !productSizeColor.colorId">Προσθήκη</button>
     <br>
     <div class="row">
-      
+
       <div class="col-md-6" *ngFor="let pcl of productSize.productSizeColor">
         <br>
         <ul class="list-group">

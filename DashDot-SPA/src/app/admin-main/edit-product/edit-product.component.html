@@ -1,3 +1,9 @@
+<ngx-spinner
+bdColor = "rgba(253,253,253,0.8)"
+size = "large"
+color = "#000000"
+type = "line-scale-party"
+></ngx-spinner>
 <div class="c_product">
   <hr>
   <div class="row">
@@ -11,7 +17,7 @@
       </div>
     </div>
     <div class="col-md-12 col-lg-8 col-sm-12 card">
-      <h3 class="text-center card-header">Επεξεργασία Προιόντος</h3>
+      <h3 class="text-center card-header">Επεξεργασία Προϊόντος</h3>
       <br>
       <div class="tab-panel">
         <tabset class="member-tabset">
@@ -42,7 +48,7 @@
                   <input name="seoUrl" rows="6" class="form-control" [(ngModel)]="product.seoUrl">
                 </div>
                 <div class="col-md-3">
-                  <h5>Τιμή: <span style="font-size:35px;"> {{product.totalCost | currency:'EUR':symbol}}  </span></h5>
+                  <h5>Τιμή: <span style="font-size:35px;"> {{product.price - product.discount | currency:'EUR':symbol}}  </span></h5>
                 </div>
               </div>
               <hr>
@@ -60,9 +66,13 @@
                     <option>95% Cotton-5% Lycra</option>
                     <option>70% Cotton-30 Polyester</option>
                     <option>100% Linnen</option>
+                    <option>100% Δέρμα</option>
+                    <option>100% Polyester</option>
+                    <option>Δερμάτινο</option>
+                    <option>Ξύλινο</option>
                   </select>
                 </div>
-                <div class="col-md-2" *ngIf="product.category == 'Πουκάμισο'">
+                <div class="col-md-2" >
                     <h4>Κωδικός</h4>
                     <input name="code" rows="6" class="form-control" [(ngModel)]="product.code">             
                 </div>
@@ -85,7 +95,7 @@
                     <option>Spring/Summer</option>
                   </select>
                 </div>
-                <div class="col-md-3">              
+                <div class="col-md-3" *ngIf="product.category == 'Πουκάμισο'">              
                   <h4>Γραμμή</h4>
                   <select name="line" class="form-control" id="exampleSelect1" [(ngModel)]="product.line">
                     <option value=""></option>
@@ -97,7 +107,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <h4>Τιμή</h4>
-                      <input name="price" rows="6" class="form-control" [(ngModel)]="product.price" placeholder="€">
+                      <input name="price" class="form-control" [(ngModel)]="product.price" placeholder="€"  >
                     </div>
                     <div class="col-md-6">
                       <h4>Έκπτωση</h4>
@@ -148,12 +158,12 @@
                 </div>
                 <div class="col-md-6">
                   <div class="row">
-                    <div class="col-md-12" *ngFor="let s of product.productSizes">
+                    <div class="col-md-12" *ngFor="let s of (product.productSizes | sortSize)">
                       <ul class="list-group">
-                        <li class="list-group-item">{{s.size.title}} -
+                        <li class="list-group-item">{{s.size.title}} - {{s.size.id}}-
                           {{s.productSizeColor.length + ' Χρώματα'}}
                           <div class="pull-right">
-                              <button type="button" class="btn-outline-danger ml-1 btn-sm"><i class="fa fa-times"></i></button>
+                              <button type="button" class="btn-outline-danger ml-1 btn-sm" (click)="deleteCurSize(s.id)"><i class="fa fa-times"></i></button>
                               <button type="button" (click)="editSize(s,template)" class="btn-outline-warning btn-sm ml-2"><i
                                   class="fa fa-edit"></i></button>
                             </div>
@@ -164,11 +174,13 @@
                 </div>
               </div>
               <br>
-              <div class="btn-group">
-                <button [disabled]="!editForm.dirty && !productSizeColor.colorId" form="editForm"  class="btn btn-dark mr-1 ">Αποθήκευση</button>
-                <button class="btn btn-danger" (click)="deleteProduct(product.id)">Διαγραφή</button>
-              </div>
+              
             </form>
+            <div class="btn-group">
+              <button  form="editForm" class="btn btn-dark mr-1 ">Αποθήκευση</button>
+              <button class="btn btn-danger " (click)="deleteProduct(product.id)">Διαγραφή</button>
+            </div>
+           
           </tab>
           <tab heading="Φωτογραφίες">
             <app-photo-editor [photos]="product.photos" (getProductPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
@@ -195,7 +207,6 @@
       </div>
       <div class="col-md-4">
         <h4>Χρώμα</h4>
-
         <select class="form-control"  id="title" name="colorId" [(ngModel)]="productSizeColor.colorId">
           <option *ngFor="let col of colors" value="{{col.id}}">{{col.title}}</option>
         </select>
@@ -206,14 +217,18 @@
       </div>
     </div>
     <br>
-    <button (click)="addColor()" [disabled]="!productSizeColor.colorId || !productSizeColor.count" class="btn btn-primary">Προσθήκη</button>
-    <button  (click)="modalRef.hide()" class="btn btn-primary ml-2">Αποθήκευση</button>
+    <button (click)="addColor()" [disabled]="!productSizeColor.colorId" class="btn btn-primary">Προσθήκη</button>
+    <button  (click)="modalRef.hide()" class="btn btn-primary ml-2" *ngIf="!disable">Αποθήκευση</button>
+    <button  (click)="modalRef.hide()" class="btn btn-danger ml-2" (click)="deleteSize(productSize.id)">Διαγραφή</button>
+    
     <br>
     <div class="row">
         <br>
       <div class="col-md-6 mt-3" *ngFor="let pcl of productSize.productSizeColor" >
         <ul class="list-group">
           <li class="list-group-item"  (dblclick)="deleteEntity(pcl.color.id)" style.background-color="{{pcl.color.rgb}}">{{pcl.color.title}} - {{pcl.count}} τεμ.
+            <button class="btn btn-danger pull-right" (click)="deleteColor(pcl.id)"  data-toggle="tooltip"
+            data-placement="right"  title="Διαγραφή Χρώματος"><i class="fa fa-times"></i></button>
           </li>
         </ul>
      

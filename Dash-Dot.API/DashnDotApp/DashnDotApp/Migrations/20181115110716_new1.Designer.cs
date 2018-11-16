@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181109210629_totalcost1")]
-    partial class totalcost1
+    [Migration("20181115110716_new1")]
+    partial class new1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,27 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("DashnDotApp.Model.Messages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +103,8 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Category");
 
                     b.Property<string>("Code");
+
+                    b.Property<DateTime>("Created");
 
                     b.Property<string>("Description");
 
@@ -188,6 +211,8 @@ namespace DashnDotApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created");
 
                     b.Property<string>("Email");
 

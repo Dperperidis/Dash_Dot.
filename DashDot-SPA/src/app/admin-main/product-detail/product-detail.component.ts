@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { map } from 'rxjs/operators';
+import { Pagination, PaginatedResult } from 'src/app/_models/Pagination';
 
 
 @Component({
@@ -14,35 +13,38 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product : Product[];
-  editProd= true;
-  
-
+  product: Product[];
+  editProd = true;
+  pagination: Pagination;
+  sortBy:string;
 
   constructor(private productService: ProductService,
     private adminProdService: AdminProductService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastr: ToastrService,
 
   ) { }
 
   ngOnInit() {
-    const category = sessionStorage.getItem("category")
-    this.productService.getProductsByCategory(category).subscribe(res => {
-      this.product = res;
+    this.route.data.subscribe(data => {
+      this.product = data['product'].result;
+      this.pagination = data['product'].pagination
     })
-
   }
 
-  searchProduct(category) {
-    this.productService.getProductsByCategory(category).subscribe(res => {
-      this.product = res;
-      sessionStorage.setItem('category', category)
+  searchProduct(category, sortBy?) {
+    this.adminProdService.getProductsByCategoryForAdmin(category, sortBy, this.pagination.currentPage, 
+      this.pagination.itemsPerPage)
+      .subscribe((res: PaginatedResult<Product[]>) => {
+      this.product = res.result;
+      this.pagination = res.pagination;
     }, error => {
       this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.')
     })
+    this.pagination.currentPage = 1;
+    sessionStorage.setItem('category', category)
   }
-
 
   searchProductByCode(code) {
     this.productService.getProductByCode(code).subscribe(res => {
@@ -71,18 +73,46 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  edit(){
+  edit() {
     this.editProd = false;
+  }
 
-   }
-
-   updateProduct(i) {
-
+  updateProduct(i) {
     this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {
       this.toastr.error(error);
     })
+  }
+
+  pageChanged(event: any): void {
+    const category = sessionStorage.getItem('category');
+    this.pagination.currentPage = event.page
+    this.searchProduct(category, this.sortBy);
+  }
+
+  sortPrice(){
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'totalCost';
+    this.searchProduct(category, this.sortBy);
+  }
+  
+  sortCode(){
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'code';
+    this.searchProduct(category, this.sortBy);
+  }
+  
+  sortActive(){
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'active';
+    this.searchProduct(category, this.sortBy);
+  }
+   
+  sortDate(){
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'created';
+    this.searchProduct(category, this.sortBy);
   }
 
 

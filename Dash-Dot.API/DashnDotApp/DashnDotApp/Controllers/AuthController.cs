@@ -40,6 +40,7 @@ namespace DashnDotApp.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
 
+
             userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.Email))
@@ -52,6 +53,17 @@ namespace DashnDotApp.Controllers
             var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
 
             return CreatedAtRoute("Get User", new { controller = "Users", id = createdUser.Id }, userToReturn);
+
+        }
+
+        [HttpGet("{id}", Name = "Get User")]
+
+        public IActionResult GetUser(int id)
+        {
+            var user =  _ctx.Users.FirstOrDefault(u => u.Id == id);
+
+            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
+            return Ok(userToReturn);
         }
 
 

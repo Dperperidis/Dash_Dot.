@@ -1,19 +1,27 @@
 <div class="container">
   <div class="row mt-4">
-
     <div class="col-md-6">
       <div class="form-group">
         <h4>Αναζήτηση με κατηγορία</h4>
         <select name="category" class="form-control" id="exampleSelect1" #category>
           <option>Πουκάμισο</option>
-          <option>Γραβάτα</option>
           <option>Παπιγιόν</option>
-          <option>Ζώνες</option>
           <option>Γιλέκο</option>
-          <option>Πλεκτά</option>
           <option>Κασκόλ</option>
+          <option>Zακέτα</option>
+          <option>Πουλόβερ</option>
+          <option>Καζάκα</option>
+          <option>Μανικετόκουμπα</option>
+          <option>Φουλάρι</option>
+          <option>Ζώνη</option>
+          <option>Γραβάτα</option>
+          <option>Clip Γραβάτας</option>
+          <option>Τιράντα</option>
+          <option>Καπέλο</option>
+          <option>Σκουφάκι</option>
+          <option>Τ-Shirt</option>
         </select>
-        <button class="btn btn-primary mt-2  btn-block"  (click)="searchProduct(category.value)">Αναζήτηση</button>
+        <button class="btn btn-primary mt-2  btn-block" (click)="searchProduct(category.value)">Αναζήτηση</button>
       </div>
     </div>
     <div class="col-md-6">
@@ -23,82 +31,81 @@
         <button class="btn btn-primary mt-2 btn-block" (click)="searchProductByCode(prodCode.value)">Αναζήτηση</button>
       </div>
     </div>
-
-
   </div>
-  <hr>
-  <div class="pull-right">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary" aria-hidden="true" [routerLink]="['/admin/main/create-product']"><i
-          class="fa fa-plus mr-2"></i>Προσθήκη
-        Προϊόντος</button>
-      <button type="button" class="btn-outline-info ml-2" (click)="editProd =! editProd"><i class="fa fa-pencil"
-          aria-hidden="true"></i>Επεξεργασία Προϊόντων</button>
-    </div>
-
+</div>
+<hr>
+<div class="pull-right">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" aria-hidden="true" [routerLink]="['/admin/main/create-product']"><i
+        class="fa fa-plus mr-2"></i>Προσθήκη
+      Προϊόντος</button>
+    <button type="button" class="btn-outline-info ml-2" (click)="editProd =! editProd"><i class="fa fa-pencil"
+        aria-hidden="true"></i>Επεξεργασία Προϊόντων</button>
   </div>
+</div>
+<table class="table table-sm table-bordered text-center mt-5">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
+      <th scope="col">ΚΩΔΙΚΟΣ<span (click)="sortCode()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
+      <th scope="col">ΤΙΜΗ<span (click)="sortPrice()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
+      <th scope="col">ΕΚΠΤΩΣΗ</th>
+      <th scope="col">ΣΥΝΟΛΟ</th>
+      <th scope="col">ΗΜ/ΝΙΑ ΠΡΟΣΘΗΚΗΣ<span (click)="sortDate()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
+      <th scope="col">ΦΩΤΟΓΡΑΦΙΑ</th>
+      <th scope="col">ΕΝΕΡ/ΑΠΕΝ<span (click)="sortActive()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
+      <th scope="col">ΕΝΕΡΓΕΙΕΣ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of product;let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>
+        <input name="title" class="form-control" [(ngModel)]="p.title" [disabled]="editProd" placeholder="">
+      </td>
+      <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code" [disabled]="editProd"
+          placeholder="Κωδικός Προϊόντος"></td>
+      <td style="width:100px">
+        <div class="input-group mb-3">
+          <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="">
+        </div>
+      </td>
+      <td style="width:100px">
+        <div class="input-group mb-3">
+          <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="">
+        </div>
+      </td>
+      <td style="width:100px">
+        <div class="form-group">
+          <input name="totalCost" class="form-control" [(ngModel)]="product.totalCost" disabled placeholder="{{p.price - p.discount || 0}}">
+        </div>
+      </td>
+      <td style="width:150px">
+        <h6 class="mt-4">{{p.created | date: 'medium'}}</h6>
+      </td>
+      <td style="width:100px;"><img src="{{p.photoUrl}}" class=""></td>
+      <td> <select name="active" class="form-control" id="exampleSelect1" [(ngModel)]="p.active" [disabled]="editProd">
+          <option>Ενεργοποιημένο</option>
+          <option>Απενεργοποιημένο</option>
+        </select></td>
+      <td>
+        <div class="mt-4 btn-group">
+          <button type="button" class="btn-outline-danger mr-2 btn-sm" data-toggle="tooltip" data-placement="right"
+            title="" title="Διαγραφή Προϊόντος" (click)="deleteProduct(p.id)"><i class="fa fa-times"></i></button>
+          <button type="button" class="btn-outline-warning btn-sm mr-2" data-toggle="tooltip" data-placement="right"
+            title="" title="Επεξεργασία Προϊόντος" [routerLink]="['/admin/main/edit/', p.id]"><i class="fa fa-edit"></i></button>
+          <button type="button" class="btn-outline-success btn-sm" [disabled]="editProd" data-toggle="tooltip"
+            data-placement="right" title="" title="Αποθήκευση Προϊόντος" (click)="updateProduct(i)"><i class="fa fa-pencil"
+              aria-hidden="true"></i></button>
+        </div>
+    </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+    firstText="&laquo;" lastText="&raquo;">
 
-  <table class="table table-bordered text-center mt-5">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
-        <th scope="col">ΚΩΔΙΚΟΣ</th>
-        <th scope="col">ΤΙΜΗ</th>
-        <th scope="col">ΕΚΠΤΩΣΗ</th>
-        <th scope="col">ΣΥΝΟΛΟ</th>
-        <th scope="col">ΦΩΤΟΓΡΑΦΙΑ</th>
-        <th scope="col">ΕΝΕΡ/ΑΠΕΝ</th>
-        <th scope="col">ΕΝΕΡΓΕΙΕΣ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of product;let i = index">
-        <th scope="row">{{i + 1}}</th>
-        <td>
-          <input name="title" class="form-control" [(ngModel)]="p.title" [disabled]="editProd" placeholder="">
-        </td>
-        <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code" [disabled]="editProd"
-            placeholder="Κωδικός Προϊόντος"></td>
-        <td style="width:100px">
-
-          <div class="input-group mb-3">
-            <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="">
-
-          </div>
-
-        </td>
-        <td style="width:100px">
-
-          <div class="input-group mb-3">
-            <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="">
-          </div>
-
-        </td>
-        <td style="width:100px">
-          <div class="form-group">
-
-            <input name="totalCost" class="form-control" [(ngModel)]="product.totalCost" disabled placeholder="{{p.price - p.discount || 0}}">
-
-          </div>
-        </td>
-
-        <td style="width:100px;"><img src="{{p.photoUrl}}" class=""></td>
-        <td> <select name="active" class="form-control" id="exampleSelect1" [(ngModel)]="p.active" [disabled]="editProd">
-            <option>Ενεργοποιημένο</option>
-            <option>Απενεργοποιημένο</option>
-          </select></td>
-        <td>
-          <div class="mt-3 btn-group">
-            <button type="button" class="btn-outline-danger mr-2 btn-sm" (click)="deleteProduct(p.id)"><i class="fa fa-times"></i></button>
-            <button type="button" class="btn-outline-warning btn-sm mr-2" [routerLink]="['/admin/main/edit/', p.id]"><i
-                class="fa fa-edit"></i></button>
-            <button type="button" class="btn-outline-success btn-sm" [disabled]="editProd" data-toggle="tooltip"
-              data-placement="right" title="" data-original-title="Tooltip on right" (click)="updateProduct(i)"><i
-                class="fa fa-pencil" aria-hidden="true"></i></button>
-          </div>
-
-      </tr>
-    </tbody>
-  </table>
+  </pagination>
 </div>

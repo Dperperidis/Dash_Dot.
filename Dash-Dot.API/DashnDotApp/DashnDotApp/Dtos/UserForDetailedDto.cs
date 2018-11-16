@@ -12,5 +12,6 @@ namespace DashnDotApp.Dtos
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+        public DateTime Created { get; set; }
     }
 }

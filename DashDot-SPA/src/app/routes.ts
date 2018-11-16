@@ -15,6 +15,9 @@ import { AdminChartsComponent } from "./admin-main/admin-charts/admin-charts.com
 import { ProductSettingsComponent } from "./admin-main/product-settings/product-settings.component";
 import { GetProductResolver } from "./_resolvers/product-get.resolver";
 import { StoreMapsComponent } from "./store-maps/store-maps.component";
+import { ProductListResolver } from "./_resolvers/product-list.resolver";
+import { UserPageComponent } from "./admin-main/user-page/user-page.component";
+import { MessageListResolver } from "./_resolvers/messages-list.resolver";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -36,13 +39,14 @@ export const routes: Routes = [
             {
                 path: '', component: AdminMainComponent, children: [
                     {
-                        path: 'details', component: ProductDetailComponent
+                        path: 'details', component: ProductDetailComponent, resolve: { product: ProductListResolver }
                     }, {
                         path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
                     }, {
                         path: 'create-product', component: CreateProductComponent
                     }, { path: '', component: AdminChartsComponent },
-                    { path: 'product-settings', component: ProductSettingsComponent }
+                    { path: 'product-settings', component: ProductSettingsComponent },
+                    { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, }
                 ]
             },
         ]

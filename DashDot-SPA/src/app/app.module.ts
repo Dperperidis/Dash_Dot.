@@ -7,7 +7,7 @@ import { ToastrModule } from "ngx-toastr";
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HttpClientModule } from '@angular/common/http';
-import { TabsModule } from "ngx-bootstrap";
+import { TabsModule, PaginationModule } from "ngx-bootstrap";
 import { JwtModule } from "../../node_modules/@auth0/angular-jwt";
 import { routes } from "./routes";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -17,7 +17,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import localeFr from '@angular/common/locales/fr'
+import { NgxSpinnerModule } from 'ngx-spinner';
+import localeEn from '@angular/common/locales/en'
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -49,8 +50,13 @@ import { AdminProductService } from './_services/adminproduct.service';
 import { StoreMapsComponent } from './store-maps/store-maps.component';
 import { registerLocaleData } from '@angular/common';
 import { SortByService } from './_services/sortbyservice';
+import { ProductListResolver } from './_resolvers/product-list.resolver';
+import { UserPageComponent } from './admin-main/user-page/user-page.component';
+import { MessageListResolver } from './_resolvers/messages-list.resolver';
+import { ArraySortPipe } from './_resolvers/ArraySortSize.pipe';
+import { ShoppingCartService } from './_services/shopping-cart.service';
 
-registerLocaleData(localeFr);
+registerLocaleData(localeEn);
 
 export function tokenGetter() {
   if (localStorage.getItem("token")) {
@@ -83,7 +89,9 @@ export function tokenGetter() {
     ProductDetailComponent,
     AdminChartsComponent,
     ProductSettingsComponent,
-    StoreMapsComponent
+    StoreMapsComponent,
+    UserPageComponent,
+    ArraySortPipe
   ],
   imports: [
     BrowserModule,
@@ -94,6 +102,8 @@ export function tokenGetter() {
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule,
+    PaginationModule.forRoot(),
+    NgxSpinnerModule,
     CarouselModule.forRoot(),
     FileUploadModule,
     AgmCoreModule.forRoot({
@@ -118,7 +128,7 @@ export function tokenGetter() {
   ],
   providers: [{
   provide: LOCALE_ID,
-  useValue: 'fr-FR'
+  useValue: 'en-EN'
   },  
     AuthService,
     ProductService,
@@ -130,7 +140,10 @@ export function tokenGetter() {
     AdminAuthGuard,
     SortByService,
     AdminProductService,
-    ProdSettingsService
+    ProdSettingsService,
+    ShoppingCartService,
+    ProductListResolver,
+    MessageListResolver
   ],
   bootstrap: [AppComponent]
 })

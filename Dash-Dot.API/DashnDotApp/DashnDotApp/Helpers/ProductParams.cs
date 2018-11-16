@@ -7,8 +7,21 @@ namespace DashnDotApp.Helpers
 {
     public class ProductParams
     {
-        public int ProductId { get; set; }
-        public string Category { get; set; }
+
+       
+
+        private const int MaxPageSize = 1000;
+
+        public int PageNumber { get; set; } = 1;
+        private int pageSize =6;
+
+        public int PageSize
+        {
+            get { return pageSize; }
+            set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
+        }
+
         public string OrderBy { get; set; }
+
     }
 }

@@ -33,14 +33,15 @@ namespace DashnDotApp.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery]ProductParams productParams)
+        public IActionResult GetProducts([FromQuery]ProductParams productParams)
         {
 
-            var products = await _repo.GetProducts(productParams);
+            var products = _repo.GetProducts(productParams);
 
             var productsToReturn = _mapper.Map<IEnumerable<ProductForListDto>>(products);
+
+            Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 
             return Ok(productsToReturn);
 
@@ -55,8 +56,6 @@ namespace DashnDotApp.Controllers
 
             return Ok(productToReturn);
         }
-
-   
 
         [Route("addProduct")]
         [HttpPost]
@@ -77,15 +76,14 @@ namespace DashnDotApp.Controllers
                         product.ProductSizes[i].ProductSizeColor[c].ProductSizes = null;
                     }
                 }
+
                 var result = _ctx.Product.Add(product);
+
                 _ctx.SaveChanges();
 
                 var temp = _ctx.Product.Include("ProductSizes").Include("ProductSizes.ProductSizeColor").Include("ProductSizes.Size").Include("ProductSizes.ProductSizeColor.Color").FirstOrDefault(c => c.Id == result.Entity.Id);
                 return Ok(temp);
 
-
-                //var temp = _ctx.Product.Include(i => i.ProductSizes.Select(s => s.ProductSizeColor)).FirstOrDefault(x => x.Id == result.Entity.Id);
-                //var productSizes = _ctx.ProductSizes.Include(i => i.ProductSizeColor).Where(x => x.ProductId == result.Entity.Id).ToList();
             }
             catch (Exception ex)
             {
@@ -103,38 +101,21 @@ namespace DashnDotApp.Controllers
             var temp = _ctx.Product.Include("ProductSizes")
                 .Include("ProductSizes.ProductSizeColor")
                 .Include("ProductSizes.Size").
+                Include(p => p.Photos).
                 Include("ProductSizes.ProductSizeColor.Color").FirstOrDefault(c => c.Code == code);
-            return Ok(temp);
+
+            var result = _mapper.Map<ProductForDetailedDto>(temp);
+
+            return Ok(result);
 
         }
-
-        [Route("getProductsByCategory/{category}")]
-        [HttpGet]
-        public  IActionResult GetProductByCategory(string category)
-        {
-            try
-            {
-               
-                var products =  _ctx.Product.Include(p => p.Photos).ToList();
-                var productsToReturn = products.FindAll(y => y.Category == category);
-                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
-                return Ok(productsFull);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Σφάλμα");
-            }
-        
-        }
-
 
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var productFromRepo =  _repo.GetProduct(id);
+            var productFromRepo = _repo.GetProduct(id);
 
             var result = _ctx.Product.Remove(productFromRepo);
 
@@ -158,14 +139,56 @@ namespace DashnDotApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Δεν έγινε ανανέωση του προϊόντος");
+                return BadRequest("Δεν έγινε ανανέωση του προϊόντος διότι δεν έχει γίνει αλλαγή");
+            }
+        }
+
+        [Route("deleteSize/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteSize(int id)
+        {
+            try
+            {
+                var product = _ctx.ProductSizes.FirstOrDefault(x => x.Id == id);
+                var result = _ctx.ProductSizes.Remove(product);
+                _ctx.SaveChanges();
+                return NoContent();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν έγινε η διαγραφή προϊόντος");
             }
         }
 
 
+
+
+
+        [Route("getProductsByCategory/{category}/{sortBy}")]
+        [HttpGet]
+        public IActionResult GetProductByCategoryForAdmin([FromQuery]ProductParams productParams, string category, string sortBy)
+        {
+            try
+            {
+                var products = _repo.GetProductByCategoryForAdmin(productParams, category, sortBy);
+
+
+                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(products);
+                Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
+
+                return Ok(productsFull);
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Σφάλμα");
+            }
+        }
+
+
+
+
     }
-
-
-
-
 }

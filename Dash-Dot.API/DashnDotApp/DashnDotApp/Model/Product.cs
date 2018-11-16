@@ -24,6 +24,7 @@ namespace DashnDotApp.Model
         public string Quantity { get; set; }
         public string Discount { get; set; }
         public string Active { get; set; }
+        public DateTime Created { get; set; }
         public string TotalCost { get; set; }
         public virtual IList<Photo> Photos { get; set; }
         public virtual IList<ProductSize> ProductSizes { get; set; }
@@ -31,7 +32,10 @@ namespace DashnDotApp.Model
         {
             ProductSizes = new List<ProductSize>();
             Photos = new List<Photo>();
+            Created = DateTime.Now;
         }
+
+
 
     }
 

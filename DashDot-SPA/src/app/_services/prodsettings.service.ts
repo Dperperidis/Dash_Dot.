@@ -41,6 +41,9 @@ export class ProdSettingsService {
         return this.http.delete(this.baseUrl + '/sizescolors/deleteColor/' + id)
     }
 
+    deleteProdColor(id:number) {
+        return this.http.delete(this.baseUrl + 'sizescolors/deleteProductColor/' + id);
+    }
 
 
 }

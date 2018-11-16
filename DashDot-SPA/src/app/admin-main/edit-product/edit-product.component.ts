@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, HostListener, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener, TemplateRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProductService } from 'src/app/_services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product, Size, Color, ProductSize, ProductSizeColor } from 'src/app/_models/product';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-product',
@@ -27,8 +27,8 @@ export class EditProductComponent implements OnInit {
   photoUrl: string;
   sizes = new Array<Size>();
   colors = new Array<Color>();
-  productSize : ProductSize;
-  productSizeColor =  new ProductSizeColor();
+  productSize: ProductSize;
+  productSizeColor = new ProductSizeColor();
   disable: boolean = false;
   modalRef: BsModalRef;
 
@@ -37,6 +37,7 @@ export class EditProductComponent implements OnInit {
     private productService: ProductService,
     private toastr: ToastrService,
     private router: Router,
+    private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private prodSettings: ProdSettingsService
@@ -46,10 +47,11 @@ export class EditProductComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.productService.currentProduct = data["product"];
       this.product = this.productService.currentProduct;
-      console.log(this.product)
+
     });
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
+     this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
 
     })
     this.prodSettings.getSizes().subscribe(res => {
@@ -62,9 +64,12 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct() {
+    this.spinner.show();
     this.adminProdService.updateProduct(this.product).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
       this.editForm.reset(this.product);
+      window.location.reload();
+      this.spinner.hide();
     }, error => {
       this.toastr.error(error);
     })
@@ -83,13 +88,13 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  
+
   openModal(template: TemplateRef<any>) {
     this.disable = true;
     this.modalRef = this.modalService.show(template);
     this.productSize = new ProductSize();
     this.productSizeColor = new ProductSizeColor();
-    
+
   }
 
   addColor() {
@@ -109,12 +114,41 @@ export class EditProductComponent implements OnInit {
     this.disable = false;
     this.modalRef = this.modalService.show(template);
     this.productSize = s;
-    
+
   }
 
-  deleteEntity(id){
-    const index = this.productSize.productSizeColor.findIndex(x=>x.colorId==id);
+  deleteEntity(id) {
+    const index = this.productSize.productSizeColor.findIndex(x => x.colorId == id);
     this.productSize.productSizeColor.splice(index, 1);
+  }
+
+  deleteCurSize(id) {
+
+    const i = this.product.productSizes.findIndex(x => x.id === id);
+    this.product.productSizes.splice(i, 1);
+
+  }
+
+  deleteSize(id) {
+    this.adminProdService.deleteSize(id).subscribe(res => {
+      const i = this.product.productSizes.findIndex(x => x.id == id)
+      this.product.productSizes.splice(i, 1);
+      this.toastr.warning('Η διαγραφή έγινε επιτυχώς')
+    }, error => {
+      this.toastr.error('Το προϊον δεν είναι αποθηκευμένο για να διαγραφτεί')
+    })
+
+  }
+
+
+  deleteColor(id) {
+    this.prodSettings.deleteProdColor(id).subscribe(res => {
+      const index = this.productSize.productSizeColor.findIndex(x => x.id == id);
+      this.productSize.productSizeColor.splice(index, 1);
+      this.toastr.success('Η διαγραφή έγινε επιτυχώς');
+    }, error => {
+      this.toastr.error(error);
+    })
   }
 
 

@@ -13,6 +13,7 @@ export class Product {
     active: string;
     design: string;
     quantity: string; 
+    created: Date;
     seoUrl: string;
     description: string;
     sleeve: string;

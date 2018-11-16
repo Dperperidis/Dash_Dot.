@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181106172557_photo")]
-    partial class photo
+    [Migration("20181115105128_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,27 @@ namespace DashnDotApp.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.Messages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
@@ -102,6 +123,8 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Sleeve");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("TotalCost");
 
                     b.Property<string>("seoUrl");
 
@@ -187,6 +210,8 @@ namespace DashnDotApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
@@ -221,7 +246,7 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.ProductSize", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Product", "Product")
+                    b.HasOne("DashnDotApp.Model.Product")
                         .WithMany("ProductSizes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);

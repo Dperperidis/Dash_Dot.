@@ -7,6 +7,7 @@ import { RouteConfigLoadStart, Router, ActivatedRoute } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-product',
@@ -21,15 +22,14 @@ export class CreateProductComponent implements OnInit {
   productSizeColor: ProductSizeColor;
   colorSizeTitle: string;
 
-
-
   modalRef: BsModalRef;
 
   constructor(private adminProdService: AdminProductService,
     private toastr: ToastrService,
     private router: Router,
     private prodSettings: ProdSettingsService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -39,6 +39,7 @@ export class CreateProductComponent implements OnInit {
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
     })
+    this.spinner.hide();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -48,8 +49,8 @@ export class CreateProductComponent implements OnInit {
   }
 
   saveProduct() {
-    console.log(this.product)
     this.adminProdService.addProduct(this.product).subscribe(res => {
+      this.spinner.show();
       this.adminProdService.currentProduct = res;
       this.router.navigate(['/admin/main/edit/' + res.id]);
       this.toastr.success('Η καταχώρηση έγινε επιτυχώς');
@@ -61,7 +62,6 @@ export class CreateProductComponent implements OnInit {
   addColor() {
     this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
     this.productSize.productSizeColor.push(this.productSizeColor);
-    console.log(this.productSizeColor)
     this.productSizeColor = new ProductSizeColor();
   }
 
@@ -82,8 +82,8 @@ export class CreateProductComponent implements OnInit {
     this.productSize.productSizeColor.splice(index, 1);
   }
 
-
-  passValue(value){
-console.log(value);
+  deleteCurSize(x) {
+    this.product.productSizes.splice(x, 1);
   }
+
 }

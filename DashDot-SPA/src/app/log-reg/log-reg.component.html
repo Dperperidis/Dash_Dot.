@@ -2,9 +2,9 @@
 <div class="login_page">
   <hr>
   <div class="row container">
-    <div class="col-6">
+    <div class="col-md-6 col-lg-6 col-sm-12">
       <h5>ΣΥΝΔΕΘΕΙΤΕ</h5>
-      <div class="card p-4">
+      <div class="card p-4 border-warning">
         <h6>Έχετε ήδη λογαριασμό;</h6>
         <br>
         <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
@@ -18,14 +18,14 @@
                   <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
                   <label class="custom-control-label" for="saveUser" >Remember me</label>
                 </div>
-            <button type="submit" class="btn btn-primary">Σύνδεση</button>
+            <button type="submit" class="btn btn-outline-warning">Σύνδεση</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-lg-6 col-sm-12">
       <h5 class="text-primary">ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ</h5>
-      <div class="card p-4">
+      <div class="card p-4 border-warning">
         <h6 class="">Δημιουργία λογαριασμού</h6>
         <br>
         <form [formGroup]="registerForm" (ngSubmit)="register()" class="form my-2 my-lg-0">
@@ -67,8 +67,8 @@
             </div>
           </div>
           <div class="form-group text-center">
-            <button class="btn btn-primary mr-1" type="submit" [disabled]="registerForm.invalid">Εγγραφή</button>
-            <button class="btn btn-default" type="button">Ακύρωση</button>
+            <button class="btn btn-warning mr-1" type="submit" [disabled]="registerForm.invalid">Εγγραφή</button>
+            <button class="btn btn-default" type="button" [routerLink]="['/']"  >Ακύρωση</button>
           </div>
         </form>
       </div>

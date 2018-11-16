@@ -1,0 +1,71 @@
+<div class="mt-5 container">
+  <div class="form-group" style="width:400px">
+    <input type="text" class="form-control" (keyup.enter)="searchProduct(code.value,template)" #code placeholder="Γράψε τον κωδικό για το προϊόν που θες να βρεις"
+      id="inputDefault">
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-warning" (click)="searchProduct(code.value,template)">
+      Αναζήτηση Προϊόντος
+    </button>
+  </div>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Όνομα</th>
+        <th scope="col">Email</th>
+        <th scope="col">Ημερομηνία</th>
+        <th scope="col">Κωδ. Προϊόντος</th>
+        <th scope="col">Μήνυμα</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mes of messages; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{mes.name}}</td>
+        <td>{{mes.email}}</td>
+        <td>{{mes.created | date: 'medium'}}</td>
+        <td>{{mes.code}}</td>
+        <td>{{mes.message}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+  <div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+      firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+</div>
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{product.title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <div class="" style="background-color:white;">
+          <h5 class="card-title">{{product.material}}</h5>
+          <h6 class="card-title">Κωδ: {{product.code}}</h6>
+          <h6 class="card-title">Τιμή: {{product.totalCost |
+              currency:'EUR':symbol}}</h6>
+          <h6 class="card-title">Μανίκι: {{product.sleeve}}</h6>
+          <h6 class="card-title">Γραμμή: {{product.line}}</h6>
+
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 text-center">
+        <img class="d-flex d-none" src="{{product.photoUrl || '/../../../../assets/images/emptyimg.jpg'}}" alt="Card image cap"
+          style="width:200px">
+      </div>
+    </div>
+
+  </div>
+</ng-template>

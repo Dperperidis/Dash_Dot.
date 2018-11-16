@@ -90,7 +90,7 @@
 }
 
 .thumbnail:hover{
-  box-shadow: 0 0 0 10px #df8633ee;
+  box-shadow: 0 0 0 10px rgb(223, 143, 24);
   transition: .5s ease;
 }
 

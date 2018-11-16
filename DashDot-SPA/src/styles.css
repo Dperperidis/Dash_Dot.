@@ -8,15 +8,6 @@
 
 
 
-
-/* https://cdn.xsolla.net/80.lv/uploads/2016/10/extra1.jpg
-
-https://www.pixelstalk.net/wp-content/uploads/2016/03/Wood-wallpapers-HD-desktop-download.jpg
-
-https://images8.alphacoders.com/370/370799.jpg
-
-http://wallpapers-best.com/uploads/posts/2015-09/8_brown_abstract.jpg */
-
 .tab-panel {
     border: 1px solid #ddd;
     padding: 10px;
@@ -24,23 +15,53 @@ http://wallpapers-best.com/uploads/posts/2015-09/8_brown_abstract.jpg */
 
   }
 
-  .nav-tabs>li>a{
+.nav-tabs>li>a{
 color:rgb(197, 121, 7)!important;
 font-weight: bold;
-  }
+ }
 
-  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
       background-image:linear-gradient(white,rgb(150, 148, 148));
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
       color:rgb(17, 17, 17)!important;
       font-weight: bold;
-  }
+ }
 .nav-tabs>li>a:hover{
     background-image:linear-gradient(45deg, rgb(223, 146, 5), rgb(241, 241, 241));
     color:rgb(17, 17, 17)!important;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
- }
+}
       
- .tab-content>.active>.container>h6>i{
+.tab-content>.active>.container>h6>i{
 font-size:20px;
+}
+
+body{
+  font-family:  "Trebuchet MS", Helvetica, sans-serif ;
  }
+
+ /* cursive */
+ /* "Trebuchet MS", Helvetica, sans-serif */
+ /* serif */
+
+
+ .page-item.disabled .page-link {
+  color: #ecf0f1;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #cfcfcf;
+  border-color: transparent;
+}
+
+
+a.page-link{
+  background-color:grey;
+}
+
+a.page-link:hover{
+  background-color: rgb(238, 147, 29);
+}
+
+.page-item.active .page-link{
+  background-color: rgb(235, 145, 29)!important;
+}

@@ -1,15 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, HostListener, Inject } from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "../_services/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { Product } from "../_models/product";
 import { ProductService } from "../_services/product.service";
+import { trigger, state, style, transition, animate } from "@angular/animations";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"]
+  styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
@@ -18,14 +20,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService,
-    private productService: ProductService) { }
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.subscriptions.push(this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     }));
   }
+
+
 
   loggedIn() {
     return this.authService.loggedIn();

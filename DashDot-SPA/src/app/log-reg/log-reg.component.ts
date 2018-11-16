@@ -46,8 +46,7 @@ export class LogRegComponent implements OnInit {
         Validators.required,
       ]
       ],
-      confirmPassword: ["", Validators.required],
-      isAdmin: [false]
+      confirmPassword: ["", Validators.required]
     },
       { validator: this.passwordMatchValidator }
     );
@@ -63,7 +62,6 @@ export class LogRegComponent implements OnInit {
       this.authService.register(this.user).subscribe(res => {
         this.toastr.success("Ο χρήστης δημιουργήθηκε");
         this.router.navigate(['/']);
-
       }, error => {
         this.toastr.error(error);
       }, () => {

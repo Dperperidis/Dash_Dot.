@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DashnDotApp.Data;
 using DashnDotApp.Dtos;
+using DashnDotApp.Helpers;
+using DashnDotApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,14 +34,17 @@ namespace DashnDotApp.Controllers
 
         [Route("getProductsByCategory/{category}")]
         [HttpGet]
-        public IActionResult GetProductByCategory(string category)
+        public IActionResult GetProductByCategory([FromQuery]ProductParams productParams,string category)
         {
             try
             {
 
-                var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes").Include("SizeId").ToList();
-                var productsToReturn = products.FindAll(x => x.Active == "Ενεργοποιημένο").Where(y => y.Category == category);
-                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
+                var products = _repo.GetProductByCategory(productParams, category);
+
+
+                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(products);
+                Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
+
                 return Ok(productsFull);
 
             }
@@ -89,13 +94,17 @@ namespace DashnDotApp.Controllers
 
         [Route("getProductsByLine/{line}")]
         [HttpGet]
-        public IActionResult GetProductBySize(string line)
+        public IActionResult GetProductBySize([FromQuery]ProductParams productParams,string line)
         {
             try
             {
-                var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes").Include("ProductSizes.Size").ToList();
-                var productsToReturn = products.FindAll(x => x.Active == "Ενεργοποιημένο").Where(x => x.Line == line);
-                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(productsToReturn);
+
+                var products = _repo.GetProductByLine(productParams, line);
+
+               
+                var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(products);
+                Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
+
                 return Ok(productsFull);
             }
             catch (Exception ex)
@@ -103,6 +112,25 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Σφάλμα");
             }
 
+        }
+
+        [Route("addMessage")]
+        [HttpPost]
+        public IActionResult AddMessage(MessageForCreateDto messageForCreateDto)
+        {
+            try
+            {
+
+                var messageToCreate = _mapper.Map<CustMessage>(messageForCreateDto);
+                var result = _ctx.Messages.Add(messageToCreate);
+                
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν έγινε η αποθήκευση του συστήματος");
+            }
         }
     }
 }

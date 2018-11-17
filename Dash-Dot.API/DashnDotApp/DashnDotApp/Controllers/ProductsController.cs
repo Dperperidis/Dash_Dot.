@@ -63,6 +63,11 @@ namespace DashnDotApp.Controllers
         {
             try
             {
+                var isNumeric = int.TryParse(product.Price, out int n);
+                if (!isNumeric)
+                {
+                    return BadRequest("Δεν συμπληρώσατε σωστά την τιμή");
+                }
                 if (_ctx.Product.Any(x => x.Code == product.Code))
                 {
                     return BadRequest("Το προιον ήδη υπάρχει");
@@ -113,14 +118,14 @@ namespace DashnDotApp.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public IActionResult DeleteProduct(int id)
         {
             var productFromRepo = _repo.GetProduct(id);
 
             var result = _ctx.Product.Remove(productFromRepo);
 
 
-            if (await _repo.SaveAll())
+            if ( _repo.SaveAll())
                 return NoContent();
 
             throw new Exception($"Deleting product {id} failed");

@@ -63,10 +63,10 @@
   <br>
   <div class="row " *ngIf="box">
     <div class="col-lg-3 col-sm-6 col-md-6" *ngFor="let product of product">
-      <a [routerLink]="['/product',product.seoUrl]" class="text-dark">
+      <a  class="text-dark">
         <div class="card text-center p-3">
           <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
-          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " 
+          <img [routerLink]="['/product',product.seoUrl]" class="card-img-top img-fluid" src="{{product.photoUrl}} " 
             alt="Card image cap">
           <h6 class="card-text text-dark font-weight-bold mt-3">{{product.title}}</h6>
           <hr>
@@ -108,9 +108,7 @@
               product.price |
               currency:'EUR':symbol}}</span></h4>
           <div class="btn-toolbar mt-3">
-            <button type="button" class="btn btn-primary mr-2"><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>
-            <button type="button" class="btn btn-secondary mr-2" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-info-circle"></i>
-              Λεπτομέρειες</button>
+            <button type="button" class="btn btn-primary mr-2"  (click)="addToCart(product)" ><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>          
           </div>
         </div>
         <div class="col-md-4 order-md-1  text-center">

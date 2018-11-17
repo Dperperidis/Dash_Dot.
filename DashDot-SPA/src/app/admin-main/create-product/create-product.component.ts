@@ -35,10 +35,10 @@ export class CreateProductComponent implements OnInit {
   ngOnInit() {
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
-    })
+    });
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
-    })
+    });
     this.spinner.hide();
   }
 
@@ -55,18 +55,18 @@ export class CreateProductComponent implements OnInit {
       this.router.navigate(['/admin/main/edit/' + res.id]);
       this.toastr.success('Η καταχώρηση έγινε επιτυχώς');
     }, error => {
-      this.toastr.error('Υπάρχει ήδη προιον με αυτον τον κωδικό')
+      this.toastr.error(error);
     });
   }
 
   addColor() {
-    this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
+    this.productSizeColor.color = this.colors.find(x => x.id === this.productSizeColor.colorId);
     this.productSize.productSizeColor.push(this.productSizeColor);
     this.productSizeColor = new ProductSizeColor();
   }
 
   addSize() {
-    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId)
+    this.productSize.size = this.sizes.find(x => x.id === this.productSize.sizeId);
     this.product.productSizes.push(this.productSize);
     this.modalRef.hide();
 
@@ -77,8 +77,8 @@ export class CreateProductComponent implements OnInit {
     this.productSize = s;
   }
 
-  deleteEntity(id){
-    const index = this.productSize.productSizeColor.findIndex(x=>x.colorId==id);
+  deleteEntity(id) {
+    const index = this.productSize.productSizeColor.findIndex(x => x.colorId === id);
     this.productSize.productSizeColor.splice(index, 1);
   }
 

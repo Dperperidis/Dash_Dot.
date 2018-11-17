@@ -1,0 +1,9 @@
+<app-navbar></app-navbar>
+<p>
+  {{cartItems.items.length}} Προϊόντα
+
+  {{cartItems.items |json}}
+
+  <a class="btn btn-primary" (click)="sendOrder()">send</a>
+</p>
+<app-footer></app-footer>

@@ -31,14 +31,10 @@ namespace DashnDotApp.Dtos
         {
             get
             {
-                if (Discount == null)
-                {
-
-                    return int.Parse(Price);
-
-                } else if(Discount == "")
+                if (string.IsNullOrEmpty(Discount))
                 {
                     return int.Parse(Price);
+
                 }
                 return int.Parse(Price) - int.Parse(Discount);
 

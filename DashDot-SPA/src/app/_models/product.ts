@@ -12,7 +12,7 @@ export class Product {
     material: string;
     active: string;
     design: string;
-    quantity: string; 
+    quantity: string;
     created: Date;
     seoUrl: string;
     description: string;
@@ -21,7 +21,7 @@ export class Product {
     totalCost: number;
     discount: string;
     photos?: Photo[];
-    productSizes: Array<ProductSize>
+    productSizes: Array<ProductSize>;
     constructor() {
         this.productSizes = new Array<ProductSize>();
     }
@@ -32,7 +32,7 @@ export class ProductSize {
     productId: number;
     sizeId: number;
     size: Size;
-    productSizeColor: Array<ProductSizeColor>
+    productSizeColor: Array<ProductSizeColor>;
     constructor() {
         this.productSizeColor = new Array<ProductSizeColor>();
     }
@@ -41,9 +41,9 @@ export class ProductSize {
 export class ProductSizeColor {
     id: number;
     productSizeId: number;
-    productSizes:ProductSize;
+    productSizes: ProductSize;
     colorId: number;
-    color: Color; 
+    color: Color;
     count: number;
 }
 

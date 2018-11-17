@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DashnDotApp.Model
 {
-    public class ShoppingCarts
+    public class ShoppingCart
     {
-
-        public int Id { get; set; }
+        public string Id { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
         public DateTime Created { get; set; }
         public virtual IList<Item> Items { get; set; }
-        public ShoppingCarts()
+
+        public ShoppingCart()
         {
             Items = new List<Item>();
+            Created = DateTime.UtcNow;
         }
 
 
@@ -21,7 +22,8 @@ namespace DashnDotApp.Model
         {
             public int Id { get; set; }
             public int ProductId { get; set; }
-            public Product Product { get; set; }
+            public int Quantity { get; set; }
+            public virtual Product Product { get; set; }
         }
     }
 }

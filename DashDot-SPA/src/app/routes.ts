@@ -18,16 +18,18 @@ import { StoreMapsComponent } from "./store-maps/store-maps.component";
 import { ProductListResolver } from "./_resolvers/product-list.resolver";
 import { UserPageComponent } from "./admin-main/user-page/user-page.component";
 import { MessageListResolver } from "./_resolvers/messages-list.resolver";
+import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
-    {path: 'shirts/:id', component:  ItemsListComponent,},
-    {path: 'accessories/:id', component:  ItemsListComponent  },
-    {path: 'knitt-wear/:id', component:  ItemsListComponent  },
+    { path: 'shirts/:id', component: ItemsListComponent, },
+    { path: 'accessories/:id', component: ItemsListComponent },
+    { path: 'knitt-wear/:id', component: ItemsListComponent },
     { path: 'product/:id', component: ItemDetailsComponent, resolve: { product: GetProductResolver } },
     { path: 'login', component: LogRegComponent },
     { path: 'admin', component: AdminpageComponent },
-    {path: 'stores', component: StoreMapsComponent},
+    { path: 'stores', component: StoreMapsComponent },
+    { path: 'cart', component:  ShoppingcartComponent},
 
     {
         path: 'admin/main',
@@ -41,6 +43,7 @@ export const routes: Routes = [
                     {
                         path: 'details', component: ProductDetailComponent, resolve: { product: ProductListResolver }
                     }, {
+                        // tslint:disable-next-line:max-line-length
                         path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
                     }, {
                         path: 'create-product', component: CreateProductComponent

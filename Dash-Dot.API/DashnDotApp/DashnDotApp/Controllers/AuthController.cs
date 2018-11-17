@@ -37,18 +37,18 @@ namespace DashnDotApp.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+        public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
 
 
             userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.Email))
+            if (_repo.UserExists(userForRegisterDto.Email))
                 return BadRequest("Υπάρχει ήδη λογαριασμός με αυτό το E-mail!");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createdUser = _repo.Register(userToCreate, userForRegisterDto.Password);
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
 
@@ -57,10 +57,9 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpGet("{id}", Name = "Get User")]
-
-        public IActionResult GetUser(int id)
+        public IActionResult GetUser(string id)
         {
-            var user =  _ctx.Users.FirstOrDefault(u => u.Id == id);
+            var user = _ctx.Users.FirstOrDefault(u => u.Id == id);
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
@@ -68,12 +67,12 @@ namespace DashnDotApp.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+        public IActionResult Login(UserForLoginDto userForLoginDto)
         {
 
             try
             {
-                var userFromRepo = await _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
+                var userFromRepo = _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
                 if (userFromRepo == null)
                     return Unauthorized();
@@ -81,6 +80,7 @@ namespace DashnDotApp.Controllers
                 var claims = new[]
                 {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                new Claim("Id", userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userForLoginDto.Email),
                 new Claim("isAdmin", userFromRepo.IsAdmin.ToString()),
                 new Claim("firstname", userFromRepo.FirstName)
@@ -113,7 +113,7 @@ namespace DashnDotApp.Controllers
                 throw new Exception("Κάτι πήγε στραβά");
             }
 
-           
+
         }
     }
 
@@ -121,5 +121,5 @@ namespace DashnDotApp.Controllers
 
 
 
-    
+
 

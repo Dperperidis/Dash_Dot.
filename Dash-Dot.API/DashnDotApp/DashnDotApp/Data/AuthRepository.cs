@@ -16,9 +16,9 @@ namespace DashnDotApp.Data
             _context = context;
         }
 
-        public async Task<User> Login(string email, string password)
+        public User Login(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null)
                 return null;
@@ -43,27 +43,22 @@ namespace DashnDotApp.Data
             return true;
         }
 
-        public async Task<bool> UserExists(string email)
+        public bool UserExists(string email)
         {
-            if (await _context.Users.AnyAsync(x => x.Email == email))
+            if (_context.Users.Any(x => x.Email == email))
                 return true;
-       
 
             return false;
         }
 
-        public async Task<User> Register(User user, string password)
+        public User Register(User user, string password)
         {
-
             byte[] passwordHash, PasswordSalt;
             CreatePasswordHash(password, out passwordHash, out PasswordSalt);
-
             user.PasswordHash = passwordHash;
             user.PasswordSalt = PasswordSalt;
-
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return user;
         }
 

@@ -143,10 +143,11 @@
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fa fa-shopping-bag "></i>
-            0 Προϊόντα
+            {{cartItems.items.length}} Προϊόντα
+         
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item">Action</a>
+            <a class="dropdown-item" [routerLink]="['/cart']">Προβολή Καλαθιού</a>
             <a class="dropdown-item">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item">Something else here</a>

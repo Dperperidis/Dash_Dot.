@@ -55,20 +55,6 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Items");
-                });
-
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -173,20 +159,41 @@ namespace DashnDotApp.Migrations
                     b.ToTable("ProductSizeColors");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("itemsId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("itemsId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart+Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<string>("ShoppingCartId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Size", b =>
@@ -206,9 +213,8 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Created");
 
@@ -227,13 +233,6 @@ namespace DashnDotApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
-                {
-                    b.HasOne("DashnDotApp.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
@@ -270,11 +269,23 @@ namespace DashnDotApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Items", "items")
+                    b.HasOne("DashnDotApp.Model.User", "User")
                         .WithMany()
-                        .HasForeignKey("itemsId");
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart+Item", b =>
+                {
+                    b.HasOne("DashnDotApp.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DashnDotApp.Model.ShoppingCart")
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

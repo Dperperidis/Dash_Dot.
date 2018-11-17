@@ -55,15 +55,16 @@ import { UserPageComponent } from './admin-main/user-page/user-page.component';
 import { MessageListResolver } from './_resolvers/messages-list.resolver';
 import { ArraySortPipe } from './_resolvers/ArraySortSize.pipe';
 import { ShoppingCartService } from './_services/shopping-cart.service';
+import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
 
 registerLocaleData(localeEn);
-
 export function tokenGetter() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
   } else {
-   if (sessionStorage.getItem("token"))
-  return sessionStorage.getItem("token");
+    if (sessionStorage.getItem('token')) {
+      return sessionStorage.getItem('token');
+    }
   }
 }
 
@@ -91,7 +92,8 @@ export function tokenGetter() {
     ProductSettingsComponent,
     StoreMapsComponent,
     UserPageComponent,
-    ArraySortPipe
+    ArraySortPipe,
+    ShoppingcartComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,7 @@ export function tokenGetter() {
     CarouselModule.forRoot(),
     FileUploadModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyCjQ0-_ZDIeusY968G40BkJen-adCm3yWI'
+      apiKey: 'AIzaSyCjQ0-_ZDIeusY968G40BkJen-adCm3yWI'
     }),
     CollapseModule.forRoot(),
     ChartsModule,
@@ -127,9 +129,9 @@ export function tokenGetter() {
     })
   ],
   providers: [{
-  provide: LOCALE_ID,
-  useValue: 'en-EN'
-  },  
+    provide: LOCALE_ID,
+    useValue: 'en-EN'
+  },
     AuthService,
     ProductService,
     PreventUnsavedChanges,

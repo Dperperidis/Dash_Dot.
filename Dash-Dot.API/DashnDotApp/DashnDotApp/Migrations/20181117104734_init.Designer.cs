@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20181115110716_new1")]
-    partial class new1
+    [Migration("20181117104734_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,25 +36,13 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Color");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("DashnDotApp.Model.Messages", b =>
+            modelBuilder.Entity("DashnDotApp.Model.CustMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code");
 
                     b.Property<DateTime>("Created");
 
@@ -63,8 +51,6 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("Message");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("ProductId");
 
                     b.HasKey("Id");
 
@@ -175,20 +161,43 @@ namespace DashnDotApp.Migrations
                     b.ToTable("ProductSizeColors");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("itemsId");
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserId1");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("itemsId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart+Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<string>("ShoppingCartId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Size", b =>
@@ -208,9 +217,8 @@ namespace DashnDotApp.Migrations
 
             modelBuilder.Entity("DashnDotApp.Model.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Created");
 
@@ -229,13 +237,6 @@ namespace DashnDotApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
-                {
-                    b.HasOne("DashnDotApp.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
@@ -272,11 +273,23 @@ namespace DashnDotApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart", b =>
                 {
-                    b.HasOne("DashnDotApp.Model.Items", "items")
+                    b.HasOne("DashnDotApp.Model.User", "User")
                         .WithMany()
-                        .HasForeignKey("itemsId");
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("DashnDotApp.Model.ShoppingCart+Item", b =>
+                {
+                    b.HasOne("DashnDotApp.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DashnDotApp.Model.ShoppingCart")
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

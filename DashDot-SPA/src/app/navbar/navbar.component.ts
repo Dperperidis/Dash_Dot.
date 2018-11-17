@@ -7,6 +7,8 @@ import { Product } from "../_models/product";
 import { ProductService } from "../_services/product.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { DOCUMENT } from "@angular/common";
+import { ShoppingCartService } from "../_services/shopping-cart.service";
+import { ShoppingCart } from "../_models/shoppingcart";
 
 @Component({
   selector: "app-navbar",
@@ -17,12 +19,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
   isAdmin = false;
   public isCollapsed = false;
-
+  cartItems = new ShoppingCart();
   constructor(private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private cartService: ShoppingCartService
+  ) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.cartService.cart$.subscribe(value => {
+      this.cartItems = value;
+    }));
     this.subscriptions.push(this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     }));

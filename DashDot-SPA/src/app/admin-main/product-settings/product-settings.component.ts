@@ -21,9 +21,9 @@ export class ProductSettingsComponent implements OnInit {
   ngOnInit() {
     this.prodSettings.getColors().subscribe(res => {
       this.totalColors = res;
-      console.log(this.colorNew.id)
-    })
-    this.color = '#ffffff'
+      console.log(this.colorNew.id);
+    });
+    this.color = '#ffffff';
   }
 
 
@@ -34,12 +34,12 @@ export class ProductSettingsComponent implements OnInit {
 
   addColor() {
     this.prodSettings.addColor(this.colorNew).subscribe(res => {
-      this.totalColors.splice(0, 0, res)
-      this.toastr.success('Η εισαγωγή χρώματος έγινε επιτυχώς')
+      this.totalColors.splice(0, 0, res);
+      this.toastr.success('Η εισαγωγή χρώματος έγινε επιτυχώς');
       this.colorNew = new Color();
     }, error => {
       this.toastr.warning(error);
-    })
+    });
   }
 
   updateColor() {
@@ -48,27 +48,28 @@ export class ProductSettingsComponent implements OnInit {
       const i = this.totalColors.findIndex(x => x.id === this.colorNew.id);
       this.totalColors[i] = res;
       this.colorNew = new Color();
-    })
+    });
   }
 
   addSize() {
     this.prodSettings.addSize(this.size).subscribe(res => {
-      this.toastr.success('Η εισαγωγή Μεγέθους έγινε επιτυχώς')
+      this.toastr.success('Η εισαγωγή Μεγέθους έγινε επιτυχώς');
       this.size = new Size();
-    })
+    });
 
   }
 
   deleteColor(id) {
     if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε το προϊόν;")) {
-      const i = this.totalColors.findIndex(x => x.id == id)
+      const i = this.totalColors.findIndex(x => x.id === id);
       this.prodSettings.deleteColor(id).subscribe(res => {
         this.totalColors.splice(i, 1);
         this.toastr.success('Η διαγραφή έγινε επιτυχώς');
       });
+      // tslint:disable-next-line:no-unused-expression
     } error => {
-      this.toastr.error(error)
-    }
+      this.toastr.error(error);
+    };
   }
   editColor(i: number) {
     this.colorNew.id = this.totalColors[i].id;

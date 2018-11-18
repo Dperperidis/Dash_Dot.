@@ -24,6 +24,10 @@ export class ProductService {
         return this.http.get<Product>(this.baseUrl + "products/" + id);
     }
 
+    getSuggestedProducts(): Observable<Product[]> {
+        return this.http.get<Product[]>(this.baseUrl + 'customers/getSuggestedProducts');
+    }
+
     getProductBySeoUrl(seoUrl: string): Observable<Product> {
         return this.http.get<Product>(this.baseUrl + "customers/getProductBySeoUrl/" + seoUrl);
     }

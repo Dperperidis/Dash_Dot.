@@ -38,15 +38,10 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-
                 var products = _repo.GetProductByCategory(productParams, category);
-
-
                 var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(products);
                 Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
-
                 return Ok(productsFull);
-
             }
             catch (Exception ex)
             {
@@ -61,9 +56,7 @@ namespace DashnDotApp.Controllers
             try
             {
                 var product = _repo.GetProductByTitle(seoUrl);
-
                 var productToReturn = _mapper.Map<ProductForDetailedDto>(product);
-
                 return Ok(productToReturn);
             }
             catch (Exception ex)
@@ -72,19 +65,15 @@ namespace DashnDotApp.Controllers
             }
         }
 
-        [Route("getSizeColor/{sizeId}/{prodId}")]
+        [Route("getSizeColor/{size}/{prodId}")]
         [HttpGet]
-        public ActionResult GetSizes(int sizeId, int prodId)
+        public ActionResult GetSizes(string size, int prodId)
         {
             try
             {
-
                 var result = _ctx.ProductSizes.Include("ProductSizeColor").Include("ProductSizeColor.Color").Where(x => x.ProductId == prodId);
-
-                var product = result.FirstOrDefault(x => x.SizeId == sizeId);
-
+                var product = result.FirstOrDefault(x => x.Size.Title == size);         
                 return Ok(product);
-
             }
             catch (Exception ex)
             {
@@ -98,20 +87,15 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-
                 var products = _repo.GetProductByLine(productParams, line);
-
-               
                 var productsFull = _mapper.Map<IEnumerable<ProductForListDto>>(products);
                 Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
-
                 return Ok(productsFull);
             }
             catch (Exception ex)
             {
                 return BadRequest("Σφάλμα");
             }
-
         }
 
         [Route("addMessage")]
@@ -120,16 +104,32 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-
                 var messageToCreate = _mapper.Map<CustMessage>(messageForCreateDto);
-                var result = _ctx.Messages.Add(messageToCreate);
-                
+                var result = _ctx.Messages.Add(messageToCreate);              
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
             }
             catch (Exception ex)
             {
                 return BadRequest("Δεν έγινε η αποθήκευση του συστήματος");
+            }
+        }
+
+        [Route("getSuggestedProducts")]
+        [HttpGet]
+        public IActionResult GetSuggestedProducts()
+        {
+            try
+            {
+                var products = _ctx.Product.Include(x=>x.Photos).Where(p => p.Suggested == true).ToList();
+
+                var result = _mapper.Map<IEnumerable<ProductForListDto>>(products);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν μπορούν να εμφανιστούν τα προϊόντα για κάποιο τεχνικό λόγο!");
             }
         }
 

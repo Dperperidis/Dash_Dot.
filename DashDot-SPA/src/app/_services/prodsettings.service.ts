@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { Color, Size, ProductSize } from "../_models/product";
+import { PaginatedResult } from "../_models/pagination";
+import { map } from "rxjs/operators";
 
 @Injectable({
     providedIn: "root"
@@ -25,16 +27,41 @@ export class ProdSettingsService {
         return this.http.post<Size>(this.baseUrl + '/sizescolors/addSize', size);
     }
 
-    getColors(): Observable<Array<Color>> {
-        return this.http.get<Array<Color>>(this.baseUrl + '/sizescolors/getColors');
+    getColors(): Observable<Color[]> {
+        return this.http.get<Color[]>(this.baseUrl + '/sizescolors/getColors');
     }
+
+    getColorsForAdmin(page?, itemsPerPage?): Observable<PaginatedResult<Color[]>> {
+        const paginatedResult: PaginatedResult<Color[]> = new PaginatedResult<Color[]>();
+        let params = new HttpParams();
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page);
+            params = params.append('pageSize', itemsPerPage);
+        }
+        return this.http.get<Array<Color>>(this.baseUrl + '/sizescolors/getColorsForAdmin', { observe: 'response', params })
+            .pipe(
+                map(response => {
+                    paginatedResult.result = response.body;
+                    if (response.headers.get('Pagination') != null) {
+                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+                    }
+                    return paginatedResult;
+                })
+            );;
+    }
+
+
+
+
+
+
 
     getSizes(): Observable<Array<Size>> {
         return this.http.get<Array<Size>>(this.baseUrl + '/sizescolors/getSizes');
     }
 
-    getColorsBySize(id: number, prodId: number): Observable<Array<ProductSize>> {
-        return this.http.get<Array<ProductSize>>(this.baseUrl + '/customers/getSizeColor/' + id + '/' + prodId);
+    getColorsBySize(size: string, prodId: number): Observable<Array<ProductSize>> {
+        return this.http.get<Array<ProductSize>>(this.baseUrl + '/customers/getSizeColor/' + size + '/' + prodId);
     }
 
     deleteColor(id: number) {

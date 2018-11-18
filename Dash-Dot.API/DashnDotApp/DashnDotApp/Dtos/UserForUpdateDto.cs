@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DashnDotApp.Model
+namespace DashnDotApp.Dtos
 {
-    public class User
+    public class UserForUpdateDto
     {
         public string Id { get; set; }
         public string FirstName { get; set; }
@@ -16,10 +16,5 @@ namespace DashnDotApp.Model
         public int PostalCode { get; set; }
         public string City { get; set; }
         public string Area { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-        public bool IsAdmin { get; set; }
-        public DateTime Created { get; set; }
-
     }
 }

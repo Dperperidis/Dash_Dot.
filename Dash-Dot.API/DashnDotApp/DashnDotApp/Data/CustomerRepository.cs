@@ -31,11 +31,8 @@ namespace DashnDotApp.Data
 
         public PagedList<CustMessage> GetMessages(UserParams userParams)
         {
-
-
             var messages = _ctx.Messages;
             return PagedList<CustMessage>.Create(messages, userParams.PageNumber, userParams.PageSize);
-
         }
     }
 }

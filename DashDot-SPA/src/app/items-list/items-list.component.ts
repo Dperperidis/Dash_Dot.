@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css']
 })
-export class ItemsListComponent implements OnInit, OnDestroy {
-  private subscriptions = new Array<Subscription>();
+export class ItemsListComponent implements OnInit {
+  // private subscriptions = new Array<Subscription>();
   box = true;
   list = false;
   product = new Array<Product>();
@@ -33,14 +33,14 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     private cartService: ShoppingCartService) {
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+  // ngOnDestroy() {
+  //   this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  // }
 
   ngOnInit() {
-    this.subscriptions.push(this.cartService.cart$.subscribe(value => {
-      this.cartItems = value;
-    }));
+    // this.subscriptions.push(this.cartService.cart$.subscribe(value => {
+    //   this.cartItems = value;
+    // }));
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -313,8 +313,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.box = true;
   }
 
-  addToCart(product: Product) {
-    this.cartService.addItemToCart(product, 1);
-  }
+  // addToCart(product: Product) {
+  //   this.cartService.addItemToCart(product, 1);
+  // }
 
 }

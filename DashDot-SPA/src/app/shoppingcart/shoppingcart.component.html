@@ -1,9 +1,36 @@
 <app-navbar></app-navbar>
-<p>
-  {{cartItems.items.length}} Προϊόντα
 
-  {{cartItems.items |json}}
 
-  <a class="btn btn-primary" (click)="sendOrder()">send</a>
-</p>
+<div class="container">
+  <table class="table table-bordered col-">
+    <thead>
+      <tr>
+        <th scope="col">ΕΙΚΟΝΑ</th>
+        <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
+        <th scope="col">ΚΩΔΙΚΟΣ ΠΡΟΙΟΝΤΟΣ</th>
+        <th scope="col">ΠΟΣΟΤΗΤΑ</th>
+        <th scope="col">ΤΙΜΗ ΜΟΝΑΔΑΣ</th>
+        <th scope="col">ΣΥΝΟΛΟ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems.items">
+        <td><img src="{{item.product.photoUrl}}" alt=""></td>
+        <td><a href="product/{{item.product.seoUrl}}"><h5>{{item.product.title}}</h5></a>
+        <h6 class="text-muted"><strong>-Μέγεθος</strong>: {{item.size}}</h6>
+        <h6 class="text-muted"><strong>-Χρώμα</strong>: {{item.color}}</h6>
+        </td>
+        <td>{{item.product.code}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.product.price |  currency:'EUR':symbol}}</td>
+        <td>{{item.product.price*item.quantity |  currency:'EUR':symbol}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<a class="btn btn-primary" (click)="sendOrder()">send</a>
+
+
 <app-footer></app-footer>

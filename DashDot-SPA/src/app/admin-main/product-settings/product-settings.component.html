@@ -24,7 +24,7 @@
                     ? "Αποθήκευση":"Καταχώρηση Χρώματος"}} </button>
                 <input [value]="color" [style.background]="color" [(colorPicker)]="color" class="" />
             </div>
-
+            <a href="http://www.digitalnews.gr/8119/%CE%BA%CF%89%CE%B4%CE%B9%CE%BA%CE%BF%CE%AF-%CF%87%CF%81%CF%89%CE%BC%CE%AC%CF%84%CF%89%CE%BD-html-rgb" target="_blank">Κωδικοί χρωμάτων HTML RGB</a>
         </div>
     </div>
     <hr>
@@ -32,9 +32,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Χρώμα</th>
-                <th scope="col">Κωδικός</th>
-                <th scope="col">Ενέργειες</th>
+                <th scope="col">ΧΡΩΜΑ</th>
+                <th scope="col">ΚΩΔΙΚΟΣ</th>
+                <th scope="col">ΕΝΕΡΓΕΙΕΣ</th>
             </tr>
         </thead>
         <tbody>
@@ -52,4 +52,12 @@
 
     </table>
 
+
+    <div class="d-flex justify-content-center">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+            [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+            firstText="&laquo;" lastText="&raquo;">
+
+        </pagination>
+    </div>
 </div>

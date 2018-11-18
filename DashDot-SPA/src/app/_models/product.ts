@@ -15,6 +15,7 @@ export class Product {
     quantity: string;
     created: Date;
     seoUrl: string;
+    suggested: boolean;
     description: string;
     sleeve: string;
     line: string;

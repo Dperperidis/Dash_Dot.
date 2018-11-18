@@ -20,7 +20,6 @@ export class CreateProductComponent implements OnInit {
   colors = new Array<Color>();
   productSize: ProductSize;
   productSizeColor: ProductSizeColor;
-  colorSizeTitle: string;
 
   modalRef: BsModalRef;
 
@@ -55,18 +54,18 @@ export class CreateProductComponent implements OnInit {
       this.router.navigate(['/admin/main/edit/' + res.id]);
       this.toastr.success('Η καταχώρηση έγινε επιτυχώς');
     }, error => {
-      this.toastr.error(error);
+      this.toastr.error('Υπάρχει ήδη προϊόν με αυτόν τον κωδικό! ');
     });
   }
 
   addColor() {
-    this.productSizeColor.color = this.colors.find(x => x.id === this.productSizeColor.colorId);
+    this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
     this.productSize.productSizeColor.push(this.productSizeColor);
     this.productSizeColor = new ProductSizeColor();
   }
 
   addSize() {
-    this.productSize.size = this.sizes.find(x => x.id === this.productSize.sizeId);
+    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId);
     this.product.productSizes.push(this.productSize);
     this.modalRef.hide();
 
@@ -78,7 +77,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   deleteEntity(id) {
-    const index = this.productSize.productSizeColor.findIndex(x => x.colorId === id);
+    const index = this.productSize.productSizeColor.findIndex(x => x.colorId == id);
     this.productSize.productSizeColor.splice(index, 1);
   }
 

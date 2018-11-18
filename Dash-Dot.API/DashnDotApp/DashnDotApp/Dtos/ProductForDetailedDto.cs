@@ -19,6 +19,7 @@ namespace DashnDotApp.Dtos
         public string Description { get; set; }
         public string Sleeve { get; set; }
         public string Design { get; set; }
+        public bool Suggested { get; set; }
         public string seoUrl { get; set; }
         public string Quantity { get; set; }
         public string Discount { get; set; }
@@ -29,14 +30,10 @@ namespace DashnDotApp.Dtos
         {
             get
             {
-                if (Discount == null)
+                if (string.IsNullOrEmpty(Discount))
                 {
                     return int.Parse(Price);
 
-                }
-                else if (Discount == "")
-                {
-                    return int.Parse(Price);
                 }
                 return int.Parse(Price) - int.Parse(Discount);
 

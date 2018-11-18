@@ -29,7 +29,7 @@ export class EditProductComponent implements OnInit {
   colors = new Array<Color>();
   productSize: ProductSize;
   productSizeColor = new ProductSizeColor();
-  disable: boolean = false;
+  disable = false;
   modalRef: BsModalRef;
 
   constructor(
@@ -47,16 +47,14 @@ export class EditProductComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.productService.currentProduct = data["product"];
       this.product = this.productService.currentProduct;
-
     });
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
-     this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
-
-    })
+      this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
+    });
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
-    })
+    });
   }
 
   updateMainPhoto(photoUrl) {
@@ -72,13 +70,13 @@ export class EditProductComponent implements OnInit {
       this.spinner.hide();
     }, error => {
       this.toastr.error(error);
-    })
+    });
   }
 
   deleteProduct(id) {
     if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε το προϊόν;")) {
       this.adminProdService.deleteProduct(id).subscribe(res => {
-        this.toastr.success("Η διαγραφή έγινε επιτυχώς")
+        this.toastr.success("Η διαγραφή έγινε επιτυχώς");
         this.router.navigate(['/admin/main/details']);
       }, error => {
         this.toastr.error(error);
@@ -94,7 +92,6 @@ export class EditProductComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
     this.productSize = new ProductSize();
     this.productSizeColor = new ProductSizeColor();
-
   }
 
   addColor() {
@@ -104,7 +101,7 @@ export class EditProductComponent implements OnInit {
   }
 
   addSize() {
-    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId)
+    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId);
     this.product.productSizes.push(this.productSize);
     this.modalRef.hide();
 
@@ -124,19 +121,19 @@ export class EditProductComponent implements OnInit {
 
   deleteCurSize(id) {
 
-    const i = this.product.productSizes.findIndex(x => x.id === id);
+    const i = this.product.productSizes.findIndex(x => x.id == id);
     this.product.productSizes.splice(i, 1);
 
   }
 
   deleteSize(id) {
     this.adminProdService.deleteSize(id).subscribe(res => {
-      const i = this.product.productSizes.findIndex(x => x.id == id)
+      const i = this.product.productSizes.findIndex(x => x.id == id);
       this.product.productSizes.splice(i, 1);
-      this.toastr.warning('Η διαγραφή έγινε επιτυχώς')
+      this.toastr.warning('Η διαγραφή έγινε επιτυχώς');
     }, error => {
-      this.toastr.error('Το προϊον δεν είναι αποθηκευμένο για να διαγραφτεί')
-    })
+      this.toastr.error('Το προϊον δεν είναι αποθηκευμένο για να διαγραφτεί');
+    });
 
   }
 
@@ -148,7 +145,7 @@ export class EditProductComponent implements OnInit {
       this.toastr.success('Η διαγραφή έγινε επιτυχώς');
     }, error => {
       this.toastr.error(error);
-    })
+    });
   }
 
 

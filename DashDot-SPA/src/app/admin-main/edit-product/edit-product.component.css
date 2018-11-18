@@ -99,3 +99,7 @@ input, textarea, select{
     background-image:linear-gradient(white,grey)
 }
 
+select{
+    overflow:scroll;
+}
+

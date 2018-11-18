@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Size, Color } from 'src/app/_models/product';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 import { ToastrService } from 'ngx-toastr';
+import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-settings',
@@ -13,22 +15,33 @@ export class ProductSettingsComponent implements OnInit {
   colorNew = new Color();
   color: any;
   totalColors: Color[];
+  pagination: Pagination;
 
   constructor(private prodSettings: ProdSettingsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.prodSettings.getColors().subscribe(res => {
-      this.totalColors = res;
-      console.log(this.colorNew.id);
-    });
+    this.route.data.subscribe(data => {
+      this.totalColors = data['color'].result;
+      this.pagination = data['color'].pagination
+    })
     this.color = '#ffffff';
   }
 
 
   addOrUpdateColor() {
     this.colorNew.id ? this.updateColor() : this.addColor();
+  }
+
+  getColors() {
+    this.prodSettings.getColorsForAdmin(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<Color[]>) => {
+      this.totalColors = res.result;
+      this.pagination = res.pagination;
+    }, error => {
+      this.toastr.error(error);
+    })
   }
 
 
@@ -75,6 +88,12 @@ export class ProductSettingsComponent implements OnInit {
     this.colorNew.id = this.totalColors[i].id;
     this.colorNew.rgb = this.totalColors[i].rgb;
     this.colorNew.title = this.totalColors[i].title;
+
+  }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.getColors();
 
   }
 

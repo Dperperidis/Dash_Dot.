@@ -16,6 +16,7 @@ namespace DashnDotApp.Dtos
         public string Code { get; set; }
         public string Season { get; set; }
         public string Material { get; set; }
+        public bool Suggested { get; set; }
         public string Description { get; set; }
         public string Design { get; set; }
         public string Quantity { get; set; }

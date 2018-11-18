@@ -89,6 +89,13 @@ namespace DashnDotApp.Dtos
 
         }
 
+
+        public PagedList<Color> GetColors(ColorParams colorParams)
+        {
+            var colors = _ctx.Color;
+            return PagedList<Color>.Create(colors, colorParams.PageNumber, colorParams.PageSize);
+        }
+
         public Color GetColor(int id)
         {
             var color = _ctx.Color.Find(id);
@@ -100,7 +107,7 @@ namespace DashnDotApp.Dtos
 
             var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes")
                .Include("ProductSizes.ProductSizeColor")
-               .Include("ProductSizes.Size").
+               .Include("ProductSizes.Size").Include(p => p.Photos).
                Include("ProductSizes.ProductSizeColor.Color");
             var productsToReturn = products.Where(x => x.Active == "Ενεργοποιημένο").Where(x => x.Line == line);
             return PagedList<Product>.Create(productsToReturn, productParams.PageNumber, productParams.PageSize);

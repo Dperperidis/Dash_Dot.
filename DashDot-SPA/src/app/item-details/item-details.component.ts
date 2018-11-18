@@ -18,15 +18,18 @@ import { ShoppingCart } from '../_models/shoppingcart';
 export class ItemDetailsComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
   quantity = 1;
+  size: string;
   product = new Product();
   sizes = new Array<any>();
-  color: Color;
+  color: string;
   productSize = new Array<ProductSize>();
   productSizeColor = new Array<Color>();
   productModal = new Product();
   message = new Message();
+  suggestedProducts: Product[];
   checkProduct = true;
   cartItems: ShoppingCart;
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private productService: ProductService,
@@ -35,7 +38,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    this.cartService.addItemToCart(this.product, this.quantity);
+    this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color);
   }
 
   ngOnDestroy() {
@@ -46,6 +49,11 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cartItems = value;
     }));
+    this.productService.getSuggestedProducts().subscribe(res => {
+      this.suggestedProducts = res.sort(function(a,b){
+        return 0.5- Math.random();
+      });
+    })
     window.scrollTo(0, 0);
     this.route.data.subscribe(data => {
       this.product = data["product"];
@@ -53,43 +61,43 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       switch (this.product.category) {
         case "Κασκόλ":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Παπιγιόν":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Γραβάτα":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Καζάκα":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Φουλάρι":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Τιράντα":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Καπέλο":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Σκουφάκι":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Μανικετόκουμπα":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
         case "Clip Γραβάτας":
           this.checkProduct = false;
-          this.onChange(17);
+          this.onChange('Default');
           break;
       }
     });
@@ -97,12 +105,12 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.productModal.photoUrl = this.product.photoUrl;
   }
 
-  onChange(sizeId: number) {
-    if (sizeId === 0) {
+  onChange(size: string) {
+    if (size == '') {
       this.productSize = new Array<ProductSize>();
       return;
     }
-    this.prodSettings.getColorsBySize(sizeId, this.product.id).subscribe(res => {
+    this.prodSettings.getColorsBySize(size, this.product.id).subscribe(res => {
       this.productSize = res;
     }, error => {
       this.toastr.error(error);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './_services/auth.service';
-import { Subscription, Observable, BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,10 +10,9 @@ import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 export class AppComponent {
   jwtHelper = new JwtHelperService();
 
-
   constructor(private authService: AuthService,
   ) {
-
+   
   }
 
   ngOnInit() {
@@ -32,5 +31,6 @@ export class AppComponent {
       }
 
     }
+ 
   }
 }

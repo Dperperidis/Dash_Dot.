@@ -53,9 +53,11 @@ import { SortByService } from './_services/sortbyservice';
 import { ProductListResolver } from './_resolvers/product-list.resolver';
 import { UserPageComponent } from './admin-main/user-page/user-page.component';
 import { MessageListResolver } from './_resolvers/messages-list.resolver';
-import { ArraySortPipe } from './_resolvers/ArraySortSize.pipe';
 import { ShoppingCartService } from './_services/shopping-cart.service';
 import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
+import { MainAccountComponent } from './user/main-account/main-account.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { ColorListResolver } from './_resolvers/colors-list.resolver';
 
 registerLocaleData(localeEn);
 export function tokenGetter() {
@@ -92,8 +94,8 @@ export function tokenGetter() {
     ProductSettingsComponent,
     StoreMapsComponent,
     UserPageComponent,
-    ArraySortPipe,
-    ShoppingcartComponent
+    ShoppingcartComponent,
+    MainAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +147,9 @@ export function tokenGetter() {
     ProdSettingsService,
     ShoppingCartService,
     ProductListResolver,
-    MessageListResolver
+    MessageListResolver,
+    MemberEditResolver,
+    ColorListResolver
   ],
   bootstrap: [AppComponent]
 })

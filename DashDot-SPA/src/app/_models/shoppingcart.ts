@@ -17,4 +17,6 @@ export class Item {
     productId: number;
     product: Product;
     quantity: number;
+    size?: string;
+    color: string;
 }

@@ -34,7 +34,7 @@ export class AuthService {
             map((response: any) => {
                 const user = response;
                 if (user) {
-                    if (customer.saveUser == true) {
+                    if (customer.saveUser === true) {
                         localStorage.setItem("token", user.token);
                         localStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
@@ -54,11 +54,11 @@ export class AuthService {
 
     loggedIn() {
         if (localStorage.getItem("token")) {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);
 
         } else {
-            const token = sessionStorage.getItem("token")
+            const token = sessionStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);
         }
     }

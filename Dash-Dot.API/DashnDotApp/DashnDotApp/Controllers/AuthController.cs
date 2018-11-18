@@ -56,14 +56,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-        [HttpGet("{id}", Name = "Get User")]
-        public IActionResult GetUser(string id)
-        {
-            var user = _ctx.Users.FirstOrDefault(u => u.Id == id);
-
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
-            return Ok(userToReturn);
-        }
+   
 
 
         [HttpPost("login")]

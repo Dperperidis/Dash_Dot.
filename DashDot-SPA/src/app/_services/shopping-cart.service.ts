@@ -4,6 +4,7 @@ import { ShoppingCart, Item } from '../_models/shoppingcart';
 import { Product } from '../_models/product';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,18 @@ export class ShoppingCartService {
   get cart(): ShoppingCart { return this.cartSubject$.getValue(); }
 
   set cart(value: ShoppingCart) { this.cartSubject$.next(value); }
-  constructor(private http: HttpClient) { }
 
-  addItemToCart(product: Product, q: number) {
+  constructor(private http: HttpClient) {
+    
+   }
+
+  addItemToCart(product: Product, q: number, s: string, c:string) {
     const item = new Item();
     item.product = product;
     item.productId = product.id;
     item.quantity = q;
+    item.color = c;
+    item.size = s;
     this.cart.items.push(item);
   }
 

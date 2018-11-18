@@ -3,6 +3,7 @@ using DashnDotApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Claims;
 
 namespace DashnDotApp.Controllers
 {
@@ -11,21 +12,27 @@ namespace DashnDotApp.Controllers
     public class ShoppingCartController : ControllerBase
     {
         private SqlContext _ctx;
-        public ShoppingCartController(SqlContext ctx)
+        private IAuthRepository _repo;
+
+        public ShoppingCartController(SqlContext ctx, IAuthRepository repo)
         {
             _ctx = ctx;
+            _repo = repo;
         }
 
 
         [Route("insert")]
         [HttpPost]
-        public IActionResult AddCart([FromBody]ShoppingCart cart)
+        public IActionResult AddCart([FromBody]ShoppingCart cart, string userId)
         {
             try
             {
-                cart.UserId = User.Claims.First(x => x.Type == "Id").Value; ;
+                //if (userId != (User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                //    return Unauthorized();
 
-                for (var i = 0; i < cart.Items.Count; i++)
+                //var userFromRepo =  _repo.GetUser(userId);
+
+                for (int i = 0; i < cart.Items.Count; i++)
                 {
                     cart.Items[i] = null;
                 }

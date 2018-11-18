@@ -19,6 +19,9 @@ import { ProductListResolver } from "./_resolvers/product-list.resolver";
 import { UserPageComponent } from "./admin-main/user-page/user-page.component";
 import { MessageListResolver } from "./_resolvers/messages-list.resolver";
 import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
+import { MainAccountComponent } from "./user/main-account/main-account.component";
+import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
+import { ColorListResolver } from "./_resolvers/colors-list.resolver";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -29,8 +32,8 @@ export const routes: Routes = [
     { path: 'login', component: LogRegComponent },
     { path: 'admin', component: AdminpageComponent },
     { path: 'stores', component: StoreMapsComponent },
-    { path: 'cart', component:  ShoppingcartComponent},
-
+    { path: 'cart', component: ShoppingcartComponent },
+    { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
     {
         path: 'admin/main',
         runGuardsAndResolvers: "always",
@@ -43,12 +46,11 @@ export const routes: Routes = [
                     {
                         path: 'details', component: ProductDetailComponent, resolve: { product: ProductListResolver }
                     }, {
-                        // tslint:disable-next-line:max-line-length
                         path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
                     }, {
                         path: 'create-product', component: CreateProductComponent
                     }, { path: '', component: AdminChartsComponent },
-                    { path: 'product-settings', component: ProductSettingsComponent },
+                    { path: 'product-settings', component: ProductSettingsComponent, resolve: { color: ColorListResolver } },
                     { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, }
                 ]
             },

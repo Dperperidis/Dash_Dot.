@@ -3,10 +3,6 @@ import { Subscription } from "rxjs";
 import { AuthService } from "../_services/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
-import { Product } from "../_models/product";
-import { ProductService } from "../_services/product.service";
-import { trigger, state, style, transition, animate } from "@angular/animations";
-import { DOCUMENT } from "@angular/common";
 import { ShoppingCartService } from "../_services/shopping-cart.service";
 import { ShoppingCart } from "../_models/shoppingcart";
 

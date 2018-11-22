@@ -37,7 +37,8 @@
       <div class="card-header font-weight-bold">{{product.title}}</div>
       <div class="row mt-3">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <img src="{{product.photoUrl}}" (click)="lgModal.show()" style="cursor:pointer">
+          <img src="{{product.photoUrl}}" (click)="lgModal.show()" style="cursor:pointer" id="zoom_01"  data-zoom-image="large/image1.jpg">
+       
           <hr>
           <div class="text-center" style="cursor:pointer;">
             <img src="{{photos.url}}" alt="" class="photosArray ml-4" (click)="onImgChange(photos.url)" *ngFor="let photos of product.photos">
@@ -72,7 +73,7 @@
               </div>
               <div class="form-group">
                 <h6>*Χρώμα: </h6>
-                <select class="custom-select" placeholder="dialekse" [(ngModel)]="color">
+                <select class="custom-select" placeholder="dialekse"  [(ngModel)]="color">
                   <option selected=""></option>
                   <option *ngFor="let col of productSize.productSizeColor" value="{{col.color.title}}">{{col.color.title}}
                   </option>
@@ -83,7 +84,7 @@
               <div class="form-group">
                 <label for="exampleInputEmail1"><strong>Ποσότητα: </strong></label>
                 <input type="number" min="1" class="quantity text-center ml-2" placeholder="0" [(ngModel)]="quantity">
-                <button (click)="addToCart()" class="btn btn-primary ml-3"><i class="fa fa-shopping-basket mr-2"></i>Προσθήκη
+                <button (click)="addToCart()" [disabled]="!size || !color" class="btn btn-primary ml-3"><i class="fa fa-shopping-basket mr-2"></i>Προσθήκη
                   στο
                   Καλάθι</button>
                 <div class="icons ml-4 ">
@@ -169,7 +170,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="text-center modalImg" style="cursor:pointer;">
-          <img src="{{productModal.photoUrl}}" alt="" style="height:40rem;">
+          <img src="{{productModal.photoUrl}}" alt="" style="height:700px">
         </div>
         <br>
         <div class="text-center" style="cursor:pointer;">
@@ -179,4 +180,5 @@
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

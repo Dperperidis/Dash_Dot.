@@ -38,6 +38,7 @@ font-size:20px;
 
 body{
   font-family:  "Trebuchet MS", Helvetica, sans-serif ;
+  background-color:white;
  }
 
  /* cursive */
@@ -64,4 +65,8 @@ a.page-link:hover{
 
 .page-item.active .page-link{
   background-color: rgb(235, 145, 29)!important;
+}
+
+.bg-warning{
+  background-color:#d19406;
 }

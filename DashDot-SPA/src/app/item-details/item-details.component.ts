@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, Color, ProductSize } from '../_models/product';
 import { ProdSettingsService } from '../_services/prodsettings.service';
@@ -30,12 +30,16 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   checkProduct = true;
   cartItems: ShoppingCart;
 
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private cartService: ShoppingCartService) {
   }
+
+   
+  
 
   addToCart() {
     this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color);
@@ -50,8 +54,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       this.cartItems = value;
     }));
     this.productService.getSuggestedProducts().subscribe(res => {
-      this.suggestedProducts = res.sort(function(a,b){
-        return 0.5- Math.random();
+      this.suggestedProducts = res.sort(function (a, b) {
+        return 0.5 - Math.random();
       });
     })
     window.scrollTo(0, 0);
@@ -120,6 +124,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   onImgChange(imgUrl) {
     this.product.photoUrl = imgUrl;
     this.productModal.photoUrl = imgUrl;
+
   }
   onImgModalChange(imgUrl) {
     this.productModal.photoUrl = imgUrl;
@@ -136,7 +141,12 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
 }
+
+
+
 
 
 

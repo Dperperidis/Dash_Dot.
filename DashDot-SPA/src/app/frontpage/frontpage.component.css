@@ -47,7 +47,7 @@
 
 .display-3{
   text-transform:none;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  font-family: serif;
 }
 
 .col-md-5 img {
@@ -121,7 +121,3 @@ h3{
   margin-top:8rem!important;
 }
 
-
-.fa-facebook-square, .fa-instagram, .fa-phone-square, .fa-map-marker, .fa-clock-o {
-  font-size: 20px;
-}

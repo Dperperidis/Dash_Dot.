@@ -95,7 +95,8 @@ export function tokenGetter() {
     StoreMapsComponent,
     UserPageComponent,
     ShoppingcartComponent,
-    MainAccountComponent
+    MainAccountComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -103,6 +104,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     BrowserAnimationsModule,
     JwtModule,
+
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule,
@@ -135,6 +137,7 @@ export function tokenGetter() {
     useValue: 'en-EN'
   },
     AuthService,
+
     ProductService,
     PreventUnsavedChanges,
     PhotoUploadResolver,

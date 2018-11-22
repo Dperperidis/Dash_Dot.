@@ -3,7 +3,6 @@ import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Pagination, PaginatedResult } from '../_models/Pagination';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { ShoppingCart } from '../_models/shoppingcart';
 import { Subscription } from 'rxjs';

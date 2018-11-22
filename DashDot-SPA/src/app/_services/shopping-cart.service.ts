@@ -19,10 +19,10 @@ export class ShoppingCartService {
   set cart(value: ShoppingCart) { this.cartSubject$.next(value); }
 
   constructor(private http: HttpClient) {
-    
-   }
 
-  addItemToCart(product: Product, q: number, s: string, c:string) {
+  }
+
+  addItemToCart(product: Product, q: number, s: string, c: string) {
     const item = new Item();
     item.product = product;
     item.productId = product.id;

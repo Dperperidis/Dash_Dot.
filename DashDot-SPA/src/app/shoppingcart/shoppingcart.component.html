@@ -14,19 +14,41 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of cartItems.items">
+      <tr *ngFor="let item of cartItems.items;let i = index">
         <td><img src="{{item.product.photoUrl}}" alt=""></td>
-        <td><a href="product/{{item.product.seoUrl}}"><h5>{{item.product.title}}</h5></a>
-        <h6 class="text-muted"><strong>-Μέγεθος</strong>: {{item.size}}</h6>
-        <h6 class="text-muted"><strong>-Χρώμα</strong>: {{item.color}}</h6>
+        <td><a href="product/{{item.product.seoUrl}}">
+            <h5>{{item.product.title}}</h5>
+          </a>
+          <h6 class="text-muted"><strong>-Μέγεθος</strong>: {{item.size}}</h6>
+          <h6 class="text-muted"><strong>-Χρώμα</strong>: {{item.color}}</h6>
         </td>
         <td>{{item.product.code}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.product.price |  currency:'EUR':symbol}}</td>
-        <td>{{item.product.price*item.quantity |  currency:'EUR':symbol}}</td>
+        <td><input type="number" value="{{item.product.quantity}}" placeholder="{{item.product.quantity}}" min="1"></td>
+        <td>{{item.product.price | currency:'EUR':symbol}}</td>
+        <td >{{item.product.price*item.quantity | currency:'EUR':symbol}}</td>
       </tr>
     </tbody>
   </table>
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <h5>Μερικό σύνολο:</h5>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <h5>Σύνολο:</h5>
+      </div>
+      <div class="col-md-6 col-lg-6">
+
+      </div>
+    </div>
+  </div>
 </div>
 
 

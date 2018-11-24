@@ -1,103 +1,97 @@
 <app-navbar></app-navbar>
-<div class="map">
-  <h1 class="text-center" style="font-family:initial;">
-    Βρες το πιό κοντινό σου κατάστημα <strong>dāsh&dot.</strong>
-    για καθημερινή εμπειρία_!
-
-  </h1>
-  <br>
-  <div class="card border-primary">
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="8">
-      <agm-marker [latitude]="m.lat" [longitude]="m.lng" *ngFor="let m of markers; let i = index" [label]="m.label"
-        [markerDraggable]="m.draggable">
-
-        <agm-info-window>
-          <h5 class="text-center">{{m.description[0].title}}</h5>
-          <h6>
-            Tηλέφωνο επικοινωνίας:
-            <h6 class="text-muted"><i class="fa fa-phone-square text-dark mr-2"></i>{{m.description[0].phone}}</h6>
-          </h6>
-          <img src="{{m.description[0].img}}" alt="" style="max-height:150px;">
-          <h6> Διεύθυνση Καταστήματος:
-            <h6 class="text-muted"><i class="fa fa-map-marker mr-1 " aria-hidden="true"></i>{{m.description[0].address}}</h6>
-          </h6>
-        </agm-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
-</div>
 <div class="container">
+  <div class="map">
+    <h3 class="text-center pt-5 text-warning">
+      Βρες το πιό κοντινό σου κατάστημα <strong>dāsh&dot.</strong>
+      για καθημερινή εμπειρία!</h3>
+    <br>
+    <div class="card border-primary">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="8">
+        <agm-marker [latitude]="m.lat" [longitude]="m.lng" *ngFor="let m of markers; let i = index" [label]="m.label"
+          [markerDraggable]="m.draggable">
 
-  <div class="col-md-12 col-lg-12 col-sm-12">
-    <div class="jumbotron mt-2">
-      <tabset class="member-tabset card">
-        <tab heading="Νέα Σμύρνη" id="tab1" customClass="">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Χαλάνδρι ">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Περιστέρι">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Πάτρα">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Ίλιον">
-          <div class=" mt-3">
-            <div class="row">
-              <div class="col-md-6">
-                <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-                <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-                <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-              </div>
-              <div class="col-md-6 ">
-                <img src="../../assets/images/stores-images/Ilion.jpg" alt="">
-                <img src="../../assets/images/stores-images/ilion_1.jpg" alt="" class="ml-2">
-              </div>
+          <agm-info-window>
+            <h5 class="text-center">{{m.description[0].title}}</h5>
+            <h6>
+              Tηλέφωνο επικοινωνίας:
+              <h6 class="text-muted"><i class="fa fa-phone-square text-dark mr-2"></i>{{m.description[0].phone}}</h6>
+            </h6>
+            <img src="{{m.description[0].img}}" alt="" style="max-height:150px;">
+            <h6> Διεύθυνση Καταστήματος:
+              <h6 class="text-muted"><i class="fa fa-map-marker mr-1 " aria-hidden="true"></i>{{m.description[0].address}}</h6>
+            </h6>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+  <div class="col-sm-12 p-0 pt-5">
+    <tabset class="member-tabset">
+      <tab heading="Νέα Σμύρνη" id="tab1" customClass="">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Χαλάνδρι ">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Περιστέρι">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Πάτρα">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Ίλιον">
+        <div class=" mt-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+              <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+              <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+            </div>
+            <div class="col-md-6 ">
+              <img src="../../assets/images/stores-images/Ilion.jpg" alt="">
+              <img src="../../assets/images/stores-images/ilion_1.jpg" alt="" class="ml-2">
             </div>
           </div>
-        </tab>
-        <tab heading="Παγκράτι">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Κολωνάκι">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-        <tab heading="Πειραιάς">
-          <div class=" mt-3">
-            <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
-            <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
-            <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
-          </div>
-        </tab>
-      </tabset>
-    </div>
-
+        </div>
+      </tab>
+      <tab heading="Παγκράτι">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Κολωνάκι">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+      <tab heading="Πειραιάς">
+        <div class=" mt-3">
+          <h6><i class="fa fa-home mr-2 text-warning" aria-hidden="true"></i>ΔΙΕΥΘΥΝΣΗ: Ρήγα Φεραίου 53Β' </h6>
+          <h6><i class="fa fa-phone mr-2 text-warning" aria-hidden="true"></i>ΤΗΛΕΦΩΝΟ: 2610270652</h6>
+          <h6><i class="fa fa-envelope mr-2 text-warning" aria-hidden="true"></i>EMAIL: contact@dashndot.gr</h6>
+        </div>
+      </tab>
+    </tabset>
   </div>
 </div>
 <app-footer></app-footer>

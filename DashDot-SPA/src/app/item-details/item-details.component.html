@@ -34,25 +34,25 @@
       </div>
     </div>
     <div class="col-md-9 col-lg-7">
-      <div class="card-header font-weight-bold">{{product.title}}</div>
-      <div class="row mt-3">
+      <div class="card-header card font-weight-bold">{{product.title}}</div>
+      <div class="row my-3">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <img src="{{product.photoUrl}}" (click)="lgModal.show()" style="cursor:pointer" id="zoom_01" data-zoom-image="large/image1.jpg">
 
-          <hr>
+          <hr class="bg-white">
           <div class="text-center" style="cursor:pointer;">
             <img src="{{photos.url}}" alt="" class="photosArray ml-4" (click)="onImgChange(photos.url)" *ngFor="let photos of product.photos">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="mt-4">
+          <div class="mt-4 card">
             <div class="card-body ">
-              <h4 class="card-header">{{product.title}}</h4>
-              <br>
-              <h6 class="text-warning"><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']" class="text-dark">
+              <h4>{{product.title}}</h4>
+              <hr class="bg-white">
+              <h6 class="text-warning"><strong>Κατασκευαστής:</strong><a [routerLink]="['/home']">
                   Dāsh&Dot_.</a></h6>
-              <h6 class="text-warning"><strong>Κωδικός προϊόντος:</strong><span class="text-dark"> {{product.code}}</span></h6>
-              <hr>
+              <h6 class="text-warning"><strong>Κωδικός προϊόντος:</strong><span class="text-white"> {{product.code}}</span></h6>
+              <hr class="bg-white">
               <h6 class="card-title">ΤΙΜΗ:
                 <span class=" text-warning ml-2" style="font-family:cursive; font-size:30px" *ngIf="product.discount>0">{{
                   (product.price - product.discount) |
@@ -61,9 +61,8 @@
                   product.price |
                   currency:'EUR':symbol}}</span>
               </h6>
-              <hr>
-              <h6 class="card-text text-warning">ΕΠΙΛΟΓΕΣ</h6>
-              <br>
+              <hr class="bg-white">
+              <h6 class="card-text text-warning p-0">ΕΠΙΛΟΓΕΣ</h6>
               <div class="form-group" *ngIf="checkProduct">
                 <h6>*Μέγεθος: </h6>
                 <select class="custom-select" name="sizeId" (change)="onChange($event.target.value)" [(ngModel)]="size">
@@ -78,30 +77,28 @@
                   <option *ngFor="let col of productSize.productSizeColor" value="{{col.color.title}}">{{col.color.title}}
                   </option>
                 </select>
-                <button type="button" class="btn btn-outline-warning pull-right btn-sm">Μεγεθολόγιο</button>
+                <button type="button" class="btn btn-outline-warning pull-right">Μεγεθολόγιο</button>
               </div>
-              <hr>
-              <div class="pb-5">
-                <div class="form-inline pb-2">
-                  <label class="col-sm-4 text-left"><strong>Ποσότητα: </strong></label>
-                  <input type="number" min="1" class="quantity  form-control col-sm-4" placeholder="0" [(ngModel)]="quantity">
-                </div>
-                <button (click)="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-basket mr-2"></i>Προσθήκη
-                  στο
-                  Καλάθι</button>
-                <div class="icons ml-4 ">
-                  <span> <i class="fa fa-thumbs-up mr-1"></i> <a href="www.facebook.com" class="text-dark">facebook</a></span>
-                  <span> <i class="fa fa-heart mr-1"></i> <a href="www.facebook.com" class="text-dark">Instagram</a></span>
-                </div>
+              <hr class="bg-white">
+              <div class="form-inline pb-2">
+                <label class="col-sm-4 text-left"><strong>Ποσότητα: </strong></label>
+                <input type="number" min="1" class="quantity  form-control col-sm-4" placeholder="0" [(ngModel)]="quantity">
               </div>
-              <hr>
+              <button (click)="addToCart()" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-2"></i>
+                Προσθήκη στο Καλάθι</button>
+              <hr class="bg-white">
+              <div class="d-flex">
+                <span class="mx-auto">
+                  <span class="mr-2 text-info"> <i class="fa fa-facebook-square mr-1"></i> <a href="www.facebook.com"
+                      class="text-info">facebook</a></span>
+                  <span> <i class="fa fa-instagram mr-1 text-purple"></i> <a href="www.facebook.com" class="text-purple">Instagram</a></span>
+                </span></div>
             </div>
           </div>
         </div>
-        <br>
       </div>
       <div class=" border-light mb-3" style="max-width:100%">
-        <div class="card-header">Περιγραφή</div>
+        <div class="card card-header">Περιγραφή</div>
         <div class="card-body">
           <h4 class="card-title">Σύνθεση {{product.material}} _.</h4>
           <p class="card-text">Για να διατηρήσετε το αγαπημένο σας dash&dot πουκάμισο σε άριστη κατάσταση, να
@@ -114,7 +111,7 @@
       </div>
 
       <div class=" border-light mb-3" style="max-width:100%">
-        <div class="card-header">ΠΑΡΑΔΟΣΗ</div>
+        <div class="card card-header">ΠΑΡΑΔΟΣΗ</div>
         <div class="card-body">
           <h4 class="card-title">Ελλάδα:</h4>
           <p class="card-text">Η αποστολή - αφού έχει επιβεβαιωθεί η παραγγελία σας - πραγματοποιείτε σε όλη την Ελλάδα
@@ -135,33 +132,30 @@
     </div>
     <div class="vl"></div>
     <div class="col-md-2 col-lg-2">
-      <h2 class="font-weight-bold">Προτεινόμενα</h2>
-      <div class="row ">
-        <div class=" ml-3 text-center " *ngFor="let product of suggestedProducts | slice:0:3">
-          <a class="text-dark" [routerLink]="['/product',product.seoUrl]">
-            <div class=" p-4">
-              <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
-              <img class="card-img-top img-fluid" src="{{product.photoUrl}}" style="height:200px;width:150px" alt="Card image cap">
-              <h6 class="card-text text-dark font-weight-bold mt-3">{{product.title}}</h6>
-              <hr>
-              <div class="card-body text-center p-0">
-                <h6>Κωδ: {{product.code}}</h6>
-                <h4 class="card-title">Τιμή:
-                  <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
-                    (product.price - product.discount) |
-                    currency:'EUR':symbol}}</span>
-                  <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
-                    product.price |
-                    currency:'EUR':symbol}}</span></h4>
-              </div>
-              <div class="btn-toolbar d-flex">
-                <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
-                  Kαλάθι</button>
-              </div>
+      <h3 class="font-weight-bold">Προτεινόμενα</h3>
+      <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
+        <a class="ml-3" [routerLink]="['/product',product.seoUrl]">
+          <div class=" p-4 bg-dark">
+            <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
+            <img class="card-img-top img-fluid" src="{{product.photoUrl}}" style="height:200px;width:150px" alt="Card image cap">
+            <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
+            <hr class="bg-white">
+            <div class="card-body text-center p-0">
+              <h6>Κωδ: {{product.code}}</h6>
+              <h4 class="card-title">Τιμή:
+                <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+                  (product.price - product.discount) |
+                  currency:'EUR':symbol}}</span>
+                <span class=" ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+                  product.price |
+                  currency:'EUR':symbol}}</span></h4>
             </div>
-          </a>
-        </div>
-
+            <div class="btn-toolbar d-flex">
+              <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
+                Kαλάθι</button>
+            </div>
+          </div>
+        </a>
       </div>
 
     </div>

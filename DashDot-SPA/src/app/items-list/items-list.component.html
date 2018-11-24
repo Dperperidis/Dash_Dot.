@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="container ">
   <div class="thumbnail text-center mt-4 d-none d-md-block d-lg-block">
     <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
@@ -7,12 +6,9 @@
       <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
     </div>
   </div>
-  <hr>
-  <form class="form-inline p-2 mt-3">
-
+  <form class="form-inline p-2 mt-3 bg-warning">
     <div class="form-group">
-      <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
-      <br>
+      <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>   
       <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
         <option></option>
         <option>Newest > Oldest</option>
@@ -56,19 +52,18 @@
       </select>
     </div>
     <div class="form-group ">
-      <a style="cursor:pointer"><i class="fa fa-list mr-2 text-primary" (click)="hideBox()"></i></a>
-      <a style="cursor:pointer"><i class="fa fa-th text-primary" (click)="hideList()"></i></a>
+      <a style="cursor:pointer"><i class="fa fa-list mr-2 text-white" (click)="hideBox()"></i></a>
+      <a style="cursor:pointer"><i class="fa fa-th text-white" (click)="hideList()"></i></a>
     </div>
   </form>
   <br>
   <div class="row " *ngIf="box">
     <div class="col-lg-3 col-sm-6 col-md-6" *ngFor="let product of product">
-      <a  class="text-dark"  [routerLink]="['/product',product.seoUrl]" >
+      <a [routerLink]="['/product',product.seoUrl]">
         <div class="card text-center p-3">
           <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
-          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " 
-            alt="Card image cap">
-          <h6 class="card-text text-dark font-weight-bold mt-3">{{product.title}}</h6>
+          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " alt="Card image cap">
+          <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
           <hr>
           <div class="card-body text-center">
             <h6>Κωδ: {{product.code}}</h6>
@@ -76,14 +71,12 @@
               <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
                 (product.price - product.discount) |
                 currency:'EUR':symbol}} </span>
-              <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+              <span class="ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
                 product.price |
                 currency:'EUR':symbol}} </span></h4>
           </div>
           <div class="btn-toolbar">
-            <button type="button"
-           
-             class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
+            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
               Kαλάθι</button>
           </div>
         </div>
@@ -94,21 +87,21 @@
   <div class="row" *ngIf="list">
     <div class="featurette col-md-12" *ngFor="let product of product">
       <div class="row">
-        <div class="  col-md-8 order-md-2 mt-4 ">
-          <h4 class="featurette-heading card-header">{{product.title}}</h4>
-          <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>
-          <br>
+        <div class=" col-md-8 order-md-2 mt-4 ">
+          <h4 class="">{{product.title}}</h4>
+          <hr class="bg-white">
+          <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>         
           <h6 class="font-weight-bold">Κωδ: {{product.code}}</h6>
           <p class="lead">{{product.description}}</p>
           <h4 class="card-title">Τιμή:
             <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
               (product.price - product.discount) |
               currency:'EUR':symbol}}</span>
-            <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+            <span class="ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
               product.price |
               currency:'EUR':symbol}}</span></h4>
           <div class="btn-toolbar mt-3">
-            <button type="button" class="btn btn-primary mr-2"  [routerLink]="['/product',product.seoUrl]" ><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>          
+            <button type="button" class="btn btn-primary mr-2" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>
           </div>
         </div>
         <div class="col-md-4 order-md-1  text-center">
@@ -116,7 +109,7 @@
             alt="Generic placeholder image">
         </div>
       </div>
-      <hr>
+      <hr class="bg-white">
     </div>
   </div>
   <br>

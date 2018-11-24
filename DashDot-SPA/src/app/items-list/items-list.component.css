@@ -1,56 +1,53 @@
-.mt-5{
-    margin-top:10rem!important;
+.mt-5 {
+    margin-top: 10rem !important;
 }
 
-.btn-primary{
-    background-image:linear-gradient(rgb(212, 132, 25),rgb(247, 178, 88));
-    color:rgb(255, 255, 255);
+.btn-primary {
+    background-image: linear-gradient(rgb(212, 132, 25), rgb(247, 178, 88));
+    color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
-.btn-primary:hover{
-    background-image:linear-gradient(rgb(247, 178, 88),rgb(212, 132, 25));
-    color:rgb(255, 255, 255);
-    
+.btn-primary:hover {
+    background-image: linear-gradient(rgb(247, 178, 88), rgb(212, 132, 25));
+    color: rgb(255, 255, 255);
 }
 
-.form-control{
+.form-control {
     margin: 10px;
     padding: 0 15px;
 }
 
 .form-group>a>i {
-    font-size: 30px;  
+    font-size: 30px;
 }
 
-img{
+img {
     max-height: 15rem;
     max-width: 11rem;
     margin: 0 auto;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
-.card-header{
+.card-header {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
 }
 
-
-.thumbnail>img{
-    max-width:120rem!important;
+.thumbnail>img {
+    max-width: 120rem !important;
 }
 
-.card-body{
+.card-body {
     padding: 0.25rem;
 }
 
-.card:hover{
+.card:hover {
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22);
-  
 }
 
 .card img {
     transform: scale(1, 1);
-    transition-duration:400ms;
+    transition-duration: 400ms;
     transition-timing-function: ease-out;
 }
 
@@ -61,46 +58,42 @@ img{
     opacity: 1;
 }
 
-h2{
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+h2 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.form-inline{
-    background-image:linear-gradient(60deg,rgb(212, 132, 25), rgb(255, 255, 255));
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22);
-}
-
-.order-md-1 img{
+.order-md-1 img {
     transform: scale(1, 1);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
 }
 
-.order-md-1:hover img{
+.order-md-1:hover img {
     transform: scale(1.1, 1.1);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
     opacity: 1;
 }
 
-.card-title{
-    font-size:18px;
+.card-title {
+    font-size: 18px;
 }
 
-.discount{
+.discount {
     text-decoration: line-through;
-    font-size:15px;
+    font-size: 15px;
 }
-
 
 .ribbon {
     position: absolute;
-    right: -5px; top: -5px;
+    right: -5px;
+    top: -5px;
     z-index: 1;
     overflow: hidden;
-    width: 80px; height: 80px;
+    width: 80px;
+    height: 80px;
     text-align: right;
-  }
+}
 
 .ribbon span {
     font-size: 10px;
@@ -117,42 +110,50 @@ h2{
     background: linear-gradient(#F79E05 0%, #8F5408 100%);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
     position: absolute;
-    top: 19px; right: -20px;
-  }
-  .ribbon span::before {
+    top: 19px;
+    right: -20px;
+}
+
+.ribbon span::before {
     content: "";
-    position: absolute; left: 0px; top: 100%;
+    position: absolute;
+    left: 0px;
+    top: 100%;
     z-index: -1;
     border-left: 3px solid #8F5408;
     border-right: 3px solid transparent;
     border-bottom: 3px solid transparent;
     border-top: 3px solid #8F5408;
-  }
-  .ribbon span::after {
+}
+
+.ribbon span::after {
     content: "";
-    position: absolute; right: 0px; top: 100%;
+    position: absolute;
+    right: 0px;
+    top: 100%;
     z-index: -1;
     border-left: 3px solid transparent;
     border-right: 3px solid #8F5408;
     border-bottom: 3px solid transparent;
     border-top: 3px solid #8F5408;
-  }
+}
 
-  .text-center> img{
-      cursor: pointer;
-      outline: none;
-  }
+.text-center>img {
+    cursor: pointer;
+    outline: none;
+}
 
-.card, select{
+.card,
+select {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
 }
 
-@media only screen and (max-width:670px){
-.form-inline{
-    margin-top:50px;
+@media only screen and (max-width:670px) {
+    .form-inline {
+        margin-top: 50px;
+    }
 }
-   }
-   
-.col-md-6> a{
+
+.col-md-6>a {
     text-decoration: none;
 }

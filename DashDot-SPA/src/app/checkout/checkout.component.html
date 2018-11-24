@@ -5,21 +5,21 @@
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Το καλάθι σας</span>
-        <span class="badge badge-secondary badge-pill">{{cart.items.length}}</span>
+        <span class="badge badge-success badge-pill">{{cart.items.length}}</span>
       </h4>
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let it of cart.items">
+        <li class="list-group-item d-flex justify-content-between bg-dark lh-condensed" *ngFor="let it of cart.items">
           <div>
             <h6 class="my-0">{{it.product.title}}</h6>
             <small class="text-muted">{{it.product.material}}</small>
           </div>
           <span class="text-muted">{{it.product.totalCost}} &euro;</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between">
+        <li class="list-group-item bg-dark d-flex justify-content-between">
           <span>Σύνολο (EURO)</span>
           <strong>{{totalOfItems()}} &euro;</strong>
         </li>
-        <li class="list-group-item d-flex">
+        <li class="list-group-item d-flex bg-dark" >
           <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
         </li>
       </ul>
@@ -92,14 +92,8 @@
           <label class="custom-control-label" for="paypal">PayPal</label>
         </div>
       </div>
-      <div class="row">
-
-      </div>
-      <div class="row">
-
-      </div>
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block mb-3" (click)="nextStep()">Συνέχεια προς Πληρωμή</button>
+      <button class="btn btn-success btn-lg btn-block mb-3" (click)="nextStep()">Συνέχεια προς Πληρωμή</button>
     </div>
   </div>
 </div>

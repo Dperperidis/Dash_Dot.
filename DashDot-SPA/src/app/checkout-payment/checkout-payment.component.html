@@ -4,63 +4,63 @@
   <div class="row">
     <div class="col-md-8">
       <h4 class="mb-3">Στοιχεία Χρέωσης</h4>
-      <hr>
+      <hr class="bg-white">
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Ονοματεπώνυμο</h6>
+            <h6 class="text-white">Ονοματεπώνυμο</h6>
           </div>
           <span class="text-muted">{{cart.name}} {{cart.lastname}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Email</h6>
+            <h6 class="text-white">Email</h6>
           </div>
           <span class="text-muted">{{cart.email}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Διέυθυνση</h6>
+            <h6 class="text-white">Διέυθυνση</h6>
           </div>
           <span class="text-muted">{{cart.address}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Πόλη</h6>
+            <h6 class="text-white">Πόλη</h6>
           </div>
           <span class="text-muted">{{cart.city}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Περιοχή</h6>
+            <h6 class="text-white">Περιοχή</h6>
           </div>
           <span class="text-muted">{{cart.state}} {{cart.zipCode}}</span>
         </li>
-        <li class="list-group-item d-flex">
+        <li class="list-group-item d-flex bg-dark">
           <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
         </li>
       </ul>
       <h4 class="mb-3">Τρόπος Πληρωμής</h4>
-      <hr>
+      <hr class="bg-white">
       <div id="paypal-button-container"></div>
     </div>
     <div class="col-md-4">
       <h4 class="mb-3">Στοιχεία Πληρωμής</h4>
-      <hr>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <hr class="bg-white">
+      <ul class="list-group mb-3 bg-dark">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Ποσότητα Προιόντων</h6>
+            <h6 class="text-white">Ποσότητα Προιόντων</h6>
           </div>
           <span class="text-muted">{{countProducts()}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
-            <h6 class="text-primary">Συνολικό Κόστος</h6>
+            <h6 class="text-white">Συνολικό Κόστος</h6>
           </div>
           <span class="text-muted">{{totalOfItems()}} &euro;</span>
         </li>
-        <li class="list-group-item d-flex">
+        <li class="list-group-item d-flex bg-dark" >
           <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
         </li>
       </ul>

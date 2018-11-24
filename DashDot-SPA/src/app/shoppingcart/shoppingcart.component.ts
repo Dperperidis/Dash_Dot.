@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { Subscription } from 'rxjs';
-import { ShoppingCart } from '../_models/shoppingcart';
+import { ShoppingCart, Item } from '../_models/shoppingcart';
 import { AuthService } from '../_services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,7 +22,6 @@ export class ShoppingcartComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cartItems = value;
-
     }));
 
   }
@@ -31,12 +30,22 @@ export class ShoppingcartComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  sendOrder() {
-    this.cartService.sendOrder(this.cartItems).subscribe(res => {
-      console.log(res);
-    }, error => {
-      this.toastr.error(error);
+  changeQuantity(item: Item, add: boolean, i: number) {
+    if (this.cartItems.items[i].quantity === 1 && !add) { return; }
+    this.cartItems.items[i].quantity = add ? this.cartItems.items[i].quantity + 1 : this.cartItems.items[i].quantity - 1;
+    this.cartService.updateCart(this.cartItems);
+  }
+
+  deleteItem(i: number) {
+    this.cartService.removeItemFromCart(i);
+  }
+
+  totalOfItems() {
+    let total = 0;
+    this.cartItems.items.forEach(x => {
+      total = total + (x.quantity * x.product.totalCost);
     });
+    return total;
   }
 
 }

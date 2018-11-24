@@ -1,17 +1,24 @@
-img{
-    width:75px;
-    height:auto;
+img {
+    width: 75px;
+    height: auto;
 }
 
-td>a{
+td>a {
     text-decoration: none;
-    color:rgb(243, 146, 1)!important;
+    color: rgb(243, 146, 1) !important;
 }
 
-td{
-    font-size:20px!important;
+td {
+    font-size: 20px !important;
 }
 
-th{
-    font-size:15px;
+th {
+    font-size: 15px;
+}
+
+.width-200 {
+    width: 200px;
+}
+.width-50 {
+    width: 50px;
 }

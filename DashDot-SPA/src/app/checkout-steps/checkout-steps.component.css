@@ -1,0 +1,8 @@
+.nav-item.nav-link.text-left {
+    font-size: 18px;
+}
+
+.nav-pills .nav-link.active {
+    color: #F39C12;
+    background: none;
+}

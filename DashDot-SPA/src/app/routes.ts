@@ -22,6 +22,9 @@ import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
 import { MainAccountComponent } from "./user/main-account/main-account.component";
 import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
 import { ColorListResolver } from "./_resolvers/colors-list.resolver";
+import { CheckoutComponent } from "./checkout/checkout.component";
+import { CheckoutPaymentComponent } from "./checkout-payment/checkout-payment.component";
+import { CheckoutInvoiceComponent } from "./checkout-invoice/checkout-invoice.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -33,6 +36,9 @@ export const routes: Routes = [
     { path: 'admin', component: AdminpageComponent },
     { path: 'stores', component: StoreMapsComponent },
     { path: 'cart', component: ShoppingcartComponent },
+    { path: 'checkout', component: CheckoutComponent },
+    { path: 'payment', component: CheckoutPaymentComponent },
+    { path: 'invoice', component: CheckoutInvoiceComponent },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
     {
         path: 'admin/main',
@@ -46,7 +52,8 @@ export const routes: Routes = [
                     {
                         path: 'details', component: ProductDetailComponent, resolve: { product: ProductListResolver }
                     }, {
-                        path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver }, canDeactivate: [PreventUnsavedChanges]
+                        path: 'edit/:id', component: EditProductComponent, resolve: { product: PhotoUploadResolver },
+                        canDeactivate: [PreventUnsavedChanges]
                     }, {
                         path: 'create-product', component: CreateProductComponent
                     }, { path: '', component: AdminChartsComponent },

@@ -9,7 +9,6 @@ import { map } from "rxjs/operators";
 @Injectable({
     providedIn: "root"
 })
-
 export class AuthService {
     baseUrl = environment.apiUrl;
     user: User;
@@ -56,7 +55,6 @@ export class AuthService {
         if (localStorage.getItem("token")) {
             const token = localStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);
-
         } else {
             const token = sessionStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);

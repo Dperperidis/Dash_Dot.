@@ -18,7 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import localeEn from '@angular/common/locales/en'
+import localeEn from '@angular/common/locales/en';
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -58,6 +58,11 @@ import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
 import { MainAccountComponent } from './user/main-account/main-account.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { ColorListResolver } from './_resolvers/colors-list.resolver';
+import { LocalStorageService } from './_services/localstorage.service';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutStepsComponent } from './checkout-steps/checkout-steps.component';
+import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
+import { CheckoutInvoiceComponent } from './checkout-invoice/checkout-invoice.component';
 
 registerLocaleData(localeEn);
 export function tokenGetter() {
@@ -96,6 +101,10 @@ export function tokenGetter() {
     UserPageComponent,
     ShoppingcartComponent,
     MainAccountComponent,
+    CheckoutComponent,
+    CheckoutStepsComponent,
+    CheckoutPaymentComponent,
+    CheckoutInvoiceComponent,
 
   ],
   imports: [
@@ -145,6 +154,7 @@ export function tokenGetter() {
     ErrorInterceptorProvider,
     GetProductResolver,
     AdminAuthGuard,
+    LocalStorageService,
     SortByService,
     AdminProductService,
     ProdSettingsService,

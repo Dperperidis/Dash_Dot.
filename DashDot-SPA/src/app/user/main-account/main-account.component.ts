@@ -13,7 +13,9 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class MainAccountComponent implements OnInit {
   user: User;
 
-  constructor(private route: ActivatedRoute, private toastrService: ToastrService, private router: Router, private useService: UserService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+    private toastrService: ToastrService, private router: Router,
+    private useService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
     if ((!sessionStorage.getItem('token')) && (!localStorage.getItem('token'))) {

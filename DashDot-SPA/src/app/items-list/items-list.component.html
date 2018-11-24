@@ -6,56 +6,79 @@
       <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
     </div>
   </div>
-  <form class="form-inline p-2 mt-3 bg-warning">
-    <div class="form-group">
-      <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>   
-      <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
-        <option></option>
-        <option>Newest > Oldest</option>
-        <option>Oldest > Newest</option>
-        <option>Τιμή (Χαμηλή > Υψηλή)</option>
-        <option>Τιμή (Υψηλή > Χαμηλή)</option>
-      </select>
-    </div>
-    <div class="form-group" *ngIf="category">
-      <label for="exampleSelect1" class="font-weight-bold">ΜΕΓΕΘΟΣ:</label>
-      <select class="form-control" id="exampleSelect1" #size (change)="sortBySize(size.value)">
-        <option></option>
-        <option *ngIf="!sizeCategory">Small</option>
-        <option *ngIf="!sizeCategory">Medium</option>
-        <option *ngIf="!sizeCategory">Large</option>
-        <option *ngIf="!sizeCategory">XLarge</option>
-        <option *ngIf="!sizeCategory">XXLarge</option>
-        <option *ngIf="!sizeCategory">3XLarge</option>
-        <option *ngIf="!sizeCategory">4XLarge</option>
-        <option *ngIf="!sizeCategory">5XLarge</option>
-        <option *ngIf="!sizeCategory">6XLarge</option>
-        <option *ngIf="sizeCategory">110cm</option>
-        <option *ngIf="sizeCategory">115cm</option>
-        <option *ngIf="sizeCategory">120cm</option>
-        <option *ngIf="sizeCategory">125cm</option>
-        <option *ngIf="sizeCategory">130cm</option>
-        <option *ngIf="sizeCategory">135cm</option>
-      </select>
+  <fieldset class="form-inline p-2 mt-3 bg-warning justify-content-center">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group ">
+          <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
+          <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
+            <option></option>
+            <option>Newest > Oldest</option>
+            <option>Oldest > Newest</option>
+            <option>Τιμή (Χαμηλή > Υψηλή)</option>
+            <option>Τιμή (Υψηλή > Χαμηλή)</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2" *ngIf="category">
+        <div class="form-group" >
+          <label for="exampleSelect2" class="font-weight-bold">ΜΕΓΕΘΟΣ:</label>
+          <select class="form-control" id="exampleSelect2" #size (change)="sortBySize(size.value)">
+            <option></option>
+            <option *ngIf="!sizeCategory">Small</option>
+            <option *ngIf="!sizeCategory">Medium</option>
+            <option *ngIf="!sizeCategory">Large</option>
+            <option *ngIf="!sizeCategory">XLarge</option>
+            <option *ngIf="!sizeCategory">XXLarge</option>
+            <option *ngIf="!sizeCategory">3XLarge</option>
+            <option *ngIf="!sizeCategory">4XLarge</option>
+            <option *ngIf="!sizeCategory">5XLarge</option>
+            <option *ngIf="!sizeCategory">6XLarge</option>
+            <option *ngIf="sizeCategory">110cm</option>
+            <option *ngIf="sizeCategory">115cm</option>
+            <option *ngIf="sizeCategory">120cm</option>
+            <option *ngIf="sizeCategory">125cm</option>
+            <option *ngIf="sizeCategory">130cm</option>
+            <option *ngIf="sizeCategory">135cm</option>
+          </select>
+
+        </div>
+      </div>
+      <div class="col-md-2" *ngIf="category && sleeve">
+        <div class="form-group" >
+          <label for="exampleSelect1" class="font-weight-bold">ΜΑΝΙΚΙ:</label>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio1" name="customRadio"  value="Μακρυμάνικο" #long class="custom-control-input" (change)="searchSleeve(long.value)">
+            <label class="custom-control-label" for="customRadio1">Μακρυμάνικο</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio2" name="customRadio" value="Κοντομάνικο" #short class="custom-control-input" (change)="searchSleeve(short.value)">
+            <label class="custom-control-label" for="customRadio2">Κοντομάνικο</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="exampleSelect1" class=" font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
+          <select class="form-control" id="exampleSelect1" #items (change)="sortByItems(items.value)">
+            <option>4</option>
+            <option>8</option>
+            <option>12</option>
+            <option>20</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+
+        <div class="form-group ">
+          <a style="cursor:pointer"><i class="fa fa-list mr-2 text-white" (click)="hideBox()"></i></a>
+          <a style="cursor:pointer"><i class="fa fa-th text-white" (click)="hideList()"></i></a>
+        </div>
+      </div>
 
     </div>
-
-
-
-    <div class="form-group">
-      <label for="exampleSelect1" class=" font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
-      <select class="form-control" id="exampleSelect1" #items (change)="sortByItems(items.value)">
-        <option>4</option>
-        <option>8</option>
-        <option>12</option>
-        <option>20</option>
-      </select>
-    </div>
-    <div class="form-group ">
-      <a style="cursor:pointer"><i class="fa fa-list mr-2 text-white" (click)="hideBox()"></i></a>
-      <a style="cursor:pointer"><i class="fa fa-th text-white" (click)="hideList()"></i></a>
-    </div>
-  </form>
+  </fieldset>
   <br>
   <div class="row " *ngIf="box">
     <div class="col-lg-3 col-sm-6 col-md-6" *ngFor="let product of product">
@@ -90,7 +113,7 @@
         <div class=" col-md-8 order-md-2 mt-4 ">
           <h4 class="">{{product.title}}</h4>
           <hr class="bg-white">
-          <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>         
+          <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>
           <h6 class="font-weight-bold">Κωδ: {{product.code}}</h6>
           <p class="lead">{{product.description}}</p>
           <h4 class="card-title">Τιμή:
@@ -114,15 +137,6 @@
   </div>
   <br>
   <div class="d-flex justify-content-center">
-    <!-- <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" 
-      [itemsPerPage]="pagination.itemsPerPage"
-      [(ngModel)]="pagination.currentPage"
-      (pageChanged)="pageChanged($event)"
-    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-      lastText="&raquo;">
-
-    </pagination> -->
-
     <button class="btn btn-primary btn-lg btn-block" (click)="loadMore()" style="width:300px;" *ngIf="!hide">
       Περισσότερα..
     </button>

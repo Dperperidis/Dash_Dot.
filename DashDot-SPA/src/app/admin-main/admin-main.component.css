@@ -13,8 +13,6 @@
     box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
 }
 
-
-
 img{
     border-radius: 50%;
     height: 100px;
@@ -33,13 +31,13 @@ body {
 }
 
 
-
 .ml-3>a:hover{
     text-decoration: underline;
 }
 
 .row{
     margin-right: 0;
+    background-color:White!important;
 }
 
 li>a{

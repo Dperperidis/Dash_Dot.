@@ -37,7 +37,7 @@
       <div class="card-header card font-weight-bold">{{product.title}}</div>
       <div class="row my-3">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <img src="{{product.photoUrl}}" (click)="lgModal.show()" style="cursor:pointer" id="zoom_01" data-zoom-image="large/image1.jpg">
+          <img src="{{product.photoUrl}}" (click)="lgModal.show()" (mouseenter)="onImgChange(product.photoUrl)" style="cursor:pointer">
 
           <hr class="bg-white">
           <div class="text-center" style="cursor:pointer;">
@@ -54,7 +54,7 @@
               <h6 class="text-warning"><strong>Κωδικός προϊόντος:</strong><span class="text-white"> {{product.code}}</span></h6>
               <hr class="bg-white">
               <h6 class="card-title">ΤΙΜΗ:
-                <span class=" text-warning ml-2" style="font-family:cursive; font-size:30px" *ngIf="product.discount>0">{{
+                <span class=" text-warning ml-2" style="font-size:30px" *ngIf="product.discount>0">{{
                   (product.price - product.discount) |
                   currency:'EUR':symbol}}</span>
                 <span class="text-dark ml-2 price" [ngClass]="{discount: product.discount>0}">{{
@@ -84,7 +84,7 @@
                 <label class="col-sm-4 text-left"><strong>Ποσότητα: </strong></label>
                 <input type="number" min="1" class="quantity  form-control col-sm-4" placeholder="0" [(ngModel)]="quantity">
               </div>
-              <button (click)="addToCart()" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-2"></i>
+              <button (click)="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-basket mr-2"></i>
                 Προσθήκη στο Καλάθι</button>
               <hr class="bg-white">
               <div class="d-flex">
@@ -131,34 +131,36 @@
       </div>
     </div>
     <div class="vl"></div>
-    <div class="col-md-2 col-lg-2">
+    <div class="col-md-2 col-lg-2 text-center">
       <h3 class="font-weight-bold">Προτεινόμενα</h3>
       <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
-        <a class="ml-3" [routerLink]="['/product',product.seoUrl]">
-          <div class=" p-4 bg-dark">
-            <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
+        <div class=" p-4 bg-white m-3">
+          <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
+          <a class="ml-3" [routerLink]="['/product',product.seoUrl]">
             <img class="card-img-top img-fluid" src="{{product.photoUrl}}" style="height:200px;width:150px" alt="Card image cap">
-            <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
-            <hr class="bg-white">
-            <div class="card-body text-center p-0">
-              <h6>Κωδ: {{product.code}}</h6>
-              <h4 class="card-title">Τιμή:
-                <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
-                  (product.price - product.discount) |
-                  currency:'EUR':symbol}}</span>
-                <span class=" ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
-                  product.price |
-                  currency:'EUR':symbol}}</span></h4>
-            </div>
-            <div class="btn-toolbar d-flex">
-              <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
-                Kαλάθι</button>
-            </div>
+          </a>
+          <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
+          <hr class="bg-white">
+          <div class="card-body text-center p-0">
+            <h6>Κωδ: {{product.code}}</h6>
+            <h4 class="card-title">Τιμή:
+              <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+                (product.price - product.discount) |
+                currency:'EUR':symbol}}</span>
+              <span class=" ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+                product.price |
+                currency:'EUR':symbol}}</span></h4>
           </div>
-        </a>
-      </div>
+          <div class="btn-toolbar d-flex">
+            <button type="button" class="btn btn-primary btn-block" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-shopping-basket mr-1"></i>
+              Kαλάθι</button>
+          </div>
+        </div>
 
+      </div>
+      <br>
     </div>
+
   </div>
 </div>
 <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">

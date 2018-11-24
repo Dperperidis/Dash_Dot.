@@ -1,4 +1,4 @@
-<!--<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top bg-dark">
   <a class="navbar-brand animated fadeInDown" [routerLink]="['/']">
     <h1 class="text-white" style="font-family:sans-serif">dāsh&dot.</h1>
   </a>
@@ -121,7 +121,7 @@
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fa fa-user"></i>
-            Καλωσήρθες {{ authService.decodedToken?.firstname | titlecase}}
+            Καλωσήρθες {{ authService.decodedToken?.firstName | titlecase}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item">
@@ -155,8 +155,8 @@
       </div>
     </div>
   </div>
-</nav>-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+</nav>
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand animated fadeInDown" [routerLink]="['/']">
     <h1 class="text-white mb-0" style="font-family:sans-serif">dāsh&dot.</h1>
   </a>
@@ -307,4 +307,4 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->

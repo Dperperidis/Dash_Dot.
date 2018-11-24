@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container mt-4">
   <app-checkout-steps [step]="0" [percent]="25"></app-checkout-steps>
-  <table class="table" *ngIf="cartItems.items.length > 0">
+  <table class="table text-center" *ngIf="cartItems.items.length > 0">
     <thead>
       <tr>
         <th scope="col" class="width-50">ΕΙΚΟΝΑ</th>
@@ -36,11 +36,11 @@
         </td>
         <td>{{item.product.totalCost}} &euro;</td>
         <td>{{item.product.totalCost*item.quantity}} &euro;</td>
-        <td> <button type="button" class="btn btn-link text-danger" (click)="deleteItem(i)">αφαίρεση</button></td>
+        <td> <button type="button" class="btn btn-danger" (click)="deleteItem(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
       </tr>
       <tr>
         <td colspan="5">
-          <div class="text-right"><label>Συνολο</label></div>
+          <div class="text-right"><label>Σύνολο</label></div>
         </td>
         <td>{{totalOfItems()}} &euro;</td>
         <td></td>

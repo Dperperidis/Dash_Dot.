@@ -20,10 +20,11 @@ export class ItemsListComponent implements OnInit {
   tempProduct: any[] = [];
   category = true;
   sizeCategory = false;
+  sleeve = false;
   hide = false;
   cartItems: ShoppingCart;
   pageNumber = 1;
-  pageSize = 4;
+  pageSize = 8;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -47,17 +48,25 @@ export class ItemsListComponent implements OnInit {
           const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
+            
             this.product = res.result;
             this.tempProduct = res.result;
+            this.sleeve = true;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
+            sessionStorage.removeItem('value');
           });
           break;
         case "regular-fit":
           const y = "Regular-Fit";
           sessionStorage.setItem('id', y);
+          sessionStorage.setItem('value', 'Μακρυμάνικο')
           this.productService.getProductsByLine(y, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
+            this.sleeve = true;
+            sessionStorage.removeItem('value');
+            sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
           });
           break;
@@ -183,22 +192,32 @@ export class ItemsListComponent implements OnInit {
 
   sortByItems(item) {
     this.pageSize = 0;
-    this.pageSize = item - 4;
+    this.pageSize = item - 8;
     this.loadMore();
   }
 
+  searchSleeve(value) {
+    sessionStorage.setItem('value', value)
+    this.product = this.tempProduct;
+   this.product = this.product.filter(x => x.sleeve == value);
+   this.sortBy(sessionStorage.getItem('order'));
+   this.sortBySize(sessionStorage.getItem('size'));
+
+  }
 
   loadMore() {
     this.pageSize = this.pageSize + 4;
     const id = sessionStorage.getItem('id');
     const size = sessionStorage.getItem('size');
     const order = sessionStorage.getItem('order');
+    const value = sessionStorage.getItem('value');
     if ((id === "Slim-Fit") || (id === "Regular-Fit")) {
       this.productService.getProductsByLine(id, this.pageNumber, this.pageSize).subscribe(res => {
         this.tempProduct = res.result;
         this.product = res.result;
         this.sortBySize(size);
         this.sortBy(order);
+        this.searchSleeve(value);
       });
     } else {
       this.productService.getProductsByCategory(id, this.pageNumber, this.pageSize).subscribe(res => {
@@ -296,10 +315,10 @@ export class ItemsListComponent implements OnInit {
         this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "":
-
         this.product = this.tempProduct;
         break;
     }
+   this.sortBy(sessionStorage.getItem('order'));
   }
 
   hideBox() {

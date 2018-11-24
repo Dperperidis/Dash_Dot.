@@ -35,3 +35,7 @@ img{
 span{
     cursor: pointer;
 }
+
+table, .container{
+    color:black!important;
+}

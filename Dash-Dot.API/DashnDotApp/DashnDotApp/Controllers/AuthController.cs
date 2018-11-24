@@ -76,7 +76,7 @@ namespace DashnDotApp.Controllers
                 new Claim("Id", userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userForLoginDto.Email),
                 new Claim("isAdmin", userFromRepo.IsAdmin.ToString()),
-                new Claim("firstname", userFromRepo.FirstName)
+                new Claim("firstName", userFromRepo.FirstName)
 
 
             };

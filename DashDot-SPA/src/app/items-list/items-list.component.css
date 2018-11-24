@@ -146,6 +146,7 @@ h2 {
 .card,
 select {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
+    border-radius:20px;
 }
 
 @media only screen and (max-width:670px) {

@@ -7,7 +7,7 @@
 }
 
 .vl {
-    border-left: 6px solid rgba(103, 107, 103, 0.705);
+    border-left: 6px solid rgb(0, 0, 0);
     height: 145vh;
 }
 
@@ -30,10 +30,12 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 30px;
 }
 
+
+
 .photosArray {
-    width: 60px;
     height: 80px;
 }
 
@@ -75,6 +77,7 @@ option>h5 {
     }
 }
 
+
 .price {
     font-size: 32px;
 }
@@ -92,13 +95,15 @@ option>h5 {
     height: 30px;
 }
 
-.product-options>button {
+.product-options>button, .bg-white {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), 0 5px 4px rgba(0, 0, 0, 0.22);
 }
 
 .text-center>img {
     cursor: pointer;
     outline: none;
+    border-radius: 15px;
+   
 }
 
 .text-center>a {
@@ -123,4 +128,9 @@ h2 {
 .form-inline label {
     justify-content: start;
     padding-left: 0 !important
+}
+
+.bg-white{
+    border-radius: 15px;
+    color:black;
 }

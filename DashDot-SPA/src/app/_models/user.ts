@@ -3,7 +3,7 @@ export interface User {
     firstName: string;
     lastName: string;
     email: string;
-    adress: string;
+    address: string;
     mobile: string;
     postalCode: number;
     city: string;

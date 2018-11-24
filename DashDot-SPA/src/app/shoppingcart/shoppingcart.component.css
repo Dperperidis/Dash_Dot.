@@ -27,3 +27,7 @@ th {
 .container {
     min-height: 442px;
 }
+
+.btn-danger>i{
+    font-size:25px;
+}

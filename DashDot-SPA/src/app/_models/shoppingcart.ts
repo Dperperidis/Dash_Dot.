@@ -7,13 +7,14 @@ export class ShoppingCart {
     user: User;
     created: Date;
     items: Array<Item>;
-    name: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     address: string;
     email: string;
     city: string;
-    state: string;
-    zipCode: string;
+    area: string;
+    mobile: string;
+    postalCode: number;
     constructor() {
         this.items = new Array<Item>();
         this.created = new Date();

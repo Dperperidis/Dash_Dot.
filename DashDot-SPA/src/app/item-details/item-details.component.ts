@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, Color, ProductSize } from '../_models/product';
 import { ProdSettingsService } from '../_services/prodsettings.service';
@@ -31,6 +31,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   cartItems: ShoppingCart;
 
 
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private productService: ProductService,
@@ -38,8 +39,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     private cartService: ShoppingCartService) {
   }
 
-   
-  
+
 
   addToCart() {
     this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color);
@@ -58,6 +58,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         return 0.5 - Math.random();
       });
     })
+   
     window.scrollTo(0, 0);
     this.route.data.subscribe(data => {
       this.product = data["product"];
@@ -66,6 +67,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         case "Κασκόλ":
           this.checkProduct = false;
           this.onChange('Default');
+          break;
+          case "Πουκάμισο":
+          this.checkProduct = true;
           break;
         case "Παπιγιόν":
           this.checkProduct = false;
@@ -106,7 +110,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       }
     });
     this.sizes = this.product.productSizes;
-    this.productModal.photoUrl = this.product.photoUrl;
+    this.onImgChange(this.product.photoUrl);
   }
 
   onChange(size: string) {
@@ -129,6 +133,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   onImgModalChange(imgUrl) {
     this.productModal.photoUrl = imgUrl;
   }
+
+
 
   saveMessage() {
     this.message.code = this.product.code;

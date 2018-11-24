@@ -99,11 +99,11 @@ type = "line-scale-party"
             <div class="row">
               <div class="col-md-6">
                 <h4>Τιμή</h4>
-                <input name="price" class="form-control" [(ngModel)]="product.price" placeholder="€">
+                <input name="price" class="form-control" [(ngModel)]="product.price" placeholder="€" type="number" min="1">
               </div>
               <div class="col-md-6">
                 <h4>Έκπτωση</h4>
-                <input name="discount" class="form-control" [(ngModel)]="product.discount" placeholder="€">
+                <input name="discount" class="form-control" [(ngModel)]="product.discount" placeholder="€" type="number" min="0">
               </div>
 
             </div>

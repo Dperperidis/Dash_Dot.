@@ -63,11 +63,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var isNumeric = int.TryParse(product.Price, out int n);
-                if (!isNumeric)
-                {
-                    return BadRequest("Δεν συμπληρώσατε σωστά την τιμή");
-                }
+              
                 if (_ctx.Product.Any(x => x.Code == product.Code))
                 {
                     return BadRequest("Το προιον ήδη υπάρχει");
@@ -137,6 +133,11 @@ namespace DashnDotApp.Controllers
         {
             try
             {
+                if(product.Discount.ToString() == null)
+                {
+                    return BadRequest("Βάλε μια τιμή στην έκπτωση");
+                }
+
                 var savedProduct = _ctx.Product.Update(product);
                 _ctx.SaveChanges();
                 return Ok(savedProduct.Entity);

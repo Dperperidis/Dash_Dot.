@@ -4,7 +4,7 @@ import { Photo } from "./photo";
 export class Product {
     id: number;
     category: string;
-    price: string;
+    price: number;
     title: string;
     code: string;
     season: string;
@@ -20,7 +20,7 @@ export class Product {
     sleeve: string;
     line: string;
     totalCost: number;
-    discount: string;
+    discount: number;
     photos?: Photo[];
     productSizes: Array<ProductSize>;
     constructor() {

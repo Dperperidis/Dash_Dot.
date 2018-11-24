@@ -57,7 +57,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
         return actions.payment.create({
           payment: {
             transactions: [
-              { amount: { total: '0.01', currency: 'USD' } }
+              { amount: { total: '0.01', currency: 'EUR' } }
             ]
           }
         });

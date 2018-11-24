@@ -9,7 +9,7 @@ namespace DashnDotApp.Dtos
     public class ProductForUpdateDto
     {
         public string Category { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public string Title { get; set; }
         public string Size { get; set; }
         public string Line { get; set; }
@@ -21,9 +21,9 @@ namespace DashnDotApp.Dtos
         public string Active { get; set; }
         public bool Suggested { get; set; }
         public string Sleeve { get; set; }
-        public string Discount { get; set; }
+        public double Discount { get; set; }
         public string Color { get; set; }
-        public string TotalCost { get; set; }
+        public double TotalCost { get; set; }
 
     }
 }

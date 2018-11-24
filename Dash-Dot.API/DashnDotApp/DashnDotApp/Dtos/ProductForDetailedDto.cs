@@ -10,7 +10,7 @@ namespace DashnDotApp.Dtos
     {
         public int Id { get; set; }
         public string Category { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public string Title { get; set; }
         public string Line { get; set; }
         public string Code { get; set; }
@@ -22,20 +22,19 @@ namespace DashnDotApp.Dtos
         public bool Suggested { get; set; }
         public string seoUrl { get; set; }
         public string Quantity { get; set; }
-        public string Discount { get; set; }
+        public double Discount { get; set; }
         public string Active { get; set; }
         public string PhotoUrl { get; set; }
         public DateTime Created { get; set; }
-        public int TotalCost
+        public double TotalCost
         {
             get
             {
-                if (string.IsNullOrEmpty(Discount))
+                if (Discount == 0)
                 {
-                    return int.Parse(Price);
-
+                    return Price;
                 }
-                return int.Parse(Price) - int.Parse(Discount);
+                return Price - Discount;
 
             }
 

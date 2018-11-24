@@ -18,7 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import localeEn from '@angular/common/locales/en';
+import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -64,7 +64,7 @@ import { CheckoutStepsComponent } from './checkout-steps/checkout-steps.componen
 import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
 import { CheckoutInvoiceComponent } from './checkout-invoice/checkout-invoice.component';
 
-registerLocaleData(localeEn);
+registerLocaleData(localeDe);
 export function tokenGetter() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
@@ -134,16 +134,16 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ["localhost:50274"],
+        whitelistedDomains: ["localhost:51119"],
         blacklistedRoutes: [
-          "localhost:50274/api/auth"
+          "localhost:51119/api/auth"
         ]
       }
     })
   ],
   providers: [{
     provide: LOCALE_ID,
-    useValue: 'en-EN'
+    useValue: 'de-DE'
   },
     AuthService,
 

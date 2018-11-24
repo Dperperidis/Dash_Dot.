@@ -68,12 +68,12 @@
           placeholder="Κωδικός Προϊόντος"></td>
       <td style="width:100px">
         <div class="input-group mb-3">
-          <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="">
+          <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="" type="number" min="1">
         </div>
       </td>
       <td style="width:100px">
         <div class="input-group mb-3">
-          <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="">
+          <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="" type="number" min="0">
         </div>
       </td>
       <td style="width:100px">

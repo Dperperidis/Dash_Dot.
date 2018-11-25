@@ -24,15 +24,26 @@
     font-size: 15px;
 }
 
-.col-sm-12>img {
+.card-body>img {
     max-height: 30rem;
     max-width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     border-radius: 30px;
+
 }
 
+.askus{
+    background-color:white!important;
+}
+.card>.card-body{
+    background-color:rgb(71, 71, 71);
+}
+
+.col-sm-12>.card-body{
+    background-color:white!important;
+}
 
 
 .photosArray {

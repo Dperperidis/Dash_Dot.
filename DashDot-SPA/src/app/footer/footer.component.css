@@ -15,3 +15,7 @@
     background-color: #9c24cc;
     border-color: #78199e;
 }
+
+.bg-secondary{
+    background-color:rgb(68, 67, 67)!important;
+}

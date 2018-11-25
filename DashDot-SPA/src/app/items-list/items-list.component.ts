@@ -48,7 +48,7 @@ export class ItemsListComponent implements OnInit {
           const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
-            
+
             this.product = res.result;
             this.tempProduct = res.result;
             this.sleeve = true;
@@ -199,9 +199,9 @@ export class ItemsListComponent implements OnInit {
   searchSleeve(value) {
     sessionStorage.setItem('value', value)
     this.product = this.tempProduct;
-   this.product = this.product.filter(x => x.sleeve == value);
-   this.sortBy(sessionStorage.getItem('order'));
-   this.sortBySize(sessionStorage.getItem('size'));
+    this.product = this.product.filter(x => x.sleeve == value);
+    this.sortBy(sessionStorage.getItem('order'));
+    this.sortBySize(sessionStorage.getItem('size'));
 
   }
 
@@ -217,7 +217,10 @@ export class ItemsListComponent implements OnInit {
         this.product = res.result;
         this.sortBySize(size);
         this.sortBy(order);
-        this.searchSleeve(value);
+        if (sessionStorage.getItem('value')) {
+          this.searchSleeve(value);
+        }
+
       });
     } else {
       this.productService.getProductsByCategory(id, this.pageNumber, this.pageSize).subscribe(res => {
@@ -318,7 +321,7 @@ export class ItemsListComponent implements OnInit {
         this.product = this.tempProduct;
         break;
     }
-   this.sortBy(sessionStorage.getItem('order'));
+    this.sortBy(sessionStorage.getItem('order'));
   }
 
   hideBox() {

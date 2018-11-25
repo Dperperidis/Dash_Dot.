@@ -115,7 +115,15 @@ box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
 
 
+
 }
+
+.sticky-top{
+  background-color:black!important;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.22);
+}
+
+
 
 /* .nav-item {
     cursor: pointer;

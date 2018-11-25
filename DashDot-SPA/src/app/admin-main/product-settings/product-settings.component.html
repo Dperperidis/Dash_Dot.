@@ -16,14 +16,20 @@
                 <label for="exampleInputEmail1">Προσθήκη Κωδικού</label>
                 <input name="title" class="form-control" [(ngModel)]="colorNew.rgb">
                 <br>
-                <button class="btn btn-primary mr-5" (click)="addOrUpdateColor()" [disabled]="!colorNew.title || !colorNew.rgb">{{colorNew.id
-                    ? "Αποθήκευση":"Καταχώρηση Χρώματος"}} </button>
                 <input [value]="color" [style.background]="color" [(colorPicker)]="color" class="" />
+                <button class="btn btn-primary ml-3" (click)="addOrUpdateColor()" [disabled]="!colorNew.title || !colorNew.rgb">{{colorNew.id
+                    ? "Αποθήκευση":"Καταχώρηση Χρώματος"}} </button>
             </div>
-            <a href="http://www.digitalnews.gr/8119/%CE%BA%CF%89%CE%B4%CE%B9%CE%BA%CE%BF%CE%AF-%CF%87%CF%81%CF%89%CE%BC%CE%AC%CF%84%CF%89%CE%BD-html-rgb" target="_blank">Κωδικοί χρωμάτων HTML RGB</a>
+            <a href="http://www.digitalnews.gr/8119/%CE%BA%CF%89%CE%B4%CE%B9%CE%BA%CE%BF%CE%AF-%CF%87%CF%81%CF%89%CE%BC%CE%AC%CF%84%CF%89%CE%BD-html-rgb"
+                target="_blank">Κωδικοί χρωμάτων HTML RGB</a>
         </div>
     </div>
     <hr>
+    <div class="form-group">
+        <label class="col-form-label col-form-label-lg" for="inputLarge">Ψάξε για χρώμα</label>
+        <input class="form-control form-control-lg" #query (keyup)="filter(query.value)" type="text" placeholder=""
+            id="inputLarge">
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -34,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let color of totalColors; let i= index" style.background-color="{{color.rgb}}">
+            <tr *ngFor="let color of filteredColors; let i= index" style.background-color="{{color.rgb}}">
                 <th scope="row">{{i + 1}}</th>
                 <td class="font-weight-bold">{{color.title}}</td>
                 <td class="font-weight-bold">{{color.rgb}}</td>

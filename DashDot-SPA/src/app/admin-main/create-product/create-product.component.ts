@@ -20,6 +20,7 @@ export class CreateProductComponent implements OnInit {
   colors = new Array<Color>();
   productSize: ProductSize;
   productSizeColor: ProductSizeColor;
+  tempColor: any[];
 
   modalRef: BsModalRef;
 
@@ -68,7 +69,6 @@ export class CreateProductComponent implements OnInit {
     this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId);
     this.product.productSizes.push(this.productSize);
     this.modalRef.hide();
-
   }
 
   editSize(s: ProductSize, template: TemplateRef<any>) {

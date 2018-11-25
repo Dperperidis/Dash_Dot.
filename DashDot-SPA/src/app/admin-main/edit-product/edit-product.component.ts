@@ -144,7 +144,7 @@ export class EditProductComponent implements OnInit {
       this.productSize.productSizeColor.splice(index, 1);
       this.toastr.success('Η διαγραφή έγινε επιτυχώς');
     }, error => {
-      this.toastr.error(error);
+      this.toastr.error('Διπλό κλικ για διαγραφή χρώματος σε μέγεθος που δεν είναι αποθηκευμένο.');
     });
   }
 

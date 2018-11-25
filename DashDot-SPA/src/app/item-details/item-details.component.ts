@@ -8,6 +8,7 @@ import { ProductService } from '../_services/product.service';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { ShoppingCart } from '../_models/shoppingcart';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   suggestedProducts: Product[];
   checkProduct = true;
   cartItems: ShoppingCart;
+  modalRef: BsModalRef;
 
 
 
@@ -36,6 +38,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private productService: ProductService,
     private route: ActivatedRoute,
+    private modalService: BsModalService,
     private cartService: ShoppingCartService) {
   }
 
@@ -58,8 +61,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         return 0.5 - Math.random();
       });
     })
-   
     window.scrollTo(0, 0);
+    this.product = new Product();
     this.route.data.subscribe(data => {
       this.product = data["product"];
       this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
@@ -68,7 +71,10 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
           this.checkProduct = false;
           this.onChange('Default');
           break;
-          case "Πουκάμισο":
+        case "Πουκάμισο":
+          this.checkProduct = true;
+          break;
+        case "Ζώνη":
           this.checkProduct = true;
           break;
         case "Παπιγιόν":
@@ -108,9 +114,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
           this.onChange('Default');
           break;
       }
+      this.sizes = this.product.productSizes;
     });
-    this.sizes = this.product.productSizes;
     this.onImgChange(this.product.photoUrl);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   onChange(size: string) {

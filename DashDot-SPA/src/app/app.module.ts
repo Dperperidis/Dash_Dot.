@@ -18,6 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {ImageZoomModule} from 'angular2-image-zoom';
 import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
@@ -113,7 +114,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     BrowserAnimationsModule,
     JwtModule,
-
+    ImageZoomModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule,

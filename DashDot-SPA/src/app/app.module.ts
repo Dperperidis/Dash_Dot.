@@ -50,7 +50,6 @@ import { GetProductResolver } from './_resolvers/product-get.resolver';
 import { AdminProductService } from './_services/adminproduct.service';
 import { StoreMapsComponent } from './store-maps/store-maps.component';
 import { registerLocaleData } from '@angular/common';
-import { SortByService } from './_services/sortbyservice';
 import { ProductListResolver } from './_resolvers/product-list.resolver';
 import { UserPageComponent } from './admin-main/user-page/user-page.component';
 import { MessageListResolver } from './_resolvers/messages-list.resolver';
@@ -64,6 +63,11 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutStepsComponent } from './checkout-steps/checkout-steps.component';
 import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
 import { CheckoutInvoiceComponent } from './checkout-invoice/checkout-invoice.component';
+import { CompanyComponent } from './footer/company/company.component';
+import { UseTermsComponent } from './footer/use-terms/use-terms.component';
+import { GdprComponent } from './footer/gdpr/gdpr.component';
+import { ContactComponent } from './footer/contact/contact.component';
+import { CustomerServiceComponent } from './footer/customer-service/customer-service.component';
 
 registerLocaleData(localeDe);
 export function tokenGetter() {
@@ -106,6 +110,11 @@ export function tokenGetter() {
     CheckoutStepsComponent,
     CheckoutPaymentComponent,
     CheckoutInvoiceComponent,
+    CompanyComponent,
+    UseTermsComponent,
+    GdprComponent,
+    ContactComponent,
+    CustomerServiceComponent,
 
   ],
   imports: [
@@ -156,7 +165,6 @@ export function tokenGetter() {
     GetProductResolver,
     AdminAuthGuard,
     LocalStorageService,
-    SortByService,
     AdminProductService,
     ProdSettingsService,
     ShoppingCartService,

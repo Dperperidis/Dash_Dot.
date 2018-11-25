@@ -25,6 +25,11 @@ import { ColorListResolver } from "./_resolvers/colors-list.resolver";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { CheckoutPaymentComponent } from "./checkout-payment/checkout-payment.component";
 import { CheckoutInvoiceComponent } from "./checkout-invoice/checkout-invoice.component";
+import { CompanyComponent } from "./footer/company/company.component";
+import { UseTermsComponent } from "./footer/use-terms/use-terms.component";
+import { GdprComponent } from "./footer/gdpr/gdpr.component";
+import { ContactComponent } from "./footer/contact/contact.component";
+import { CustomerServiceComponent } from "./footer/customer-service/customer-service.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -40,12 +45,16 @@ export const routes: Routes = [
     { path: 'payment', component: CheckoutPaymentComponent },
     { path: 'invoice', component: CheckoutInvoiceComponent },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
+    { path: 'company', component: CompanyComponent },
+    { path: 'terms-of-use', component: UseTermsComponent },
+    { path: 'gdrp', component: GdprComponent },
+    { path: 'contact', component: ContactComponent },
+    { path: 'customer-service', component: CustomerServiceComponent },
     {
         path: 'admin/main',
         runGuardsAndResolvers: "always",
         canActivate: [AdminAuthGuard],
         data: {
-            breadcrumb: 'Admin'
         }, children: [
             {
                 path: '', component: AdminMainComponent, children: [

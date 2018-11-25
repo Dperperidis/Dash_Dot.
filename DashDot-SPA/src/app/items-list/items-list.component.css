@@ -155,6 +155,21 @@ select {
     }
 }
 
+@media (min-width: 576px){
+    .form-inline .form-control {
+        display: -webkit-box;
+        width: -webkit-fill-available;
+        vertical-align: middle;
+    }
+}
+
+@media (max-width: 576px){
+    .form-control {
+        width: 58%;
+    }
+}
+
+
 .col-md-6>a {
     text-decoration: none;
 }

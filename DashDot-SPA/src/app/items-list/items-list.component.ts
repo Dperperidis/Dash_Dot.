@@ -139,6 +139,17 @@ export class ItemsListComponent implements OnInit {
             sessionStorage.removeItem('order');
           });
           break;
+          case "ties-clip":
+          const o = "Clip Γραβάτας";
+          sessionStorage.setItem('id', o);
+          this.productService.getProductsByCategory(o, this.pageNumber, this.pageSize).subscribe(res => {
+            this.product = res.result;
+            this.tempProduct = res.result;
+            this.category = false;
+            sessionStorage.removeItem('size');
+            sessionStorage.removeItem('order');
+          });
+          break;
         case "beanies":
           const i = "Σκουφάκι";
           sessionStorage.setItem('id', i);

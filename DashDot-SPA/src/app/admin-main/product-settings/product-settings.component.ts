@@ -44,8 +44,6 @@ export class ProductSettingsComponent implements OnInit {
       : this.colorsTemp;
   }
 
-
-
   addOrUpdateColor() {
     this.colorNew.id ? this.updateColor() : this.addColor();
   }

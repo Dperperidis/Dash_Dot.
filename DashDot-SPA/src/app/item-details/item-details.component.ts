@@ -31,6 +31,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   checkProduct = true;
   cartItems: ShoppingCart;
   modalRef: BsModalRef;
+  sleeve = false;
 
 
 
@@ -73,6 +74,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
           break;
         case "Πουκάμισο":
           this.checkProduct = true;
+          this.sleeve = true;
           break;
         case "Ζώνη":
           this.checkProduct = true;

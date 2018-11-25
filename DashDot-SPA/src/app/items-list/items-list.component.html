@@ -1,14 +1,14 @@
 <app-navbar></app-navbar>
 <div class="container ">
-  <div class="thumbnail text-center mt-4 d-none d-md-block d-lg-block">
-    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
+  <div class="thumbnail text-center mt-4 d-none d-lg-block">
+    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block; ">
     <div class="caption">
       <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
     </div>
   </div>
   <fieldset class="form-inline p-2 mt-3 bg-warning justify-content-center">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="form-group ">
           <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
           <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
@@ -20,7 +20,7 @@
           </select>
         </div>
       </div>
-      <div class="col-md-2" *ngIf="category">
+      <div class="col-md-2 col-sm-6" *ngIf="category">
         <div class="form-group" >
           <label for="exampleSelect2" class="font-weight-bold">ΜΕΓΕΘΟΣ:</label>
           <select class="form-control" id="exampleSelect2" #size (change)="sortBySize(size.value)">
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-6">
         <div class="form-group">
           <label for="exampleSelect1" class=" font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
           <select class="form-control" id="exampleSelect1" #items (change)="sortByItems(items.value)">
@@ -69,7 +69,7 @@
           </select>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-6">
 
         <div class="form-group ">
           <a style="cursor:pointer"><i class="fa fa-list mr-2 text-white" (click)="hideBox()"></i></a>

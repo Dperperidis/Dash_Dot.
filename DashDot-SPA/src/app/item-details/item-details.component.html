@@ -16,7 +16,6 @@
               <label class="col-form-label col-form-label-sm" for="inputSmall">Όνομα</label>
               <input class="form-control form-control-sm" type="text" placeholder="" id="inputSmall" name="name"
                 [(ngModel)]="message.name">
-
               <label class="col-form-label col-form-label-sm" for="inputSmall">Email</label>
               <input class="form-control form-control-sm" type="email" placeholder="" id="inputSmall" name="email"
                 [(ngModel)]="message.email">
@@ -33,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9 col-lg-7">
+    <div class="col-md-12 col-lg-7">
       <div class="card-header card font-weight-bold">{{product.title}}</div>
       <div class="row my-3">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -55,6 +54,7 @@
               <h6 style="font-family:sans-serif"><strong class="text-warning" style="font-family:cursive">Κατασκευαστής:</strong>
                 Dāsh&Dot_.</h6>
               <h6 class="text-warning"><strong>Κωδικός προϊόντος:</strong><span class="text-white"> {{product.code}}</span></h6>
+              <h6 class="text-warning" *ngIf="sleeve"><strong>Μανίκι:</strong><span class="text-white"> {{product.sleeve}}</span></h6>
               <hr class="bg-white">
               <h6 class="card-title">ΤΙΜΗ:
                 <span class=" text-warning ml-2" style="font-size:30px" *ngIf="product.discount>0">{{
@@ -103,13 +103,8 @@
       <div class=" border-light mb-3" style="max-width:100%">
         <div class="card card-header">Περιγραφή</div>
         <div class="card-body">
-          <h4 class="card-title">Σύνθεση {{product.material}} _.</h4>
-          <p class="card-text">Για να διατηρήσετε το αγαπημένο σας dash&dot πουκάμισο σε άριστη κατάσταση, να
-            προτιμάτε
-            χλιαρό νερό, πλύσιμο στο χέρι και πάντα να ακολουθείτε τις οδηγίες πλυσίματος που αναγράφονται στην
-            ετικέτα
-            φροντίδας.</p>
-          <p class="card-text">{{product.description}}</p>
+            <p class="card-text">{{product.description}}</p>      
+            <h4 class="card-title text-warning">Σύνθεση: {{product.material}} _.</h4>    
         </div>
       </div>
       <div class=" border-light mb-3" style="max-width:100%">
@@ -118,28 +113,20 @@
           <h4 class="card-title">Ελλάδα:</h4>
           <p class="card-text">Η αποστολή - αφού έχει επιβεβαιωθεί η παραγγελία σας - πραγματοποιείτε σε όλη την Ελλάδα
             με ταχυμεταφορά courier και η παράδοση γίνετε σε 1-3 εργάσιμες ημέρες στη διεύθυνση που θα δηλώσετε.
-            Το κόστος των μεταφορικών είναι 3 ευρώ για παραγγελίες κάτω των 15 ευρώ.
-            Για παραγγελίες άνω των 15 ευρώ η αποστολή είναι δωρεάν Πανελλαδικά.
-            Στις περιπτώσεις όπου η πληρωμή γίνεται με αντικαταβολή η χρέωση αντικαταβολής είναι 2€ επιπλέον.
-            Εξωτερικό:
-            Σε όλες τις χώρες της Ευρωπαϊκής Ένωσης η χρέωση αποστολής είναι 12€ για παραγγελία βάρους έως 3 κιλών
-            ανεξαρτήτου της ποσότητας παραγγελίας και φτάνει στην πόρτα σας μεταξύ 5 έως 8 εργάσιμων ημερών.
-            Για παραγγελίες άνω των 150€ εντός Ευρωπαϊκής Ένωσης τα έξοδα αποστολής είναι ΔΩΡΕΑΝ!
-            Στις υπόλοιπες χώρες η αποστολή γίνεται μέσω των δημόσιων ταχυδρομείων. Η χρέωση αποστολής καθώς και οι
-            ημέρες παράδοσης εξαρτώνται από τη ζώνη αποστολής. Θα σας ενημερώσουμε μέσω e-mail ή τηλεφωνικά αφού
-            ολοκληρώσετε τη διαδικασία παραγγελίας σας και πριν σας αποσταλούν τα εμπορεύματα.</p>
-
+            Το κόστος των μεταφορικών είναι 5 ευρώ για παραγγελίες κάτω των 25 ευρώ.
+            Για παραγγελίες άνω των 25 ευρώ η αποστολή είναι δωρεάν Πανελλαδικά.
+            Στις περιπτώσεις όπου η πληρωμή γίνεται με αντικαταβολή η χρέωση αντικαταβολής είναι δωρεάν.</p>
         </div>
       </div>
     </div>
-    <div class="vl"></div>
-    <div class="col-md-2 col-lg-2 text-center">
+    <div class="vl  d-none d-lg-block"></div>
+    <div class="col-md-12 col-lg-2 text-center d-none d-lg-block" >
       <h3 class="font-weight-bold">Προτεινόμενα</h3>
       <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
         <div class=" p-4 bg-white m-3">
           <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
           <a class="ml-3" [routerLink]="['/product',product.seoUrl]">
-            <img class="card-img-top img-fluid" src="{{product.photoUrl}}" style="height:200px;width:150px" alt="Card image cap">
+            <img class="card-img-top img-fluid" src="{{product.photoUrl}}" style="height:150px;width:115px" alt="Card image cap">
           </a>
           <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
           <hr class="bg-white">

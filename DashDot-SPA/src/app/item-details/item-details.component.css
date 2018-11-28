@@ -1,52 +1,11 @@
-.card-body>h5 {
-    letter-spacing: 0px !important;
-}
-
-.custom-select {
-    width: 40%;
-}
-
-.vl {
-    border-left: 6px solid rgb(0, 0, 0);
-    height: 127vh;
-}
-
-.product-detail {
-    margin-top: 50px;
-}
-
-.like_buttons>i {
-    font-size: 35px;
-}
-
-.icons {
-    display: inline-grid;
-    font-size: 15px;
-}
-
 .card-body>img {
     max-height: 30rem;
     max-width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 30px;
 
 }
-
-.askus{
-    background-color:white!important;
-}
-.card>.card-body{
-    background-color:rgb(71, 71, 71);
-}
-
-.col-sm-12>.card-body{
-    background-color:white!important;
-    border-radius:23px;
-}
-
-
 .photosArray {
     height: 80px;
 }
@@ -119,9 +78,7 @@ option>h5 {
 
 .text-center>img {
     cursor: pointer;
-    outline: none;
-    border-radius: 15px;
-   
+    outline: none;   
 }
 
 .text-center>a {
@@ -133,13 +90,13 @@ h2 {
 }
 
 .btn-primary {
-    background-image: linear-gradient(rgb(212, 132, 25), rgb(247, 178, 88));
+    background-image: linear-gradient(#a77a33, rgb(247, 178, 88));
     color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
 .btn-primary:hover {
-    background-image: linear-gradient(rgb(247, 178, 88), rgb(212, 132, 25));
+    background-image: linear-gradient(rgb(247, 178, 88), #a77a33);
     color: rgb(255, 255, 255);
 }
 

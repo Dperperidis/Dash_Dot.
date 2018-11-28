@@ -30,6 +30,7 @@ import { UseTermsComponent } from "./footer/use-terms/use-terms.component";
 import { GdprComponent } from "./footer/gdpr/gdpr.component";
 import { ContactComponent } from "./footer/contact/contact.component";
 import { CustomerServiceComponent } from "./footer/customer-service/customer-service.component";
+import { AuthGuard } from './_guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -41,9 +42,9 @@ export const routes: Routes = [
     { path: 'admin', component: AdminpageComponent },
     { path: 'stores', component: StoreMapsComponent },
     { path: 'cart', component: ShoppingcartComponent },
-    { path: 'checkout', component: CheckoutComponent },
-    { path: 'payment', component: CheckoutPaymentComponent },
-    { path: 'invoice', component: CheckoutInvoiceComponent },
+    { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]  },
+    { path: 'payment', component: CheckoutPaymentComponent, canActivate: [AuthGuard] },
+    { path: 'invoice', component: CheckoutInvoiceComponent, canActivate: [AuthGuard]  },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
     { path: 'company', component: CompanyComponent },
     { path: 'terms-of-use', component: UseTermsComponent },

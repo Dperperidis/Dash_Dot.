@@ -18,7 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import {ImageZoomModule} from 'angular2-image-zoom';
+import { ImageZoomModule } from 'angular2-image-zoom';
 import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
@@ -68,6 +68,9 @@ import { UseTermsComponent } from './footer/use-terms/use-terms.component';
 import { GdprComponent } from './footer/gdpr/gdpr.component';
 import { ContactComponent } from './footer/contact/contact.component';
 import { CustomerServiceComponent } from './footer/customer-service/customer-service.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './_resolvers/auth.interceptor';
 
 registerLocaleData(localeDe);
 export function tokenGetter() {
@@ -156,9 +159,14 @@ export function tokenGetter() {
     useValue: 'de-DE'
   },
     AuthService,
-
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
     ProductService,
     PreventUnsavedChanges,
+    AuthGuard,
     PhotoUploadResolver,
     ProductEditResolver,
     ErrorInterceptorProvider,

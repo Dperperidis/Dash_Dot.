@@ -5,7 +5,7 @@ export interface User {
     email: string;
     address: string;
     mobile: string;
-    postalCode: number;
+    postalCode: string;
     city: string;
     area: string;
     isAdmin: boolean;

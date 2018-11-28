@@ -25,29 +25,29 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
+      if (this.cart.items.length === 0) { this.router.navigate(['/cart']); }
     }));
-    if (this.authService.decodedToken == null) {
-      this.router.navigate(['/']);
-      this.toastr.warning('Πρέπει να είσαι συνδεδεμένος για πληρωμή προϊόντων.')
-    } else {
-      this.userService.getUser(this.authService.decodedToken.nameid).subscribe(res => {
-        this.cart.firstName = res.firstName;
-        this.cart.email = res.email;
-        this.cart.city = res.city;
-        this.cart.address = res.address;
-        this.cart.postalCode = res.postalCode;
-        this.cart.area = res.area;
-        this.cart.mobile = res.mobile;
-      }, error => {
-        this.toastr.error(error);
-      });
-    }
-
-
+    this.subscriptions.push(this.userService.getUser(this.authService.decodedToken.Id).subscribe(res => {
+      console.log(res);
+      this.cart.name = res.firstName;
+      this.cart.lastname = res.lastName;
+      this.cart.email = res.email;
+      this.cart.city = res.city;
+      this.cart.address = res.address;
+      this.cart.zipCode = res.postalCode;
+      this.cart.area = res.area;
+      this.cart.mobile = res.mobile;
+    }, error => {
+      this.toastr.error(error);
+    }));
 
   }
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  checkPaymentMethod(m: number) {
+    return this.cart.paymentMethod === m;
   }
 
   totalOfItems() {

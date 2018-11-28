@@ -3,9 +3,7 @@ import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { ShoppingCart } from '../_models/shoppingcart';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-items-list',
@@ -13,7 +11,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./items-list.component.css']
 })
 export class ItemsListComponent implements OnInit {
-  // private subscriptions = new Array<Subscription>();
   box = true;
   list = false;
   product = new Array<Product>();
@@ -29,18 +26,10 @@ export class ItemsListComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private productService: ProductService,
-    private cartService: ShoppingCartService) {
+    private productService: ProductService) {
   }
 
-  // ngOnDestroy() {
-  //   this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  // }
-
   ngOnInit() {
-    // this.subscriptions.push(this.cartService.cart$.subscribe(value => {
-    //   this.cartItems = value;
-    // }));
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -48,7 +37,7 @@ export class ItemsListComponent implements OnInit {
           const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
-
+            console.log(res);
             this.product = res.result;
             this.tempProduct = res.result;
             this.sleeve = true;
@@ -60,7 +49,7 @@ export class ItemsListComponent implements OnInit {
         case "regular-fit":
           const y = "Regular-Fit";
           sessionStorage.setItem('id', y);
-          sessionStorage.setItem('value', 'Μακρυμάνικο')
+          sessionStorage.setItem('value', 'Μακρυμάνικο');
           this.productService.getProductsByLine(y, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
@@ -139,7 +128,7 @@ export class ItemsListComponent implements OnInit {
             sessionStorage.removeItem('order');
           });
           break;
-          case "ties-clip":
+        case "ties-clip":
           const o = "Clip Γραβάτας";
           sessionStorage.setItem('id', o);
           this.productService.getProductsByCategory(o, this.pageNumber, this.pageSize).subscribe(res => {
@@ -202,15 +191,18 @@ export class ItemsListComponent implements OnInit {
   }
 
   sortByItems(item) {
+    console.log(item);
     this.pageSize = 0;
     this.pageSize = item - 8;
     this.loadMore();
   }
 
   searchSleeve(value) {
-    sessionStorage.setItem('value', value)
+    sessionStorage.setItem('value', value);
     this.product = this.tempProduct;
-    this.product = this.product.filter(x => x.sleeve == value);
+    if (value !== 'all') {
+      this.product = this.product.filter(x => x.sleeve === value);
+    }
     this.sortBy(sessionStorage.getItem('order'));
     this.sortBySize(sessionStorage.getItem('size'));
 
@@ -344,9 +336,4 @@ export class ItemsListComponent implements OnInit {
     this.list = false;
     this.box = true;
   }
-
-  // addToCart(product: Product) {
-  //   this.cartService.addItemToCart(product, 1);
-  // }
-
 }

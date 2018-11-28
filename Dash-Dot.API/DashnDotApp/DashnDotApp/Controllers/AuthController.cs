@@ -2,6 +2,7 @@
 using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ namespace DashnDotApp.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -56,7 +57,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-   
+
 
 
         [HttpPost("login")]
@@ -70,31 +71,26 @@ namespace DashnDotApp.Controllers
                 if (userFromRepo == null)
                     return Unauthorized();
 
-                var claims = new[]
-                {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim("Id", userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userForLoginDto.Email),
-                new Claim("isAdmin", userFromRepo.IsAdmin.ToString()),
-                new Claim("firstName", userFromRepo.FirstName)
+                var claims = new List<Claim>();
 
+                claims.Add(new Claim("Id", userFromRepo.Id.ToString()));
+                claims.Add(new Claim("isAdmin", userFromRepo.IsAdmin.ToString()));
+                claims.Add(new Claim("firstName", userFromRepo.FirstName));
 
-            };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("Tokens:Key").Value));
 
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddDays(1),
-                    SigningCredentials = creds
-                };
+                var token = new JwtSecurityToken(
+                                _config.GetSection("Tokens:Issuer").Value,
+                               _config.GetSection("Tokens:Issuer").Value,
+                                  claims,
+                                  expires: DateTime.UtcNow.AddMinutes(560),
+                                  signingCredentials: creds);
 
                 var tokenHandler = new JwtSecurityTokenHandler();
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
+
 
                 return Ok(new
                 {

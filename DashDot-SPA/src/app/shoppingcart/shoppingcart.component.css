@@ -5,7 +5,7 @@ img {
 
 td>a {
     text-decoration: none;
-    color: rgb(243, 146, 1) !important;
+    color:  #d09536 !important
 }
 
 td {
@@ -26,8 +26,4 @@ th {
 
 .container {
     min-height: 442px;
-}
-
-.btn-danger>i{
-    font-size:25px;
 }

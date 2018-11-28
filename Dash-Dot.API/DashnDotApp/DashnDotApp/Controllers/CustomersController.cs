@@ -3,6 +3,7 @@ using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Helpers;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
 {
-
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -34,7 +35,7 @@ namespace DashnDotApp.Controllers
 
         [Route("getProductsByCategory/{category}")]
         [HttpGet]
-        public IActionResult GetProductByCategory([FromQuery]ProductParams productParams,string category)
+        public IActionResult GetProductByCategory([FromQuery]ProductParams productParams, string category)
         {
             try
             {
@@ -72,7 +73,7 @@ namespace DashnDotApp.Controllers
             try
             {
                 var result = _ctx.ProductSizes.Include("ProductSizeColor").Include("ProductSizeColor.Color").Where(x => x.ProductId == prodId);
-                var product = result.FirstOrDefault(x => x.Size.Title == size);         
+                var product = result.FirstOrDefault(x => x.Size.Title == size);
                 return Ok(product);
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace DashnDotApp.Controllers
 
         [Route("getProductsByLine/{line}")]
         [HttpGet]
-        public IActionResult GetProductBySize([FromQuery]ProductParams productParams,string line)
+        public IActionResult GetProductBySize([FromQuery]ProductParams productParams, string line)
         {
             try
             {
@@ -105,7 +106,7 @@ namespace DashnDotApp.Controllers
             try
             {
                 var messageToCreate = _mapper.Map<CustMessage>(messageForCreateDto);
-                var result = _ctx.Messages.Add(messageToCreate);              
+                var result = _ctx.Messages.Add(messageToCreate);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
             }
@@ -121,7 +122,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                var products = _ctx.Product.Include(x=>x.Photos).Where(p => p.Suggested == true).ToList();
+                var products = _ctx.Product.Include(x => x.Photos).Where(p => p.Suggested == true).ToList();
 
                 var result = _mapper.Map<IEnumerable<ProductForListDto>>(products);
                 return Ok(result);

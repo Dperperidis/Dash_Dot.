@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container mt-4">
+<div class="container mt-5">
   <app-checkout-steps [step]="0" [percent]="25"></app-checkout-steps>
   <table class="table text-center" *ngIf="cartItems.items.length > 0">
     <thead>
@@ -36,7 +36,7 @@
         </td>
         <td>{{item.product.totalCost}} &euro;</td>
         <td>{{item.product.totalCost*item.quantity}} &euro;</td>
-        <td> <button type="button" class="btn btn-danger" (click)="deleteItem(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+        <td> <button type="button" class="btn btn-danger btn-sm" (click)="deleteItem(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
       </tr>
       <tr>
         <td colspan="5">

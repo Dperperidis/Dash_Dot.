@@ -32,23 +32,36 @@ export class AuthService {
         return this.http.post(this.baseUrl + "auth/login", customer).pipe(
             map((response: any) => {
                 const user = response;
+                console.log(response);
                 if (user) {
                     if (customer.saveUser === true) {
                         localStorage.setItem("token", user.token);
                         localStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
                     } else {
                         sessionStorage.setItem("token", user.token);
                         sessionStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
                     }
                 }
             })
         );
+    }
+
+    tokenGetter() {
+        if (localStorage.getItem("token")) {
+            return localStorage.getItem("token");
+        } else {
+            if (sessionStorage.getItem('token')) {
+                return sessionStorage.getItem('token');
+            }
+        }
     }
 
     loggedIn() {

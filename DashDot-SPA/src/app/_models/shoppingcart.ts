@@ -7,17 +7,21 @@ export class ShoppingCart {
     user: User;
     created: Date;
     items: Array<Item>;
-    firstName: string;
-    lastName: string;
+
+    name: string;
+    lastname: string;
     address: string;
     email: string;
     city: string;
     area: string;
     mobile: string;
-    postalCode: number;
+    zipCode: string;
+    state: string;
+    paymentMethod: PaymentMethod;
     constructor() {
         this.items = new Array<Item>();
         this.created = new Date();
+        this.paymentMethod = 0;
     }
 }
 
@@ -26,6 +30,11 @@ export class Item {
     productId: number;
     product: Product;
     quantity: number;
-    size?: string;
+    size: string;
     color: string;
+}
+
+export enum PaymentMethod {
+    Cash,
+    Paypal
 }

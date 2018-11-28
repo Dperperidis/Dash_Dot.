@@ -22,7 +22,7 @@
 
 body {
     font-family: cursive;
-    background-color:rgb(71, 71, 71);
+    background-color: rgb(71, 71, 71);
     color: white
 }
 
@@ -53,18 +53,19 @@ a.page-link:hover {
 }
 
 .bg-warning {
-    background-color: #d18006;
+    background-color: #a77a33 !important;
 }
 
-.bg-dark {
-    background-color: #000000 !important
+.bg-dark,
+.navbar-dark {
+    background-color: #211f1b !important
 }
 
 /* Changes for Black Theme */
 
 .card {
-    background: #ffffff;
-    color: rgb(0, 0, 0);
+    background: #2f2f2f;
+    color: white
 }
 
 .text-purple {
@@ -75,3 +76,16 @@ a.page-link:hover {
     border: 1px solid rgba(255, 255, 255, 0.185)
 }
 
+.btn-warning {
+    background-color: #a77a33;
+    border-color: #805d24;
+}
+
+.btn-warning:hover {
+    background-color: #805d24;
+    border-color: #805d24;
+}
+
+.text-warning{
+    color: #d09536 !important
+}

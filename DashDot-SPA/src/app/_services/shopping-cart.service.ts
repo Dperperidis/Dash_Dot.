@@ -20,8 +20,20 @@ export class ShoppingCartService {
   set cart(value: ShoppingCart) { this.cartSubject$.next(value); }
 
   constructor(private http: HttpClient, private localstorage: LocalStorageService) {
-    const cart = this.localstorage.getShoppingCart();
-    if (cart) { this.cart = cart; }
+    const cart = this.getCartFromLocalStorage();
+    if (cart) {
+      const cr = new Date(cart.created);
+      const now = new Date();
+      if (cr.setHours(0, 0, 0, 0) === now.setHours(0, 0, 0, 0)) {
+        this.cart = cart;
+      } else {
+        localStorage.removeItem('shoppingcart');
+      }
+    }
+  }
+
+  getCartFromLocalStorage(): ShoppingCart | null {
+    return this.localstorage.getShoppingCart();
   }
 
   addItemToCart(product: Product, q: number, s: string, c: string) {

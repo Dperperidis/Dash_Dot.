@@ -2,14 +2,6 @@
     background-color:rgb(121, 117, 117);
     min-height: 100vh;
     padding: 17px;
-    -webkit-box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
-    box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
-}
-
-.card{
-    -webkit-box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
     box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
 }
 

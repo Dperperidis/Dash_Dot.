@@ -61,7 +61,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       this.suggestedProducts = res.sort(function (a, b) {
         return 0.5 - Math.random();
       });
-    })
+    });
     window.scrollTo(0, 0);
     this.product = new Product();
     this.route.data.subscribe(data => {
@@ -126,7 +126,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   onChange(size: string) {
-    if (size == '') {
+    if (size === '') {
       this.productSize = new Array<ProductSize>();
       return;
     }
@@ -155,7 +155,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       console.log(res);
       this.message = new Message();
     }, error => {
-      this.toastr.error('Δεν ήταν δυνατή η αποστολή μηνύματος. Προσπάθησε πάλι σε λίγο.');
+      this.toastr.error(error);
     });
   }
 

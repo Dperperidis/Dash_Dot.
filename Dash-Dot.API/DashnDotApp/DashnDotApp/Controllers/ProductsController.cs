@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -63,7 +63,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-              
+
                 if (_ctx.Product.Any(x => x.Code == product.Code))
                 {
                     return BadRequest("Το προιον ήδη υπάρχει");
@@ -121,7 +121,7 @@ namespace DashnDotApp.Controllers
             var result = _ctx.Product.Remove(productFromRepo);
 
 
-            if ( _repo.SaveAll())
+            if (_repo.SaveAll())
                 return NoContent();
 
             throw new Exception($"Deleting product {id} failed");
@@ -133,7 +133,7 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-                if(product.Discount.ToString() == null)
+                if (product.Discount.ToString() == null)
                 {
                     return BadRequest("Βάλε μια τιμή στην έκπτωση");
                 }

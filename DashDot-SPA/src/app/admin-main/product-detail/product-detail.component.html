@@ -7,7 +7,6 @@
           <option>Πουκάμισο</option>
           <option>Παπιγιόν</option>
           <option>Γιλέκο</option>
-          <option>Κασκόλ</option>
           <option>Zακέτα</option>
           <option>Πουλόβερ</option>
           <option>Καζάκα</option>
@@ -17,7 +16,6 @@
           <option>Γραβάτα</option>
           <option>Clip Γραβάτας</option>
           <option>Τιράντα</option>
-          <option>Καπέλο</option>
           <option>Σκουφάκι</option>
           <option>Τ-Shirt</option>
         </select>
@@ -48,6 +46,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
+      <th scope="col">ΠΡΟΤ/ΜΕΝΟ<span (click)="sortSuggest()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
       <th scope="col">ΚΩΔΙΚΟΣ<span (click)="sortCode()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
       <th scope="col">ΤΙΜΗ<span (click)="sortPrice()"><i class="fa fa-sort ml-2" aria-hidden="true"></i></span></th>
       <th scope="col">ΕΚΠΤΩΣΗ</th>
@@ -64,16 +63,26 @@
       <td>
         <input name="title" class="form-control" [(ngModel)]="p.title" [disabled]="editProd" placeholder="">
       </td>
+      <td  style="width:10px">
+          <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="{{[i]}}" name="suggested" 
+              [disabled]="editProd"
+                [(ngModel)]="p.suggested">
+              <label class="custom-control-label" for="{{[i]}}">Προτεινόμενο</label>
+            </div>
+      </td>
       <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code" [disabled]="editProd"
           placeholder="Κωδικός Προϊόντος"></td>
       <td style="width:100px">
         <div class="input-group mb-3">
-          <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="" type="number" min="1">
+          <input name="price" class="form-control" [(ngModel)]="p.price" [disabled]="editProd" placeholder="" type="number"
+            min="1">
         </div>
       </td>
       <td style="width:100px">
         <div class="input-group mb-3">
-          <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="" type="number" min="0">
+          <input name="price" class="form-control" [(ngModel)]="p.discount" [disabled]="editProd" placeholder="" type="number"
+            min="0">
         </div>
       </td>
       <td style="width:100px">

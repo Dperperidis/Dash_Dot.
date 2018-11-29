@@ -78,6 +78,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(i) {
+    console.log(this.product[i]);
     this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {
@@ -115,5 +116,9 @@ export class ProductDetailComponent implements OnInit {
     this.searchProduct(category, this.sortBy);
   }
 
-
+  sortSuggest() {
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'suggested';
+    this.searchProduct(category, this.sortBy);
+  }
 }

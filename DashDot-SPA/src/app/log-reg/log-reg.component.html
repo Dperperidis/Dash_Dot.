@@ -15,7 +15,7 @@
           <div class="modal-footer">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
-              <label class="custom-control-label" for="saveUser">Remember me</label>
+              <label class="custom-control-label" for="saveUser">Θυμήσου με</label>
             </div>
             <button type="submit" class="btn btn-outline-warning">Σύνδεση</button>
           </div>
@@ -28,7 +28,6 @@
         <h6 class="">Δημιουργία λογαριασμού</h6>
         <br>
         <form [formGroup]="registerForm" (ngSubmit)="register()" class="form my-2 my-lg-0">
-
           <div class="form-group">
             <h6 class="text-muted">Όνομα</h6>
             <input type="text" class="form-control" formControlName="firstname" [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}"

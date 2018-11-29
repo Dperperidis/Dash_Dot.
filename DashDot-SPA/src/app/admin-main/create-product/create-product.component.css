@@ -30,3 +30,8 @@ li{
 select{
     overflow:scroll;
 }
+
+.card-body{
+    background-color:white!important;
+    color:black;
+}

@@ -20,7 +20,7 @@ export class MessageListResolver implements Resolve<Message[]>{
         return this.adminService.getMessages(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                 this.toastr.error("Problem retrieving data");
-                this.router.navigate(["/home"]);
+                this.router.navigate(["/"]);
                 return of(null);
             })
         );

@@ -86,4 +86,12 @@ export class AdminProductService {
                 })
             );
     }
+
+    deleteMessage(id) {
+       return this.http.delete(this.baseUrl + 'admincust/deleteMessage/' + id);
+    }
+
+    getMessagesForAdmin(): Observable<Message[]>{
+        return this.http.get<Message[]>(this.baseUrl +'admincust/getMessagesForAdmin' );
+    }
 }

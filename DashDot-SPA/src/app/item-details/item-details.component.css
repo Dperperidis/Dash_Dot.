@@ -110,6 +110,10 @@ h2 {
     color:black;
 }
 
+.vl:not(:first-child) {
+    border-left: 10px solid white;
+    height: 130vh;
+}
 /* .row{
     display: -webkit-box
 } */

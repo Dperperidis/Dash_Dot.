@@ -148,6 +148,9 @@ namespace DashnDotApp.Dtos
                     case "active":
                         productsToReturn = productsToReturn.OrderBy(u => u.Active);
                         break;
+                    case "suggested":
+                        productsToReturn = productsToReturn.OrderByDescending(u => u.Suggested);
+                        break;
                     default:
                         productsToReturn = productsToReturn.OrderByDescending(u => u.Id);
                         break;

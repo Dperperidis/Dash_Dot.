@@ -4,7 +4,7 @@
         <div class="card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Simpleicons_Interface_user-black-close-up-shape.svg"
                 class="img-thumbnail">
-            <h6 class="text-center" style="text-transform: none;">Καλωσήρθες {{ authService.decodedToken?.firstname |
+            <h6 class="text-center" style="text-transform: none;">Καλωσήρθες {{ authService.decodedToken.firstName |
                 titlecase}}</h6>
         </div>
         <div id="wrapper">
@@ -41,7 +41,7 @@
                         </a>
                         <a class="nav-link text-white " [routerLink]="['/admin/main/details']">
                             <i class="fa fa-list mr-1 " aria-hidden="true"></i>
-                            Λίστα Προϊόντων</a>
+                            Λίστα Προϊόντων</a>                     
                     </div>
                     <hr>
                 </li>

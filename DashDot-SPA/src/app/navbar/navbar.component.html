@@ -123,7 +123,7 @@
             <i class="fa fa-user"></i>
             Καλωσήρθες {{ authService.decodedToken?.firstName | titlecase}}
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="cursor: pointer">
             <a class="dropdown-item">
               <i class="fa fa-barcode mr-1"></i>Οι παραγγελίες μου</a>
             <a class="dropdown-item">
@@ -145,7 +145,7 @@
             {{cartItems.items.length}} Προϊόντα
 
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="cursor: pointer">
             <a class="dropdown-item" [routerLink]="['/cart']">Προβολή Καλαθιού</a>
             <a class="dropdown-item">Another action</a>
             <div class="dropdown-divider"></div>

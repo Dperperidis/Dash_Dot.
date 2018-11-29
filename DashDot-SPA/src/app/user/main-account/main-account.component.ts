@@ -15,9 +15,12 @@ export class MainAccountComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private toastrService: ToastrService, private router: Router,
-    private useService: UserService, private authService: AuthService) { }
+    private userService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data["user"];
+    });
     if ((!sessionStorage.getItem('token')) && (!localStorage.getItem('token'))) {
       this.toastrService.warning('Δεν είσαι συνδεδεμένος!');
       this.router.navigate(['/']);
@@ -31,8 +34,8 @@ export class MainAccountComponent implements OnInit {
   }
 
   updateUser() {
-    this.useService.updateUser(this.user).subscribe(res => {
-      this.toastrService.success('Η αλλαγή εγίνε επιτυχώς');
+    this.userService.updateUser(this.user).subscribe(res => {
+      this.toastrService.success('Η αποθήκευση έγινε επιτυχώς');
     }, error => {
       this.toastrService.error(error);
     });

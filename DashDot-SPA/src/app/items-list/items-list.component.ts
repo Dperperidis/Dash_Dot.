@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShoppingCart } from '../_models/shoppingcart';
 
@@ -10,7 +10,7 @@ import { ShoppingCart } from '../_models/shoppingcart';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent implements OnInit, OnDestroy {
   box = true;
   list = false;
   product = new Array<Product>();
@@ -26,10 +26,14 @@ export class ItemsListComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private productService: ProductService) {
+    private productService: ProductService,
+    private router: Router) {
   }
 
   ngOnInit() {
+    if (sessionStorage.getItem('page')) {
+      this.pageSize = parseInt(sessionStorage.getItem('page'));
+    }
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -191,10 +195,13 @@ export class ItemsListComponent implements OnInit {
   }
 
   sortByItems(item) {
-    console.log(item);
     this.pageSize = 0;
-    this.pageSize = item - 8;
+    this.pageSize = item - 4;
     this.loadMore();
+  }
+
+  ngOnDestroy() {
+
   }
 
   searchSleeve(value) {
@@ -210,6 +217,7 @@ export class ItemsListComponent implements OnInit {
 
   loadMore() {
     this.pageSize = this.pageSize + 4;
+    sessionStorage.setItem('page', this.pageSize.toString());
     const id = sessionStorage.getItem('id');
     const size = sessionStorage.getItem('size');
     const order = sessionStorage.getItem('order');
@@ -250,7 +258,7 @@ export class ItemsListComponent implements OnInit {
       case "Τιμή (Υψηλή > Χαμηλή)":
         this.product = this.product.sort((a, b) => a.totalCost < b.totalCost ? 1 : -1);
         break;
-      case '':
+      case 'ΤΑΞΙΝΟΜΗΣΗ':
         this.product = this.tempProduct;
         this.product = this.product.sort((a, b) => a < b ? 1 : -1);
         break;
@@ -320,7 +328,7 @@ export class ItemsListComponent implements OnInit {
         this.product = this.tempProduct;
         this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
-      case "":
+      case "ΜΕΓΕΘΟΣ":
         this.product = this.tempProduct;
         break;
     }

@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <div class="mt-5">
-  <div class="container-fluid">
+  <div class="">
     <div class="row">
-      <!-- <div class="product-options col-md-0 col-lg-2 d-none d-lg-block animated fadeInLeft">
+      <div class="product-options col-md-0 col-lg-2 d-none d-xl-block animated fadeInLeft">
       <button class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
         aria-controls="collapseExample">
         Ρώτησε μας..
@@ -10,7 +10,7 @@
       </button>
       <div class="collapse mt-2" id="collapseExample">
         <div class="card  mb-3" style="max-width: 20rem;">
-          <h4 class="card-header font-weight-bold text-center">dāsh&dot.</h4>
+          <h4 class="card-header font-weight-bold text-center" style="font-family: sans-serif">dāsh&dot.</h4>
           <h6 class="text-center">Ρώτησε μας για αυτό το προϊόν</h6>
           <div class="card-body p-3">
             <div class="form-group">
@@ -32,9 +32,8 @@
           </div>
         </div>
       </div>
-    </div> -->
-      <div class="col-lg-0 col-xl-2"></div>
-      <div class="col-md-12 col-lg-9 col-xl-6">
+    </div>
+      <div class="col-md-12 col-lg-8 col-xl-7">
         <div class="card-header card font-weight-bold">{{product.title}}</div>
         <div class="row my-3">
           <div class="col-lg-6 col-md-6 col-sm-12">
@@ -91,7 +90,7 @@
                 <hr class="bg-white">
                 <div class="form-inline pb-2" style="width:60%">
                   <label class="col-sm-4 text-left"><strong>Ποσότητα: </strong></label>
-                  <input type="number" min="1" class="quantity  form-control col-sm-4" placeholder="0" [(ngModel)]="quantity">
+                  <input type="number" min="1" class="quantity ml-3 form-control col-sm-4" placeholder="0" [(ngModel)]="quantity">
                 </div>
                 <button (click)="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-basket mr-2"></i>
                   Προσθήκη στο Καλάθι</button>
@@ -126,7 +125,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-lg-3 col-xl-2 text-center d-none d-lg-block">
+      <li class="nav-item vl list-unstyled d-none d-lg-block d-xl-block"></li>
+      <div class="col-md-12 col-lg-3 col-xl-2  text-center d-none d-lg-block">
         <h3>Προτεινόμενα</h3>
         <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
           <div class="card p-4 m-3">
@@ -158,12 +158,12 @@
     </div>
   </div>
 </div>
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #lgModal="bs-modal" class="modal fade mt-5" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
         <div class="text-center modalImg" style="cursor:pointer;">
-          <img alt="" style="height:700px" [imageZoom]="zoomedImageSrc" src="{{productModal.photoUrl}}" [lensWidth]="500"
+          <img alt="" style="height:550px" [imageZoom]="zoomedImageSrc" src="{{productModal.photoUrl}}" [lensWidth]="500"
             [lensHeight]="500" [minZoomLevel]=".5">
         </div>
         <br>

@@ -4,4 +4,5 @@ export class Message{
     message: string;
     name: string;
     code?: string;
+    created: Date;
 }

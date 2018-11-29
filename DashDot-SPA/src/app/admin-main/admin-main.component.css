@@ -40,6 +40,11 @@ li>a{
     font-size:13px;
 }
 
+.card{
+    background-color:white;
+    box-shadow: 3px 1px 6px 2px rgba(0,0,0,0.75);
+    color:black!important;
+}
 
 /* 
 breadcrumb/deep/.breadcrumb{

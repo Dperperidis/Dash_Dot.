@@ -17,13 +17,10 @@ export class AdminMainComponent implements OnInit {
 
 
   constructor(private authService: AuthService) {
-    document.body.style.backgroundImage="url('')";
-
   }
 
 
   ngOnInit() {
-
   }
 
 

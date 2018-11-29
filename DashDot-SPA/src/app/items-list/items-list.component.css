@@ -13,6 +13,7 @@ img {
     max-height: 15rem;
     max-width: 11rem;
     margin: 0 auto;
+    background-color:white;
 }
 
 .card-header {

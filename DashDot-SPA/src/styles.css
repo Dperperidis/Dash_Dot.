@@ -22,8 +22,9 @@
 
 body {
     font-family: cursive;
-    background-color: rgb(71, 71, 71);
-    color: white
+    background-image:url('./assets/ch5.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* cursive */

@@ -1,125 +1,99 @@
-.navbar-light{
-  z-index: 2;
+.dropdown>a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(223, 144, 24);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
 }
 
-.dropdown>a:before{
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: rgb(223, 144, 24);
-  visibility: hidden;
-  -webkit-transform: scaleX(0);
-  transform: scaleX(0);
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
+.fadeInDown>img {
+    outline: none;
+    cursor: pointer;
 }
 
-.fadeInDown>img{
-outline: none;
-cursor: pointer;
-}
-
-.dropdown>a:hover:before{
-  visibility: visible;
-  -webkit-transform: scaleX(1);
-  transform: scaleX(1);
-}
-
-.sticky-top {
-  background-color:#ffffff!important;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
-  height: 120px;
+.dropdown>a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
 }
 
 .dropdown .dropdown-menu {
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -ms-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  transition: all 0.4s;
-  max-height: 0;
-  display: block;
-  overflow: hidden;
-  opacity: 0;
-  /* background-color:rgb(0, 0, 0); */
-  background-image: linear-gradient(rgb(83, 80, 80),rgb(12, 12, 12));
-  margin:0;
-left: 50% !important;
-text-align: center !important;
-transform: translate(-50%, 0) !important;
-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    transition: all 0.4s;
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;   
+    margin: 0;
+    left: 50% !important;
+    text-align: center !important;
+    transform: translate(-50%, 0) !important;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
 
 .dropdown:hover .dropdown-menu {
-  max-height: 400px;
-  opacity: 1;
+    max-height: 400px;
+    opacity: 1;
 }
 
 .dropdown-toggle::after {
-  display:none;
+    display: none;
 }
 
-.dropdown-toggle{
-  cursor: pointer;
+.dropdown-toggle {
+    cursor: pointer;
 }
 
-.dropdown > a{
-  font-size:14px;
-  font-weight: bold;
-  padding: 8px 1.75rem;
-  color:rgb(7, 0, 0); 
+.dropdown>a {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0 1.50rem;
+    color: rgb(255, 255, 255);
 }
 
-.dropdown-menu >a {
-  color:rgb(255, 255, 255); 
-  text-align: center;
-  font-weight: bold;
-  font-size: 13px;
-  transition: color 0.2s linear ;
+.dropdown-menu>a {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    transition: color 0.2s linear;
 }
 
-.dropdown> a:hover{
-  color:rgb(223, 144, 24)!important;
+.dropdown>a:hover {
+    color: rgb(223, 144, 24) !important;
 }
 
-.dropdown-menu> a:hover{
-  color: rgb(212, 132, 25);
-  background-color:rgba(255, 255, 255, 0);
+.dropdown-menu>a:hover {
+    color: #a77a33 !important;
+    background-color: rgba(255, 255, 255, 0);
 }
 
-.collapse{
-  background-color:white!important;
-}
-
-@media only screen and (max-width:670px){
- .navbar-light{
-    height:147px;
- }
- .dropdown:hover .dropdown-menu{
-  max-height: 300px;
-  margin-left:115px;
- 
- }
- .dropdown>a:before{
-   display: none;
- }
-
- .dropdown>a {
-   padding:0 1.50rem;
- }
- .mt-5{
-   margin-top:0!important;
- }
-
- .row>.dropdown:hover .dropdown-menu{
-  margin-left:0!important;
- }
-
-}
-
-.nav-link>i{
-  font-size:25px;
+@media only screen and (max-width:993px) {
+    .navbar-dark {
+        height: 147px;
+    }
+    .dropdown:hover .dropdown-menu {
+        max-height: 300px;
+        margin: 0px 70px;
+    }
+    .dropdown>a:before {
+        display: none;
+    }
+    .mt-5 {
+        margin-top: 0 !important;
+    }
+    .row>.dropdown:hover .dropdown-menu {
+        margin-left: 0 !important;
+        width: 500px;
+    }
+    .dropdown-menu>a {
+        color: rgb(0, 0, 0);
+        text-align: center;
+        font-weight: bold;
+        font-size: 11px;
+        transition: color 0.2s linear;
+    }
 }

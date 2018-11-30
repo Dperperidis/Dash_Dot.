@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div class="container pt-4 pb-5">
+  <app-checkout-steps [step]="2" [percent]="75"></app-checkout-steps>
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="mb-3">Στοιχεία Χρέωσης</h4>
+      <hr class="bg-white">
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between bg-transparent">
+          <div>
+            <h6 class="text-white">Ονοματεπώνυμο</h6>
+          </div>
+          <span class="text-muted">{{cart.name}} {{cart.lastname}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-transparent">
+          <div>
+            <h6 class="text-white">Email</h6>
+          </div>
+          <span class="text-muted">{{cart.email}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-transparent">
+          <div>
+            <h6 class="text-white">Διεύθυνση</h6>
+          </div>
+          <span class="text-muted">{{cart.address}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-transparent">
+          <div>
+            <h6 class="text-white">Πόλη</h6>
+          </div>
+          <span class="text-muted">{{cart.city}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-transparent">
+          <div>
+            <h6 class="text-white">Περιοχή</h6>
+          </div>
+          <span class="text-muted">{{cart.state}} {{cart.zipCode}}</span>
+        </li>
+        <li class="list-group-item d-flex bg-transparent">
+          <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
+        </li>
+      </ul>
+      <h4 class="mb-3">Τρόπος Πληρωμής</h4>
+      <hr class="bg-white">
+      <p> {{ cart.paymentMethod === 1 ? 'Κείμενο για paypal ' : 'Κείμενο για αντικαταβολή'}} </p>
+      <div id="paypal-button-container" *ngIf="cart.paymentMethod === 1"></div>
+      <div class="btn btn-warning" (click)="finalizeOrder()" *ngIf="cart.paymentMethod === 0">Επιβεβαίωση και ολοκλήρωση</div>
+    </div>
+    <div class="col-md-4">
+      <h4 class="mb-3">Στοιχεία Πληρωμής</h4>
+      <hr class="bg-white">
+      <ul class="list-group mb-3 bg-dark">
+        <li class="list-group-item d-flex justify-content-between bg-dark">
+          <div>
+            <h6 class="text-white">Ποσότητα Προιόντων</h6>
+          </div>
+          <span class="text-muted">{{countProducts()}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-dark">
+          <div>
+            <h6 class="text-white">Συνολικό Κόστος</h6>
+          </div>
+          <span class="text-muted">{{totalOfItems()}} &euro;</span>
+        </li>
+        <li class="list-group-item d-flex bg-dark" >
+          <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -44,9 +44,9 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPhoto")]
-        public async Task<IActionResult> GetPhoto(int id)
+        public  IActionResult GetPhoto(int id)
         {
-            var photoFromRepo = await _repo.GetPhoto(id);
+            var photoFromRepo =  _repo.GetPhoto(id);
 
             var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
 
@@ -55,7 +55,7 @@ namespace DashnDotApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForProduct(int productId, [FromForm]PhotoForCreationDto photoForCreationDto)
+        public IActionResult AddPhotoForProduct(int productId, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
 
             //if (productId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) 
@@ -93,7 +93,7 @@ namespace DashnDotApp.Controllers
 
 
 
-            if (await _repo.SaveAll())
+            if ( _repo.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
@@ -114,17 +114,17 @@ namespace DashnDotApp.Controllers
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
 
-            var photoFromRepo = await _repo.GetPhoto(id);
+            var photoFromRepo =  _repo.GetPhoto(id);
 
             if (photoFromRepo.isMain)
                 return BadRequest("Είναι ήδη η βασική φωτογραφία");
 
-            var currentMainPhoto = await _repo.GetMainPhotoForProduct(productId);
+            var currentMainPhoto =  _repo.GetMainPhotoForProduct(productId);
             currentMainPhoto.isMain = false;
 
             photoFromRepo.isMain = true;
 
-            if(await _repo.SaveAll())
+            if( _repo.SaveAll())
             {
                 return NoContent();
             }
@@ -136,14 +136,14 @@ namespace DashnDotApp.Controllers
 
         [HttpDelete("{id}")]
 
-        public async Task<IActionResult> DeletePhoto(int productId, int id)
+        public  IActionResult DeletePhoto(int productId, int id)
         {
             var product = _repo.GetProduct(productId);
 
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
 
-            var photoFromRepo = await _repo.GetPhoto(id);
+            var photoFromRepo =  _repo.GetPhoto(id);
 
             if (photoFromRepo.isMain)
                 return BadRequest("Δεν μπορεις να σβήσεις την βασική σου φωτογραφία");
@@ -166,7 +166,7 @@ namespace DashnDotApp.Controllers
             }
 
 
-            if (await _repo.SaveAll())
+            if ( _repo.SaveAll())
             {
                 return Ok();
             }

@@ -11,6 +11,6 @@ namespace DashnDotApp.Data
         User Register(User user, string password);
         bool UserExists(string email);
         User Login(string email, string password);
-        User GetUser(int Id);
+        User GetUser(string Id);
     }
 }

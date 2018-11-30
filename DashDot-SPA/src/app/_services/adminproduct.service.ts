@@ -19,7 +19,7 @@ export class AdminProductService {
 
 
     setMainPhoto(productId: number, id: number) {
-        return this.http.post(this.baseUrl + "products/" + productId + "/photos/" + id + "/setMain", {})
+        return this.http.post(this.baseUrl + "products/" + productId + "/photos/" + id + "/setMain", {});
     }
 
 
@@ -28,11 +28,11 @@ export class AdminProductService {
     }
 
     updateProduct(product: Product): Observable<Product> {
-        return this.http.post<Product>(this.baseUrl + 'products/updateProduct', product)
+        return this.http.post<Product>(this.baseUrl + 'products/updateProduct', product);
     }
 
     deleteProduct(id: number) {
-        return this.http.delete(this.baseUrl + 'products/' + id)
+        return this.http.delete(this.baseUrl + 'products/' + id);
     }
 
     addProduct(product: Product): Observable<Product> {
@@ -58,11 +58,11 @@ export class AdminProductService {
                 map(response => {
                     paginatedResult.result = response.body;
                     if (response.headers.get('Pagination') != null) {
-                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
                     }
                     return paginatedResult;
                 })
-            )
+            );
 
     }
 
@@ -74,15 +74,24 @@ export class AdminProductService {
             params = params.append('pageSize', itemsPerPage);
         }
 
-        return this.http.get<Product[]>(this.baseUrl + 'products/getProductsByCategory/' + category + '/'+ sortBy , { observe: 'response', params })
+        return this.http.get<Product[]>(this.baseUrl + 'products/getProductsByCategory/' + category + '/' +
+            sortBy, { observe: 'response', params })
             .pipe(
                 map(response => {
                     paginatedResult.result = response.body;
                     if (response.headers.get('Pagination') != null) {
-                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
                     }
                     return paginatedResult;
                 })
-            )
+            );
+    }
+
+    deleteMessage(id) {
+       return this.http.delete(this.baseUrl + 'admincust/deleteMessage/' + id);
+    }
+
+    getMessagesForAdmin(): Observable<Message[]>{
+        return this.http.get<Message[]>(this.baseUrl +'admincust/getMessagesForAdmin' );
     }
 }

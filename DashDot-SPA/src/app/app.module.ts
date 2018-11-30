@@ -18,7 +18,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import localeEn from '@angular/common/locales/en'
+import { ImageZoomModule } from 'angular2-image-zoom';
+import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -49,21 +50,36 @@ import { GetProductResolver } from './_resolvers/product-get.resolver';
 import { AdminProductService } from './_services/adminproduct.service';
 import { StoreMapsComponent } from './store-maps/store-maps.component';
 import { registerLocaleData } from '@angular/common';
-import { SortByService } from './_services/sortbyservice';
 import { ProductListResolver } from './_resolvers/product-list.resolver';
 import { UserPageComponent } from './admin-main/user-page/user-page.component';
 import { MessageListResolver } from './_resolvers/messages-list.resolver';
-import { ArraySortPipe } from './_resolvers/ArraySortSize.pipe';
 import { ShoppingCartService } from './_services/shopping-cart.service';
+import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
+import { MainAccountComponent } from './user/main-account/main-account.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { ColorListResolver } from './_resolvers/colors-list.resolver';
+import { LocalStorageService } from './_services/localstorage.service';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutStepsComponent } from './checkout-steps/checkout-steps.component';
+import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
+import { CheckoutInvoiceComponent } from './checkout-invoice/checkout-invoice.component';
+import { CompanyComponent } from './footer/company/company.component';
+import { UseTermsComponent } from './footer/use-terms/use-terms.component';
+import { GdprComponent } from './footer/gdpr/gdpr.component';
+import { ContactComponent } from './footer/contact/contact.component';
+import { CustomerServiceComponent } from './footer/customer-service/customer-service.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './_resolvers/auth.interceptor';
 
-registerLocaleData(localeEn);
-
+registerLocaleData(localeDe);
 export function tokenGetter() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
   } else {
-   if (sessionStorage.getItem("token"))
-  return sessionStorage.getItem("token");
+    if (sessionStorage.getItem('token')) {
+      return sessionStorage.getItem('token');
+    }
   }
 }
 
@@ -91,7 +107,18 @@ export function tokenGetter() {
     ProductSettingsComponent,
     StoreMapsComponent,
     UserPageComponent,
-    ArraySortPipe
+    ShoppingcartComponent,
+    MainAccountComponent,
+    CheckoutComponent,
+    CheckoutStepsComponent,
+    CheckoutPaymentComponent,
+    CheckoutInvoiceComponent,
+    CompanyComponent,
+    UseTermsComponent,
+    GdprComponent,
+    ContactComponent,
+    CustomerServiceComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -99,6 +126,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     BrowserAnimationsModule,
     JwtModule,
+    ImageZoomModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule,
@@ -107,7 +135,7 @@ export function tokenGetter() {
     CarouselModule.forRoot(),
     FileUploadModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyCjQ0-_ZDIeusY968G40BkJen-adCm3yWI'
+      apiKey: 'AIzaSyCjQ0-_ZDIeusY968G40BkJen-adCm3yWI'
     }),
     CollapseModule.forRoot(),
     ChartsModule,
@@ -119,31 +147,39 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ["localhost:50274"],
+        whitelistedDomains: ["localhost:51119"],
         blacklistedRoutes: [
-          "localhost:50274/api/auth"
+          "localhost:51119/api/auth"
         ]
       }
     })
   ],
   providers: [{
-  provide: LOCALE_ID,
-  useValue: 'en-EN'
-  },  
+    provide: LOCALE_ID,
+    useValue: 'de-DE'
+  },
     AuthService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
     ProductService,
     PreventUnsavedChanges,
+    AuthGuard,
     PhotoUploadResolver,
     ProductEditResolver,
     ErrorInterceptorProvider,
     GetProductResolver,
     AdminAuthGuard,
-    SortByService,
+    LocalStorageService,
     AdminProductService,
     ProdSettingsService,
     ShoppingCartService,
     ProductListResolver,
-    MessageListResolver
+    MessageListResolver,
+    MemberEditResolver,
+    ColorListResolver
   ],
   bootstrap: [AppComponent]
 })

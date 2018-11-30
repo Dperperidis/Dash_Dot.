@@ -1,10 +1,9 @@
 <app-navbar></app-navbar>
-<div class="login_page">
-  <hr>
-  <div class="row container">
+<div class="container mt-5">
+  <div class="row ">
     <div class="col-md-6 col-lg-6 col-sm-12">
       <h5>ΣΥΝΔΕΘΕΙΤΕ</h5>
-      <div class="card p-4 border-warning">
+      <div class="card p-4 ">
         <h6>Έχετε ήδη λογαριασμό;</h6>
         <br>
         <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
@@ -14,22 +13,21 @@
           <h6 class="text-muted">Κωδικός Πρόσβασης</h6>
           <input class="form-control mr-sm-2" type="password" required name="password" [(ngModel)]="customer.password">
           <div class="modal-footer">
-              <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
-                  <label class="custom-control-label" for="saveUser" >Remember me</label>
-                </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
+              <label class="custom-control-label" for="saveUser">Θυμήσου με</label>
+            </div>
             <button type="submit" class="btn btn-outline-warning">Σύνδεση</button>
           </div>
         </form>
       </div>
     </div>
     <div class="col-md-6 col-lg-6 col-sm-12">
-      <h5 class="text-primary">ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ</h5>
-      <div class="card p-4 border-warning">
+      <h5 class="text-white">ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ</h5>
+      <div class="card p-4">
         <h6 class="">Δημιουργία λογαριασμού</h6>
         <br>
         <form [formGroup]="registerForm" (ngSubmit)="register()" class="form my-2 my-lg-0">
-
           <div class="form-group">
             <h6 class="text-muted">Όνομα</h6>
             <input type="text" class="form-control" formControlName="firstname" [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}"
@@ -68,7 +66,7 @@
           </div>
           <div class="form-group text-center">
             <button class="btn btn-warning mr-1" type="submit" [disabled]="registerForm.invalid">Εγγραφή</button>
-            <button class="btn btn-default" type="button" [routerLink]="['/']"  >Ακύρωση</button>
+            <button class="btn btn-default" type="button" [routerLink]="['/']">Ακύρωση</button>
           </div>
         </form>
       </div>

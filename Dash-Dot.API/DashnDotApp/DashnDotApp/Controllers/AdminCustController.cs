@@ -36,8 +36,6 @@ namespace DashnDotApp.Controllers
         {
             try
             {
-
-
                 var messages = _repo.GetMessages(userParams);
                 var result = _mapper.Map<IEnumerable<MessageForDetailedDto>>(messages);
 
@@ -52,7 +50,41 @@ namespace DashnDotApp.Controllers
             }
         }
 
+        [Route("deleteMessage/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteMessage(int Id)
+        {
+            try
+            {
+                var message = _ctx.Messages.Find(Id);
+                var result =_ctx.Messages.Remove(message);
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν ήταν δυνατή η διαγραφή του μηνύματος");
+            }
+        }
+
+        [Route("getMessagesForAdmin")]
+        [HttpGet]
+        public IActionResult GetMessagesForAdmin()
+        {
+            try
+            {
+                var messages = _ctx.Messages.ToList();
+         
+          
+                return Ok(messages);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Υπήρξε πρόβλημα");
+            }
+        }
 
 
     }

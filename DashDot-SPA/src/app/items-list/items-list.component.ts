@@ -1,36 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Pagination, PaginatedResult } from '../_models/Pagination';
-import { ShoppingCartService } from '../_services/shopping-cart.service';
-import { ShoppingCart } from '../_models/shopping-cart';
-import { AuthService } from '../_services/auth.service';
+import { ShoppingCart } from '../_models/shoppingcart';
 
 @Component({
   selector: 'app-items-list',
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent implements OnInit, OnDestroy {
   box = true;
   list = false;
   product = new Array<Product>();
   tempProduct: any[] = [];
   category = true;
   sizeCategory = false;
+  sleeve = false;
   hide = false;
-
+  cartItems: ShoppingCart;
   pageNumber = 1;
-  pageSize = 4;
+  pageSize = 8;
 
-  constructor(private cartService: ShoppingCartService,
+  constructor(
+    private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private authService: AuthService,
-    private productService: ProductService) {
+    private productService: ProductService,
+    private router: Router) {
   }
+
   ngOnInit() {
+    if (sessionStorage.getItem('page')) {
+      this.pageSize = parseInt(sessionStorage.getItem('page'));
+    }
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -38,17 +41,25 @@ export class ItemsListComponent implements OnInit {
           const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
+            console.log(res);
             this.product = res.result;
             this.tempProduct = res.result;
+            this.sleeve = true;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
+            sessionStorage.removeItem('value');
           });
           break;
         case "regular-fit":
           const y = "Regular-Fit";
           sessionStorage.setItem('id', y);
+          sessionStorage.setItem('value', 'Μακρυμάνικο');
           this.productService.getProductsByLine(y, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
+            this.sleeve = true;
+            sessionStorage.removeItem('value');
+            sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
           });
           break;
@@ -121,6 +132,17 @@ export class ItemsListComponent implements OnInit {
             sessionStorage.removeItem('order');
           });
           break;
+        case "ties-clip":
+          const o = "Clip Γραβάτας";
+          sessionStorage.setItem('id', o);
+          this.productService.getProductsByCategory(o, this.pageNumber, this.pageSize).subscribe(res => {
+            this.product = res.result;
+            this.tempProduct = res.result;
+            this.category = false;
+            sessionStorage.removeItem('size');
+            sessionStorage.removeItem('order');
+          });
+          break;
         case "beanies":
           const i = "Σκουφάκι";
           sessionStorage.setItem('id', i);
@@ -178,18 +200,38 @@ export class ItemsListComponent implements OnInit {
     this.loadMore();
   }
 
+  ngOnDestroy() {
+
+  }
+
+  searchSleeve(value) {
+    sessionStorage.setItem('value', value);
+    this.product = this.tempProduct;
+    if (value !== 'all') {
+      this.product = this.product.filter(x => x.sleeve === value);
+    }
+    this.sortBy(sessionStorage.getItem('order'));
+    this.sortBySize(sessionStorage.getItem('size'));
+
+  }
 
   loadMore() {
     this.pageSize = this.pageSize + 4;
+    sessionStorage.setItem('page', this.pageSize.toString());
     const id = sessionStorage.getItem('id');
     const size = sessionStorage.getItem('size');
     const order = sessionStorage.getItem('order');
+    const value = sessionStorage.getItem('value');
     if ((id === "Slim-Fit") || (id === "Regular-Fit")) {
       this.productService.getProductsByLine(id, this.pageNumber, this.pageSize).subscribe(res => {
         this.tempProduct = res.result;
         this.product = res.result;
         this.sortBySize(size);
         this.sortBy(order);
+        if (sessionStorage.getItem('value')) {
+          this.searchSleeve(value);
+        }
+
       });
     } else {
       this.productService.getProductsByCategory(id, this.pageNumber, this.pageSize).subscribe(res => {
@@ -216,7 +258,7 @@ export class ItemsListComponent implements OnInit {
       case "Τιμή (Υψηλή > Χαμηλή)":
         this.product = this.product.sort((a, b) => a.totalCost < b.totalCost ? 1 : -1);
         break;
-      case '':
+      case 'ΤΑΞΙΝΟΜΗΣΗ':
         this.product = this.tempProduct;
         this.product = this.product.sort((a, b) => a < b ? 1 : -1);
         break;
@@ -286,11 +328,11 @@ export class ItemsListComponent implements OnInit {
         this.product = this.tempProduct;
         this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
-      case "":
-
+      case "ΜΕΓΕΘΟΣ":
         this.product = this.tempProduct;
         break;
     }
+    this.sortBy(sessionStorage.getItem('order'));
   }
 
   hideBox() {
@@ -301,17 +343,5 @@ export class ItemsListComponent implements OnInit {
   hideList() {
     this.list = false;
     this.box = true;
-  }
-
-
-  addToCart(shopping: ShoppingCart) {
-    const cartId = localStorage.getItem('cartId');
-    if (!cartId) {
-      this.cartService.createCart(shopping, this.authService.currentUser.id).subscribe(res => {
-        const x = res;
-        console.log(res);
-      });
-
-    }
   }
 }

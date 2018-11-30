@@ -18,7 +18,7 @@ namespace DashnDotApp.Data
 
         public User Login(string email, string password)
         {
-            var user =  _context.Users.FirstOrDefault(x => x.Email == email);
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null)
                 return null;
@@ -45,25 +45,20 @@ namespace DashnDotApp.Data
 
         public bool UserExists(string email)
         {
-            if ( _context.Users.Any(x => x.Email == email))
+            if (_context.Users.Any(x => x.Email == email))
                 return true;
-       
 
             return false;
         }
 
         public  User Register(User user, string password)
         {
-
             byte[] passwordHash, PasswordSalt;
             CreatePasswordHash(password, out passwordHash, out PasswordSalt);
-
             user.PasswordHash = passwordHash;
             user.PasswordSalt = PasswordSalt;
-
-             _context.Users.AddAsync(user);
-             _context.SaveChangesAsync();
-
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return user;
         }
 
@@ -74,6 +69,12 @@ namespace DashnDotApp.Data
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
+        }
+
+        public User GetUser(string Id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == Id);
+            return user;
         }
 
         public User GetUser(int Id)

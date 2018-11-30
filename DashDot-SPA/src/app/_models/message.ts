@@ -3,5 +3,6 @@ export class Message{
     email: string;
     message: string;
     name: string;
-    code: string;;
+    code?: string;
+    created: Date;
 }

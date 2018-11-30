@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product, Color, ProductSize} from '../_models/product';
+import { Product, Color, ProductSize } from '../_models/product';
 import { ProdSettingsService } from '../_services/prodsettings.service';
 import { ToastrService } from 'ngx-toastr';
 import { Message } from '../_models/message';
 import { ProductService } from '../_services/product.service';
+import { Subscription } from 'rxjs';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
+import { ShoppingCart } from '../_models/shoppingcart';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 
 @Component({
@@ -12,107 +16,155 @@ import { ProductService } from '../_services/product.service';
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.css']
 })
-export class ItemDetailsComponent implements OnInit {
-
+export class ItemDetailsComponent implements OnInit, OnDestroy {
+  private subscriptions = new Array<Subscription>();
+  quantity = 1;
+  size: string;
   product = new Product();
   sizes = new Array<any>();
-  color: Color;
+  color: string;
   productSize = new Array<ProductSize>();
   productSizeColor = new Array<Color>();
   productModal = new Product();
   message = new Message();
+  suggestedProducts: Product[];
   checkProduct = true;
-  
+  cartItems: ShoppingCart;
+  modalRef: BsModalRef;
+  sleeve = false;
+
+
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private productService: ProductService,
-    private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    window.scrollTo(0, 0)
-    this.route.data.subscribe(data => {
-      this.product = data["product"];
-     this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
-      switch(this.product.category){
-        case "Κασκόλ":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Παπιγιόν":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Γραβάτα":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Καζάκα":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Φουλάρι":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Τιράντα":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Καπέλο":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Σκουφάκι":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Μανικετόκουμπα":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-        case "Clip Γραβάτας":
-        this.checkProduct = false;
-        this.onChange(17);
-        break;
-      }
-
-    });
-    this.sizes = this.product.productSizes;
-    this.productModal.photoUrl= this.product.photoUrl;
+    private route: ActivatedRoute,
+    private modalService: BsModalService,
+    private cartService: ShoppingCartService) {
   }
 
-  onChange(sizeId: number) {
-    if (sizeId == 0) {
+
+
+  addToCart() {
+    this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  ngOnInit() {
+    this.subscriptions.push(this.cartService.cart$.subscribe(value => {
+      this.cartItems = value;
+    }));
+    this.productService.getSuggestedProducts().subscribe(res => {
+      this.suggestedProducts = res.sort(function (a, b) {
+        return 0.5 - Math.random();
+      });
+    });
+    window.scrollTo(0, 0);
+    this.product = new Product();
+    this.route.data.subscribe(data => {
+      this.product = data["product"];
+      this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
+      switch (this.product.category) {
+        case "Κασκόλ":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Πουκάμισο":
+          this.checkProduct = true;
+          this.sleeve = true;
+          break;
+        case "Ζώνη":
+          this.checkProduct = true;
+          break;
+        case "Παπιγιόν":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Γραβάτα":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Καζάκα":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Φουλάρι":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Τιράντα":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Καπέλο":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Σκουφάκι":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Μανικετόκουμπα":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+        case "Clip Γραβάτας":
+          this.checkProduct = false;
+          this.onChange('Default');
+          break;
+      }
+      this.sizes = this.product.productSizes;
+    });
+    this.onImgChange(this.product.photoUrl);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onChange(size: string) {
+    if (size === '') {
       this.productSize = new Array<ProductSize>();
       return;
     }
-    this.prodSettings.getColorsBySize(sizeId, this.product.id).subscribe(res => {
+    this.prodSettings.getColorsBySize(size, this.product.id).subscribe(res => {
       this.productSize = res;
-    },error =>{
+    }, error => {
       this.toastr.error(error);
     });
   }
 
   onImgChange(imgUrl) {
-   this.product.photoUrl = imgUrl;
-   this.productModal.photoUrl = imgUrl; 
+    this.product.photoUrl = imgUrl;
+    this.productModal.photoUrl = imgUrl;
+
   }
-  onImgModalChange(imgUrl){
+  onImgModalChange(imgUrl) {
     this.productModal.photoUrl = imgUrl;
   }
 
-  saveMessage(){
-    this.message.code = this.product.code
-    this.productService.saveMessage(this.message).subscribe(res=>{
+
+
+  saveMessage() {
+    this.message.code = this.product.code;
+    this.productService.saveMessage(this.message).subscribe(res => {
       this.toastr.show('Το μήνυμα στάλθηκε επιτυχώς');
       console.log(res);
       this.message = new Message();
-    }, error =>{
-      this.toastr.error('Δεν ήταν δυνατή η αποστολή μηνύματος. Προσπάθησε πάλι σε λίγο.')
-    })
+    }, error => {
+      this.toastr.error(error);
+    });
   }
 
+
+
 }
+
+
+
 
 
 

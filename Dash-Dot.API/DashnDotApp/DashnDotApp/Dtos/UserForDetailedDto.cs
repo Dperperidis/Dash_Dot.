@@ -7,11 +7,15 @@ namespace DashnDotApp.Dtos
 {
     public class UserForDetailedDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public bool IsAdmin { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+        public int PostalCode { get; set; }
+        public string City { get; set; }
+        public string Area { get; set; }
         public DateTime Created { get; set; }
     }
 }

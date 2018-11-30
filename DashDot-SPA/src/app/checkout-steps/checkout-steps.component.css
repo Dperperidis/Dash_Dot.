@@ -1,0 +1,12 @@
+.nav-item.nav-link.text-left {
+    font-size: 18px;
+}
+
+.nav-pills .nav-link.active {
+    color: #a77a33 !important;
+    background: none;
+}
+
+.active{
+    color: #d09536 !important
+}

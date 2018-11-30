@@ -1,8 +1,17 @@
-.bg-light {
-    background-color: #252523e3 !important;
-    
+.vl:not(:first-child) {
+    border-left: 1px solid white;
+    height: 35px;
 }
 
-.text-muted{
-    color:white!important;
+.btn-radius {
+    border-radius: 9999px
+}
+
+.btn-lg {
+    padding: 0.8rem 1rem
+}
+
+.btn-purple {
+    background-color: #9c24cc;
+    border-color: #78199e;
 }

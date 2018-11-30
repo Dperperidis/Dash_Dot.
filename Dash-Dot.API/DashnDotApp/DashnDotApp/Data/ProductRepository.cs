@@ -30,15 +30,15 @@ namespace DashnDotApp.Dtos
             _ctx.Remove(entity);
         }
 
-        public async Task<Photo> GetPhoto(int Id)
+        public  Photo GetPhoto(int Id)
         {
-            var photo = await _ctx.Photos.FirstOrDefaultAsync(p => p.Id == Id);
+            var photo =  _ctx.Photos.FirstOrDefault(p => p.Id == Id);
             return photo;
         }
 
-        public async Task<bool> SaveAll()
+        public  bool SaveAll()
         {
-            return await _ctx.SaveChangesAsync() > 0;
+            return  _ctx.SaveChanges() > 0;
         }
 
 
@@ -54,9 +54,9 @@ namespace DashnDotApp.Dtos
         }
 
 
-        public async Task<Photo> GetMainPhotoForProduct(int productId)
+        public  Photo GetMainPhotoForProduct(int productId)
         {
-            return await _ctx.Photos.Where(u => u.productId == productId).FirstOrDefaultAsync(p => p.isMain);
+            return  _ctx.Photos.Where(u => u.productId == productId).FirstOrDefault(p => p.isMain);
         }
 
         public PagedList<Product> GetProducts(ProductParams productParams)
@@ -65,15 +65,15 @@ namespace DashnDotApp.Dtos
             return  PagedList<Product>.Create(product, productParams.PageNumber, productParams.PageSize);
         }
 
-        public async Task<Product> GetProduct(string code)
+        public  Product GetProduct(string code)
         {
-            var product = await _ctx.Product.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Code == code);
+            var product =  _ctx.Product.Include(p => p.Photos).FirstOrDefault(u => u.Code == code);
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetProducts(string category)
+        public  IEnumerable<Product> GetProducts(string category)
         {
-            var products = await _ctx.Product.Include(p => p.Photos).OrderByDescending(u=>u.Created).ToListAsync();
+            var products =  _ctx.Product.Include(p => p.Photos).OrderByDescending(u=>u.Created).ToList();
             var productsToReturn = products.Where(x => x.Category == category);
             return productsToReturn;
         }
@@ -89,6 +89,13 @@ namespace DashnDotApp.Dtos
 
         }
 
+
+        public PagedList<Color> GetColors(ColorParams colorParams)
+        {
+            var colors = _ctx.Color;
+            return PagedList<Color>.Create(colors, colorParams.PageNumber, colorParams.PageSize);
+        }
+
         public Color GetColor(int id)
         {
             var color = _ctx.Color.Find(id);
@@ -100,7 +107,7 @@ namespace DashnDotApp.Dtos
 
             var products = _ctx.Product.Include(p => p.Photos).Include("ProductSizes")
                .Include("ProductSizes.ProductSizeColor")
-               .Include("ProductSizes.Size").
+               .Include("ProductSizes.Size").Include(p => p.Photos).
                Include("ProductSizes.ProductSizeColor.Color");
             var productsToReturn = products.Where(x => x.Active == "Ενεργοποιημένο").Where(x => x.Line == line);
             return PagedList<Product>.Create(productsToReturn, productParams.PageNumber, productParams.PageSize);
@@ -140,6 +147,9 @@ namespace DashnDotApp.Dtos
                         break;
                     case "active":
                         productsToReturn = productsToReturn.OrderBy(u => u.Active);
+                        break;
+                    case "suggested":
+                        productsToReturn = productsToReturn.OrderByDescending(u => u.Suggested);
                         break;
                     default:
                         productsToReturn = productsToReturn.OrderByDescending(u => u.Id);

@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <app-checkout-steps [step]="0" [percent]="25"></app-checkout-steps>
+  <table class="table text-center" *ngIf="cartItems.items.length > 0">
+    <thead>
+      <tr>
+        <th scope="col" class="width-50">ΕΙΚΟΝΑ</th>
+        <th scope="col">ΟΝΟΜΑ ΠΡΟΙΟΝΤΟΣ</th>
+        <th scope="col" class="width-50">ΚΩΔΙΚΟΣ ΠΡΟΙΟΝΤΟΣ</th>
+        <th scope="col" class="width-200">ΠΟΣΟΤΗΤΑ</th>
+        <th scope="col" class="width-50">ΤΙΜΗ ΜΟΝΑΔΑΣ</th>
+        <th scope="col" class="width-50">ΣΥΝΟΛΟ</th>
+        <th scope="col" class="width-50">ΕΝΕΡΓΕΙΕΣ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems.items;let i = index">
+        <td><img src="{{item.product.photoUrl}}" alt=""></td>
+        <td><a href="product/{{item.product.seoUrl}}">
+            <h5>{{item.product.title}}</h5>
+          </a>
+          <h6 class="text-muted"><strong>-Μέγεθος</strong>: {{item.size}}</h6>
+          <h6 class="text-muted"><strong>-Χρώμα</strong>: {{item.color}}</h6>
+        </td>
+        <td>{{item.product.code}}</td>
+        <td>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" (click)="changeQuantity(item,false,i)"><i class="fa fa-minus"></i></button>
+            </div>
+            <input type="text" class="form-control text-right" [(ngModel)]="item.quantity">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="changeQuantity(item,true,i)"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </td>
+        <td>{{item.product.totalCost}} &euro;</td>
+        <td>{{item.product.totalCost*item.quantity}} &euro;</td>
+        <td> <button type="button" class="btn btn-danger btn-sm" (click)="deleteItem(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <div class="text-right"><label>Σύνολο</label></div>
+        </td>
+        <td>{{totalOfItems()}} &euro;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="6"></td>
+        <td>
+          <button type="button" class="btn btn-warning" [routerLink]="['/checkout']" *ngIf="authService.loggedIn()">Συνέχεια
+            Αγοράς</button>
+          <button type="button" class="btn btn-warning" [routerLink]="['/login']" *ngIf="!authService.loggedIn()">Συνδεθείτε
+            για συνέχεια</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="cartItems.items.length == 0">
+    <div class="alert alert-warning" role="alert">
+      Το καλάθι σας είναι άδειο! Περιηγηθείτε στα προιόντα μας και προσθέστε προιόντα για
+      να συνεχίσετε προς αγορά.
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -28,6 +28,7 @@ namespace DashnDotApp.Helpers
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserForDetailedDto>();
+            CreateMap<UserForUpdateDto, User>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Photo, PhotoForDetailedDto>();

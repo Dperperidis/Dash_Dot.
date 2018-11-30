@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
+using Newtonsoft.Json;
 
 namespace DashnDotApp.Model
 {
@@ -11,7 +12,7 @@ namespace DashnDotApp.Model
     {
         public int Id { get; set; }
         public string Category { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public string Title { get; set; }
         public string Line { get; set; }
         public string Code { get; set; }
@@ -22,10 +23,12 @@ namespace DashnDotApp.Model
         public string Design { get; set; }
         public string seoUrl { get; set; }
         public string Quantity { get; set; }
-        public string Discount { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public double Discount { get; set; }
         public string Active { get; set; }
+        public bool Suggested { get; set; }
         public DateTime Created { get; set; }
-        public string TotalCost { get; set; }
+        public double TotalCost { get; set; }
         public virtual IList<Photo> Photos { get; set; }
         public virtual IList<ProductSize> ProductSizes { get; set; }
         public Product()

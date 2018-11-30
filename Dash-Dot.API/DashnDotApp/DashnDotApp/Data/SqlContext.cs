@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static DashnDotApp.Model.ShoppingCarts;
+using static DashnDotApp.Model.ShoppingCart;
 
 namespace DashnDotApp.Data
 {
@@ -14,7 +14,7 @@ namespace DashnDotApp.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ShoppingCarts> ShoppingCarts { get; set; }
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Items> Items { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Color> Color { get; set; }

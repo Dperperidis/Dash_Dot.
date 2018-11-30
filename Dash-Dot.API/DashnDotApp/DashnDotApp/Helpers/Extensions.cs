@@ -5,6 +5,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DashnDotApp.Helpers
@@ -29,5 +30,20 @@ namespace DashnDotApp.Helpers
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
 
         }
+
+        public static string GetUserId(this ClaimsPrincipal user)
+        {
+            var isValid = user.HasClaim(x => x.Type == "Id");
+            if (isValid)
+            {
+                return user.Claims.First(x => x.Type == "Id").Value;
+            }
+            else
+            {
+                throw new Exception("User account is not valid");
+            }
+        }
+
+
     }
 }

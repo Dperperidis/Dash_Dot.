@@ -1,89 +1,97 @@
 <app-navbar></app-navbar>
-
 <div class="container ">
-  <div class="thumbnail text-center mt-4 d-none d-md-block d-lg-block">
-    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block;  ">
+  <div class="thumbnail text-center mt-4 d-none d-lg-block">
+    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block; ">
     <div class="caption">
-      <h2 class="display-3 centered animated fadeInRight">In style with dāsh&dot.</h2>
+      <h2 class="display-3 centered animated fadeInRight">In style with <span style="font-family:sans-serif"></span> dāsh&dot.</h2>
     </div>
   </div>
-  <hr>
-  <form class="form-inline p-2 mt-3">
-
-    <div class="form-group">
-      <label for="exampleSelect1" class="font-weight-bold">ΤΑΞΙΝΟΜΗΣΗ:</label>
-      <br>
-      <select class="form-control" id="exampleSelect1" #order (change)="sortBy(order.value)">
-        <option></option>
-        <option>Newest > Oldest</option>
-        <option>Oldest > Newest</option>
-        <option>Τιμή (Χαμηλή > Υψηλή)</option>
-        <option>Τιμή (Υψηλή > Χαμηλή)</option>
-      </select>
+  <div class="d-flex justify-content-between mt-4">
+    <div class="flex-grow-1">
+      <form class="d-inline-flex">
+        <div class="input-group mb-0">
+          <div class="input-group-prepend">
+            <button class="btn btn-warning" type="button" (click)="hideBox()">
+              <i class="fa fa-list text-white"></i>
+            </button>
+            <button class="btn btn-warning rounded-right" type="button" (click)="hideList()">
+              <i class="fa fa-th text-white"></i>
+            </button>
+          </div>
+          <input type="text" class="form-control bg-transparent text-white border-0" value="Εμφάνιση" readonly style="width:100px">
+        </div>
+      </form>
     </div>
-    <div class="form-group" *ngIf="category">
-      <label for="exampleSelect1" class="font-weight-bold">ΜΕΓΕΘΟΣ:</label>
-      <select class="form-control" id="exampleSelect1" #size (change)="sortBySize(size.value)">
-        <option></option>
-        <option *ngIf="!sizeCategory">Small</option>
-        <option *ngIf="!sizeCategory">Medium</option>
-        <option *ngIf="!sizeCategory">Large</option>
-        <option *ngIf="!sizeCategory">XLarge</option>
-        <option *ngIf="!sizeCategory">XXLarge</option>
-        <option *ngIf="!sizeCategory">3XLarge</option>
-        <option *ngIf="!sizeCategory">4XLarge</option>
-        <option *ngIf="!sizeCategory">5XLarge</option>
-        <option *ngIf="!sizeCategory">6XLarge</option>
-        <option *ngIf="sizeCategory">110cm</option>
-        <option *ngIf="sizeCategory">115cm</option>
-        <option *ngIf="sizeCategory">120cm</option>
-        <option *ngIf="sizeCategory">125cm</option>
-        <option *ngIf="sizeCategory">130cm</option>
-        <option *ngIf="sizeCategory">135cm</option>
-      </select>
-
+    <div class="">
+      <div class="d-flex">
+        <div class="form-group mb-0 mr-2" *ngIf="category && sleeve">
+          <select class="form-control" #sleeve (change)="searchSleeve(sleeve.value)">
+            <option value="all">MANIKI</option>
+            <option value="Μακρυμάνικο">Μακρυμάνικο</option>
+            <option value="Κοντομάνικο">Κοντομάνικο</option>
+          </select>
+        </div>
+        <div class="form-group mb-0 mr-2">
+          <select class="form-control" #order (change)="sortBy(order.value)">
+            <option>ΤΑΞΙΝΟΜΗΣΗ</option>
+            <option>Newest > Oldest</option>
+            <option>Oldest > Newest</option>
+            <option>Τιμή (Χαμηλή > Υψηλή)</option>
+            <option>Τιμή (Υψηλή > Χαμηλή)</option>
+          </select>
+        </div>
+        <div class="form-group mb-0 mr-2" *ngIf="category">
+          <select class="form-control" id="exampleSelect2" #size (change)="sortBySize(size.value)">
+            <option>ΜΕΓΕΘΟΣ</option>
+            <option *ngIf="!sizeCategory">Small</option>
+            <option *ngIf="!sizeCategory">Medium</option>
+            <option *ngIf="!sizeCategory">Large</option>
+            <option *ngIf="!sizeCategory">XLarge</option>
+            <option *ngIf="!sizeCategory">XXLarge</option>
+            <option *ngIf="!sizeCategory">3XLarge</option>
+            <option *ngIf="!sizeCategory">4XLarge</option>
+            <option *ngIf="!sizeCategory">5XLarge</option>
+            <option *ngIf="!sizeCategory">6XLarge</option>
+            <option *ngIf="sizeCategory">110cm</option>
+            <option *ngIf="sizeCategory">115cm</option>
+            <option *ngIf="sizeCategory">120cm</option>
+            <option *ngIf="sizeCategory">125cm</option>
+            <option *ngIf="sizeCategory">130cm</option>
+            <option *ngIf="sizeCategory">135cm</option>
+          </select>
+        </div>
+        <div class="form-group mb-0">
+            <select class="form-control" #items (change)="sortByItems(items.value)">
+              <option value="4">ΕΜΦΑΝΙΣΗ: 4/σελ</option>
+              <option value="8">ΕΜΦΑΝΙΣΗ: 8/σελ</option>
+              <option value="12">ΕΜΦΑΝΙΣΗ: 12/σελ</option>
+              <option value="20">ΕΜΦΑΝΙΣΗ: 20/σελ</option>
+            </select>
+          </div>
+      </div>
     </div>
-
-
-
-    <div class="form-group">
-      <label for="exampleSelect1" class=" font-weight-bold">ΕΜΦΑΝΙΣΗ:</label>
-      <select class="form-control" id="exampleSelect1" #items (change)="sortByItems(items.value)">
-        <option>4</option>
-        <option>8</option>
-        <option>12</option>
-        <option>20</option>
-      </select>
-    </div>
-    <div class="form-group ">
-      <a style="cursor:pointer"><i class="fa fa-list mr-2 text-primary" (click)="hideBox()"></i></a>
-      <a style="cursor:pointer"><i class="fa fa-th text-primary" (click)="hideList()"></i></a>
-    </div>
-  </form>
-  <br>
-  <div class="row " *ngIf="box">
+  </div>
+  <hr class="bg-white">
+  <div class="row" *ngIf="box">
     <div class="col-lg-3 col-sm-6 col-md-6" *ngFor="let product of product">
-      <a [routerLink]="['/product',product.seoUrl]" class="text-dark">
-        <div class="card text-center p-3">
+      <a [routerLink]="['/product',product.seoUrl]">
+        <div class="card text-center p-3 shadow-lg">
           <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
-          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " 
-            alt="Card image cap">
-          <h6 class="card-text text-dark font-weight-bold mt-3">{{product.title}}</h6>
-          <hr>
+          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " alt="Card image cap">
+          <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
+          <hr class="bg-white">
           <div class="card-body text-center">
             <h6>Κωδ: {{product.code}}</h6>
             <h4 class="card-title">Τιμή:
               <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
                 (product.price - product.discount) |
-                currency:'EUR':symbol}}</span>
-              <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+                currency:'EUR':symbol}} </span>
+              <span class="ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
                 product.price |
-                currency:'EUR':symbol}}</span></h4>
+                currency:'EUR':symbol}} </span></h4>
           </div>
           <div class="btn-toolbar">
-            <button type="button"
-            (click)="addToCart(product)" 
-             class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
+            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-shopping-basket mr-1"></i>
               Kαλάθι</button>
           </div>
         </div>
@@ -93,45 +101,33 @@
   </div>
   <div class="row" *ngIf="list">
     <div class="featurette col-md-12" *ngFor="let product of product">
-      <div class="row">
-        <div class="  col-md-8 order-md-2 mt-4 ">
-          <h4 class="featurette-heading card-header">{{product.title}}</h4>
+      <div class="row my-5">
+        <div class=" col-md-8 order-md-2">
+          <h4 class="card p-2">{{product.title}}</h4>
           <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>
-          <br>
-          <h6 class="font-weight-bold">Κωδ: {{product.code}}</h6>
-          <p class="lead">{{product.description}}</p>
+          <h6 class="">Κωδ: {{product.code}}</h6>
+          <p class="">{{product.description}}</p>
           <h4 class="card-title">Τιμή:
-            <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+            <span class="text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
               (product.price - product.discount) |
               currency:'EUR':symbol}}</span>
-            <span class=" text-dark ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+            <span class="ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
               product.price |
               currency:'EUR':symbol}}</span></h4>
           <div class="btn-toolbar mt-3">
-            <button type="button" class="btn btn-primary mr-2"><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>
-            <button type="button" class="btn btn-secondary mr-2" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-info-circle"></i>
-              Λεπτομέρειες</button>
+            <button type="button" class="btn btn-primary mr-2" [routerLink]="['/product',product.seoUrl]"><i class="fa fa-shopping-basket mr-1"></i>Kαλάθι</button>
           </div>
         </div>
         <div class="col-md-4 order-md-1  text-center">
-          <img class=" img-fluid mx-auto card-img-top" src="{{product.photoUrl}}" [routerLink]="['/product',product.seoUrl]"
+          <img class=" img-fluid mx-auto" src="{{product.photoUrl}}" [routerLink]="['/product',product.seoUrl]"
             alt="Generic placeholder image">
         </div>
       </div>
-      <hr>
+      <hr class="bg-white">
     </div>
   </div>
   <br>
   <div class="d-flex justify-content-center">
-    <!-- <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" 
-      [itemsPerPage]="pagination.itemsPerPage"
-      [(ngModel)]="pagination.currentPage"
-      (pageChanged)="pageChanged($event)"
-    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-      lastText="&raquo;">
-
-    </pagination> -->
-
     <button class="btn btn-primary btn-lg btn-block" (click)="loadMore()" style="width:300px;" *ngIf="!hide">
       Περισσότερα..
     </button>

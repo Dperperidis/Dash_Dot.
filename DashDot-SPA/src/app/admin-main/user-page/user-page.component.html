@@ -27,7 +27,10 @@
         <td>{{mes.created | date: 'medium'}}</td>
         <td>{{mes.code}}</td>
         <td>{{mes.message}}</td>
+        <button type="button " class="btn-outline-danger mt-2 btn-sm" (click)="deleteMessage(mes.id)"><i
+          class="fa fa-times"></i></button>
       </tr>
+    
     </tbody>
 
   </table>

@@ -9,7 +9,6 @@ import { map } from "rxjs/operators";
 @Injectable({
     providedIn: "root"
 })
-
 export class AuthService {
     baseUrl = environment.apiUrl;
     user: User;
@@ -33,17 +32,20 @@ export class AuthService {
         return this.http.post(this.baseUrl + "auth/login", customer).pipe(
             map((response: any) => {
                 const user = response;
+                console.log(response);
                 if (user) {
-                    if (customer.saveUser == true) {
+                    if (customer.saveUser === true) {
                         localStorage.setItem("token", user.token);
                         localStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
                     } else {
                         sessionStorage.setItem("token", user.token);
                         sessionStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
                     }
@@ -52,13 +54,22 @@ export class AuthService {
         );
     }
 
+    tokenGetter() {
+        if (localStorage.getItem("token")) {
+            return localStorage.getItem("token");
+        } else {
+            if (sessionStorage.getItem('token')) {
+                return sessionStorage.getItem('token');
+            }
+        }
+    }
+
     loggedIn() {
         if (localStorage.getItem("token")) {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);
-
         } else {
-            const token = sessionStorage.getItem("token")
+            const token = sessionStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);
         }
     }

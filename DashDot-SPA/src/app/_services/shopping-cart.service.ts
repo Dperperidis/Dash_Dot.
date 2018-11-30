@@ -1,20 +1,72 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ShoppingCart, Item } from '../_models/shoppingcart';
+import { Product } from '../_models/product';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
-import { ShoppingCart } from '../_models/shopping-cart';
-import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { LocalStorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
-
   baseUrl = environment.apiUrl;
+  private cartSubject$ = new BehaviorSubject<ShoppingCart>(new ShoppingCart());
+  cart$ = this.cartSubject$.asObservable();
 
-  constructor(private http: HttpClient) { }
+  get cart(): ShoppingCart { return this.cartSubject$.getValue(); }
 
+  set cart(value: ShoppingCart) { this.cartSubject$.next(value); }
 
-  createCart(shopping: ShoppingCart, userId?): Observable<ShoppingCart> {
-    return this.http.post<ShoppingCart>(this.baseUrl + 'customers/addShopCart', shopping + userId);
+  constructor(private http: HttpClient, private localstorage: LocalStorageService) {
+    const cart = this.getCartFromLocalStorage();
+    if (cart) {
+      const cr = new Date(cart.created);
+      const now = new Date();
+      if (cr.setHours(0, 0, 0, 0) === now.setHours(0, 0, 0, 0)) {
+        this.cart = cart;
+      } else {
+        localStorage.removeItem('shoppingcart');
+      }
+    }
   }
+
+  getCartFromLocalStorage(): ShoppingCart | null {
+    return this.localstorage.getShoppingCart();
+  }
+
+  addItemToCart(product: Product, q: number, s: string, c: string) {
+    const i = this.cart.items.findIndex(x => x.productId === product.id && x.color === c && x.size === s);
+    if (i > -1) {
+      this.cart.items[i].quantity = this.cart.items[i].quantity + q;
+    } else {
+      const item = new Item();
+      item.product = product;
+      item.productId = product.id;
+      item.quantity = q;
+      item.color = c;
+      item.size = s;
+      this.cart.items.push(item);
+    }
+    this.localstorage.setShoppingCart(this.cart);
+  }
+
+  removeItemFromCart(i: number) {
+    if (i > -1) {
+      this.cart.items.splice(i, 1);
+      this.localstorage.setShoppingCart(this.cart);
+    }
+  }
+
+  updateCart(c: ShoppingCart) {
+    this.cart = c;
+    this.localstorage.setShoppingCart(this.cart);
+  }
+
+  sendOrder(cart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.post<ShoppingCart>(this.baseUrl + 'shoppingcart/insert', cart);
+  }
+
+
 }

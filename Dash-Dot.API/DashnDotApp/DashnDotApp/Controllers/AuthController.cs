@@ -2,6 +2,7 @@
 using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ namespace DashnDotApp.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -37,18 +38,18 @@ namespace DashnDotApp.Controllers
 
 
         [HttpPost("register")]
-        public  IActionResult Register(UserForRegisterDto userForRegisterDto)
+        public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
 
 
             userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
-            if ( _repo.UserExists(userForRegisterDto.Email))
+            if (_repo.UserExists(userForRegisterDto.Email))
                 return BadRequest("Υπάρχει ήδη λογαριασμός με αυτό το E-mail!");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser =  _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createdUser = _repo.Register(userToCreate, userForRegisterDto.Password);
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
 
@@ -56,52 +57,40 @@ namespace DashnDotApp.Controllers
 
         }
 
-        [HttpGet("{id}", Name = "Get User")]
 
-        public IActionResult GetUser(int id)
-        {
-            var user =  _ctx.Users.FirstOrDefault(u => u.Id == id);
-
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
-            return Ok(userToReturn);
-        }
 
 
         [HttpPost("login")]
-        public  IActionResult Login(UserForLoginDto userForLoginDto)
+        public IActionResult Login(UserForLoginDto userForLoginDto)
         {
 
             try
             {
-                var userFromRepo =  _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
+                var userFromRepo = _repo.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
                 if (userFromRepo == null)
                     return Unauthorized();
 
-                var claims = new[]
-                {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userForLoginDto.Email),
-                new Claim("isAdmin", userFromRepo.IsAdmin.ToString()),
-                new Claim("firstname", userFromRepo.FirstName)
+                var claims = new List<Claim>();
 
+                claims.Add(new Claim("Id", userFromRepo.Id.ToString()));
+                claims.Add(new Claim("isAdmin", userFromRepo.IsAdmin.ToString()));
+                claims.Add(new Claim("firstName", userFromRepo.FirstName));
 
-            };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("Tokens:Key").Value));
 
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddDays(1),
-                    SigningCredentials = creds
-                };
+                var token = new JwtSecurityToken(
+                                _config.GetSection("Tokens:Issuer").Value,
+                               _config.GetSection("Tokens:Issuer").Value,
+                                  claims,
+                                  expires: DateTime.UtcNow.AddMinutes(560),
+                                  signingCredentials: creds);
 
                 var tokenHandler = new JwtSecurityTokenHandler();
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
+
 
                 return Ok(new
                 {
@@ -113,7 +102,7 @@ namespace DashnDotApp.Controllers
                 throw new Exception("Κάτι πήγε στραβά");
             }
 
-           
+
         }
     }
 
@@ -121,5 +110,5 @@ namespace DashnDotApp.Controllers
 
 
 
-    
+
 

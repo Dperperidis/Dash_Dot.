@@ -16,7 +16,7 @@ export class ProductDetailComponent implements OnInit {
   product: Product[];
   editProd = true;
   pagination: Pagination;
-  sortBy:string;
+  sortBy: string;
 
   constructor(private productService: ProductService,
     private adminProdService: AdminProductService,
@@ -34,14 +34,14 @@ export class ProductDetailComponent implements OnInit {
   }
 
   searchProduct(category, sortBy?) {
-    this.adminProdService.getProductsByCategoryForAdmin(category, sortBy, this.pagination.currentPage, 
+    this.adminProdService.getProductsByCategoryForAdmin(category, sortBy, this.pagination.currentPage,
       this.pagination.itemsPerPage)
       .subscribe((res: PaginatedResult<Product[]>) => {
-      this.product = res.result;
-      this.pagination = res.pagination;
-    }, error => {
-      this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.')
-    })
+        this.product = res.result;
+        this.pagination = res.pagination;
+      }, error => {
+        this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.')
+      })
     this.pagination.currentPage = 1;
     sessionStorage.setItem('category', category)
   }
@@ -78,6 +78,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(i) {
+    console.log(this.product[i]);
     this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {
@@ -91,29 +92,33 @@ export class ProductDetailComponent implements OnInit {
     this.searchProduct(category, this.sortBy);
   }
 
-  sortPrice(){
+  sortPrice() {
     const category = sessionStorage.getItem('category');
     this.sortBy = 'totalCost';
     this.searchProduct(category, this.sortBy);
   }
-  
-  sortCode(){
+
+  sortCode() {
     const category = sessionStorage.getItem('category');
     this.sortBy = 'code';
     this.searchProduct(category, this.sortBy);
   }
-  
-  sortActive(){
+
+  sortActive() {
     const category = sessionStorage.getItem('category');
     this.sortBy = 'active';
     this.searchProduct(category, this.sortBy);
   }
-   
-  sortDate(){
+
+  sortDate() {
     const category = sessionStorage.getItem('category');
     this.sortBy = 'created';
     this.searchProduct(category, this.sortBy);
   }
 
-
+  sortSuggest() {
+    const category = sessionStorage.getItem('category');
+    this.sortBy = 'suggested';
+    this.searchProduct(category, this.sortBy);
+  }
 }

@@ -13,7 +13,7 @@ import { AuthService } from '../_services/auth.service';
 export class LogRegComponent implements OnInit {
   user: User;
   registerForm: FormGroup;
-  customer: any = {}
+  customer: any = {};
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -22,17 +22,14 @@ export class LogRegComponent implements OnInit {
 
   ngOnInit() {
     this.createRegisterForm();
-    if (this.authService.decodedToken == null){
+    if (this.authService.decodedToken == null) {
       return;
     } else {
-      this.router.navigate(['/'])
-      this.toastr.warning('Είσαι ήδη συνδεδεμένος/η')
+      this.router.navigate(['/']);
+      this.toastr.warning('Είσαι ήδη συνδεδεμένος/η');
     }
   }
 
-
-
-  
 
   createRegisterForm() {
     this.registerForm = this.fb.group({
@@ -67,14 +64,14 @@ export class LogRegComponent implements OnInit {
       }, () => {
         this.authService.login(this.user).subscribe(next => {
           this.router.navigate(['/']);
-        })
-      })
+        });
+      });
     }
   }
 
   loginCustomer() {
     this.authService.login(this.customer).subscribe(res => {
-      if (this.authService.decodedToken.isAdmin == 'True') {
+      if (this.authService.decodedToken.isAdmin === 'True') {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         this.authService.decodedToken = null;

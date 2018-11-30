@@ -1,0 +1,17 @@
+<nav class="nav nav-pills nav-justified ">
+  <a class="nav-item nav-link text-center" [ngClass]="{'active': step == 0}">
+    <i class="fa fa-shopping-basket mr-2"></i> Καλάθι Αγορών
+  </a>
+  <a class="nav-item nav-link text-center" [ngClass]="{'active': step == 1}">
+    <i class="fa fa-info-circle mr-2"></i>Στοιχεία Παραγγελείας
+  </a>
+  <a class="nav-item nav-link text-center" [ngClass]="{'active': step == 2}">
+    <i class="fa fa-credit-card mr-2"></i> Πληρωμή
+  </a>
+  <a class="nav-item nav-link text-center" [ngClass]="{'active': step == 3}">
+    <i class="fa fa-check-circle-o mr-2"></i>Ολοκλήρωση
+  </a>
+</nav>
+<div class="progress mb-3">
+  <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': percent + '%'}"></div>
+</div>

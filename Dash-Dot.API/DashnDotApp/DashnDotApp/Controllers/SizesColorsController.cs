@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using DashnDotApp.Dtos;
+using DashnDotApp.Helpers;
 
 namespace DashnDotApp.Controllers
 {
@@ -90,14 +91,39 @@ namespace DashnDotApp.Controllers
 
         }
 
+
         [Route("getColors")]
         [HttpGet]
         public IActionResult GetColors()
         {
             try
             {
-                var result = _ctx.Color.ToList();
-                return Ok(result);
+
+                var colors = _ctx.Color.ToList().OrderBy(x=>x.Title);
+                
+                return Ok(colors);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Κάτι πήγε στραβά");
+            }
+
+
+        }
+
+
+
+
+        [Route("getColorsForAdmin")]
+        [HttpGet]
+        public IActionResult GetColorsForAdmin([FromQuery]ColorParams colorParams)
+        {
+            try
+            {
+                var colors = _repo.GetColors(colorParams);
+                Response.AddPagination(colors.CurrentPage, colors.PageSize, colors.TotalCount, colors.TotalPages);
+                return Ok(colors);
 
             }
             catch (Exception ex)

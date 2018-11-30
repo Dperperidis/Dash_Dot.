@@ -24,4 +24,14 @@ li{
     padding: 0 1.25rem;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
     cursor: pointer;
+    color:black!important;
+}
+
+select{
+    overflow:scroll;
+}
+
+.card-body{
+    background-color:white!important;
+    color:black;
 }

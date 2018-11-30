@@ -61,4 +61,14 @@ this.productService.getProductByCode(code).subscribe(res => {
     this.pagination.currentPage = event.page
     this.getMessages();
   }
+
+  deleteMessage(id){
+    const i = this.messages.findIndex(x=>x.id == id);
+    this.messages.splice(i,1);
+    this.adminProdService.deleteMessage(id).subscribe(res=>{
+      this.toastr.success('Η διαγραφή έγινε επιτυχώς');
+    }, error=>{
+      this.toastr.error(error);
+    })
+  }
 }

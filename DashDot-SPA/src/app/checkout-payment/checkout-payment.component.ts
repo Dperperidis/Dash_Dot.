@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
-import { ShoppingCart } from '../_models/shoppingcart';
+import { CartItem, Order } from '../_models/shoppingcart';
 import { Router } from '@angular/router';
 declare var paypal: any;
 @Component({
@@ -11,18 +11,19 @@ declare var paypal: any;
 })
 export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewInit {
   private subscriptions = new Array<Subscription>();
-  cart: ShoppingCart;
+  cart = new Array<CartItem>();
+  order = new Order();
   constructor(private cartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit() {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
-      if (this.cart.items.length === 0) { this.router.navigate(['/cart']); }
+      if (this.cart.length === 0) { this.router.navigate(['/cart']); }
     }));
   }
 
   ngAfterViewInit() {
-    if (this.cart.paymentMethod === 1) {
+    if (this.order.paymentMethod === 1) {
       paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -66,7 +67,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
 
   totalOfItems() {
     let total = 0;
-    this.cart.items.forEach(x => {
+    this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
     return total;
@@ -74,7 +75,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
 
   countProducts() {
     let total = 0;
-    this.cart.items.forEach(x => {
+    this.cart.forEach(x => {
       total = total + x.quantity;
     });
     return total;
@@ -85,14 +86,6 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   finalizeOrder() {
-    this.cartService.sendOrder(this.cart).subscribe(res => {
-
-      console.log(res);
-    }, error => {
-
-    });
-
-
   }
 
 }

@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container mt-5">
   <app-checkout-steps [step]="0" [percent]="25"></app-checkout-steps>
-  <table class="table text-center" *ngIf="cartItems.items.length > 0">
+  <table class="table text-center" *ngIf="cart.length > 0">
     <thead>
       <tr>
         <th scope="col" class="width-50">ΕΙΚΟΝΑ</th>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of cartItems.items;let i = index">
+      <tr *ngFor="let item of cart;let i = index">
         <td><img src="{{item.product.photoUrl}}" alt=""></td>
         <td><a href="product/{{item.product.seoUrl}}">
             <h5>{{item.product.title}}</h5>
@@ -57,7 +57,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="cartItems.items.length == 0">
+  <div *ngIf="cart.length == 0">
     <div class="alert alert-warning" role="alert">
       Το καλάθι σας είναι άδειο! Περιηγηθείτε στα προιόντα μας και προσθέστε προιόντα για
       να συνεχίσετε προς αγορά.

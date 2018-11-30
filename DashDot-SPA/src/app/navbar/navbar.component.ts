@@ -4,7 +4,7 @@ import { AuthService } from "../_services/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ShoppingCartService } from "../_services/shopping-cart.service";
-import { ShoppingCart } from "../_models/shoppingcart";
+import { CartItem } from "../_models/shoppingcart";
 
 @Component({
   selector: "app-navbar",
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
   isAdmin = false;
   public isCollapsed = false;
-  cartItems = new ShoppingCart();
+  cart = new Array<CartItem>();
   constructor(private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
-      this.cartItems = value;
+      this.cart = value;
     }));
     this.subscriptions.push(this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;

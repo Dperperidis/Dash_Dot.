@@ -21,6 +21,7 @@ export class Order {
     paymentMethod: PaymentMethod;
     constructor() {
         this.orderItems = new Array<OrderItem>();
+        this.paymentMethod = PaymentMethod.Cod;
     }
 }
 
@@ -57,7 +58,7 @@ export class CartItem {
     dateCreated: Date;
     productId: number;
     product: Product;
-    quantity: Product;
+    quantity: number;
     color: string;
     size: string;
 }

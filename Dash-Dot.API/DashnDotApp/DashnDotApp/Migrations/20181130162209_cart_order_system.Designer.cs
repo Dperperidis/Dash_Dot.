@@ -4,14 +4,16 @@ using DashnDotApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DashnDotApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20181130162209_cart_order_system")]
+    partial class cart_order_system
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +86,7 @@ namespace DashnDotApp.Migrations
                     b.Property<string>("PostalCode")
                         .IsRequired();
 
-                    b.Property<double>("Total");
+                    b.Property<decimal>("Total");
 
                     b.Property<string>("UserId");
 

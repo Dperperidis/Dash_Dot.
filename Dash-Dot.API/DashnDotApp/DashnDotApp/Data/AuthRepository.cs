@@ -76,11 +76,6 @@ namespace DashnDotApp.Data
             var user = _context.Users.FirstOrDefault(u => u.Id == Id);
             return user;
         }
-
-        public User GetUser(int Id)
-        {
-            var user =  _context.Users.FirstOrDefault(u => u.Id == Id);
-            return user;
-        }
+       
     }
 }

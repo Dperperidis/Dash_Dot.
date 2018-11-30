@@ -58,7 +58,8 @@ a.page-link:hover {
 
 .bg-dark,
 .navbar-dark {
-    background-color: #211f1b !important
+    background-color: rgb(19, 19, 17) !important
+    
 }
 
 /* Changes for Black Theme */

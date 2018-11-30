@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
@@ -20,16 +21,18 @@ namespace DashnDotApp.Controllers
 
     {
         private readonly IProductRepository _repo;
+        private readonly IAuthRepository _authrepo;
         private readonly IMapper _mapper;
         private SqlContext _ctx;
 
         public int ProductForDetailedDto { get; private set; }
 
-        public CustomersController(IProductRepository repo, IMapper mapper, SqlContext ctx)
+        public CustomersController(IProductRepository repo, IMapper mapper, SqlContext ctx, IAuthRepository authrepo)
         {
             _ctx = ctx;
             _repo = repo;
             _mapper = mapper;
+            _authrepo = authrepo;
         }
 
         [Route("getProductsByCategory/{category}")]
@@ -130,6 +133,34 @@ namespace DashnDotApp.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Δεν έγινε η αποθήκευση του συστήματος");
+            }
+        }
+
+        [Route("addShopCart")]
+        [HttpPost]
+        public IActionResult AddCart([FromBody]ShoppingCarts shoppingCart,int userId)
+        {
+            try
+            {
+
+                if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                    return Unauthorized();
+
+                var userFromRepo = _authrepo.GetUser(userId);
+                for (var i =0; i < shoppingCart.Items.Count; i++)
+                {
+                    shoppingCart.Items[i].Product = null;
+                   
+                }
+
+                var result = _ctx.ShoppingCarts.Add(shoppingCart);
+
+                _ctx.SaveChanges();
+                return Ok(result);
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν έγινε δημιουργία");
             }
         }
     }

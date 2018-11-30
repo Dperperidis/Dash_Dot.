@@ -4,6 +4,9 @@ import { Product } from '../_models/product';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Pagination, PaginatedResult } from '../_models/Pagination';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
+import { ShoppingCart } from '../_models/shopping-cart';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-items-list',
@@ -22,68 +25,71 @@ export class ItemsListComponent implements OnInit {
   pageNumber = 1;
   pageSize = 4;
 
-  constructor(private spinner: NgxSpinnerService, private route: ActivatedRoute, private productService: ProductService) {
+  constructor(private cartService: ShoppingCartService,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private productService: ProductService) {
   }
   ngOnInit() {
     this.route.params.subscribe((param: Params) => {
-      const id = param['id']
+      const id = param['id'];
       switch (id) {
         case "slim-fit":
-          const x = "Slim-Fit"
+          const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "regular-fit":
-          const y = "Regular-Fit"
+          const y = "Regular-Fit";
           sessionStorage.setItem('id', y);
           this.productService.getProductsByLine(y, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "cardigans":
-          const a = "Ζακέτα"
+          const a = "Ζακέτα";
           sessionStorage.setItem('id', a);
           this.productService.getProductsByCategory(a, this.pageNumber, this.pageSize).subscribe(res => {
-            this.product = res.result;;
+            this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "sweaters":
-          const b = "Πουλόβερ"
+          const b = "Πουλόβερ";
           sessionStorage.setItem('id', b);
           this.productService.getProductsByCategory(b, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "sweater-Vests":
-          const c = "Καζάκα"
+          const c = "Καζάκα";
           sessionStorage.setItem('id', c);
           this.productService.getProductsByCategory(c, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "vests":
-          const d = "Γιλέκο"
+          const d = "Γιλέκο";
           sessionStorage.setItem('id', d);
           this.productService.getProductsByCategory(d, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "ties":
-          const e = "Γραβάτα"
+          const e = "Γραβάτα";
           sessionStorage.setItem('id', e);
           this.productService.getProductsByCategory(e, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -91,10 +97,10 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "bow-tie":
-          const f = "Παπιγιόν"
+          const f = "Παπιγιόν";
           sessionStorage.setItem('id', f);
           this.productService.getProductsByCategory(f, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -102,10 +108,10 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "cuff-links":
-          const g = "Μανικετόκουμπα"
+          const g = "Μανικετόκουμπα";
           sessionStorage.setItem('id', g);
           this.productService.getProductsByCategory(g, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -113,10 +119,10 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "beanies":
-          const i = "Σκουφάκι"
+          const i = "Σκουφάκι";
           sessionStorage.setItem('id', i);
           this.productService.getProductsByCategory(i, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -124,10 +130,10 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "scarfs":
-          const j = "Φουλάρι"
+          const j = "Φουλάρι";
           sessionStorage.setItem('id', j);
           this.productService.getProductsByCategory(j, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -135,10 +141,10 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
           break;
         case "belts":
-          const k = "Ζώνη"
+          const k = "Ζώνη";
           sessionStorage.setItem('id', k);
           this.productService.getProductsByCategory(k, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -147,10 +153,10 @@ export class ItemsListComponent implements OnInit {
             this.category = true;
             sessionStorage.removeItem('order');
             sessionStorage.removeItem('size');
-          })
+          });
           break;
         case "suspenders":
-          const h = "Τιράντα"
+          const h = "Τιράντα";
           sessionStorage.setItem('id', h);
           this.productService.getProductsByCategory(h, this.pageNumber, this.pageSize).subscribe(res => {
             this.product = res.result;
@@ -158,7 +164,8 @@ export class ItemsListComponent implements OnInit {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
-          })
+          });
+          break;
         default:
           break;
       }
@@ -166,31 +173,31 @@ export class ItemsListComponent implements OnInit {
   }
 
   sortByItems(item) {
-    this.pageSize = 0
+    this.pageSize = 0;
     this.pageSize = item - 4;
     this.loadMore();
   }
 
 
   loadMore() {
-    this.pageSize = this.pageSize + 4
+    this.pageSize = this.pageSize + 4;
     const id = sessionStorage.getItem('id');
     const size = sessionStorage.getItem('size');
     const order = sessionStorage.getItem('order');
-    if ((id == "Slim-Fit") || (id == "Regular-Fit")) {
+    if ((id === "Slim-Fit") || (id === "Regular-Fit")) {
       this.productService.getProductsByLine(id, this.pageNumber, this.pageSize).subscribe(res => {
         this.tempProduct = res.result;
         this.product = res.result;
         this.sortBySize(size);
         this.sortBy(order);
-      })
+      });
     } else {
       this.productService.getProductsByCategory(id, this.pageNumber, this.pageSize).subscribe(res => {
         this.tempProduct = res.result;
         this.product = res.result;
         this.sortBySize(size);
         this.sortBy(order);
-      })
+      });
     }
   }
 
@@ -210,8 +217,8 @@ export class ItemsListComponent implements OnInit {
         this.product = this.product.sort((a, b) => a.totalCost < b.totalCost ? 1 : -1);
         break;
       case '':
-        this.product = this.tempProduct
-        this.product = this.product.sort((a, b) => a < b ? 1 : -1)
+        this.product = this.tempProduct;
+        this.product = this.product.sort((a, b) => a < b ? 1 : -1);
         break;
     }
   }
@@ -221,63 +228,63 @@ export class ItemsListComponent implements OnInit {
     switch (size) {
       case "Small":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "Medium":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "Large":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "XLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "XXLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "3XLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "4XLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "5XLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "6XLarge":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "110cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "115cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "120cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "125cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "130cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "135cm":
         this.product = this.tempProduct;
-        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title == size));
+        this.product = this.product.filter(y => y.productSizes.find(p => p.size.title === size));
         break;
       case "":
 
@@ -296,4 +303,15 @@ export class ItemsListComponent implements OnInit {
     this.box = true;
   }
 
-} 
+
+  addToCart(shopping: ShoppingCart) {
+    const cartId = localStorage.getItem('cartId');
+    if (!cartId) {
+      this.cartService.createCart(shopping, this.authService.currentUser.id).subscribe(res => {
+        const x = res;
+        console.log(res);
+      });
+
+    }
+  }
+}

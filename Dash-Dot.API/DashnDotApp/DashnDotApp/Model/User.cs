@@ -15,6 +15,10 @@ namespace DashnDotApp.Model
         public byte[] PasswordSalt { get; set; }
         public bool IsAdmin { get; set; }
         public DateTime Created { get; set; }
+        public User()
+        {
+            Created = DateTime.Now;
+        }
 
     }
 }

@@ -55,16 +55,20 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
+            modelBuilder.Entity("DashnDotApp.Model.Item", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ProductId");
 
-                    b.HasKey("Id");
+                    b.Property<string>("ShoppingCartsId");
+
+                    b.HasKey("id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartsId");
 
                     b.ToTable("Items");
                 });
@@ -180,11 +184,7 @@ namespace DashnDotApp.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("itemsId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("itemsId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -229,11 +229,15 @@ namespace DashnDotApp.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DashnDotApp.Model.Items", b =>
+            modelBuilder.Entity("DashnDotApp.Model.Item", b =>
                 {
                     b.HasOne("DashnDotApp.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("DashnDotApp.Model.ShoppingCarts")
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartsId");
                 });
 
             modelBuilder.Entity("DashnDotApp.Model.Photo", b =>
@@ -268,13 +272,6 @@ namespace DashnDotApp.Migrations
                         .WithMany("ProductSizeColor")
                         .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DashnDotApp.Model.ShoppingCarts", b =>
-                {
-                    b.HasOne("DashnDotApp.Model.Items", "items")
-                        .WithMany()
-                        .HasForeignKey("itemsId");
                 });
 #pragma warning restore 612, 618
         }

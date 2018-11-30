@@ -35,6 +35,7 @@ export class OrderItem {
     Color: string;
     Size: string;
     Price: number;
+    photoUrl: string;
 }
 
 export class PaypalInformation {
@@ -61,6 +62,7 @@ export class CartItem {
     quantity: number;
     color: string;
     size: string;
+    photoUrl: string;
 }
 
 export enum OrderStatus {

@@ -3,10 +3,11 @@
 }
 
 .nav-pills .nav-link.active {
-    color: #a77a33 !important;
+    color: black !important;
     background: none;
 }
 
-.active{
-    color: #d09536 !important
+.alert a,
+.alert {
+    text-decoration: none;
 }

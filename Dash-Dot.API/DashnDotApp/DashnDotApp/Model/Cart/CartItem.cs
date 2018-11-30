@@ -19,5 +19,6 @@ namespace DashnDotApp.Model.Cart
         public int Quantity { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

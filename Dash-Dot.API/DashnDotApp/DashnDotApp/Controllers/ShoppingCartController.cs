@@ -3,6 +3,7 @@ using DashnDotApp.Helpers;
 using DashnDotApp.Model;
 using DashnDotApp.Model.Cart;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace DashnDotApp.Controllers
                     // Αν δεν βρεθεί userid Δεν έχει σωστό Token Λογικά
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
-                var cart = _ctx.Cart.Where(x => x.UserId == userId).ToList();
+                var cart = _ctx.Cart.Include(i => i.Product).Where(x => x.UserId == userId).ToList();
 
                 return Ok(cart);
             }
@@ -73,7 +74,7 @@ namespace DashnDotApp.Controllers
 
         [Route("remove/cart/item/{id}")]
         [HttpDelete]
-        public IActionResult RemoveCartItem(string id)
+        public IActionResult RemoveCartItem(int id)
         {
             try
             {
@@ -114,12 +115,13 @@ namespace DashnDotApp.Controllers
                 }
                 cartItem.UserId = userId;
                 cartItem.DateCreated = DateTime.UtcNow;
+                var temp = cartItem.Product;
                 cartItem.Product = null;
 
                 var result = _ctx.Cart.Add(cartItem);
                 _ctx.SaveChanges();
-
-                return Ok(result);
+                result.Entity.Product = temp;
+                return Ok(result.Entity);
             }
             catch (Exception ex)
             {
@@ -141,13 +143,14 @@ namespace DashnDotApp.Controllers
                     // Αν δεν βρεθεί userid Δεν έχει σωστό Token Λογικά
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
+                var temp = cartItem.Product;
                 cartItem.UserId = userId;
                 cartItem.Product = null;
 
                 var result = _ctx.Cart.Update(cartItem);
                 _ctx.SaveChanges();
-
-                return Ok(result);
+                result.Entity.Product = temp;
+                return Ok(result.Entity);
             }
             catch (Exception ex)
             {

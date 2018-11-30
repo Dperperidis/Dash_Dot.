@@ -1,11 +1,11 @@
 .btn-primary {
-    background-image: linear-gradient(#a77a33, rgb(216, 160, 75));
+    background-image: linear-gradient(#af8a4e, rgb(216, 160, 75));
     color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
 .btn-primary:hover {
-    background-image: linear-gradient(rgb(216, 160, 75), #a77a33);
+    background-image: linear-gradient(rgb(216, 160, 75), #af8a4e);
     color: rgb(255, 255, 255);
 }
 
@@ -90,7 +90,7 @@ h2 {
     width: 100px;
     display: block;
     background: #79A70A;
-    background: linear-gradient(#a77a33 0%, #8F5408 100%);
+    background: linear-gradient(#af8a4e 0%, #8F5408 100%);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
     position: absolute;
     top: 19px;

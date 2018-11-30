@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   nextStep() {
-    this.cartService.updateCart(this.cart);
+    // this.cartService.updateCart(this.cart);
     this.router.navigate(['/payment']);
   }
 }

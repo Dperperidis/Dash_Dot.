@@ -32,7 +32,7 @@ export class ShoppingcartComponent implements OnInit, OnDestroy {
   changeQuantity(item: CartItem, add: boolean, i: number) {
     if (this.cart[i].quantity === 1 && !add) { return; }
     this.cart[i].quantity = add ? this.cart[i].quantity + 1 : this.cart[i].quantity - 1;
-    this.cartService.updateCart(this.cart);
+    this.cartService.updateItem(this.cart[i], i);
   }
 
   deleteItem(i: number) {

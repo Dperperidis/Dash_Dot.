@@ -45,10 +45,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem('shoppingcart');
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
+    this.cartService.cart = new Array<CartItem>();
     this.toastr.success("Logout Success");
     this.router.navigate(['/']);
   }

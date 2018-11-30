@@ -5,6 +5,8 @@ import { Product } from '../_models/product';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './localstorage.service';
+import { AuthService } from './auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,14 @@ export class ShoppingCartService {
 
   set cart(value: Array<CartItem>) { this.cartSubject$.next(value); }
 
-  constructor(private http: HttpClient, private localstorage: LocalStorageService) {
+  constructor(
+    private toastr: ToastrService,
+    private http: HttpClient,
+    private localstorage: LocalStorageService,
+    private auth: AuthService) {
+    if (this.auth.loggedIn()) {
+      this.getCartOnDemand();
+    }
     const cart = this.getCartFromLocalStorage();
     if (cart) {
       const cr = new Date();
@@ -38,7 +47,14 @@ export class ShoppingCartService {
   addItemToCart(product: Product, q: number, s: string, c: string) {
     const i = this.cart.findIndex(x => x.productId === product.id && x.color === c && x.size === s);
     if (i > -1) {
-      this.cart[i].quantity = this.cart[i].quantity + q;
+      if (this.auth.loggedIn()) {
+        this.cart[i].quantity = this.cart[i].quantity + q;
+        this.updateItem(this.cart[i], i);
+      } else {
+        this.cart[i].quantity = this.cart[i].quantity + q;
+        this.cart = this.cart;
+        this.localstorage.setShoppingCart(this.cart);
+      }
     } else {
       const item = new CartItem();
       item.product = product;
@@ -46,22 +62,65 @@ export class ShoppingCartService {
       item.quantity = q;
       item.color = c;
       item.size = s;
-      this.cart.push(item);
+      item.photoUrl = product.photoUrl;
+      if (this.auth.loggedIn()) {
+        this.addCartItem(item).subscribe(res => {
+          this.cart.push(res);
+          this.cart = this.cart;
+          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας με επιτυχία.');
+        }, error => {
+          this.toastr.error(error);
+        });
+      } else {
+        this.cart.push(item);
+        this.cart = this.cart;
+        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας με επιτυχία.');
+        this.localstorage.setShoppingCart(this.cart);
+      }
     }
-    this.localstorage.setShoppingCart(this.cart);
+
   }
 
   removeItemFromCart(i: number) {
     if (i > -1) {
-      this.cart.splice(i, 1);
-      this.localstorage.setShoppingCart(this.cart);
+      if (this.auth.loggedIn()) {
+        this.removeCartItem(this.cart[i].id).subscribe(res => {
+          this.toastr.success('Το προιόν αφαιρέθηκε απο το καλάθι σας με επιτυχία.');
+          this.cart.splice(i, 1);
+          this.cart = this.cart;
+        }, error => {
+          this.toastr.error(error);
+        });
+        this.cart = this.cart;
+      } else {
+        this.cart.splice(i, 1);
+        this.cart = this.cart;
+        this.toastr.success('Το προιόν αφαιρέθηκε απο το καλάθι σας με επιτυχία.');
+        this.localstorage.setShoppingCart(this.cart);
+      }
+
     }
   }
 
-  updateCart(c: Array<CartItem>) {
-    this.cart = c;
-    this.localstorage.setShoppingCart(this.cart);
+  updateItem(item: CartItem, i: number) {
+    this.updateCartItem(item).subscribe(res => {
+      this.cart[i] = res;
+      this.cart = this.cart;
+      this.toastr.success('Το προιόν επεξεργάστηκε επιτυχώς');
+    }, error => {
+      this.toastr.error(error);
+    });
   }
+
+  getCartOnDemand() {
+    this.getUserCart().subscribe(res => {
+      this.cart = res;
+      console.log(res);
+    }, error => {
+      this.toastr.error(error);
+    });
+  }
+
   // Syncs the cart of an offline user with the cart he has in the database after he logs in
   syncCarts(items: Array<CartItem>): Observable<Array<CartItem>> {
     return this.http.post<Array<CartItem>>(this.baseUrl + 'shoppingCart/sync/carts', items);
@@ -79,7 +138,7 @@ export class ShoppingCartService {
     return this.http.get<Array<CartItem>>(this.baseUrl + 'shoppingCart/get/cart');
   }
   // Remove the selected item from the cart
-  removeCartItem(itemId: string): Observable<any> {
+  removeCartItem(itemId: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'shoppingCart/remove/cart/item/' + itemId);
   }
   // Delete All cart Items

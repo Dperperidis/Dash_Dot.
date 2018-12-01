@@ -152,7 +152,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.message.code = this.product.code;
     this.productService.saveMessage(this.message).subscribe(res => {
       this.toastr.show('Το μήνυμα στάλθηκε επιτυχώς');
-      console.log(res);
       this.message = new Message();
     }, error => {
       this.toastr.error(error);

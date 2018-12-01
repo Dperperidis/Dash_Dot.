@@ -1,14 +1,15 @@
 <app-navbar></app-navbar>
+
+<app-checkout-steps [step]="2"></app-checkout-steps>
 <div class="container pt-4 pb-5">
-  <app-checkout-steps [step]="1" [percent]="50"></app-checkout-steps>
   <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="h4">Το καλάθι σας</span>
-        <span class="badge badge-secondary badge-pill">{{cart.items.length}}</span>
+        <span class="badge badge-secondary badge-pill">{{cart.length}}</span>
       </h4>
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between bg-dark lh-condensed" *ngFor="let it of cart.items">
+        <li class="list-group-item d-flex justify-content-between bg-dark lh-condensed" *ngFor="let it of cart">
           <div>
             <h6 class="my-0">{{it.product.title}}</h6>
             <small class="text-muted">{{it.product.material}}</small>
@@ -29,14 +30,14 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="firstName">Όνομα</label>
-          <input type="text" class="form-control" id="firstName" [(ngModel)]="cart.name" required>
+          <input type="text" class="form-control" id="firstName" [(ngModel)]="order.firstName" required>
           <div class="invalid-feedback">
             Valid first name is required.
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="lastName">Επίθετο</label>
-          <input type="text" class="form-control" id="lastName" [(ngModel)]="cart.lastname" required>
+          <input type="text" class="form-control" id="lastName" [(ngModel)]="order.lastName" required>
           <div class="invalid-feedback">
             Valid last name is required.
           </div>
@@ -45,14 +46,14 @@
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="cart.email" placeholder="you@example.com">
+          <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
         </div>
         <div class="col-md-6">
           <label for="email">Τηλέφωνο</label>
-          <input type="text" class="form-control" id="mobile" [(ngModel)]="cart.mobile">
+          <input type="text" class="form-control" id="mobile" [(ngModel)]="order.mobile">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
@@ -61,7 +62,7 @@
 
       <div class="mb-3">
         <label for="address">Διεύθυνση</label>
-        <input type="text" class="form-control" id="address" [(ngModel)]="cart.address" required>
+        <input type="text" class="form-control" id="address" [(ngModel)]="order.address" required>
         <div class="invalid-feedback">
           Please enter your shipping address.
         </div>
@@ -69,21 +70,21 @@
       <div class="row">
         <div class="col-md-5 mb-3">
           <label for="country">Πόλη</label>
-          <input type="text" class="form-control" id="city" [(ngModel)]="cart.city" required>
+          <input type="text" class="form-control" id="city" [(ngModel)]="order.city" required>
           <div class="invalid-feedback">
             Please select a valid country.
           </div>
         </div>
         <div class="col-md-4 mb-3">
           <label for="state">Περιοχή</label>
-          <input type="text" class="form-control" id="state" [(ngModel)]="cart.state" required>
+          <input type="text" class="form-control" id="state" [(ngModel)]="order.area" required>
           <div class="invalid-feedback">
             Please provide a valid state.
           </div>
         </div>
         <div class="col-md-3 mb-3">
           <label for="zip">ΤΚ</label>
-          <input type="text" class="form-control" id="zip" [(ngModel)]="cart.zipCode" required>
+          <input type="text" class="form-control" id="zip" [(ngModel)]="order.postalCode" required>
           <div class="invalid-feedback">
             Zip code required.
           </div>
@@ -94,11 +95,11 @@
       <div class="d-block my-3">
         <div class="custom-control custom-radio">
           <input [checked]="checkPaymentMethod(0)" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" (click)="cart.paymentMethod = 0" for="credit">Αντικαταβολή </label>
+          <label class="custom-control-label" (click)="order.paymentMethod = 0" for="credit">Αντικαταβολή </label>
         </div>
         <div class="custom-control custom-radio">
           <input [checked]="checkPaymentMethod(1)" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" (click)="cart.paymentMethod = 1" for="paypal">PayPal</label>
+          <label class="custom-control-label" (click)="order.paymentMethod = 1" for="paypal">PayPal</label>
         </div>
       </div>
       <hr class="bg-white">

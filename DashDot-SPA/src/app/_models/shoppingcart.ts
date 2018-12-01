@@ -1,40 +1,78 @@
 import { User } from "./User";
 import { Product } from "./product";
 
-export class ShoppingCart {
-    id: string;
-    userId: string;
-    user: User;
-    created: Date;
-    items: Array<Item>;
 
-    name: string;
-    lastname: string;
-    address: string;
+export class Order {
+    id: string;
+    orderDate: Date;
+    firstName: string;
+    lastName: string;
     email: string;
+    address: string;
+    mobile: string;
+    postalCode: string;
     city: string;
     area: string;
-    mobile: string;
-    zipCode: string;
-    state: string;
+    total: number;
+    orderItems: Array<OrderItem>;
+    paypalInformationId: string;
+    paypalInformation: PaypalInformation;
+    orderStatus: OrderStatus;
     paymentMethod: PaymentMethod;
     constructor() {
-        this.items = new Array<Item>();
-        this.created = new Date();
-        this.paymentMethod = 0;
+        this.orderItems = new Array<OrderItem>();
+        this.paymentMethod = PaymentMethod.Cod;
     }
 }
 
-export class Item {
+export class OrderItem {
     id: number;
+    OrderId: string;
+    Order: Order;
+    ProductId: number;
+    Product: Product;
+    Quantity: number;
+    Color: string;
+    Size: string;
+    Price: number;
+    photoUrl: string;
+}
+
+export class PaypalInformation {
+    cartId: string;
+    createTime: Date;
+    paypalId: string;
+    intent: string;
+    total: string;
+    currency: string;
+    payerEmail: string;
+    payerName: string;
+    payerLastname: string;
+    payerMiddleName: string;
+    payerId: string;
+}
+
+export class CartItem {
+    id: number;
+    userId: string;
+    user: User;
+    dateCreated: Date;
     productId: number;
     product: Product;
     quantity: number;
-    size: string;
     color: string;
+    size: string;
+    photoUrl: string;
+}
+
+export enum OrderStatus {
+    Pending, // Σε εξέλιξη
+    Completed, // Ολοκληρωμένη
+    Shipping, // Σε αποστολή
+    Canceled   // Ακυρωμένη
 }
 
 export enum PaymentMethod {
-    Cash,
+    Cod, // Cash on Delivery (αντικαταβολή)
     Paypal
 }

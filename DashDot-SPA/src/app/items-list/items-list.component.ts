@@ -3,7 +3,7 @@ import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ShoppingCart } from '../_models/shoppingcart';
+import { CartItem } from '../_models/shoppingcart';
 
 @Component({
   selector: 'app-items-list',
@@ -19,7 +19,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   sizeCategory = false;
   sleeve = false;
   hide = false;
-  cartItems: ShoppingCart;
+  cart: Array<CartItem>;
   pageNumber = 1;
   pageSize = 8;
 
@@ -32,7 +32,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (sessionStorage.getItem('page')) {
-      this.pageSize = parseInt(sessionStorage.getItem('page'));
+      this.pageSize = parseInt(sessionStorage.getItem('page'), 10);
     }
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];

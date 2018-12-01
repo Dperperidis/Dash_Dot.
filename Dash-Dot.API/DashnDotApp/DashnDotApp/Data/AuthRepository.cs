@@ -51,7 +51,7 @@ namespace DashnDotApp.Data
             return false;
         }
 
-        public User Register(User user, string password)
+        public  User Register(User user, string password)
         {
             byte[] passwordHash, PasswordSalt;
             CreatePasswordHash(password, out passwordHash, out PasswordSalt);
@@ -76,6 +76,6 @@ namespace DashnDotApp.Data
             var user = _context.Users.FirstOrDefault(u => u.Id == Id);
             return user;
         }
-
+       
     }
 }

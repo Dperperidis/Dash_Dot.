@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DashnDotApp.Model.Cart;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,15 @@ namespace DashnDotApp.Model
         public byte[] PasswordSalt { get; set; }
         public bool IsAdmin { get; set; }
         public DateTime Created { get; set; }
+
+        public List<CartItem> Cart { get; set; }
+        public List<Order> Orders { get; set; }
+        public User()
+        {
+            Created = DateTime.Now;
+            Cart = new List<CartItem>();
+            Orders = new List<Order>();
+        }
 
     }
 }

@@ -1,4 +1,12 @@
-<nav class="nav nav-pills nav-justified ">
+<div class="alert alert-default bg-white mb-0">
+  <div class="d-flex justify-content-around">
+    <a [routerLink]="['/stores']" class="text-dark"><i class="fa fa-map-marker"></i> Βρες το κοντινότερο κατατάστημα</a>
+    <a class="text-dark"><i class="fa fa-phone"></i> Επικοινώνησε μαζί μας 210-2622042</a>
+    <a [routerLink]="['/']" class="text-dark"><i class="fa fa-shopping-bag"></i> Συνέχισε τα ψώνια σου</a>
+  </div>
+</div>
+<!-- 
+<nav class="nav nav-pills nav-justified bg-warning ">
   <a class="nav-item nav-link text-center" [ngClass]="{'active': step == 0}">
     <i class="fa fa-shopping-basket mr-2"></i> Καλάθι Αγορών
   </a>
@@ -12,6 +20,14 @@
     <i class="fa fa-check-circle-o mr-2"></i>Ολοκλήρωση
   </a>
 </nav>
-<div class="progress mb-3">
-  <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': percent + '%'}"></div>
+ -->
+
+<div class="d-flex justify-content-center bg-warning py-3">
+  <span class="text-black mr-2">Καλάθι Αγορών</span>
+  <span class="mr-2"><i class="fa fa-caret-right"></i></span>
+  <span class="mr-2" [ngClass]="{'text-black': step >= 2}"> Στοιχεία Παραγγελείας</span>
+  <span class="mr-2"> <i class="fa fa-caret-right"></i></span>
+  <span class="mr-2" [ngClass]="{'text-black': step >= 3}">Πληρωμή</span>
+  <span class="mr-2"><i class="fa fa-caret-right"></i></span>
+  <span [ngClass]="{'text-black': step >= 4}">Ολοκλήρωση</span>
 </div>

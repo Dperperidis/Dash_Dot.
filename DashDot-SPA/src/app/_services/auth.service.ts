@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
+import { ShoppingCartService } from "./shopping-cart.service";
 
 @Injectable({
     providedIn: "root"
@@ -32,20 +33,18 @@ export class AuthService {
         return this.http.post(this.baseUrl + "auth/login", customer).pipe(
             map((response: any) => {
                 const user = response;
-                console.log(response);
                 if (user) {
                     if (customer.saveUser === true) {
                         localStorage.setItem("token", user.token);
                         localStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
-                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
+
                     } else {
                         sessionStorage.setItem("token", user.token);
                         sessionStorage.setItem("user", JSON.stringify(user.user));
                         this.decodedToken = this.jwtHelper.decodeToken(user.token);
-                        console.log(this.decodedToken);
                         this.isAdmin = this.decodedToken.isAdmin === 'True';
                         this.currentUser = user.user;
                     }

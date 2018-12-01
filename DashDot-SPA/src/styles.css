@@ -54,12 +54,12 @@ a.page-link:hover {
 }
 
 .bg-warning {
-    background-color: #a77a33 !important;
+    background-color: #af8a4e !important;
 }
 
 .bg-dark,
 .navbar-dark {
-    background-color: #211f1b !important
+    background-color: rgb(19, 19, 17) !important
 }
 
 /* Changes for Black Theme */
@@ -78,7 +78,7 @@ a.page-link:hover {
 }
 
 .btn-warning {
-    background-color: #a77a33;
+    background-color: #af8a4e;
     border-color: #805d24;
 }
 
@@ -87,6 +87,10 @@ a.page-link:hover {
     border-color: #805d24;
 }
 
-.text-warning{
+.text-warning {
     color: #d09536 !important
+}
+
+.text-black {
+    color: black !important
 }

@@ -17,7 +17,6 @@ namespace DashnDotApp.Model.Cart
         public string PayerMiddleName { get; set; }
         public string PayerId { get; set; }
 
-
     }
 }
 

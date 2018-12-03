@@ -21,6 +21,7 @@ export class Order {
     paymentMethod: PaymentMethod;
     constructor() {
         this.orderItems = new Array<OrderItem>();
+        this.paymentMethod = PaymentMethod.Cod;
     }
 }
 
@@ -34,6 +35,7 @@ export class OrderItem {
     Color: string;
     Size: string;
     Price: number;
+    photoUrl: string;
 }
 
 export class PaypalInformation {
@@ -57,9 +59,10 @@ export class CartItem {
     dateCreated: Date;
     productId: number;
     product: Product;
-    quantity: Product;
+    quantity: number;
     color: string;
     size: string;
+    photoUrl: string;
 }
 
 export enum OrderStatus {

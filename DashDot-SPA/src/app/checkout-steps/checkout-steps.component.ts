@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout-steps.component.css']
 })
 export class CheckoutStepsComponent implements OnInit {
-  @Input() step = 0;
-  @Input() percent = 25;
+  @Input() step = 1;
   constructor(
     private router: Router
   ) { }

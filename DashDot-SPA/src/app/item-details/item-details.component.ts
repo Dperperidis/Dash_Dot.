@@ -7,7 +7,7 @@ import { Message } from '../_models/message';
 import { ProductService } from '../_services/product.service';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
-import { ShoppingCart } from '../_models/shoppingcart';
+import { CartItem } from '../_models/shoppingcart';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 
@@ -29,7 +29,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   message = new Message();
   suggestedProducts: Product[];
   checkProduct = true;
-  cartItems: ShoppingCart;
+  cart: Array<CartItem>;
   modalRef: BsModalRef;
   sleeve = false;
 
@@ -55,7 +55,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
-      this.cartItems = value;
+      this.cart = value;
     }));
     this.productService.getSuggestedProducts().subscribe(res => {
       this.suggestedProducts = res.sort(function (a, b) {
@@ -152,7 +152,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.message.code = this.product.code;
     this.productService.saveMessage(this.message).subscribe(res => {
       this.toastr.show('Το μήνυμα στάλθηκε επιτυχώς');
-      console.log(res);
       this.message = new Message();
     }, error => {
       this.toastr.error(error);

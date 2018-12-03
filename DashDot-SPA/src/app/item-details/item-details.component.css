@@ -90,13 +90,13 @@ h2 {
 }
 
 .btn-primary {
-    background-image: linear-gradient(#a77a33, rgb(247, 178, 88));
+    background-image: linear-gradient(#af8a4e, rgb(247, 178, 88));
     color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
 .btn-primary:hover {
-    background-image: linear-gradient(rgb(247, 178, 88), #a77a33);
+    background-image: linear-gradient(rgb(247, 178, 88), #af8a4e);
     color: rgb(255, 255, 255);
 }
 

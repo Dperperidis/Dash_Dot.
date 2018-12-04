@@ -86,20 +86,20 @@ namespace DashnDotApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.Use(async (context, next) =>
-                {
-                    await next();
+            //else
+            //{
+            //    app.Use(async (context, next) =>
+            //    {
+            //        await next();
 
-                    if (context.Response.StatusCode == 404)
-                    {
-                        await next();
-                    }
-                });
+            //        if (context.Response.StatusCode == 404)
+            //        {
+            //            await next();
+            //        }
+            //    });
 
-                //app.UseHsts();
-            }
+            //    //app.UseHsts();
+            //}
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             //app.UseHttpsRedirection();
             app.UseMvc();

@@ -5,7 +5,6 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
-import { ShoppingCartService } from "./shopping-cart.service";
 
 @Injectable({
     providedIn: "root"

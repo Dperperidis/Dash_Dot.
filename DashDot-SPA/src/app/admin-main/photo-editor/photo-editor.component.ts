@@ -8,6 +8,7 @@ import { Product } from 'src/app/_models/product';
 import { ActivatedRoute } from '@angular/router';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -26,7 +27,7 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(private productService: ProductService, private toastr: ToastrService,
     private route: ActivatedRoute, private prodSettings: ProdSettingsService,
-    private adminProdService: AdminProductService,
+    private adminProdService: AdminProductService, private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -49,15 +50,17 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   initializeUploader() {
+    console.log(this.auth.tokenGetter());
     this.uploader = new FileUploader({
       url: this.baseUrl + "products/" + this.productService.currentProduct.id + "/photos",
       isHTML5: true,
+      authToken: this.auth.tokenGetter(),
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
     });
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+  //  this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: Photo = JSON.parse(response);
@@ -84,10 +87,6 @@ export class PhotoEditorComponent implements OnInit {
     }, error => {
       this.toastr.error(error);
     });
-  }
-
-  setColorCode(photo: Photo) {
-
   }
 
   deletePhoto(id: number) {

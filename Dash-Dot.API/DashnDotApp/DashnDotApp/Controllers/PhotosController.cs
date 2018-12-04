@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Controllers
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Route("api/products/{productId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase

@@ -35,7 +35,7 @@ namespace DashnDotApp.Model
         {
             ProductSizes = new List<ProductSize>();
             Photos = new List<Photo>();
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
         }
 
 

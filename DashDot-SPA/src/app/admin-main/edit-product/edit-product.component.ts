@@ -50,6 +50,7 @@ export class EditProductComponent implements OnInit {
     });
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
+      console.log(this.colors);
       this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
     });
     this.prodSettings.getSizes().subscribe(res => {
@@ -95,13 +96,13 @@ export class EditProductComponent implements OnInit {
   }
 
   addColor() {
-    this.productSizeColor.color = this.colors.find(x => x.id === this.productSizeColor.colorId);
+    this.productSizeColor.color = this.colors.find(x => x.id == this.productSizeColor.colorId);
     this.productSize.productSizeColor.push(this.productSizeColor);
     this.productSizeColor = new ProductSizeColor();
   }
 
   addSize() {
-    this.productSize.size = this.sizes.find(x => x.id === this.productSize.sizeId);
+    this.productSize.size = this.sizes.find(x => x.id == this.productSize.sizeId);
     this.product.productSizes.push(this.productSize);
     this.modalRef.hide();
 
@@ -115,20 +116,20 @@ export class EditProductComponent implements OnInit {
   }
 
   deleteEntity(id) {
-    const index = this.productSize.productSizeColor.findIndex(x => x.colorId === id);
+    const index = this.productSize.productSizeColor.findIndex(x => x.colorId == id);
     this.productSize.productSizeColor.splice(index, 1);
   }
 
   deleteCurSize(id) {
 
-    const i = this.product.productSizes.findIndex(x => x.id === id);
+    const i = this.product.productSizes.findIndex(x => x.id == id);
     this.product.productSizes.splice(i, 1);
 
   }
 
   deleteSize(id) {
     this.adminProdService.deleteSize(id).subscribe(res => {
-      const i = this.product.productSizes.findIndex(x => x.id === id);
+      const i = this.product.productSizes.findIndex(x => x.id == id);
       this.product.productSizes.splice(i, 1);
       this.toastr.warning('Η διαγραφή έγινε επιτυχώς');
     }, error => {
@@ -140,7 +141,7 @@ export class EditProductComponent implements OnInit {
 
   deleteColor(id) {
     this.prodSettings.deleteProdColor(id).subscribe(res => {
-      const index = this.productSize.productSizeColor.findIndex(x => x.id === id);
+      const index = this.productSize.productSizeColor.findIndex(x => x.id == id);
       this.productSize.productSizeColor.splice(index, 1);
       this.toastr.success('Η διαγραφή έγινε επιτυχώς');
     }, error => {

@@ -108,6 +108,11 @@ export class ProductSettingsComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.getColors();
+    // this.route.data.subscribe(data => {
+    //   this.filteredColors = data['color'].result;
+    //   this.colorsTemp = data['color'].result;
+    //   this.pagination = data['color'].pagination
+    // })
 
   }
 

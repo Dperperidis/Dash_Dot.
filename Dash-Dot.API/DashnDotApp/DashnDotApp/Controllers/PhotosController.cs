@@ -65,7 +65,6 @@ namespace DashnDotApp.Controllers
 
             var file = photoForCreationDto.File;
 
-            var color = photoForCreationDto.Color;
 
             var uploadResult = new ImageUploadResult();
 

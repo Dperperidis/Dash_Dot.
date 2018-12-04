@@ -51,6 +51,16 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  setPhoto(value) {
+    if (value == '') {
+      return
+    } else {
+      const y = this.colors.find(x => x.title == value)
+      this.product.photoUrl = this.product.photos.find(x => x.colorPointer == y.id).url;
+    }
+
+  }
+
   ngOnInit() {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;

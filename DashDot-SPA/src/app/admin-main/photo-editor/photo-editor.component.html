@@ -2,20 +2,11 @@
 <div class="row">
   <div class="col-sm-4 col-md-3 col-lg-2 col-4" *ngFor="let photo of photos;let i = index">
     <div class="text-center">
-<<<<<<< HEAD
-        <select class="form-control ml-2 mt-1" id="title" name="color"  #color (change)="setColor(photo.id, color.value)">
-            <option *ngFor="let col of colors" value="{{col.title}}">{{col.title}}</option>
-          </select>
-      <img src="{{photo.url}}" class="img-thumbnail m-2" alt="">
-
-      <div class="btn-group mt-1 text-center">
-=======
       <select class="form-control" id="title" name="colorId" [(ngModel)]="photo.colorPointer" (change)="setColor(i)">
         <option *ngFor="let col of colors" value="{{col.id}}">{{col.title}}</option>
       </select>
       <img src="{{photo.url}}" class="img-thumbnail mt-1" alt="">
       <div class="btn-group mt-1">
->>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
         <button type="button" class="btn btn-sm mr-1" (click)="setMainPhoto(photo)" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-default'"
           [disabled]="photo.isMain">Main</button>
         <button type="button" class="btn btn-sm btn-danger" [disabled]="photo.isMain" (click)="deletePhoto(photo.id)">

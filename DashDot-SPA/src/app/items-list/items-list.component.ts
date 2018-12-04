@@ -21,7 +21,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   hide = false;
   cart: Array<CartItem>;
   pageNumber = 1;
-  pageSize = 8;
+  pageSize = 16;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -32,8 +32,9 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (sessionStorage.getItem('page')) {
-      this.pageSize = parseInt(sessionStorage.getItem('page'), 10);
-    }
+      this.pageSize = parseInt(sessionStorage.getItem('page'));
+      sessionStorage.removeItem('page');
+    }  
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -41,10 +42,10 @@ export class ItemsListComponent implements OnInit, OnDestroy {
           const x = "Slim-Fit";
           sessionStorage.setItem('id', x);
           this.productService.getProductsByLine(x, this.pageNumber, this.pageSize).subscribe(res => {
-            console.log(res);
             this.product = res.result;
             this.tempProduct = res.result;
             this.sleeve = true;
+            this.sortBySize(sessionStorage.getItem('size'));
             sessionStorage.removeItem('order');
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('value');
@@ -58,6 +59,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.product = res.result;
             this.tempProduct = res.result;
             this.sleeve = true;
+            this.sortBySize(sessionStorage.getItem('size'));
             sessionStorage.removeItem('value');
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
@@ -173,6 +175,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.tempProduct = res.result;
             this.sizeCategory = true;
             this.category = true;
+            this.sortBySize(sessionStorage.getItem('size'));
             sessionStorage.removeItem('order');
             sessionStorage.removeItem('size');
           });
@@ -191,12 +194,13 @@ export class ItemsListComponent implements OnInit, OnDestroy {
         default:
           break;
       }
+  
     });
+   
   }
 
   sortByItems(item) {
-    this.pageSize = 0;
-    this.pageSize = item - 4;
+    this.pageSize = item -16 ;
     this.loadMore();
   }
 
@@ -216,7 +220,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   loadMore() {
-    this.pageSize = this.pageSize + 4;
+    this.pageSize = this.pageSize + 16;
     sessionStorage.setItem('page', this.pageSize.toString());
     const id = sessionStorage.getItem('id');
     const size = sessionStorage.getItem('size');

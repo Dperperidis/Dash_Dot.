@@ -56,7 +56,7 @@ namespace DashnDotApp.Dtos
 
         public  Photo GetMainPhotoForProduct(int productId)
         {
-            return  _ctx.Photos.Where(u => u.ProductId == productId).FirstOrDefault(p => p.IsMain);
+            return  _ctx.Photos.Where(u => u.productId == productId).FirstOrDefault(p => p.IsMain);
         }
 
         public PagedList<Product> GetProducts(ProductParams productParams)
@@ -92,7 +92,7 @@ namespace DashnDotApp.Dtos
 
         public PagedList<Color> GetColors(ColorParams colorParams)
         {
-            var colors = _ctx.Color;
+            var colors = _ctx.Color.OrderBy(x=>x.Title);
             return PagedList<Color>.Create(colors, colorParams.PageNumber, colorParams.PageSize);
         }
 

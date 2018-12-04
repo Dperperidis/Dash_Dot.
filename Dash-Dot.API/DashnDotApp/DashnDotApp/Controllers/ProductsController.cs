@@ -92,8 +92,7 @@ namespace DashnDotApp.Controllers
             }
 
         }
-
-
+        
         [Route("getProductByCode/{code}")]
         [HttpGet]
         public ActionResult GetProductByCode(string code)
@@ -110,8 +109,7 @@ namespace DashnDotApp.Controllers
             return Ok(result);
 
         }
-
-
+        
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
@@ -183,8 +181,7 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Δεν έγινε ανανέωση του προϊόντος διότι δεν έχει γίνει αλλαγή");
             }
         }
-
-
+        
 
         [Route("getProductsByCategory/{category}/{sortBy}")]
         [HttpGet]

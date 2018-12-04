@@ -44,9 +44,9 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPhoto")]
-        public  IActionResult GetPhoto(int id)
+        public IActionResult GetPhoto(int id)
         {
-            var photoFromRepo =  _repo.GetPhoto(id);
+            var photoFromRepo = _repo.GetPhoto(id);
 
             var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
 
@@ -77,7 +77,7 @@ namespace DashnDotApp.Controllers
                     {
                         File = new FileDescription(file.Name, stream),
                         Transformation = new Transformation().Width(740).Height(1100).Crop("fit")
-                        
+
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
@@ -86,7 +86,7 @@ namespace DashnDotApp.Controllers
 
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
-   
+
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
@@ -97,7 +97,7 @@ namespace DashnDotApp.Controllers
 
 
 
-            if ( _repo.SaveAll())
+            if (_repo.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
@@ -108,31 +108,27 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpPost("{id}/setMain")]
-<<<<<<< HEAD
-        public  IActionResult SetMainPhoto(int productId, int id)
-=======
         public IActionResult SetMainPhoto(int productId, int id)
->>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
         {
-           
 
-            var product =  _repo.GetProduct(productId);
+
+            var product = _repo.GetProduct(productId);
 
 
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
 
-            var photoFromRepo =  _repo.GetPhoto(id);
+            var photoFromRepo = _repo.GetPhoto(id);
 
             if (photoFromRepo.IsMain)
                 return BadRequest("Είναι ήδη η βασική φωτογραφία");
 
-            var currentMainPhoto =  _repo.GetMainPhotoForProduct(productId);
+            var currentMainPhoto = _repo.GetMainPhotoForProduct(productId);
             currentMainPhoto.IsMain = false;
 
             photoFromRepo.IsMain = true;
 
-            if( _repo.SaveAll())
+            if (_repo.SaveAll())
             {
                 return NoContent();
             }
@@ -144,14 +140,14 @@ namespace DashnDotApp.Controllers
 
         [HttpDelete("{id}")]
 
-        public  IActionResult DeletePhoto(int productId, int id)
+        public IActionResult DeletePhoto(int productId, int id)
         {
             var product = _repo.GetProduct(productId);
 
             if (!product.Photos.Any(p => p.Id == id))
                 return Unauthorized();
 
-            var photoFromRepo =  _repo.GetPhoto(id);
+            var photoFromRepo = _repo.GetPhoto(id);
 
             if (photoFromRepo.IsMain)
                 return BadRequest("Δεν μπορεις να σβήσεις την βασική σου φωτογραφία");
@@ -163,25 +159,25 @@ namespace DashnDotApp.Controllers
 
                 var result = _cloudinary.Destroy(deleteParams);
 
-           
-                    _repo.Delete(photoFromRepo);
-                
+
+                _repo.Delete(photoFromRepo);
+
             }
 
-            if(photoFromRepo.PublicId == null)
+            if (photoFromRepo.PublicId == null)
             {
                 _repo.Delete(photoFromRepo);
             }
 
 
-            if ( _repo.SaveAll())
+            if (_repo.SaveAll())
             {
                 return Ok();
             }
-                     
+
             return BadRequest("Υπήρξε Σφάλμα");
 
         }
-         
+
     }
 }

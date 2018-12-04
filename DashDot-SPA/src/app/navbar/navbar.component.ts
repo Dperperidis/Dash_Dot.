@@ -42,6 +42,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  clearCart() {
+    if (this.cartService.cart.length > 0) {
+      this.cartService.clearCart().subscribe(res => {
+        this.cartService.cart = new Array<CartItem>();
+        this.toastr.success('To καλάθι σας άδειασε');
+      }, error => {
+        this.toastr.error(error);
+      });
+    }
+  }
+
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

@@ -147,9 +147,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="cursor: pointer">
             <a class="dropdown-item" [routerLink]="['/cart']">Προβολή Καλαθιού</a>
-            <a class="dropdown-item">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item">Something else here</a>
+            <a class="dropdown-item" (click)="clearCart()">Καθαρισμός Καλαθιού</a>          
           </div>
         </li>
       </div>

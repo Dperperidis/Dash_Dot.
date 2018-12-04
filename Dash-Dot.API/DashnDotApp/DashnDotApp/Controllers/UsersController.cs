@@ -2,6 +2,7 @@
 using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DashnDotApp.Controllers
 {
 
 
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -30,8 +31,7 @@ namespace DashnDotApp.Controllers
             _ctx = ctx;
             _repo = repo;
         }
-
-
+        
         [HttpGet("{id}", Name = "Get User")]
         public IActionResult GetUser(string id)
         {
@@ -44,7 +44,7 @@ namespace DashnDotApp.Controllers
 
         [Route("updateUser")]
         [HttpPut]
-        public ActionResult UpdateUser([FromBody]UserForUpdateDto userForUpdateDto)
+        public IActionResult UpdateUser([FromBody]UserForUpdateDto userForUpdateDto)
         {
             try
             {

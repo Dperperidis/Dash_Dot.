@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CartItem } from '../_models/shoppingcart';
+import { CartItem, Order } from '../_models/shoppingcart';
 import { Product } from '../_models/product';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
@@ -15,9 +15,12 @@ export class ShoppingCartService {
   baseUrl = environment.apiUrl;
   private cartSubject$ = new BehaviorSubject<Array<CartItem>>(new Array<CartItem>());
   cart$ = this.cartSubject$.asObservable();
+  private orderSubject$ = new BehaviorSubject<Order>(new Order());
+  order$ = this.orderSubject$.asObservable();
+  get order(): Order { return this.orderSubject$.getValue(); }
+  set order(value: Order) { this.orderSubject$.next(value); }
 
   get cart(): Array<CartItem> { return this.cartSubject$.getValue(); }
-
   set cart(value: Array<CartItem>) { this.cartSubject$.next(value); }
 
   constructor(
@@ -114,12 +117,22 @@ export class ShoppingCartService {
   }
 
   getCartOnDemand() {
-    this.getUserCart().subscribe(res => {
-      this.cart = res;
-      console.log(res);
-    }, error => {
-      this.toastr.error(error);
-    });
+    // if cart has items before logged in it will send them to server
+    // and sync them with the cart in the db
+    if (this.cart.length > 0) {
+      this.syncCarts(this.cart).subscribe(res => {
+        this.cart = res;
+      }, error => {
+        this.toastr.error(error);
+      });
+    } else {
+      this.getUserCart().subscribe(res => {
+        this.cart = res;
+        console.log(res);
+      }, error => {
+        this.toastr.error(error);
+      });
+    }
   }
 
   // Syncs the cart of an offline user with the cart he has in the database after he logs in
@@ -145,6 +158,11 @@ export class ShoppingCartService {
   // Delete All cart Items
   clearCart(): Observable<any> {
     return this.http.delete(this.baseUrl + 'shoppingCart/clear/cart');
+  }
+
+  // ORDERS
+  placeOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(this.baseUrl + 'shoppingCart/place/order', order);
   }
 
 }

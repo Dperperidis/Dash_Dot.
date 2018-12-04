@@ -3,6 +3,7 @@ using DashnDotApp.Data;
 using DashnDotApp.Dtos;
 using DashnDotApp.Helpers;
 using DashnDotApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace DashnDotApp.Controllers
         }
 
 
-
+        [Authorize]
         [Route("getMessages")]
         [HttpGet]
         public IActionResult GetMessages([FromQuery]UserParams userParams)
@@ -49,7 +50,7 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Υπήρξε πρόβλημα");
             }
         }
-
+        [Authorize]
         [Route("deleteMessage/{id}")]
         [HttpDelete]
         public IActionResult DeleteMessage(int Id)
@@ -67,7 +68,7 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Δεν ήταν δυνατή η διαγραφή του μηνύματος");
             }
         }
-
+        [Authorize]
         [Route("getMessagesForAdmin")]
         [HttpGet]
         public IActionResult GetMessagesForAdmin()

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { CartItem, Order } from '../_models/shoppingcart';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 declare var paypal: any;
 @Component({
   selector: 'app-checkout-payment',
@@ -13,13 +14,17 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   private subscriptions = new Array<Subscription>();
   cart = new Array<CartItem>();
   order = new Order();
-  constructor(private cartService: ShoppingCartService, private router: Router) { }
+  constructor(private cartService: ShoppingCartService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
+    if (!this.cartService.order.lastName && !this.cartService.order.email) {
+      this.router.navigate(['/checkout']);
+    }
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
       if (this.cart.length === 0) { this.router.navigate(['/cart']); }
     }));
+    this.order = this.cartService.order;
   }
 
   ngAfterViewInit() {
@@ -86,6 +91,12 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   finalizeOrder() {
+    this.cartService.placeOrder(this.order).subscribe(res => {
+      console.log(res);
+      this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
+    }, error => {
+      this.toastr.success(error);
+    });
   }
 
 }

@@ -37,7 +37,7 @@ export class PhotoEditorComponent implements OnInit {
     this.initializeUploader();
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
-    })
+    });
 
   }
 

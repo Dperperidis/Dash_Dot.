@@ -12,7 +12,7 @@ using DashnDotApp.Helpers;
 
 namespace DashnDotApp.Controllers
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class SizesColorsController : ControllerBase
@@ -25,7 +25,7 @@ namespace DashnDotApp.Controllers
             _ctx = ctx;
             _repo = repo;
         }
-
+        [Authorize]
         [Route("addColor")]
         [HttpPost]
         public IActionResult AddColor([FromBody]Color color)
@@ -49,7 +49,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-
+        [Authorize]
         [Route("updateColor")]
         [HttpPost]
         public IActionResult UpdateColor([FromBody]Color color)
@@ -69,7 +69,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-
+        [Authorize]
         [Route("deleteColor/{id}")]
         [HttpDelete]
         public ActionResult DeleteColor(int id)
@@ -114,7 +114,7 @@ namespace DashnDotApp.Controllers
 
 
 
-
+        [Authorize]
         [Route("getColorsForAdmin")]
         [HttpGet]
         public IActionResult GetColorsForAdmin([FromQuery]ColorParams colorParams)
@@ -134,7 +134,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-
+        [Authorize]
         [Route("addSize")]
         [HttpPost]
         public IActionResult AddSize([FromBody]Size size)
@@ -152,7 +152,7 @@ namespace DashnDotApp.Controllers
 
 
         }
-
+     
         [Route("getSizes")]
         [HttpGet]
         public IActionResult GetSizes()
@@ -169,7 +169,7 @@ namespace DashnDotApp.Controllers
             }
 
         }
-
+        [Authorize]
         [Route("deleteProductColor/{id}")]
         [HttpDelete]
         public ActionResult DeleteProductColor(int id)

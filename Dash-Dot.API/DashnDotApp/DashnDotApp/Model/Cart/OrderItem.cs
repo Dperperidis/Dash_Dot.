@@ -11,8 +11,10 @@ namespace DashnDotApp.Model.Cart
         public string OrderId { get; set; }
         public virtual Order Order { get; set; }
 
-        public int ProductId { get; set; }
-        public virtual Product Product { get; set; }
+        public string Title { get; set; }
+        public string Category { get; set; }
+        public string Line { get; set; }
+        public string Code { get; set; }
 
         public int Quantity { get; set; }
         public string Color { get; set; }

@@ -29,7 +29,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       if (this.cart.length === 0) { this.router.navigate(['/cart']); }
     }));
     this.subscriptions.push(this.userService.getUser(this.authService.decodedToken.Id).subscribe(res => {
-      console.log(res);
       this.order.firstName = res.firstName;
       this.order.lastName = res.lastName;
       this.order.email = res.email;
@@ -38,6 +37,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.order.postalCode = res.postalCode;
       this.order.area = res.area;
       this.order.mobile = res.mobile;
+      this.cartService.order = this.order;
     }, error => {
       this.toastr.error(error);
     }));
@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   nextStep() {
-    // this.cartService.updateCart(this.cart);
+    this.cartService.order = this.order;
     this.router.navigate(['/payment']);
   }
 }

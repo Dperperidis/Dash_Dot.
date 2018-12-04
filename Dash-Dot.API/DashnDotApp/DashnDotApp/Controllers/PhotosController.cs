@@ -58,12 +58,14 @@ namespace DashnDotApp.Controllers
         public IActionResult AddPhotoForProduct(int productId, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
 
-            //if (productId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) 
+            //if (productId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             //    return Unauthorized();
 
             var productFromRepo = _repo.GetProduct(productId);
 
             var file = photoForCreationDto.File;
+
+            var color = photoForCreationDto.Color;
 
             var uploadResult = new ImageUploadResult();
 
@@ -75,6 +77,7 @@ namespace DashnDotApp.Controllers
                     {
                         File = new FileDescription(file.Name, stream),
                         Transformation = new Transformation().Width(740).Height(1100).Crop("fit")
+                        
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
@@ -83,11 +86,12 @@ namespace DashnDotApp.Controllers
 
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
+   
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
-            if (!productFromRepo.Photos.Any(u => u.isMain))
-                photo.isMain = true;
+            if (!productFromRepo.Photos.Any(u => u.IsMain))
+                photo.IsMain = true;
 
             productFromRepo.Photos.Add(photo);
 
@@ -104,7 +108,11 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpPost("{id}/setMain")]
+<<<<<<< HEAD
+        public  IActionResult SetMainPhoto(int productId, int id)
+=======
         public IActionResult SetMainPhoto(int productId, int id)
+>>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
         {
            
 
@@ -116,13 +124,13 @@ namespace DashnDotApp.Controllers
 
             var photoFromRepo =  _repo.GetPhoto(id);
 
-            if (photoFromRepo.isMain)
+            if (photoFromRepo.IsMain)
                 return BadRequest("Είναι ήδη η βασική φωτογραφία");
 
             var currentMainPhoto =  _repo.GetMainPhotoForProduct(productId);
-            currentMainPhoto.isMain = false;
+            currentMainPhoto.IsMain = false;
 
-            photoFromRepo.isMain = true;
+            photoFromRepo.IsMain = true;
 
             if( _repo.SaveAll())
             {
@@ -145,7 +153,7 @@ namespace DashnDotApp.Controllers
 
             var photoFromRepo =  _repo.GetPhoto(id);
 
-            if (photoFromRepo.isMain)
+            if (photoFromRepo.IsMain)
                 return BadRequest("Δεν μπορεις να σβήσεις την βασική σου φωτογραφία");
 
             if (photoFromRepo.PublicId != null)

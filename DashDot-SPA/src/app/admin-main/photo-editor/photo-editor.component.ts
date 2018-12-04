@@ -4,7 +4,7 @@ import { ProductService } from '../../_services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
-import { Product } from 'src/app/_models/product';
+import { Product, Color } from 'src/app/_models/product';
 import { ActivatedRoute } from '@angular/router';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
-  @Input() photos: Photo[];
+  @Input() photos = new Array<Photo>();
   @Output() getProductPhotoChange = new EventEmitter<string>();
   product: Product;
   uploader: FileUploader;
@@ -35,6 +35,10 @@ export class PhotoEditorComponent implements OnInit {
       this.colors = res;
     });
     this.initializeUploader();
+    this.prodSettings.getColors().subscribe(res => {
+      this.colors = res;
+    })
+
   }
 
   public fileOverBase(e: any): void {
@@ -50,24 +54,21 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   initializeUploader() {
-    console.log(this.auth.tokenGetter());
     this.uploader = new FileUploader({
       url: this.baseUrl + "products/" + this.productService.currentProduct.id + "/photos",
       isHTML5: true,
-      authToken: this.auth.tokenGetter(),
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
     });
-  //  this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: Photo = JSON.parse(response);
         const photo = {
           id: res.id,
           url: res.url,
-          dateAdded: res.dateAdded,
           isMain: res.isMain,
           colorPointer: res.colorPointer,
           productId: res.productId

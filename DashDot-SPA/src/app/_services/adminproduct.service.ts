@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import { Message } from "../_models/message";
 import { PaginatedResult } from "../_models/pagination";
 import { map } from "rxjs/operators";
+import { Photo } from "../_models/photo";
 
 @Injectable({
     providedIn: "root"
@@ -26,6 +27,7 @@ export class AdminProductService {
     deletePhoto(productId: number, id: number) {
         return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + id);
     }
+
 
     updateProduct(product: Product): Observable<Product> {
         return this.http.post<Product>(this.baseUrl + 'products/updateProduct', product);

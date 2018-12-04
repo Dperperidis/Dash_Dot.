@@ -65,7 +65,6 @@ namespace DashnDotApp.Controllers
 
             var file = photoForCreationDto.File;
 
-            var color = photoForCreationDto.Color;
 
             var uploadResult = new ImageUploadResult();
 
@@ -108,11 +107,7 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpPost("{id}/setMain")]
-<<<<<<< HEAD
-        public  IActionResult SetMainPhoto(int productId, int id)
-=======
         public IActionResult SetMainPhoto(int productId, int id)
->>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
         {
            
 

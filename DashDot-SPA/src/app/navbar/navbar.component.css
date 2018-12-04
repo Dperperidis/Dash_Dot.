@@ -11,6 +11,10 @@
     transition: all 0.3s ease-in-out 0s;
 }
 
+.navbar-collapse{
+    background-color:#131311!important;
+}
+
 .fadeInDown>img {
     outline: none;
     cursor: pointer;

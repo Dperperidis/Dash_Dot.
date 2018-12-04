@@ -213,13 +213,7 @@ namespace DashnDotApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
-                    b.Property<string>("Color");
-
-                    b.Property<int>("ProductId");
-=======
                     b.Property<int>("ColorPointer");
->>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
 
                     b.Property<string>("PublicId");
 

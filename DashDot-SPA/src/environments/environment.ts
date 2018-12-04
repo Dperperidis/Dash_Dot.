@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://nperperidis63-001-site6.ftempurl.com/api/'
+  apiUrl: 'http://localhost:51119/api/'
 };
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as

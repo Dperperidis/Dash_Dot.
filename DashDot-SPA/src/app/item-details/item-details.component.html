@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                   <h6>*Χρώμα: </h6>
-                  <select class="custom-select w-50" placeholder="dialekse" [(ngModel)]="color">
+                  <select class="custom-select w-50" placeholder="dialekse" [(ngModel)]="color" (change)="setPhoto($event.target.value)">
                     <option selected=""></option>
                     <option *ngFor="let col of productSize.productSizeColor" value="{{col.color.title}}">{{col.color.title}}
                     </option>
@@ -124,13 +124,8 @@
       </div>
       <li class="nav-item vl list-unstyled d-none d-lg-block d-xl-block"></li>
       <div class="col-md-12 col-lg-3 col-xl-2  text-center d-none d-lg-block">
-<<<<<<< HEAD
-        <h3 class="text-white">Προτεινόμενα</h3>
-        <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
-=======
         <h3>Προτεινόμενα</h3>
         <div class="text-center text-white" *ngFor="let product of suggestedProducts | slice:0:3">
->>>>>>> 8d294fb70f0eb5cbba54cbc7eca33ad40ab3d4b4
           <div class="card p-4 m-3">
             <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
             <a class="" [routerLink]="['/product',product.seoUrl]">

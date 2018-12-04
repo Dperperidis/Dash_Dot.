@@ -19,9 +19,10 @@ namespace DashnDotApp.Model.Cart
         public string PayerMiddleName { get; set; }
         public string PayerId { get; set; }
 
+
         public string OrderId { get; set; }
         public virtual Order Order { get; set; }
-
+        
     }
 }
 

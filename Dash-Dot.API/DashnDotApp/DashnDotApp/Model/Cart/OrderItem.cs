@@ -8,7 +8,6 @@ namespace DashnDotApp.Model.Cart
     public class OrderItem
     {
         public int Id { get; set; }
-
         public string OrderId { get; set; }
         public virtual Order Order { get; set; }
 
@@ -20,6 +19,8 @@ namespace DashnDotApp.Model.Cart
         public string Size { get; set; }
         public double Price { get; set; }
         public string PhotoUrl { get; set; }
+
+
 
     }
 }

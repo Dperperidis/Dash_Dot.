@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAdmin = false;
   public isCollapsed = false;
   cart = new Array<CartItem>();
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
     private cartService: ShoppingCartService

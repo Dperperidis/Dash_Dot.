@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:51119/api/'
+  apiUrl: 'http://nperperidis63-001-site6.ftempurl.com/api/'
 };
 
 /*

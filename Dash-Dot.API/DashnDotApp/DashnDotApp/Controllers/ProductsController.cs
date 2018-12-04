@@ -167,7 +167,22 @@ namespace DashnDotApp.Controllers
             }
         }
 
+        [Route("set/color")]
+        [HttpPut]
+        public IActionResult SetColorToPhoto([FromBody]Photo p)
+        {
+            try
+            {
+                var photo = _ctx.Photos.Update(p);
+                _ctx.SaveChanges();
+                return Ok(photo.Entity);
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν έγινε ανανέωση του προϊόντος διότι δεν έχει γίνει αλλαγή");
+            }
+        }
 
 
 

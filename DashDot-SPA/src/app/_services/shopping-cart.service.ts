@@ -44,7 +44,7 @@ export class ShoppingCartService {
     return this.localstorage.getShoppingCart();
   }
 
-  addItemToCart(product: Product, q: number, s: string, c: string) {
+  addItemToCart(product: Product, q: number, s: string, c: string, cId: number) {
     const i = this.cart.findIndex(x => x.productId === product.id && x.color === c && x.size === s);
     if (i > -1) {
       if (this.auth.loggedIn()) {
@@ -62,7 +62,8 @@ export class ShoppingCartService {
       item.quantity = q;
       item.color = c;
       item.size = s;
-      item.photoUrl = product.photoUrl;
+      const photoUrl = product.photos.find(x => x.colorPointer === cId);
+      item.photoUrl = photoUrl ? photoUrl.url : null;
       if (this.auth.loggedIn()) {
         this.addCartItem(item).subscribe(res => {
           this.cart.push(res);

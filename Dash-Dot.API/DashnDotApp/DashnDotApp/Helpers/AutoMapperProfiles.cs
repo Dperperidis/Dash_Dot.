@@ -30,7 +30,6 @@ namespace DashnDotApp.Helpers
             CreateMap<User, UserForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<PhotoForCreationDto, Photo>();
-            CreateMap<PhotoForUpdateDto, Photo>();
             CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Photo, PhotoForDetailedDto>();
             CreateMap<MessageForCreateDto, CustMessage>();

@@ -22,17 +22,17 @@ export class PhotoEditorComponent implements OnInit {
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   currentMain: Photo;
-  color: string;
-  colors = new Array<Color>();
-
+  colors = [];
 
   constructor(private productService: ProductService, private toastr: ToastrService,
-    private route: ActivatedRoute,
-    private prodSettings: ProdSettingsService,
+    private route: ActivatedRoute, private prodSettings: ProdSettingsService,
     private adminProdService: AdminProductService,
   ) { }
 
   ngOnInit() {
+    this.prodSettings.getColors().subscribe(res => {
+      this.colors = res;
+    });
     this.initializeUploader();
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
@@ -44,6 +44,14 @@ export class PhotoEditorComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
+  setColor(i: number) {
+    this.photos[i].productId = this.productService.currentProduct.id;
+    this.prodSettings.setColorToPhoto(this.photos[i]).subscribe(res => {
+      this.photos[i] = res;
+      this.toastr.success('Το χρώμα άλλαξε');
+    });
+  }
+
   initializeUploader() {
     this.uploader = new FileUploader({
       url: this.baseUrl + "products/" + this.productService.currentProduct.id + "/photos",
@@ -53,7 +61,7 @@ export class PhotoEditorComponent implements OnInit {
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
     });
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false }
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: Photo = JSON.parse(response);
@@ -62,14 +70,13 @@ export class PhotoEditorComponent implements OnInit {
           id: res.id,
           url: res.url,
           isMain: res.isMain,
-          color: this.color
-
+          colorPointer: res.colorPointer,
+          productId: res.productId
         };
         this.photos.push(photo);
-        console.log(photo);
 
-      };
-    }
+      }
+    };
   }
 
   setMainPhoto(photo: Photo) {
@@ -80,7 +87,7 @@ export class PhotoEditorComponent implements OnInit {
       this.getProductPhotoChange.emit(photo.url);
     }, error => {
       this.toastr.error(error);
-    })
+    });
   }
 
 
@@ -89,10 +96,10 @@ export class PhotoEditorComponent implements OnInit {
     if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε την φωτογραφία;")) {
       this.adminProdService.deletePhoto(this.productService.currentProduct.id, id).subscribe(res => {
         this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
-        this.toastr.success("H Φωτογραφία διαγράφηκε!")
+        this.toastr.success("H Φωτογραφία διαγράφηκε!");
       }, error => {
         this.toastr.error('Η φωτογραφία δεν μπόρεσε να σβηστεί');
-      })
+      });
     }
   }
 }

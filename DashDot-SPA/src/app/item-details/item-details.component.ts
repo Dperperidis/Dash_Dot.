@@ -23,7 +23,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   product = new Product();
   sizes = new Array<any>();
   color: string;
-  productSize = new Array<ProductSize>();
+  productSize = new ProductSize();
   productSizeColor = new Array<Color>();
   productModal = new Product();
   message = new Message();
@@ -32,8 +32,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   cart: Array<CartItem>;
   modalRef: BsModalRef;
   sleeve = false;
-
-
+  colors = [];
 
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
@@ -43,10 +42,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     private cartService: ShoppingCartService) {
   }
 
-
-
   addToCart() {
-    this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color);
+    const id = this.colors.find(x => x.title === this.color).id;
+    this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color, id);
   }
 
   ngOnDestroy() {
@@ -57,6 +55,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
     }));
+    this.prodSettings.getColors().subscribe(res => {
+      this.colors = res;
+    });
     this.productService.getSuggestedProducts().subscribe(res => {
       this.suggestedProducts = res.sort(function (a, b) {
         return 0.5 - Math.random();
@@ -66,6 +67,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.product = new Product();
     this.route.data.subscribe(data => {
       this.product = data["product"];
+      console.log(this.product);
       this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
       switch (this.product.category) {
         case "Κασκόλ":
@@ -127,7 +129,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   onChange(size: string) {
     if (size === '') {
-      this.productSize = new Array<ProductSize>();
+      this.productSize = new ProductSize();
       return;
     }
     this.prodSettings.getColorsBySize(size, this.product.id).subscribe(res => {

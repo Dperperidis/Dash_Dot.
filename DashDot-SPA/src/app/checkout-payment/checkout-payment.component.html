@@ -10,31 +10,31 @@
           <div>
             <h6 class="text-white">Ονοματεπώνυμο</h6>
           </div>
-          <span class="text-muted">{{cart.name}} {{cart.lastname}}</span>
+          <span class="text-muted">{{order.firstName}} {{order.lastName}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-transparent">
           <div>
             <h6 class="text-white">Email</h6>
           </div>
-          <span class="text-muted">{{cart.email}}</span>
+          <span class="text-muted">{{order.email}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-transparent">
           <div>
             <h6 class="text-white">Διεύθυνση</h6>
           </div>
-          <span class="text-muted">{{cart.address}}</span>
+          <span class="text-muted">{{order.address}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-transparent">
           <div>
             <h6 class="text-white">Πόλη</h6>
           </div>
-          <span class="text-muted">{{cart.city}}</span>
+          <span class="text-muted">{{order.city}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-transparent">
           <div>
             <h6 class="text-white">Περιοχή</h6>
           </div>
-          <span class="text-muted">{{cart.state}} {{cart.zipCode}}</span>
+          <span class="text-muted">{{order.area}} {{order.postalCode}}</span>
         </li>
         <li class="list-group-item d-flex bg-transparent">
           <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
@@ -42,9 +42,9 @@
       </ul>
       <h4 class="mb-3">Τρόπος Πληρωμής</h4>
       <hr class="bg-white">
-      <p> {{ cart.paymentMethod === 1 ? 'Κείμενο για paypal ' : 'Κείμενο για αντικαταβολή'}} </p>
-      <div id="paypal-button-container" *ngIf="cart.paymentMethod === 1"></div>
-      <div class="btn btn-warning" (click)="finalizeOrder()" *ngIf="cart.paymentMethod === 0">Επιβεβαίωση και ολοκλήρωση</div>
+      <p> {{ order.paymentMethod === 1 ? 'Κείμενο για paypal ' : 'Κείμενο για αντικαταβολή'}} </p>
+      <div id="paypal-button-container" *ngIf="order.paymentMethod === 1"></div>
+      <div class="btn btn-warning" (click)="finalizeOrder()" *ngIf="order.paymentMethod === 0">Επιβεβαίωση και ολοκλήρωση</div>
     </div>
     <div class="col-md-4">
       <h4 class="mb-3">Στοιχεία Πληρωμής</h4>

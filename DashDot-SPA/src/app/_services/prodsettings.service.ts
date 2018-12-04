@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Color, Size, ProductSize } from "../_models/product";
 import { PaginatedResult } from "../_models/pagination";
 import { map } from "rxjs/operators";
+import { Photo } from "../_models/photo";
 
 @Injectable({
     providedIn: "root"
@@ -21,6 +22,10 @@ export class ProdSettingsService {
 
     updateColor(color: Color): Observable<Color> {
         return this.http.post<Color>(this.baseUrl + '/sizescolors/updateColor', color);
+    }
+
+    setColorToPhoto(photo: Photo): Observable<Photo> {
+        return this.http.put<Photo>(this.baseUrl + '/products/set/color', photo);
     }
 
     addSize(size: Size): Observable<Size> {
@@ -47,7 +52,7 @@ export class ProdSettingsService {
                     }
                     return paginatedResult;
                 })
-            );;
+            );
     }
 
 
@@ -60,8 +65,8 @@ export class ProdSettingsService {
         return this.http.get<Array<Size>>(this.baseUrl + '/sizescolors/getSizes');
     }
 
-    getColorsBySize(size: string, prodId: number): Observable<Array<ProductSize>> {
-        return this.http.get<Array<ProductSize>>(this.baseUrl + '/customers/getSizeColor/' + size + '/' + prodId);
+    getColorsBySize(size: string, prodId: number): Observable<ProductSize> {
+        return this.http.get<ProductSize>(this.baseUrl + '/customers/getSizeColor/' + size + '/' + prodId);
     }
 
     deleteColor(id: number) {

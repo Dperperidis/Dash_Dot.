@@ -3,4 +3,6 @@ export interface Photo {
     url: string;
     isMain: boolean;
     dateAdded: Date;
+    colorPointer: number;
+    productId: number;
 }

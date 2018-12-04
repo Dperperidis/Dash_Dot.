@@ -13,6 +13,7 @@ namespace DashnDotApp.Model
         public string PublicId { get; set; }
         public Product Product { get; set; }
         public int productId { get; set; }
+        public int ColorPointer { get; set; }
 
 
     }

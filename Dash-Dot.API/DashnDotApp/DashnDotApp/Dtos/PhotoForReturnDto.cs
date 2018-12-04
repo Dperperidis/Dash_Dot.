@@ -11,5 +11,6 @@ namespace DashnDotApp.Dtos
         public string Url { get; set; }
         public bool isMain { get; set; }
         public string PublicId { get; set; }
+        public int ColorPointer { get; set; }
     }
 }

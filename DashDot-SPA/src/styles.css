@@ -21,10 +21,11 @@
 }
 
 body {
-    font-family: cursive;
+    /* font-family: cursive;
     background-image:url('./assets/ch5.png');
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; */
+    background: #484848;
 }
 
 /* cursive */

@@ -104,7 +104,7 @@ namespace DashnDotApp.Controllers
         }
 
         [HttpPost("{id}/setMain")]
-        public async Task<IActionResult> SetMainPhoto(int productId, int id)
+        public IActionResult SetMainPhoto(int productId, int id)
         {
            
 

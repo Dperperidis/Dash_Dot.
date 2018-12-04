@@ -3,36 +3,36 @@
   <div class="">
     <div class="row">
       <div class="product-options col-md-0 col-lg-2 d-none d-xl-block animated fadeInLeft">
-      <button class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-        aria-controls="collapseExample">
-        Ρώτησε μας..
-        <img src="../../assets/images/chat1.png">
-      </button>
-      <div class="collapse mt-2" id="collapseExample">
-        <div class="card  mb-3" style="max-width: 20rem;">
-          <h4 class="card-header font-weight-bold text-center" style="font-family: sans-serif">dāsh&dot.</h4>
-          <h6 class="text-center">Ρώτησε μας για αυτό το προϊόν</h6>
-          <div class="card-body p-3">
-            <div class="form-group">
-              <label class="col-form-label col-form-label-sm" for="inputSmall">Όνομα</label>
-              <input class="form-control form-control-sm" type="text" placeholder="" id="inputSmall" name="name"
-                [(ngModel)]="message.name">
-              <label class="col-form-label col-form-label-sm" for="inputSmall">Email</label>
-              <input class="form-control form-control-sm" type="email" placeholder="" id="inputSmall" name="email"
-                [(ngModel)]="message.email">
-              <label for="exampleTextarea">Ρωτήστε μας..</label>
-              <textarea class="form-control" id="exampleTextarea" name="message" [(ngModel)]="message.message"></textarea>
-            </div>
-            <small>*Συμπλήρωσε όλα τα στοιχεία</small>
-            <div class="btn-group pull-right">
-              <button type="button" class="btn btn-outline-warning" (click)="saveMessage()" data-toggle="collapse" href="#collapseExample"
-                role="button" aria-expanded="false" [disabled]="!message.name || !message.email || !message.message"
-                aria-controls="collapseExample">Αποστολή</button>
+        <button class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+          aria-controls="collapseExample">
+          Ρώτησε μας..
+          <img src="../../assets/images/chat1.png">
+        </button>
+        <div class="collapse mt-2" id="collapseExample">
+          <div class="card  mb-3" style="max-width: 20rem;">
+            <h4 class="card-header font-weight-bold text-center" style="font-family: sans-serif">dāsh&dot.</h4>
+            <h6 class="text-center">Ρώτησε μας για αυτό το προϊόν</h6>
+            <div class="card-body p-3">
+              <div class="form-group">
+                <label class="col-form-label col-form-label-sm" for="inputSmall">Όνομα</label>
+                <input class="form-control form-control-sm" type="text" placeholder="" id="inputSmall" name="name"
+                  [(ngModel)]="message.name">
+                <label class="col-form-label col-form-label-sm" for="inputSmall">Email</label>
+                <input class="form-control form-control-sm" type="email" placeholder="" id="inputSmall" name="email"
+                  [(ngModel)]="message.email">
+                <label for="exampleTextarea">Ρωτήστε μας..</label>
+                <textarea class="form-control" id="exampleTextarea" name="message" [(ngModel)]="message.message"></textarea>
+              </div>
+              <small>*Συμπλήρωσε όλα τα στοιχεία</small>
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-outline-warning" (click)="saveMessage()" data-toggle="collapse"
+                  href="#collapseExample" role="button" aria-expanded="false" [disabled]="!message.name || !message.email || !message.message"
+                  aria-controls="collapseExample">Αποστολή</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
       <div class="col-md-12 col-lg-8 col-xl-7">
         <div class="card-header card font-weight-bold">{{product.title}}</div>
         <div class="row my-3">
@@ -59,11 +59,8 @@
                 <hr class="bg-white">
                 <h6 class="card-title">ΤΙΜΗ:
                   <span class=" text-warning ml-2" style="font-size:30px" *ngIf="product.discount>0">{{
-                    (product.price - product.discount) |
-                    currency:'EUR':symbol}}</span>
-                  <span class="text-white ml-2 price" [ngClass]="{discount: product.discount>0}">{{
-                    product.price |
-                    currency:'EUR':symbol}}</span>
+                    (product.price - product.discount) }} &euro;</span>
+                  <span class="text-white ml-2 price" [ngClass]="{discount: product.discount>0}">{{product.price }} &euro;</span>
                 </h6>
                 <hr class="bg-white">
                 <h6 class="card-text text-warning p-0">ΕΠΙΛΟΓΕΣ</h6>
@@ -107,14 +104,14 @@
         </div>
         <div class=" border-light mb-3" style="max-width:100%">
           <div class="card card-header">Περιγραφή</div>
-          <div class="card-body">
+          <div class="card-body text-white">
             <p class="card-text">{{product.description}}</p>
             <h4 class="card-title text-warning">Σύνθεση: {{product.material}} _.</h4>
           </div>
         </div>
         <div class=" border-light mb-3" style="max-width:100%">
           <div class="card card-header">ΠΑΡΑΔΟΣΗ</div>
-          <div class="card-body">
+          <div class="card-body text-white">
             <h4 class="card-title">Ελλάδα:</h4>
             <p class="card-text">Η αποστολή - αφού έχει επιβεβαιωθεί η παραγγελία σας - πραγματοποιείτε σε όλη την
               Ελλάδα
@@ -128,7 +125,7 @@
       <li class="nav-item vl list-unstyled d-none d-lg-block d-xl-block"></li>
       <div class="col-md-12 col-lg-3 col-xl-2  text-center d-none d-lg-block">
         <h3>Προτεινόμενα</h3>
-        <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
+        <div class="text-center text-white" *ngFor="let product of suggestedProducts | slice:0:3">
           <div class="card p-4 m-3">
             <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>
             <a class="" [routerLink]="['/product',product.seoUrl]">
@@ -140,11 +137,9 @@
               <h6>Κωδ: {{product.code}}</h6>
               <h4 class="card-title">Τιμή:
                 <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
-                  (product.price - product.discount) |
-                  currency:'EUR':symbol}}</span>
+                  (product.price - product.discount) }} &euro; </span>
                 <span class=" ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
-                  product.price |
-                  currency:'EUR':symbol}}</span></h4>
+                  product.price}}  &euro;</span></h4>
             </div>
             <div class="btn-toolbar d-flex">
               <button type="button" class="btn btn-primary btn-block" [routerLink]="['/product',product.seoUrl]"><i
@@ -163,8 +158,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="text-center modalImg" style="cursor:pointer;">
-          <img alt="" style="height:550px" [imageZoom]="zoomedImageSrc" src="{{productModal.photoUrl}}" [lensWidth]="500"
-            [lensHeight]="500" [minZoomLevel]=".5">
+          <img alt="" style="height:550px" src="{{productModal.photoUrl}}" >
         </div>
         <br>
         <div class="text-center" style="cursor:pointer;">

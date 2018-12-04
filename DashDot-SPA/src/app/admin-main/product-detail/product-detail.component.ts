@@ -29,8 +29,8 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.product = data['product'].result;
-      this.pagination = data['product'].pagination
-    })
+      this.pagination = data['product'].pagination;
+    });
   }
 
   searchProduct(category, sortBy?) {
@@ -40,22 +40,22 @@ export class ProductDetailComponent implements OnInit {
         this.product = res.result;
         this.pagination = res.pagination;
       }, error => {
-        this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.')
-      })
+        this.toastr.error('Δεν ήταν εφικτό η εμφάνιση προϊόντων.');
+      });
     this.pagination.currentPage = 1;
-    sessionStorage.setItem('category', category)
+    sessionStorage.setItem('category', category);
   }
 
   searchProductByCode(code) {
     this.productService.getProductByCode(code).subscribe(res => {
       this.productService.currentProduct = res;
       if (res == null) {
-        this.toastr.error('Δεν βρέθηκε προιόν με αυτόν τον κωδικό.')
+        this.toastr.error('Δεν βρέθηκε προιόν με αυτόν τον κωδικό.');
       }
       this.router.navigate(['/admin/main/edit/' + res.id]);
     }, error => {
       this.toastr.error("Παρακαλώ εισάγετε κωδικό προϊόντος.");
-    })
+    });
   }
 
   deleteProduct(id) {
@@ -63,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
       const i = this.product.findIndex(x => x.id === id);
       this.adminProdService.deleteProduct(id).subscribe(res => {
         this.product.splice(i, 1);
-        this.toastr.success("Η διαγραφή έγινε επιτυχώς")
+        this.toastr.success("Η διαγραφή έγινε επιτυχώς");
         this.router.navigate(['/admin/main/details']);
       }, error => {
         this.toastr.error(error);
@@ -83,12 +83,12 @@ export class ProductDetailComponent implements OnInit {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {
       this.toastr.error(error);
-    })
+    });
   }
 
   pageChanged(event: any): void {
     const category = sessionStorage.getItem('category');
-    this.pagination.currentPage = event.page
+    this.pagination.currentPage = event.page;
     this.searchProduct(category, this.sortBy);
   }
 

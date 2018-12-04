@@ -15,7 +15,7 @@ export class AdminNavbarComponent implements OnInit {
 
 
   constructor(
-    private authService: AuthService, private router: Router,
+    public authService: AuthService, private router: Router,
     private route: ActivatedRoute, private toastr: ToastrService
   ) { }
 

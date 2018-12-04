@@ -15,7 +15,7 @@ export class AdminCardsComponent implements OnInit {
 
   ngOnInit() {
     this.adminProd.getMessagesForAdmin().subscribe(res => {
-      this.messages = res.filter(x => new Date(x.created).getDay() >= this.date.getDay())
+      this.messages = res.filter(x => new Date(x.created).getDay() <= this.date.getDay());
     });
   }
 }

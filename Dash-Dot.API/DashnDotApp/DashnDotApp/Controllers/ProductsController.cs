@@ -194,6 +194,25 @@ namespace DashnDotApp.Controllers
         }
 
 
+        [Route("setColorForEachPhoto")]
+        [HttpPost]
+        public IActionResult SetColorForEachPhoto([FromBody]Photo photo)
+        {
+            try
+            {
+
+                var result = _ctx.Photos.Update(photo);
+
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

@@ -5,13 +5,9 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Dtos
 {
-    public class PhotoForReturnDto
+    public class PhotoForUpdateDto
     {
         public int Id { get; set; }
-        public string Url { get; set; }
-        public bool isMain { get; set; }
-        public string PublicId { get; set; }
         public string Color { get; set; }
-
     }
 }

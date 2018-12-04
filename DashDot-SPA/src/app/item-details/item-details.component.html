@@ -107,14 +107,14 @@
         </div>
         <div class=" border-light mb-3" style="max-width:100%">
           <div class="card card-header">Περιγραφή</div>
-          <div class="card-body">
+          <div class="card-body text-white">
             <p class="card-text">{{product.description}}</p>
             <h4 class="card-title text-warning">Σύνθεση: {{product.material}} _.</h4>
           </div>
         </div>
         <div class=" border-light mb-3" style="max-width:100%">
           <div class="card card-header">ΠΑΡΑΔΟΣΗ</div>
-          <div class="card-body">
+          <div class="card-body text-white">
             <h4 class="card-title">Ελλάδα:</h4>
             <p class="card-text">Η αποστολή - αφού έχει επιβεβαιωθεί η παραγγελία σας - πραγματοποιείτε σε όλη την
               Ελλάδα
@@ -127,7 +127,7 @@
       </div>
       <li class="nav-item vl list-unstyled d-none d-lg-block d-xl-block"></li>
       <div class="col-md-12 col-lg-3 col-xl-2  text-center d-none d-lg-block">
-        <h3>Προτεινόμενα</h3>
+        <h3 class="text-white">Προτεινόμενα</h3>
         <div class="text-center" *ngFor="let product of suggestedProducts | slice:0:3">
           <div class="card p-4 m-3">
             <div class="h4" *ngIf="product.discount>0"><span>Sales</span></div>

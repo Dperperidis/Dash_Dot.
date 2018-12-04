@@ -213,17 +213,19 @@ namespace DashnDotApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Color");
+
+                    b.Property<int>("ProductId");
+
                     b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
                     b.Property<bool>("isMain");
 
-                    b.Property<int>("productId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("productId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -407,7 +409,7 @@ namespace DashnDotApp.Migrations
                 {
                     b.HasOne("DashnDotApp.Model.Product", "Product")
                         .WithMany("Photos")
-                        .HasForeignKey("productId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

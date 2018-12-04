@@ -63,12 +63,12 @@
       <td>
         <input name="title" class="form-control" [(ngModel)]="p.title" [disabled]="editProd" placeholder="">
       </td>
-      <td  style="width:10px">
-          <div class="custom-control custom-checkbox">
+      <td style="width:40px">
+          <div class="custom-control custom-checkbox mt-4">
               <input type="checkbox" class="custom-control-input" id="{{[i]}}" name="suggested" 
               [disabled]="editProd"
                 [(ngModel)]="p.suggested">
-              <label class="custom-control-label" for="{{[i]}}">Προτεινόμενο</label>
+              <label class="custom-control-label" for="{{[i]}}"></label>
             </div>
       </td>
       <td style="width:120px"><input name="code" class="form-control" [(ngModel)]="p.code" [disabled]="editProd"

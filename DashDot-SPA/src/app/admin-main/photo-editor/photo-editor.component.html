@@ -1,15 +1,19 @@
 <hr>
 <div class="row">
-  <div class="col-sm-4 col-md-3 col-lg-2 col-4" *ngFor="let photo of photos">
+  <div class="col-sm-4 col-md-3 col-lg-2 col-4" *ngFor="let photo of photos;let i = index">
     <div class="text-center">
+        <select class="form-control ml-2 mt-1" id="title" name="color"  #color (change)="setColor(photo.id, color.value)">
+            <option *ngFor="let col of colors" value="{{col.title}}">{{col.title}}</option>
+          </select>
       <img src="{{photo.url}}" class="img-thumbnail m-2" alt="">
 
-      <div class="btn-group mt-1">
+      <div class="btn-group mt-1 text-center">
         <button type="button" class="btn btn-sm mr-1" (click)="setMainPhoto(photo)" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-default'"
           [disabled]="photo.isMain">Main</button>
         <button type="button" class="btn btn-sm btn-danger" [disabled]="photo.isMain" (click)="deletePhoto(photo.id)">
           <i class="fa fa-trash-o"></i></button>
       </div>
+     
     </div>
   </div>
 </div>
@@ -33,12 +37,15 @@
         <tr>
           <th width="50%">Name</th>
           <th>Size</th>
+          <th>Color</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of uploader.queue">
           <td><strong>{{ item?.file?.name }}</strong></td>
           <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+      
+
         </tr>
       </tbody>
     </table>

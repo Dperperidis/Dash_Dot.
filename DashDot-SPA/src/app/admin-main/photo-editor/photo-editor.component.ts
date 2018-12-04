@@ -4,9 +4,10 @@ import { ProductService } from '../../_services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
-import { Product } from 'src/app/_models/product';
+import { Product, Color } from 'src/app/_models/product';
 import { ActivatedRoute } from '@angular/router';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
+import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -15,21 +16,28 @@ import { AdminProductService } from 'src/app/_services/adminproduct.service';
 })
 export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
-  @Input() photos: Photo[];
+  @Input() photos = new Array<Photo>();
   @Output() getProductPhotoChange = new EventEmitter<string>();
   product: Product;
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   currentMain: Photo;
+  color: string;
+  colors = new Array<Color>();
 
 
   constructor(private productService: ProductService, private toastr: ToastrService,
     private route: ActivatedRoute,
+    private prodSettings: ProdSettingsService,
     private adminProdService: AdminProductService,
   ) { }
 
   ngOnInit() {
     this.initializeUploader();
+    this.prodSettings.getColors().subscribe(res => {
+      this.colors = res;
+    })
+
   }
 
   public fileOverBase(e: any): void {
@@ -49,14 +57,17 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: Photo = JSON.parse(response);
+        console.log(res);
         const photo = {
           id: res.id,
           url: res.url,
-          dateAdded: res.dateAdded,
-          isMain: res.isMain
+          isMain: res.isMain,
+          color: this.color
+
         };
         this.photos.push(photo);
-        
+        console.log(photo);
+
       };
     }
   }
@@ -72,9 +83,7 @@ export class PhotoEditorComponent implements OnInit {
     })
   }
 
-  setColorCode(photo: Photo){
 
-  }
 
   deletePhoto(id: number) {
     if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε την φωτογραφία;")) {

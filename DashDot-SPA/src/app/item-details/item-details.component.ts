@@ -53,9 +53,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   setPhoto(value) {
     if (value == '') {
-      return
+      return;
     } else {
-      const y = this.colors.find(x => x.title == value)
+      const y = this.colors.find(x => x.title == value);
       this.product.photoUrl = this.product.photos.find(x => x.colorPointer == y.id).url;
     }
 

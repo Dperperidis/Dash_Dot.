@@ -13,7 +13,7 @@ namespace DashnDotApp.Helpers
         private const int MaxPageSize = 1000;
 
         public int PageNumber { get; set; } = 1;
-        private int pageSize =8;
+        private int pageSize =6;
 
         public int PageSize
         {

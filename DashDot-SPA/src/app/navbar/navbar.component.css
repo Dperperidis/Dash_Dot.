@@ -80,7 +80,7 @@
         height: 147px;
     }
     .dropdown:hover .dropdown-menu {
-        max-height: 300px;
+        max-height: 350px;
         margin: 0px 70px;
     }
     .dropdown>a:before {
@@ -100,4 +100,11 @@
         font-size: 11px;
         transition: color 0.2s linear;
     }
+}
+
+@media only screen and (max-width:375px) {
+    .navbar-dark {
+        height: 100px;
+    }
+
 }

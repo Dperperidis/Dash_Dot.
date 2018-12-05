@@ -78,12 +78,18 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(i) {
-    console.log(this.product[i]);
+
     this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {
       this.toastr.error(error);
     });
+  }
+
+  copyProduct(i) {
+    sessionStorage.setItem('tempProduct', JSON.stringify(this.product[i]));
+    this.router.navigate(['/admin/main/create-product']);
+
   }
 
   pageChanged(event: any): void {

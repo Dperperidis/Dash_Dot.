@@ -50,7 +50,6 @@ export class EditProductComponent implements OnInit {
     });
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
-      console.log(this.colors);
       this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
     });
     this.prodSettings.getSizes().subscribe(res => {

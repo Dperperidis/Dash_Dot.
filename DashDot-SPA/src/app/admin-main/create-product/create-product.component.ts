@@ -33,6 +33,25 @@ export class CreateProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (sessionStorage.getItem('tempProduct')) {
+      let tempProduct = JSON.parse(sessionStorage.getItem('tempProduct'));
+      this.product.active = tempProduct.active;
+      this.product.title = tempProduct.title;
+      this.product.category = tempProduct.category;
+      this.product.code = tempProduct.code;
+      this.product.sleeve = tempProduct.sleeve;
+      this.product.description = tempProduct.description;
+      this.product.design = tempProduct.design;
+      this.product.discount = tempProduct.discount;
+      this.product.line = tempProduct.line;
+      this.product.material = tempProduct.material;
+      this.product.price = tempProduct.price;
+      this.product.season = tempProduct.season;
+      this.product.seoUrl = tempProduct.seoUrl;
+      sessionStorage.removeItem('tempProduct');
+    } else {
+      this.product = new Product();
+    }
     this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
     });
@@ -49,6 +68,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   saveProduct() {
+    console.log(this.product);
     this.adminProdService.addProduct(this.product).subscribe(res => {
       this.spinner.show();
       this.adminProdService.currentProduct = res;

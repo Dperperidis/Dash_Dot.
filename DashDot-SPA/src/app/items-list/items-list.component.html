@@ -1,9 +1,10 @@
 <app-navbar></app-navbar>
 <div class="container ">
   <div class="thumbnail text-center mt-4 d-none d-lg-block">
-    <img src="../../assets/images/itemsdetails.jpg" alt="first slide" style="display: block; ">
+    <img src="../../assets/images/item-list.png" alt="first slide" style="display: block; ">
     <div class="caption">
-      <h2 class="display-3 centered animated fadeInRight">In style with <span style="font-family:sans-serif"></span> dāsh&dot.</h2>
+      <h2 class="display-3 centered animated fadeInRight">In style with <span style="font-family:sans-serif"></span>
+        dāsh&dot.</h2>
     </div>
   </div>
   <div class="d-flex justify-content-between mt-4">
@@ -24,43 +25,44 @@
     </div>
     <div class="">
       <div class="d-flex">
-        <div class="form-group mb-0 mr-2" *ngIf="category && sleeve">
-          <select class="form-control" #sleeve (change)="searchSleeve(sleeve.value)">
-            <option value="all">MANIKI</option>
-            <option value="Μακρυμάνικο">Μακρυμάνικο</option>
-            <option value="Κοντομάνικο">Κοντομάνικο</option>
-          </select>
-        </div>
-        <div class="form-group mb-0 mr-2">
-          <select class="form-control" #order (change)="sortBy(order.value)">
-            <option>ΤΑΞΙΝΟΜΗΣΗ</option>
-            <option>Newest > Oldest</option>
-            <option>Oldest > Newest</option>
-            <option>Τιμή (Χαμηλή > Υψηλή)</option>
-            <option>Τιμή (Υψηλή > Χαμηλή)</option>
-          </select>
-        </div>
-        <div class="form-group mb-0 mr-2" *ngIf="category">
-          <select class="form-control" id="exampleSelect2" #size (change)="sortBySize(size.value)">
-            <option>ΜΕΓΕΘΟΣ</option>
-            <option *ngIf="!sizeCategory">Small</option>
-            <option *ngIf="!sizeCategory">Medium</option>
-            <option *ngIf="!sizeCategory">Large</option>
-            <option *ngIf="!sizeCategory">XLarge</option>
-            <option *ngIf="!sizeCategory">XXLarge</option>
-            <option *ngIf="!sizeCategory">3XLarge</option>
-            <option *ngIf="!sizeCategory">4XLarge</option>
-            <option *ngIf="!sizeCategory">5XLarge</option>
-            <option *ngIf="!sizeCategory">6XLarge</option>
-            <option *ngIf="sizeCategory">110cm</option>
-            <option *ngIf="sizeCategory">115cm</option>
-            <option *ngIf="sizeCategory">120cm</option>
-            <option *ngIf="sizeCategory">125cm</option>
-            <option *ngIf="sizeCategory">130cm</option>
-            <option *ngIf="sizeCategory">135cm</option>
-          </select>
-        </div>
-        <div class="form-group mb-0">
+        <div class="row">
+          <div class="form-group mb-0 mr-2" *ngIf="category && sleeve">
+            <select class="form-control" #sleeve (change)="searchSleeve(sleeve.value)">
+              <option value="all">MANIKI</option>
+              <option value="Μακρυμάνικο">Μακρυμάνικο</option>
+              <option value="Κοντομάνικο">Κοντομάνικο</option>
+            </select>
+          </div>
+          <div class="form-group mb-0 mr-2">
+            <select class="form-control" #order (change)="sortBy(order.value)">
+              <option>ΤΑΞΙΝΟΜΗΣΗ</option>
+              <option>Newest > Oldest</option>
+              <option>Oldest > Newest</option>
+              <option>Τιμή (Χαμηλή > Υψηλή)</option>
+              <option>Τιμή (Υψηλή > Χαμηλή)</option>
+            </select>
+          </div>
+          <div class="form-group mb-0 mr-2" *ngIf="category">
+            <select class="form-control" id="exampleSelect2" #size (change)="sortBySize(size.value)">
+              <option>ΜΕΓΕΘΟΣ</option>
+              <option *ngIf="!sizeCategory">Small</option>
+              <option *ngIf="!sizeCategory">Medium</option>
+              <option *ngIf="!sizeCategory">Large</option>
+              <option *ngIf="!sizeCategory">XLarge</option>
+              <option *ngIf="!sizeCategory">XXLarge</option>
+              <option *ngIf="!sizeCategory">3XLarge</option>
+              <option *ngIf="!sizeCategory">4XLarge</option>
+              <option *ngIf="!sizeCategory">5XLarge</option>
+              <option *ngIf="!sizeCategory">6XLarge</option>
+              <option *ngIf="sizeCategory">110cm</option>
+              <option *ngIf="sizeCategory">115cm</option>
+              <option *ngIf="sizeCategory">120cm</option>
+              <option *ngIf="sizeCategory">125cm</option>
+              <option *ngIf="sizeCategory">130cm</option>
+              <option *ngIf="sizeCategory">135cm</option>
+            </select>
+          </div>
+          <div class="form-group mb-0">
             <select class="form-control" #items (change)="sortByItems(items.value)">
               <option value="16">ΕΜΦΑΝΙΣΗ: 16</option>
               <option value="32">ΕΜΦΑΝΙΣΗ: 32</option>
@@ -68,6 +70,8 @@
               <option value="96">ΕΜΦΑΝΙΣΗ: 96</option>
             </select>
           </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -119,8 +123,9 @@
           </div>
         </div>
         <div class="col-md-4 order-md-1  text-center">
-          <img class=" img-fluid mx-auto" src="{{product.photoUrl}}" [routerLink]="['/product',product.seoUrl]"
-            alt="Generic placeholder image">
+          <a [routerLink]="['/product',product.seoUrl]">
+            <img class=" img-fluid mx-auto" src="{{product.photoUrl}}" [routerLink]="['/product',product.seoUrl]" alt="Generic placeholder image">
+          </a>
         </div>
       </div>
       <hr class="bg-white">

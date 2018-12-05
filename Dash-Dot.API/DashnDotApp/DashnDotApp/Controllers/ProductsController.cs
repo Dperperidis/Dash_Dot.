@@ -62,7 +62,7 @@ namespace DashnDotApp.Controllers
         public IActionResult AddProduct([FromBody]Product product)
         {
             try
-            {
+            {     
 
                 if (_ctx.Product.Any(x => x.Code == product.Code))
                 {

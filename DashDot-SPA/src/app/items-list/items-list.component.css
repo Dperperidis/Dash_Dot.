@@ -121,7 +121,7 @@ h2 {
     border-top: 3px solid #8F5408;
 }
 
-.text-center>img {
+img {
     cursor: pointer;
     outline: none;
 }
@@ -140,11 +140,6 @@ h2 {
     }
 }
 
-@media (max-width: 576px) {
-    .form-control {
-        width: 58%;
-    }
-}
 
 .col-md-6>a {
     text-decoration: none;

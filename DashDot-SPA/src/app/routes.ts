@@ -31,6 +31,8 @@ import { GdprComponent } from "./footer/gdpr/gdpr.component";
 import { ContactComponent } from "./footer/contact/contact.component";
 import { CustomerServiceComponent } from "./footer/customer-service/customer-service.component";
 import { AuthGuard } from './_guards/auth.guard';
+import { AdminOrdersComponent } from "./admin-main/admin-orders/admin-orders.component";
+import { AdminOrderDetailsComponent } from "./admin-main/admin-order-details/admin-order-details.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -42,9 +44,9 @@ export const routes: Routes = [
     { path: 'admin', component: AdminpageComponent },
     { path: 'stores', component: StoreMapsComponent },
     { path: 'cart', component: ShoppingcartComponent },
-    { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]  },
+    { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
     { path: 'payment', component: CheckoutPaymentComponent, canActivate: [AuthGuard] },
-    { path: 'invoice', component: CheckoutInvoiceComponent, canActivate: [AuthGuard]  },
+    { path: 'invoice', component: CheckoutInvoiceComponent, canActivate: [AuthGuard] },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
     { path: 'company', component: CompanyComponent },
     { path: 'terms-of-use', component: UseTermsComponent },
@@ -68,7 +70,9 @@ export const routes: Routes = [
                         path: 'create-product', component: CreateProductComponent
                     }, { path: '', component: AdminChartsComponent },
                     { path: 'product-settings', component: ProductSettingsComponent, resolve: { color: ColorListResolver } },
-                    { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, }
+                    { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, },
+                    { path: 'orders', component: AdminOrdersComponent },
+                    { path: 'order/:id', component: AdminOrderDetailsComponent }
                 ]
             },
         ]

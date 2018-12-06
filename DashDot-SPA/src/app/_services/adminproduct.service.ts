@@ -23,11 +23,9 @@ export class AdminProductService {
         return this.http.post(this.baseUrl + "products/" + productId + "/photos/" + id + "/setMain", {});
     }
 
-
     deletePhoto(productId: number, id: number) {
         return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + id);
     }
-
 
     updateProduct(product: Product): Observable<Product> {
         return this.http.post<Product>(this.baseUrl + 'products/updateProduct', product);
@@ -44,9 +42,6 @@ export class AdminProductService {
     deleteSize(id: number) {
         return this.http.delete(this.baseUrl + 'products/deleteSize/' + id);
     }
-
-
-
 
     getMessages(page?, itemsPerPage?): Observable<PaginatedResult<Message[]>> {
         const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
@@ -65,7 +60,6 @@ export class AdminProductService {
                     return paginatedResult;
                 })
             );
-
     }
 
     getProductsByCategoryForAdmin(category: string, sortBy?, page?, itemsPerPage?): Observable<PaginatedResult<Product[]>> {
@@ -95,5 +89,11 @@ export class AdminProductService {
 
     getMessagesForAdmin(): Observable<Message[]> {
         return this.http.get<Message[]>(this.baseUrl + 'admincust/getMessagesForAdmin');
+    }
+
+    // orders
+
+    getOrders(page: number, pageSize: number, order: string, status: string, search: string): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}shoppingcart/orders/${page}/${pageSize}/${order}/${status}/${search}`);
     }
 }

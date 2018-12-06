@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,  TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, Color, ProductSize } from '../_models/product';
 import { ProdSettingsService } from '../_services/prodsettings.service';

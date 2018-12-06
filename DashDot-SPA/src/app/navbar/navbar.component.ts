@@ -44,12 +44,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   clearCart() {
     if (this.cartService.cart.length > 0) {
-      this.cartService.clearCart().subscribe(res => {
+      console.log(this.authService.loggedIn());
+      if (this.authService.loggedIn()) {
+        this.cartService.clearCart().subscribe(res => {
+          this.cartService.cart = new Array<CartItem>();
+          this.toastr.success('To καλάθι σας άδειασε');
+        }, error => {
+          this.toastr.error(error);
+        });
+      } else {
+        this.cartService.clearcCartItemsFromLS();
         this.cartService.cart = new Array<CartItem>();
-        this.toastr.success('To καλάθι σας άδειασε');
-      }, error => {
-        this.toastr.error(error);
-      });
+      }
     }
   }
 

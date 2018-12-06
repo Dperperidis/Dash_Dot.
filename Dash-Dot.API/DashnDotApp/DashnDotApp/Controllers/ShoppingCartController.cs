@@ -49,7 +49,7 @@ namespace DashnDotApp.Controllers
                         cartItems[i].DateCreated = DateTime.UtcNow;
                         cartItems[i].Product = null;
                         _ctx.Cart.Add(cartItems[i]);
-                    
+
                     }
                     else
                     {
@@ -238,10 +238,85 @@ namespace DashnDotApp.Controllers
 
                     order.OrderItems.Add(orderItem);
                 }
-
                 var result = _ctx.Orders.Add(order);
                 _ctx.SaveChanges();
                 return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
+        [Route("orders/{page}/{pageSize}/{order?}/{status?}/{search?}")]
+        [HttpGet]
+        public IActionResult PlaceOrder(int page, int pageSize, string order = "", string status = "", string search = "")
+        {
+            try
+            {
+                var query = from obj in _ctx.Orders select obj;
+
+                switch (status)
+                {
+                    case "pending":
+                        query = query.Where(s => s.OrderStatus == OrderStatus.Pending);
+                        break;
+                    case "completed":
+                        query = query.Where(s => s.OrderStatus == OrderStatus.Completed);
+                        break;
+                    case "shipping":
+                        query = query.Where(s => s.OrderStatus == OrderStatus.Shipping);
+                        break;
+                    case "canceled":
+                        query = query.Where(s => s.OrderStatus == OrderStatus.Canceled);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    search = search.ToLower();
+                    query = query.Where(t => t.Mobile == search);
+                }
+
+                switch (order)
+                {
+                    case "lastname":
+                        query = query.OrderBy(s => s.LastName);
+                        break;
+                    case "lastname_desc":
+                        query = query.OrderByDescending(s => s.LastName);
+                        break;
+                    case "order_date":
+                        query = query.OrderBy(s => s.OrderDate);
+                        break;
+                    case "order_date_desc":
+                        query = query.OrderByDescending(s => s.OrderDate);
+                        break;
+                    default:
+                        query = query.OrderByDescending(s => s.LastName);
+                        break;
+                }
+
+                var rows = query.Count();
+                var result = query.AsNoTracking()
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                var pages = new PagedData<Order>();
+                pages.Order = order;
+                pages.Page = page;
+                pages.Rows = result;
+                pages.Search = search;
+                pages.TotalRows = rows;
+                pages.PageSize = pageSize;
+
+                return Ok(pages);
             }
             catch (Exception ex)
             {

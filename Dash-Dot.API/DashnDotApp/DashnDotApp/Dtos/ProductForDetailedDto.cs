@@ -39,9 +39,18 @@ namespace DashnDotApp.Dtos
             }
 
         }
-        public ICollection<PhotoForDetailedDto> Photos { get; set; }
-        public virtual IList<ProductSize> ProductSizes { get; set; }
-        public virtual IList<ProductSizeColor> ProductSizeColors { get; set; }
+        public IEnumerable<PhotoForDetailedDto> Photos { get; set; }
+        public IEnumerable<ProductSize> ProductSizes { get; set; }
+        public IEnumerable<ProductSizeColor> ProductSizeColors { get; set; }
+
+        public ProductForDetailedDto()
+        {
+            //Photos = new List<PhotoForCreationDto>();
+            //ProductSizes = new List<ProductSizeColor>();
+            //ProductSizeColors = new List<ProductSize>();
+        }
+
+
 
 
     }

@@ -102,8 +102,11 @@ export class ShoppingCartService {
         this.toastr.success('Το προιόν αφαιρέθηκε απο το καλάθι σας με επιτυχία.');
         this.localstorage.setShoppingCart(this.cart);
       }
-
     }
+  }
+
+  clearcCartItemsFromLS() {
+    localStorage.removeItem('shoppingcart');
   }
 
   updateItem(item: CartItem, i: number) {

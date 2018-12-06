@@ -62,14 +62,16 @@ namespace DashnDotApp.Controllers
         public IActionResult AddProduct([FromBody]Product product)
         {
             try
-            {     
+            {
 
                 if (_ctx.Product.Any(x => x.Code == product.Code))
                 {
                     return BadRequest("Το προιον ήδη υπάρχει");
                 }
+                product.TotalCost = product.Price - product.Discount;
                 for (var i = 0; i < product.ProductSizes.Count; i++)
                 {
+
                     product.ProductSizes[i].Size = null;
                     for (var c = 0; c < product.ProductSizes[i].ProductSizeColor.Count; c++)
                     {
@@ -92,7 +94,7 @@ namespace DashnDotApp.Controllers
             }
 
         }
-        
+
         [Route("getProductByCode/{code}")]
         [HttpGet]
         public ActionResult GetProductByCode(string code)
@@ -109,7 +111,7 @@ namespace DashnDotApp.Controllers
             return Ok(result);
 
         }
-        
+
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
@@ -181,7 +183,7 @@ namespace DashnDotApp.Controllers
                 return BadRequest("Δεν έγινε ανανέωση του προϊόντος διότι δεν έχει γίνει αλλαγή");
             }
         }
-        
+
 
         [Route("getProductsByCategory/{category}/{sortBy}")]
         [HttpGet]

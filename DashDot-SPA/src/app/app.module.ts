@@ -71,6 +71,9 @@ import { CustomerServiceComponent } from './footer/customer-service/customer-ser
 import { AuthGuard } from './_guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './_resolvers/auth.interceptor';
+import { AdminOrdersComponent } from './admin-main/admin-orders/admin-orders.component';
+import { AdminOrderDetailsComponent } from './admin-main/admin-order-details/admin-order-details.component';
+import { PaginationService } from './_services/pagination.service';
 
 registerLocaleData(localeDe);
 export function tokenGetter() {
@@ -118,6 +121,8 @@ export function tokenGetter() {
     GdprComponent,
     ContactComponent,
     CustomerServiceComponent,
+    AdminOrdersComponent,
+    AdminOrderDetailsComponent,
 
   ],
   imports: [
@@ -176,6 +181,7 @@ export function tokenGetter() {
     AdminProductService,
     ProdSettingsService,
     ShoppingCartService,
+    PaginationService,
     ProductListResolver,
     MessageListResolver,
     MemberEditResolver,

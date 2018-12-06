@@ -58,7 +58,6 @@ export class CreateProductComponent implements OnInit {
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
     });
-    this.spinner.hide();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -68,9 +67,9 @@ export class CreateProductComponent implements OnInit {
   }
 
   saveProduct() {
-    console.log(this.product);
+    this.spinner.show();
     this.adminProdService.addProduct(this.product).subscribe(res => {
-      this.spinner.show();
+      this.spinner.hide();
       this.adminProdService.currentProduct = res;
       this.router.navigate(['/admin/main/edit/' + res.id]);
       this.toastr.success('Η καταχώρηση έγινε επιτυχώς');

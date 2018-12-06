@@ -9,7 +9,7 @@
         </div>
         <div id="wrapper">
             <ul class="sidebar navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><i
                             class="fa fa-fw fa-tachometer"></i>Dashboard<i class="fa fa-angle-down pull-right"></i>
                     </a>
@@ -23,7 +23,7 @@
                     </div>
                     <hr>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a (click)="isCollapsed1 = !isCollapsed1" [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic1"><i
                             class="fa fa-archive" aria-hidden="true"></i>
                         Προϊόντα<i class="fa fa-angle-down pull-right"></i>
@@ -41,35 +41,36 @@
                         </a>
                         <a class="nav-link text-white " [routerLink]="['/admin/main/details']">
                             <i class="fa fa-list mr-1 " aria-hidden="true"></i>
-                            Λίστα Προϊόντων</a>                     
+                            Λίστα Προϊόντων</a>
                     </div>
                     <hr>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic2"><i
                             class="fa fa-user mr-1"></i>Πελάτες<i class="fa fa-angle-down pull-right"></i>
                     </a>
                     <div id="collapseBasic2" [collapse]="isCollapsed2" class="ml-3">
-                            <hr>
+                        <hr>
                         <a class="nav-link text-white" [routerLink]="['/admin/main']">
-                           
+
                             <i class="fa fa-list-ol" aria-hidden="true"></i>
                             Λίστα Πελατών
                         </a>
                         <a class="nav-link text-white" [routerLink]="['/admin/main/user-page']">
-                           
+
                             <i class="fa fa-commenting-o" aria-hidden="true"></i>
                             Μηνύματα Πελατών
-                        </a> 
+                        </a>
                     </div>
                     <hr>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/admin/main/orders']"> <i class="fa fa-gift mr-1"></i>Παραγγελίες
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/admin/main/product-settings']">
-                        <i class="fa fa-fw fa-table"></i>
-                        <span>Προσθήκη Χρωμάτων & Μεγεθών</span></a>
+                        <i class="fa fa-fw fa-table mr-1"></i>Προσθήκη Χρωμάτων & Μεγεθών</a>
                 </li>
             </ul>
         </div>

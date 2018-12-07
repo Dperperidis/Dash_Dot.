@@ -78,7 +78,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(i) {
-
     this.adminProdService.updateProduct(this.product[i]).subscribe(res => {
       this.toastr.success("Η καταχώρηση έγινε επιτυχώς");
     }, error => {

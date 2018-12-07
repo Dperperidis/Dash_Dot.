@@ -1,10 +1,15 @@
-.card-body>img {
-    max-height: 30rem;
-    max-width: 100%;
+/* .card-body>img {
+    height: 30rem;
     display: block;
+
+
+} */
+
+.img-responsive{
+    width: 20rem;
+    height: 30rem;
     margin-left: auto;
     margin-right: auto;
-
 }
 .photosArray {
     height: 80px;

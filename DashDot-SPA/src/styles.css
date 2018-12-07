@@ -28,17 +28,21 @@
 } */
 
 
-/* Για ασπρο φοντο */
+
 
 body {
-    font-family: cursive;
+    font-family: serif;
     background: white;
-    background-image: url('./assets/images/Untitled-2.png');
+    background-image: url('./assets/images/chr3.png');
+    /* background-size: cover; */
+    overflow-x: hidden;
 
 
 }
 
-.card-body{
+/* Για ασπρο φοντο */
+
+/* .card-body{
     background-color:white!important;
     color:black!important;
 }
@@ -56,7 +60,7 @@ body {
 .card-header{
     background-color:grey!important;
     color:white!important;
-}
+} */
 
 /* Για ασπρο φοντο */
 
@@ -112,7 +116,7 @@ a.page-link:hover {
 }
 
 .btn-warning {
-    background-color: #af8a4e;
+    background-color: #b17d29;
     border-color: #805d24;
 }
 

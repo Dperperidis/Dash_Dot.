@@ -39,7 +39,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="card card-body">
               <img src="{{product.photoUrl}}" (click)="lgModal.show()" (mouseenter)="onImgChange(product.photoUrl)"
-                style="cursor:pointer">
+                style="cursor:pointer" class="img-responsive">
               <hr class="bg-white">
               <div class="text-center" style="cursor:pointer;">
                 <img src="{{photos.url}}" alt="" class="photosArray ml-4" (click)="onImgChange(photos.url)" *ngFor="let photos of product.photos">
@@ -95,7 +95,8 @@
                 <hr class="bg-white">
                 <div class="d-flex ">
                   <span class="mx-auto">
-                    <span class="mr-2 text-info"> <i class="fa fa-facebook-square mr-1"></i> <a href="https://www.facebook.com/dashandot/?jazoest=265100122728112011780751211221191227710488102455611711153858367831017377105731018448111110106114731178675499968815865100122531081201196810189741125168855169656777679811111110011010511487898695481225110683836510575112705270103"
+                    <span class="mr-2 text-info"> <i class="fa fa-facebook-square mr-1"></i> <a 
+                      href="https://www.facebook.com/dashandot/?jazoest=265100122728112011780751211221191227710488102455611711153858367831017377105731018448111110106114731178675499968815865100122531081201196810189741125168855169656777679811111110011010511487898695481225110683836510575112705270103"
                       target="_blank"  class="text-info">facebook</a></span>
                     <span> <i class="fa fa-instagram mr-1 text-purple"></i> <a href="https://www.instagram.com/dashndoting/" target="_blank" class="text-purple">Instagram</a></span>
                   </span></div>

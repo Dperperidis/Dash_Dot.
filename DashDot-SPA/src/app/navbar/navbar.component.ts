@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (this.authService.loggedIn()) {
         this.cartService.clearCart().subscribe(res => {
           this.cartService.cart = new Array<CartItem>();
-          this.toastr.success('To καλάθι σας άδειασε');
+          this.toastr.success('To καλάθι σας άδειασε!');
         }, error => {
           this.toastr.error(error);
         });
@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.cartService.cart = new Array<CartItem>();
-    this.toastr.success("Logout Success");
+    this.toastr.success("Έγινε αποσύνδεση!");
     this.router.navigate(['/']);
   }
 }

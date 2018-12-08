@@ -151,7 +151,7 @@ namespace DashnDotApp.Controllers
 
         }
 
-       
+
         [Route("update/item/cart")]
         [HttpPut]
         public IActionResult UpdateCartItem([FromBody] CartItem cartItem)
@@ -220,10 +220,19 @@ namespace DashnDotApp.Controllers
                     // Αν δεν βρεθεί userid Δεν έχει σωστό Token Λογικά
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
+
                 var cart = _ctx.Cart.Include(i => i.Product).Where(x => x.UserId == userId).ToList();
+                if (cart.Count == 0)
+                {
+                    return BadRequest("To καλάθι σας είναι άδειο");
+                }
                 order.UserId = userId;
                 order.OrderStatus = OrderStatus.Pending;
                 order.OrderDate = DateTime.UtcNow;
+                if (order.IsInValid())
+                {
+                    return BadRequest("Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία");
+                }
                 for (var i = 0; i < cart.Count; i++)
                 {
                     var orderItem = new OrderItem();
@@ -239,9 +248,14 @@ namespace DashnDotApp.Controllers
 
                     order.OrderItems.Add(orderItem);
                 }
+
+                order.OrderNo = "DD" + (_ctx.Orders.OrderByDescending(x => x.Id).FirstOrDefault().Id);
+                // Removes All items from cart
+                _ctx.RemoveRange(cart);
                 var result = _ctx.Orders.Add(order);
                 _ctx.SaveChanges();
-                return Ok(result.Entity);
+
+                return Ok(result.Entity.Id);
             }
             catch (Exception ex)
             {
@@ -262,16 +276,16 @@ namespace DashnDotApp.Controllers
 
                 switch (status)
                 {
-                    case "pending":
+                    case "Pending":
                         query = query.Where(s => s.OrderStatus == OrderStatus.Pending);
                         break;
-                    case "completed":
+                    case "Completed":
                         query = query.Where(s => s.OrderStatus == OrderStatus.Completed);
                         break;
-                    case "shipping":
+                    case "Shipping":
                         query = query.Where(s => s.OrderStatus == OrderStatus.Shipping);
                         break;
-                    case "canceled":
+                    case "Canceled":
                         query = query.Where(s => s.OrderStatus == OrderStatus.Canceled);
                         break;
                     default:
@@ -312,6 +326,7 @@ namespace DashnDotApp.Controllers
                 var pages = new PagedData<Order>();
                 pages.Order = order;
                 pages.Page = page;
+                pages.Status = status;
                 pages.Rows = result;
                 pages.Search = search;
                 pages.TotalRows = rows;

@@ -18,15 +18,19 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   cart: Array<CartItem>;
   user: User;
   order = new Order();
+  stores = [
+    { title: "Κατάστημα Ιλίον" },
+    { title: "Κατάστημα Πάτρας" }
+  ];
   constructor(private cartService: ShoppingCartService,
     private router: Router, private authService: AuthService,
     private userService: UserService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.order.store = this.stores[0].title;
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
-      if (this.cart.length === 0) { this.router.navigate(['/cart']); }
     }));
     this.subscriptions.push(this.userService.getUser(this.authService.decodedToken.Id).subscribe(res => {
       this.order.firstName = res.firstName;
@@ -51,6 +55,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     return this.order.paymentMethod === m;
   }
 
+  checkShippmanet(info: boolean) {
+    return this.order.isPickUp === info;
+  }
+
   totalOfItems() {
     let total = 0;
     this.cart.forEach(x => {
@@ -61,6 +69,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   nextStep() {
     this.cartService.order = this.order;
+    if (this.cart.length === 0) {
+      this.toastr.warning('To καλάθι σας είναι άδειο');
+      return;
+    }
     this.router.navigate(['/payment']);
   }
+
+
 }

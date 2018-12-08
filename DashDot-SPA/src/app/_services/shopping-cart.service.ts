@@ -110,13 +110,19 @@ export class ShoppingCartService {
   }
 
   updateItem(item: CartItem, i: number) {
-    this.updateCartItem(item).subscribe(res => {
-      this.cart[i] = res;
+    if (this.auth.loggedIn()) {
+      this.updateCartItem(item).subscribe(res => {
+        this.cart[i] = res;
+        this.cart = this.cart;
+        this.toastr.success('Το προιόν επεξεργάστηκε επιτυχώς');
+      }, error => {
+        this.toastr.error(error);
+      });
+    } else {
+      this.cart[i] = item;
       this.cart = this.cart;
-      this.toastr.success('Το προιόν επεξεργάστηκε επιτυχώς');
-    }, error => {
-      this.toastr.error(error);
-    });
+      this.localstorage.setShoppingCart(this.cart);
+    }
   }
 
   getCartOnDemand() {
@@ -164,8 +170,8 @@ export class ShoppingCartService {
   }
 
   // ORDERS
-  placeOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.baseUrl + 'shoppingCart/place/order', order);
+  placeOrder(order: Order): Observable<string> {
+    return this.http.post<string>(this.baseUrl + 'shoppingCart/place/order', order);
   }
 
 }

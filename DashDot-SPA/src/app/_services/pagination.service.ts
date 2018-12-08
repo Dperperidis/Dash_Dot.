@@ -28,6 +28,16 @@ export class PaginationService {
     pages.splice(0, startPage);
     return pages;
   }
+
+  parseEnum(_enum): Array<any> {
+    const map: { id: number; name: string }[] = [];
+    for (const n in _enum) {
+      if (typeof _enum[n] === 'number') {
+        map.push({ id: <any>_enum[n], name: n });
+      }
+    }
+    return map;
+  }
 }
 
 export class PagedData<T> {

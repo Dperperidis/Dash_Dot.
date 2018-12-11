@@ -5,9 +5,9 @@
             <div class="thumbnail text-center">
                 <img src="../../assets/images/das2.jpg" alt="first slide" style="display: block; width: 100%; max-height:600px; ">
                 <div class="caption">
-                    <h2 class="display-3 centered animated fadeInRight">dāsh&dot.</h2>
+                    <h2 class="display-3 centered animated fadeInDown">dāsh&dot.</h2>
                     <h4 class="display-5 ">New Collection</h4>
-                    <button class="btn btn-warning">Shop now</button>
+                    <button class="btn btn-warning" [routerLink]="['/accessories','slim-fit']">Shop now</button>
                 </div>
             </div>
         </slide>
@@ -22,8 +22,8 @@
     <br>
     <div class="row">
         <div class="col-md-6 ">
-            <div class="thumbnail text-center">
-                <img class=""  src="../../assets/images/das_21_newq.jpg">
+            <div class="thumbnail text-center animated fadeInLeft">
+                <img class=""  src="../../assets/images/frontpage-shirts.jpg">
                 <div class="caption">
                     <h3 class="centered">Πουκάμισα</h3>
                     <button class="btn btn-warning" [routerLink]="['/accessories','slim-fit']">Shop now</button>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center animated fadeInRight">
                 <img class=""  src="../../assets/images/das23.jpg">
                 <div class="caption">
                     <h3 class="centered">Ζακέτες</h3>
@@ -43,7 +43,7 @@
     <br>
     <div class="row ">
         <div class="col-md-4 ">
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center animated fadeInUp">
                 <img class=""  src="../../assets/images/bow-tie.jpg">
                 <div class="caption">
                     <h3 class="centered" >Παπιγιόν</h3>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center animated fadeInUp">
                 <img class="" src="../../assets/images/das14.jpg">
 
                 <div class="caption">
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center animated fadeInUp">
                 <img class=""  src="../../assets/images/belt_2.jpg" style="height:400px">
                 <div class="caption">
                     <h3 class="centered">Ζώνες</h3>
@@ -71,9 +71,10 @@
             </div>
         </div>
     </div>
+    <hr class="bg-white">
 </div>
 <br>
-<div class="jumbotron bg-light text-center text-white" style="color:white!important">
+<!-- <div class="jumbotron bg-light text-center text-white" style="color:white!important">
     <h1 class="display-3">dāsh&dot.</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
         featured content or information.</p>
@@ -82,19 +83,19 @@
     <p class="lead">
         <a class="btn btn-warning btn-lg" href="#" role="button">Learn more</a>
     </p>
-</div>
+</div> -->
 <div class="container">
     <div class="container blog text-white">
         <div class="row featurette">
             <div class="col-md-7 text-center">
                 <h2 class="featurette-heading text-left">Ανακαλύψτε την νέα μας κολεξιόν_.</h2>
                 <p class="text-warning text-left h3">It'll blow your mind.</p><br><br>
-                <p class="lead text-left">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
+                <!-- <p class="lead text-left">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
                     porta
                     felis
                     euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,
                     tellus
-                    ac cursus commodo.</p>
+                    ac cursus commodo.</p> -->
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="../../assets/images/das16.jpg"
@@ -104,14 +105,14 @@
         <hr class="bg-white">
         <div class="row featurette">
             <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading text-right">Stay warm @ dāsh&dot_. </h2>
+                <h2 class="featurette-heading text-right">Stay warm @ <strong style="font-family: sans-serif">dāsh&dot_.</strong>  </h2>
                 <p class="text-warning text-right h3">See for yourself.</p> <br><br>
-                <p class="lead  text-right">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
+                <!-- <p class="lead  text-right">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
                     porta
                     felis
                     euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,
                     tellus
-                    ac cursus commodo.</p>
+                    ac cursus commodo.</p> -->
             </div>
             <div class="col-md-5 order-md-1">
                 <img class="featurette-image img-fluid mx-auto" src="../../assets/images/daswarm.jpg"
@@ -121,14 +122,14 @@
         <hr class="bg-white">
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading text-left"> mix & max με τα αξεσουάρ μας_.!</h2>
+                <h2 class="featurette-heading text-left"> mix & max με τα αξεσουάρ μας_!</h2>
                 <p class="text-warning h3 text-left">Checkmate.</p>
-                <p class="lead text-left">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
+                <!-- <p class="lead text-left">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
                     porta
                     felis
                     euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,
                     tellus
-                    ac cursus commodo.</p>
+                    ac cursus commodo.</p> -->
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-fluid mx-auto" src="https://i.pinimg.com/564x/67/45/48/67454899289216bdf349232f89f46755.jpg"

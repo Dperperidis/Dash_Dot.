@@ -1,3 +1,7 @@
 .custom-radio .custom-control-input:checked~.custom-control-label::before {
     background: #f39b12;
 }
+
+.text-dark{
+    color:black!important;
+}

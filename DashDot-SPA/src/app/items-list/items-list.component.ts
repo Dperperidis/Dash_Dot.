@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ProductService } from '../_services/product.service';
 import { Product } from '../_models/product';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
@@ -31,10 +31,12 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const x = parseInt(sessionStorage.getItem('scroll'))
+    window.scrollTo(0, x);
     if (sessionStorage.getItem('page')) {
       this.pageSize = parseInt(sessionStorage.getItem('page'));
       sessionStorage.removeItem('page');
-    }  
+    }
     this.route.params.subscribe((param: Params) => {
       const id = param['id'];
       switch (id) {
@@ -72,6 +74,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
+
           });
           break;
         case "sweaters":
@@ -81,6 +85,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
+
           });
           break;
         case "sweater-Vests":
@@ -90,6 +96,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
+
           });
           break;
         case "vests":
@@ -99,6 +107,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.product = res.result;
             this.tempProduct = res.result;
             sessionStorage.removeItem('order');
+            sessionStorage.removeItem('size');
           });
           break;
         case "ties":
@@ -121,6 +130,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
             this.category = false;
             sessionStorage.removeItem('size');
             sessionStorage.removeItem('order');
+
           });
           break;
         case "cuff-links":
@@ -194,13 +204,21 @@ export class ItemsListComponent implements OnInit, OnDestroy {
         default:
           break;
       }
-  
+
     });
-   
+
   }
 
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+    const y = window.pageYOffset.toString();
+    sessionStorage.setItem('scroll', y);
+  }
+
+
   sortByItems(item) {
-    this.pageSize = item -16 ;
+    this.pageSize = item - 16;
     this.loadMore();
   }
 

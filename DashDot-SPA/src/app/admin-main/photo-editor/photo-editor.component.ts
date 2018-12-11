@@ -60,7 +60,7 @@ export class PhotoEditorComponent implements OnInit {
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
+      maxFileSize: 20 * 1024 * 1024
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
@@ -74,7 +74,6 @@ export class PhotoEditorComponent implements OnInit {
           productId: res.productId
         };
         this.photos.push(photo);
-
       }
     };
   }

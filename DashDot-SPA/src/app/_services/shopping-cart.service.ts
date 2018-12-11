@@ -71,14 +71,14 @@ export class ShoppingCartService {
         this.addCartItem(item).subscribe(res => {
           this.cart.push(res);
           this.cart = this.cart;
-          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας με επιτυχία.');
+          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.');
         }, error => {
           this.toastr.error(error);
         });
       } else {
         this.cart.push(item);
         this.cart = this.cart;
-        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας με επιτυχία.');
+        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.');
         this.localstorage.setShoppingCart(this.cart);
       }
     }

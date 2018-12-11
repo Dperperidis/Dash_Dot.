@@ -3,8 +3,9 @@
   <div class="thumbnail text-center mt-4 d-none d-lg-block">
     <img src="../../assets/images/item-list.png" alt="first slide" style="display: block; ">
     <div class="caption">
-      <h2 class="display-3 centered animated fadeInRight">In style with <span style="font-family:sans-serif"></span>
-        dāsh&dot.</h2>
+      <h2 class="display-3 centered animated fadeInRight text-white">In style with 
+        <strong style="font-family:sans-serif">dāsh&dot.</strong>
+        </h2>
     </div>
   </div>
   <div class="d-flex justify-content-between mt-4">
@@ -19,7 +20,7 @@
               <i class="fa fa-th text-white"></i>
             </button>
           </div>
-          <input type="text" class="form-control bg-transparent text-white border-0" value="Εμφάνιση" readonly style="width:100px">
+          <input type="text" class="form-control bg-transparent text-white border-0" value="Εμφάνιση" readonly style="width:100px; font-size: 17px;">
         </div>
       </form>
     </div>
@@ -77,20 +78,20 @@
   </div>
   <hr class="bg-white">
   <div class="row" *ngIf="box">
-    <div class="col-lg-3 col-sm-6 col-md-6" *ngFor="let product of product">
+    <div class="col-lg-3 col-sm-6 col-md-6 animated fadeIn" *ngFor="let product of product">
       <a [routerLink]="['/product',product.seoUrl]">
         <div class="card text-center p-3 shadow-lg">
           <div class="ribbon" *ngIf="product.discount>0"><span>Sales</span></div>
-          <img class="card-img-top img-fluid" src="{{product.photoUrl}} " alt="Card image cap">
-          <h6 class="card-text font-weight-bold mt-3">{{product.title}}</h6>
-          <hr class="bg-white">
+          <img class="card-img-top img-fluid" src="{{product.photoUrl  || '../../../../assets/images/emptyimg.jpg'}} ">
+          <h5 class="card-text font-weight-bold mt-3">{{product.title}}</h5>       
           <div class="card-body text-center">
-            <h6>Κωδ: {{product.code}}</h6>
-            <h4 class="card-title">Τιμή:
-              <span class=" text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{
+            <h5>Κωδ: {{product.code}}</h5>
+            <hr class="bg-white">
+            <h4 class="">Τιμή:
+              <span class=" text-warning" *ngIf="product.discount>0">{{
                 (product.price - product.discount) |
                 currency:'EUR':symbol}} </span>
-              <span class="ml-2 " style="font-family:cursive" [ngClass]="{discount: product.discount>0}">{{
+              <span class="ml-2 " [ngClass]="{discount: product.discount>0}">{{
                 product.price |
                 currency:'EUR':symbol}} </span></h4>
           </div>
@@ -106,10 +107,10 @@
   <div class="row" *ngIf="list">
     <div class="featurette col-md-12" *ngFor="let product of product">
       <div class="row my-5">
-        <div class=" col-md-8 order-md-2">
+        <div class=" col-md-8 order-md-2  bg-white">
           <h4 class="card p-2">{{product.title}}</h4>
           <div class="ribbon" *ngIf="product.discount>0" style="width:75px; top:-12px; right: 8px;"><span style="width:75px; top:18px; right:-16px">Sales</span></div>
-          <h6 class="">Κωδ: {{product.code}}</h6>
+          <h5 class="">Κωδ: {{product.code}}</h5>
           <p class="">{{product.description}}</p>
           <h4 class="card-title">Τιμή:
             <span class="text-warning" style="font-family:cursive" *ngIf="product.discount>0">{{

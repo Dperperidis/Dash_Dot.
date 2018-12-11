@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { CartItem } from '../_models/shoppingcart';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { Location } from '@angular/common';
+
 
 
 @Component({
@@ -18,6 +20,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 export class ItemDetailsComponent implements OnInit, OnDestroy {
   private subscriptions = new Array<Subscription>();
+
   quantity = 1;
   size: string;
   product = new Product();
@@ -34,19 +37,29 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   sleeve = false;
   colors = [];
 
+
   constructor(private prodSettings: ProdSettingsService,
     private toastr: ToastrService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private cartService: ShoppingCartService) {
+    private cartService: ShoppingCartService,
+    private _location: Location) {
   }
 
   addToCart() {
-    const id = this.colors.find(x => x.title === this.color).id;
-    this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color, id);
+    if (this.color == '' || this.color == null || this.size == null && this.size == '') {
+      this.toastr.warning('Πρέπει να διαλέξετε μέγεθος και χρώμα για να γίνει η προσθήκη στο καλάθι_.');
+      return;
+    } else {
+      const id = this.colors.find(x => x.title === this.color).id;
+      this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color, id);
+    }
   }
 
+  backClicked() {
+    this._location.back();
+  }
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
@@ -58,7 +71,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       const y = this.colors.find(x => x.title == value);
       this.product.photoUrl = this.product.photos.find(x => x.colorPointer == y.id).url;
     }
-
   }
 
   ngOnInit() {
@@ -73,11 +85,11 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         return 0.5 - Math.random();
       });
     });
+
     window.scrollTo(0, 0);
     this.product = new Product();
     this.route.data.subscribe(data => {
       this.product = data["product"];
-      console.log(this.product);
       this.product.productSizes.sort((a, b) => a.sizeId > b.sizeId ? 1 : -1);
       switch (this.product.category) {
         case "Κασκόλ":
@@ -158,8 +170,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.productModal.photoUrl = imgUrl;
   }
 
-
-
   saveMessage() {
     this.message.code = this.product.code;
     this.productService.saveMessage(this.message).subscribe(res => {
@@ -169,8 +179,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       this.toastr.error(error);
     });
   }
-
-
 
 }
 

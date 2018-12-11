@@ -1,42 +1,41 @@
 <app-navbar></app-navbar>
 <app-checkout-steps [step]="3" ></app-checkout-steps>
 <div class="container pt-4 pb-5">
-  <div class="row text-white">
-    <div class="col-md-8">
+  <div class="row bg-white p-2 ">
+    <div class="col-md-8 text-dark ">
       <h4 class="mb-3">Στοιχεία Χρέωσης</h4>
-      <hr class="bg-white">
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between bg-transparent">
+        <li class="list-group-item d-flex justify-content-between">
           <div>
-            <h6 class="text-white">Ονοματεπώνυμο</h6>
+            <h6 class="text-dark">Ονοματεπώνυμο</h6>
           </div>
           <span class="text-muted">{{order.firstName}} {{order.lastName}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between bg-transparent">
+        <li class="list-group-item d-flex justify-content-between ">
           <div>
-            <h6 class="text-white">Email</h6>
+            <h6 class="text-dark">Email</h6>
           </div>
           <span class="text-muted">{{order.email}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between bg-transparent">
+        <li class="list-group-item d-flex justify-content-between ">
           <div>
-            <h6 class="text-white">Διεύθυνση</h6>
+            <h6 class="text-dark">Διεύθυνση</h6>
           </div>
           <span class="text-muted">{{order.address}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between bg-transparent">
+        <li class="list-group-item d-flex justify-content-between ">
           <div>
-            <h6 class="text-white">Πόλη</h6>
+            <h6 class="text-dark">Πόλη</h6>
           </div>
           <span class="text-muted">{{order.city}}</span>
         </li>
-        <li class="list-group-item d-flex justify-content-between bg-transparent">
+        <li class="list-group-item d-flex justify-content-between ">
           <div>
-            <h6 class="text-white">Περιοχή</h6>
+            <h6 class="text-dark">Περιοχή</h6>
           </div>
           <span class="text-muted">{{order.area}} {{order.postalCode}}</span>
         </li>
-        <li class="list-group-item d-flex bg-transparent">
+        <li class="list-group-item d-flex ">
           <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
         </li>
       </ul>

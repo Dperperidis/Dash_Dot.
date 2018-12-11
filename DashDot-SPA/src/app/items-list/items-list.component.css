@@ -41,10 +41,6 @@ img {
     opacity: 1;
 }
 
-h2 {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
 .order-md-1 img {
     transform: scale(1, 1);
     transition-duration: 500ms;
@@ -143,4 +139,9 @@ img {
 
 .col-md-6>a {
     text-decoration: none;
+}
+
+
+.featurette{
+    background-color:white!important;
 }

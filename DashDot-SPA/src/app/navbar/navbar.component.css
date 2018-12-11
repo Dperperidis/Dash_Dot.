@@ -52,7 +52,7 @@
 }
 
 .dropdown>a {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     padding: 0 1.50rem;
     color: rgb(255, 255, 255);
@@ -62,7 +62,7 @@
     color: rgb(0, 0, 0);
     text-align: center;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
     transition: color 0.2s linear;
 }
 
@@ -110,10 +110,10 @@
 }
 
 .sticky-top{
-    background-image: url('../../assets/images/365213_759c6.gif')
+    background-image: url('../../assets/images/365213_759c6.gif');
 }
 
-
 .navbar-collapse{
-    background-image: url('../../assets/images/365213_759c6.gif')
+    background-image: url('../../assets/images/365213_759c6.gif');
+    
 }

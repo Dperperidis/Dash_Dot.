@@ -20,10 +20,10 @@ th {
     width: 200px;
 }
 
-.width-50 {
-    /* width: 120px; */
-}
-
 .container {
     min-height: 442px;
+}
+
+.text-dark{
+    color:black!important
 }

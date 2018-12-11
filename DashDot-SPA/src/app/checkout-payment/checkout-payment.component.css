@@ -1,0 +1,8 @@
+.text-dark{
+    color:black!important;
+}
+
+.list-group-item{
+    border: 1px solid rgba(0, 0, 0, 0.185);
+}
+

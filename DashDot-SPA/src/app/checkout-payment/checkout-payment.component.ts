@@ -22,7 +22,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     }
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
-      if (this.cart.length === 0) { this.router.navigate(['/cart']); }
+      // if (this.cart.length === 0) { this.router.navigate(['/checkout']); }
     }));
     this.order = this.cartService.order;
   }
@@ -92,11 +92,20 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
 
   finalizeOrder() {
     this.cartService.placeOrder(this.order).subscribe(res => {
-      console.log(res);
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
+      this.router.navigate(['/finalize']);
     }, error => {
-      this.toastr.success(error);
+      this.toastr.error(error);
     });
+  }
+
+  paypalText() {
+    return 'Το PayPal αποτελεί έναν σύγχρονο και ασφαλή τρόπο συναλλαγών.' +
+      'Πατώντας το κουμπι της Paypal θα κατευθυνθείτε στο ασφαλές περιβάλλον του paypal για να ολοκληρώσετε τη συναλλαγή σας.';
+  }
+
+  codText() {
+    return 'Επιλέγατε να πληρώσετε με αντικαταβολή';
   }
 
 }

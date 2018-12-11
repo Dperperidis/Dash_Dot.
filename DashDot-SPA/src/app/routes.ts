@@ -46,7 +46,7 @@ export const routes: Routes = [
     { path: 'cart', component: ShoppingcartComponent },
     { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
     { path: 'payment', component: CheckoutPaymentComponent, canActivate: [AuthGuard] },
-    { path: 'invoice', component: CheckoutInvoiceComponent, canActivate: [AuthGuard] },
+    { path: 'finalize', component: CheckoutInvoiceComponent, canActivate: [AuthGuard] },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
     { path: 'company', component: CompanyComponent },
     { path: 'terms-of-use', component: UseTermsComponent },
@@ -71,7 +71,9 @@ export const routes: Routes = [
                     }, { path: '', component: AdminChartsComponent },
                     { path: 'product-settings', component: ProductSettingsComponent, resolve: { color: ColorListResolver } },
                     { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, },
-                    { path: 'orders', component: AdminOrdersComponent },
+                    { path: 'orders/:page/:pageSize/:status', component: AdminOrdersComponent },
+                    { path: 'orders/:page/:pageSize/:status/:order', component: AdminOrdersComponent },
+                    { path: 'orders/:page/:pageSize/:status/:order/:search', component: AdminOrdersComponent },
                     { path: 'order/:id', component: AdminOrderDetailsComponent }
                 ]
             },

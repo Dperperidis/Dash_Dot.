@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DashnDotApp.Helpers
 {
-    public class PagedList<T>: List<T>
+    public class PagedList<T> : List<T>
     {
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
@@ -36,6 +36,7 @@ namespace DashnDotApp.Helpers
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
         public string Search { get; set; }
+        public string Status { get; set; }
         public string Order { get; set; }
         public List<T> Rows { get; set; }
 

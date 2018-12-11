@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<app-checkout-steps [step]="3" ></app-checkout-steps>
+<app-checkout-steps [step]="3"></app-checkout-steps>
 <div class="container pt-4 pb-5">
   <div class="row bg-white p-2 ">
     <div class="col-md-8 text-dark ">
@@ -9,59 +9,71 @@
           <div>
             <h6 class="text-dark">Ονοματεπώνυμο</h6>
           </div>
-          <span class="text-muted">{{order.firstName}} {{order.lastName}}</span>
+          <span class="text-warning">{{order.firstName}} {{order.lastName}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between ">
           <div>
             <h6 class="text-dark">Email</h6>
           </div>
-          <span class="text-muted">{{order.email}}</span>
+          <span class="text-warning">{{order.email}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between ">
           <div>
             <h6 class="text-dark">Διεύθυνση</h6>
           </div>
-          <span class="text-muted">{{order.address}}</span>
+          <span class="text-warning">{{order.address}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between ">
           <div>
             <h6 class="text-dark">Πόλη</h6>
           </div>
-          <span class="text-muted">{{order.city}}</span>
+          <span class="text-warning">{{order.city}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between ">
           <div>
             <h6 class="text-dark">Περιοχή</h6>
           </div>
-          <span class="text-muted">{{order.area}} {{order.postalCode}}</span>
+          <span class="text-warning">{{order.area}} {{order.postalCode}}</span>
         </li>
+<<<<<<< HEAD
         <li class="list-group-item d-flex ">
           <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
+=======
+        <li class="list-group-item d-flex bg-transparent">
+          <button class="btn btn-warning btn-sm" [routerLink]="['/checkout']">Πίσω στα στοχεία πληρωμής</button>
+>>>>>>> d50bc2acff2f680865e024d5a4344206169de021
         </li>
       </ul>
-      <h4 class="mb-3">Τρόπος Πληρωμής</h4>
       <hr class="bg-white">
-      <p> {{ order.paymentMethod === 1 ? 'Κείμενο για paypal ' : 'Κείμενο για αντικαταβολή'}} </p>
+      <h4 class="mb-3">Στοιχεία Αποστολής</h4>
+      <p class="text-warning"> {{order.isPickUp ? 'Παραλαβή απο το ' + order.store : 'Αποστολή στον χώρο σας στην
+        παραπάνω διεύθυνση'}} </p>
+      <hr class="bg-white">
+      <h4 class="mb-3">Σχόλια Παραγγελίας</h4>
+      <p class="text-warning"> {{order.comments}} </p>
+      <hr class="bg-white">
+      <h4 class="mb-3">Τρόπος Πληρωμής</h4>
+      <p class="text-warning"> {{ order.paymentMethod === 1 ? paypalText() : codText()}} </p>
       <div id="paypal-button-container" *ngIf="order.paymentMethod === 1"></div>
-      <div class="btn btn-warning" (click)="finalizeOrder()" *ngIf="order.paymentMethod === 0">Επιβεβαίωση και ολοκλήρωση</div>
+      <div class="btn btn-warning" (click)="finalizeOrder()" *ngIf="order.paymentMethod === 0">Επιβεβαίωση και
+        ολοκλήρωση</div>
     </div>
     <div class="col-md-4">
       <h4 class="mb-3">Στοιχεία Πληρωμής</h4>
-      <hr class="bg-white">
       <ul class="list-group mb-3 bg-dark">
         <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
             <h6 class="text-white">Ποσότητα Προιόντων</h6>
           </div>
-          <span class="text-muted">{{countProducts()}}</span>
+          <span class="text-warning">{{countProducts()}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
             <h6 class="text-white">Συνολικό Κόστος</h6>
           </div>
-          <span class="text-muted">{{totalOfItems()}} &euro;</span>
+          <span class="text-warning">{{totalOfItems()}} &euro;</span>
         </li>
-        <li class="list-group-item d-flex bg-dark" >
+        <li class="list-group-item d-flex bg-dark">
           <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
         </li>
       </ul>

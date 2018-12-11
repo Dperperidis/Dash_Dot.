@@ -25,18 +25,23 @@
         </li>
       </ul>
     </div>
+<<<<<<< HEAD
     <div class="col-md-8 order-md-1 text-dark">
       <h4 class="mb-3">Διεύθυνση Χρέωσης</h4>
+=======
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Διεύθυνση Χρέωσης </h4>
+>>>>>>> d50bc2acff2f680865e024d5a4344206169de021
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="firstName">Όνομα</label>
+          <label for="firstName">Όνομα *</label>
           <input type="text" class="form-control" id="firstName" [(ngModel)]="order.firstName" required>
           <div class="invalid-feedback">
             Valid first name is required.
           </div>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="lastName">Επίθετο</label>
+          <label for="lastName">Επίθετο *</label>
           <input type="text" class="form-control" id="lastName" [(ngModel)]="order.lastName" required>
           <div class="invalid-feedback">
             Valid last name is required.
@@ -45,14 +50,14 @@
       </div>
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="email">Email</label>
+          <label for="email">Email *</label>
           <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
         </div>
         <div class="col-md-6">
-          <label for="email">Τηλέφωνο</label>
+          <label for="email">Τηλέφωνο *</label>
           <input type="text" class="form-control" id="mobile" [(ngModel)]="order.mobile">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
@@ -61,7 +66,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="address">Διεύθυνση</label>
+        <label for="address">Διεύθυνση *</label>
         <input type="text" class="form-control" id="address" [(ngModel)]="order.address" required>
         <div class="invalid-feedback">
           Please enter your shipping address.
@@ -69,26 +74,53 @@
       </div>
       <div class="row">
         <div class="col-md-5 mb-3">
-          <label for="country">Πόλη</label>
+          <label for="country">Πόλη *</label>
           <input type="text" class="form-control" id="city" [(ngModel)]="order.city" required>
           <div class="invalid-feedback">
             Please select a valid country.
           </div>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="state">Περιοχή</label>
+          <label for="state">Περιοχή *</label>
           <input type="text" class="form-control" id="state" [(ngModel)]="order.area" required>
           <div class="invalid-feedback">
             Please provide a valid state.
           </div>
         </div>
         <div class="col-md-3 mb-3">
-          <label for="zip">ΤΚ</label>
+          <label for="zip">ΤΚ *</label>
           <input type="text" class="form-control" id="zip" [(ngModel)]="order.postalCode" required>
           <div class="invalid-feedback">
             Zip code required.
           </div>
         </div>
+      </div>
+      <hr class="bg-white">
+      <h4 class="mb-3">Αποστολή</h4>
+      <div class="d-block my-3">
+        <div class="custom-control custom-radio mb-2">
+          <input [checked]="checkShippmanet(true)" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" (click)="order.isPickUp = true" for="credit">Παραλαβή απο το κατάστημα
+          </label>
+        </div>
+        <div class="form-group input-group-sm col-md-6 pl-0" *ngIf="order.isPickUp">
+          <select name="category" class="form-control" [(ngModel)]="order.store">
+            <option [value]="item.title" *ngFor="let item of stores">{{item.title}}</option>
+          </select>
+        </div>
+        <div class="custom-control custom-radio">
+          <input [checked]="checkShippmanet(false)" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" (click)="order.isPickUp = false" for="paypal">
+            <p class="mb-0"> Αποστολή στην παραπάνω διεύθυνση</p>
+            <p class="mb-0" *ngIf="!order.isPickUp"><small>(Η παραγγελία σας θα επιβαρυνθεί με επιπλέον 5 &euro; για
+                αποστολή εντός ελλάδος)</small></p>
+          </label>
+        </div>
+      </div>
+      <hr class="bg-white">
+      <h4 class="mb-3">Σχόλια Παραγγελίας</h4>
+      <div class="form-group">
+        <textarea class="form-control" [(ngModel)]="order.comments" rows="3"></textarea>
       </div>
       <hr class="bg-white">
       <h4 class="mb-3">Πληρωμή</h4>
@@ -103,6 +135,7 @@
         </div>
       </div>
       <hr class="bg-white">
+      <p>* Υποχρεωτικά πεδία</p>
       <button class="btn btn-warning btn-lg btn-block mb-3" (click)="nextStep()">Συνέχεια προς Πληρωμή</button>
     </div>
   </div>

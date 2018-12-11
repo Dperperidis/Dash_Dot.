@@ -8,7 +8,7 @@ namespace DashnDotApp.Model.Cart
     public class Order
     {
         public string Id { get; set; }
-
+        public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
 
         public string FirstName { get; set; }
@@ -30,6 +30,9 @@ namespace DashnDotApp.Model.Cart
         public virtual PaypalInformation PaypalInformation { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        public bool IsPickUp { get; set; }
+        public string Store { get; set; }
+        public string Comments { get; set; }
 
 
     }
@@ -39,7 +42,8 @@ namespace DashnDotApp.Model.Cart
         Pending, // Σε εξέλιξη
         Completed, // Ολοκληρωμένη
         Shipping, // Σε αποστολή
-        Canceled   // Ακυρωμένη
+        Canceled,   // Ακυρωμένη
+        All // Όλα
     }
 
     public enum PaymentMethod

@@ -14,14 +14,18 @@ export class Order {
     city: string;
     area: string;
     total: number;
+    isPickUp: boolean;
     orderItems: Array<OrderItem>;
     paypalInformationId: string;
     paypalInformation: PaypalInformation;
     orderStatus: OrderStatus;
     paymentMethod: PaymentMethod;
+    store: string;
+    comments: string;
     constructor() {
         this.orderItems = new Array<OrderItem>();
         this.paymentMethod = PaymentMethod.Cod;
+        this.isPickUp = true;
     }
 }
 
@@ -69,7 +73,8 @@ export enum OrderStatus {
     Pending, // Σε εξέλιξη
     Completed, // Ολοκληρωμένη
     Shipping, // Σε αποστολή
-    Canceled   // Ακυρωμένη
+    Canceled,   // Ακυρωμένη
+    All // ¨Ολα
 }
 
 export enum PaymentMethod {

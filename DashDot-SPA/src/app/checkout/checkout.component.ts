@@ -64,6 +64,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
+    total = this.order.isPickUp ? total : total + 3;
     return total;
   }
 

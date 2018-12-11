@@ -221,14 +221,20 @@ namespace DashnDotApp.Controllers
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
 
-                var cart = _ctx.Cart.Include(i => i.Product).Where(x => x.UserId == userId).ToList();
+                var cart = _ctx.Cart.AsNoTracking().Include(i => i.Product).Where(x => x.UserId == userId).ToList();
                 if (cart.Count == 0)
                 {
                     return BadRequest("To καλάθι σας είναι άδειο");
                 }
                 order.UserId = userId;
                 order.OrderStatus = OrderStatus.Pending;
-                order.OrderDate = DateTime.UtcNow;
+                order.OrderDate = DateTime.UtcNow;               
+                var total = cart.GetTotal();
+                total = order.IsPickUp ? total : total + 3;
+                if (total != order.Total)
+                {
+                    return BadRequest("Σφάλμα κατα την επαλήθευση των προιόντων σας.");
+                }
                 if (order.IsInValid())
                 {
                     return BadRequest("Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία");
@@ -248,14 +254,12 @@ namespace DashnDotApp.Controllers
 
                     order.OrderItems.Add(orderItem);
                 }
-
-                order.OrderNo = "DD" + (_ctx.Orders.OrderByDescending(x => x.Id).FirstOrDefault().Id);
                 // Removes All items from cart
                 _ctx.RemoveRange(cart);
                 var result = _ctx.Orders.Add(order);
                 _ctx.SaveChanges();
 
-                return Ok(result.Entity.Id);
+                return Ok(result.Entity);
             }
             catch (Exception ex)
             {

@@ -4,6 +4,7 @@ import { Product } from "./product";
 
 export class Order {
     id: string;
+    orderNo:number;
     orderDate: Date;
     firstName: string;
     lastName: string;

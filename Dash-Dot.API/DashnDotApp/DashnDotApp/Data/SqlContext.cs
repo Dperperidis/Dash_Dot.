@@ -45,6 +45,9 @@ namespace DashnDotApp.Data
             orderBuilder.Property(p => p.City).IsRequired();
             orderBuilder.Property(p => p.Area).IsRequired();
             orderBuilder.Property(p => p.OrderDate).IsRequired();
+
+            modelBuilder.HasSequence<int>("MySequence", schema: "orders").StartsAt(1000).IncrementsBy(1);
+            orderBuilder.Property(p => p.OrderNo).HasDefaultValueSql("NEXT VALUE FOR orders.MySequence");
             orderBuilder.HasMany(x => x.OrderItems)
                      .WithOne(x => x.Order)
                      .HasForeignKey(k => k.OrderId)

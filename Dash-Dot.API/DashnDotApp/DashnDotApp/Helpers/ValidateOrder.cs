@@ -18,9 +18,18 @@ namespace DashnDotApp.Helpers
                 string.IsNullOrEmpty(order.PostalCode) ||
                 string.IsNullOrEmpty(order.City) ||
                 string.IsNullOrEmpty(order.Area) ||
-                string.IsNullOrEmpty(order.OrderNo) ||
                 string.IsNullOrEmpty(order.UserId) ||
                 string.IsNullOrEmpty(order.PostalCode);
+        }
+
+        public static double GetTotal(this List<CartItem> items)
+        {
+            double total = 0;
+            items.ForEach(item =>
+            {
+                total = total + (item.Product.TotalCost * item.Quantity);
+            });
+            return total;
         }
     }
 }

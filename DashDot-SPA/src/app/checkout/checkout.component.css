@@ -1,7 +1,11 @@
-.custom-radio .custom-control-input:checked~.custom-control-label::before {
-    background: #f39b12;
+.custom-radio .custom-control-input:checked~.custom-control-label::before, .badge {
+    background: rgb(177, 125, 41) !important;
 }
 
-.text-dark{
-    color:black!important;
+.text-dark {
+    color: black !important;
+}
+
+.list-group-item {
+    border: 1px solid rgba(0, 0, 0, 0.17)!important;
 }

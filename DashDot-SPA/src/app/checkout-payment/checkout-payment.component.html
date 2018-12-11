@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <app-checkout-steps [step]="3"></app-checkout-steps>
-<div class="container pt-4 pb-5">
-  <div class="row bg-white p-2 ">
-    <div class="col-md-8 text-dark ">
-      <h4 class="mb-3">Στοιχεία Χρέωσης</h4>
+<div class="container mt-4">
+  <div class="row bg-white py-3">
+    <div class="col-md-8 ">
+      <h4 class="mb-3  text-dark">Στοιχεία Χρέωσης</h4>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between">
           <div>
@@ -54,8 +54,32 @@
         ολοκλήρωση</div>
     </div>
     <div class="col-md-4">
-      <h4 class="mb-3">Στοιχεία Πληρωμής</h4>
-      <ul class="list-group mb-3 bg-dark">
+      <h4 class="mb-3 text-dark">Στοιχεία Πληρωμής</h4>
+      <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between  lh-condensed" *ngFor="let it of cart">
+            <div>
+              <h6 class="my-0">{{it.product.title}}</h6>
+              <small class="text-muted">{{it.product.material}}</small>
+            </div>
+            <span class="">{{it.quantity}} x {{it.product.totalCost}} &euro;</span>
+          </li>
+          <li class="list-group-item  d-flex justify-content-between" *ngIf="!order.isPickUp">
+            <div>
+            <p class="mb-0">Έξοδα αποστολής</p>
+            <small class="text-muted">(χρέωση για όλη την ελλάδα)</small>
+          </div>
+            <strong>3 &euro;</strong>
+          </li>
+          <li class="list-group-item  d-flex justify-content-between">
+            <span>Σύνολο (EURO)</span>
+            <strong>{{totalOfItems()}} &euro;</strong>
+          </li>
+          <li class="list-group-item d-flex">
+            <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
+          </li>
+        </ul>
+
+      <!-- <ul class="list-group mb-3 bg-dark">
         <li class="list-group-item d-flex justify-content-between bg-dark">
           <div>
             <h6 class="text-white">Ποσότητα Προιόντων</h6>
@@ -71,7 +95,7 @@
         <li class="list-group-item d-flex bg-dark">
           <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </div>

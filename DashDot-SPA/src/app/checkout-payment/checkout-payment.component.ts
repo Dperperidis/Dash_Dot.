@@ -4,6 +4,7 @@ import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { CartItem, Order } from '../_models/shoppingcart';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { count } from 'rxjs/operators';
 declare var paypal: any;
 @Component({
   selector: 'app-checkout-payment',
@@ -75,6 +76,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
+    total = this.order.isPickUp ? total : total + 3;
     return total;
   }
 
@@ -91,6 +93,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   finalizeOrder() {
+    this.order.total = this.totalOfItems();
     this.cartService.placeOrder(this.order).subscribe(res => {
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
       this.router.navigate(['/finalize']);
@@ -105,7 +108,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   codText() {
-    return 'Επιλέγατε να πληρώσετε με αντικαταβολή';
+    return 'Επιλέξατε να πληρώσετε με αντικαταβολή';
   }
 
 }

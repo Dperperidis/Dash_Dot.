@@ -4,6 +4,7 @@ import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 import { ActivatedRoute } from '@angular/router';
+import { Material } from 'src/app/_models/material';
 
 @Component({
   selector: 'app-product-settings',
@@ -11,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-settings.component.css']
 })
 export class ProductSettingsComponent implements OnInit {
+  materialsArray: Material[];
+  material = new Material();
   size = new Size();
   colorNew = new Color();
   color: any;
@@ -31,16 +34,20 @@ export class ProductSettingsComponent implements OnInit {
       this.pagination = data['color'].pagination
     })
     this.color = '#ffffff';
-    this.prodSettings.getColors().subscribe(res=>{
+    this.prodSettings.getColors().subscribe(res => {
       this.colors = res;
+    })
+    this.prodSettings.getMaterial().subscribe(res => {
+      this.materialsArray = res;
+      console.log(res);
     })
   }
 
   filter(query: string) {
     this.filteredColors = query
       ? this.colors.filter(t =>
-          t.title.toLowerCase().includes(query.toLowerCase())
-        )
+        t.title.toLowerCase().includes(query.toLowerCase())
+      )
       : this.colorsTemp;
   }
 
@@ -69,6 +76,31 @@ export class ProductSettingsComponent implements OnInit {
     });
   }
 
+  addMaterial() {
+    this.prodSettings.addMaterial(this.material).subscribe(res => {
+      this.materialsArray.push(res);
+      console.log(res);
+      this.toastr.success('Η εισαγωγή σύνθεσης έγινε επιτυχώς');
+      this.material = new Material();
+    }, error => {
+      this.toastr.warning(error);
+    });
+  }
+
+  deleteMaterial(id) {
+    if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε την σύνθεση;")) {
+      const i = this.materialsArray.findIndex(x => x.id === id);
+      this.materialsArray.splice(i, 1);
+      this.prodSettings.deleteMaterial(id).subscribe(res => {
+        this.toastr.success('Η διαγραφή έγινε επιτυχώς');
+      });
+    }
+    // tslint:disable-next-line:no-unused-expression
+    error => {
+      this.toastr.error(error);
+    };
+  }
+
   updateColor() {
     this.prodSettings.updateColor(this.colorNew).subscribe(res => {
       this.toastr.success("H αλλαγή έγινε επιτυχώς");
@@ -87,7 +119,7 @@ export class ProductSettingsComponent implements OnInit {
   }
 
   deleteColor(id) {
-    if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε το προϊόν;")) {
+    if (window.confirm("Είστε σίγουρος/η οτι θέλετε να διαγράψετε το χρώμα;")) {
       const i = this.filteredColors.findIndex(x => x.id === id);
       this.prodSettings.deleteColor(id).subscribe(res => {
         this.filteredColors.splice(i, 1);
@@ -98,11 +130,11 @@ export class ProductSettingsComponent implements OnInit {
       this.toastr.error(error);
     };
   }
+
   editColor(i: number) {
     this.colorNew.id = this.filteredColors[i].id;
     this.colorNew.rgb = this.filteredColors[i].rgb;
     this.colorNew.title = this.filteredColors[i].title;
-
   }
 
   pageChanged(event: any): void {

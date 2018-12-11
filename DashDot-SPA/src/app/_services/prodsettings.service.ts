@@ -6,6 +6,7 @@ import { Color, Size, ProductSize } from "../_models/product";
 import { PaginatedResult } from "../_models/pagination";
 import { map } from "rxjs/operators";
 import { Photo } from "../_models/photo";
+import { Material } from "../_models/material";
 
 @Injectable({
     providedIn: "root"
@@ -20,6 +21,18 @@ export class ProdSettingsService {
         return this.http.post<Color>(this.baseUrl + '/sizescolors/addColor', color);
     }
 
+    addMaterial(material: Material): Observable<Material> {
+          return this.http.post<Material>(this.baseUrl + '/sizescolors/addMaterial', material);
+    }
+
+    getMaterial() : Observable<Material[]>{
+        return this.http.get<Material[]>(this.baseUrl+ '/sizescolors/getMaterial');
+    }
+
+
+    deleteMaterial(id: number): Observable<Material> {
+        return this.http.delete<Material>(this.baseUrl + '/sizescolors/deleteMaterial/'+ id);
+    }
     updateColor(color: Color): Observable<Color> {
         return this.http.post<Color>(this.baseUrl + '/sizescolors/updateColor', color);
     }

@@ -38,8 +38,6 @@ namespace DashnDotApp.Model
             Created = DateTime.Now;
         }
 
-
-
     }
 
     public class ProductSize
@@ -81,4 +79,5 @@ namespace DashnDotApp.Model
         public string Title { get; set; }
         public string RGB { get; set; }
     }
+
 }

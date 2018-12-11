@@ -14,6 +14,7 @@ namespace DashnDotApp.Data
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Color> Color { get; set; }
         public DbSet<Size> Size { get; set; }
+        public DbSet<Material> MaterialTitle { get; set; }
         public DbSet<ProductSizeColor> ProductSizeColors { get; set; }
         public DbSet<CustMessage> Messages { get; set; }
 

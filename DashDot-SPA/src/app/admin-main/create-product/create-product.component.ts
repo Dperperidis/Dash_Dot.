@@ -8,6 +8,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Material } from 'src/app/_models/material';
 
 @Component({
   selector: 'app-create-product',
@@ -21,6 +22,7 @@ export class CreateProductComponent implements OnInit {
   productSize: ProductSize;
   productSizeColor: ProductSizeColor;
   tempColor: any[];
+  materialArray: Material[];
 
   modalRef: BsModalRef;
 
@@ -58,6 +60,9 @@ export class CreateProductComponent implements OnInit {
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
     });
+    this.prodSettings.getMaterial().subscribe(res => {
+      this.materialArray = res;
+    })
   }
 
   openModal(template: TemplateRef<any>) {

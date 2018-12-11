@@ -67,19 +67,9 @@
                 <div class="col-md-3">
                   <h4>Σύνθεση</h4>
                   <select name="material" class="form-control" id="exampleSelect1" [(ngModel)]="product.material">
-                      <option>100% Cotton</option>
-                      <option>80% Cotton-20% Polyester</option>
-                      <option>95% Cotton-5% Lycra</option>
-                      <option>70% Cotton-30% Polyester</option>
-                      <option>50% Cotton-50% Acrylic</option>
-                      <option>40% Wool-60% Acrylic</option>
-                      <option>100% Linnen</option>
-                      <option>100% Δέρμα</option>
-                      <option>100% Polyester</option>
-                      <option>100% Acrylic</option> 
-                      <option>Ασημένιο</option>
-                      <option>Δερμάτινο</option>
-                      <option>Ξύλινο</option>
+                    <option value=""></option>
+                      <option *ngFor="let mat of materialArray" value="{{mat.materialTitle}}">{{mat.materialTitle}}</option>
+                
                   </select>
                 </div>
                 <div class="col-md-2">

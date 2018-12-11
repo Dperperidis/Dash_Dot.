@@ -189,9 +189,57 @@ namespace DashnDotApp.Controllers
             }
         }
 
-      
+        [Authorize]
+        [Route("addMaterial")]
+        [HttpPost]
+        public IActionResult AddMaterial([FromBody]Material material)
+        {
+            try
+            {
+                var result = _ctx.MaterialTitle.Add(material);
+                _ctx.SaveChanges();
+                return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not add material");
+            }
+        }
+
+        [Authorize]
+        [Route("deleteMaterial/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteMaterial(int id)
+        {
+            try
+            {
+                var result = _ctx.MaterialTitle.Find(id);
+                var temp = _ctx.MaterialTitle.Remove(result);
+                _ctx.SaveChanges();
+                return Ok(temp.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not delete material");
+            }
+        }
+
+        [Authorize]
+        [Route("getMaterial")]
+        [HttpGet]
+        public IActionResult GetMaterial()
+        {
+            try
+            {
+                var result = _ctx.MaterialTitle.ToList().OrderBy(x=>x.MaterialTitle);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Could not load materials");
+            }
+        }
 
     }
+ }
 
-  
-}

@@ -9,6 +9,7 @@ import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ProdSettingsService } from 'src/app/_services/prodsettings.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Material } from 'src/app/_models/material';
 
 @Component({
   selector: 'app-edit-product',
@@ -24,6 +25,7 @@ export class EditProductComponent implements OnInit {
       $event.returnValue = true;
     }
   }
+  materialArray: Material[];
   photoUrl: string;
   sizes = new Array<Size>();
   colors = new Array<Color>();
@@ -55,6 +57,9 @@ export class EditProductComponent implements OnInit {
     this.prodSettings.getSizes().subscribe(res => {
       this.sizes = res;
     });
+    this.prodSettings.getMaterial().subscribe(res=>{
+      this.materialArray = res;
+    })
   }
 
   updateMainPhoto(photoUrl) {

@@ -10,7 +10,7 @@ import { ProdSettingsService } from "../_services/prodsettings.service";
 @Injectable()
 export class ColorListResolver implements Resolve<Color[]> {
     pageNumber = 1;
-    pageSize = 8;
+    pageSize = 10;
 
     constructor(
         private router: Router,

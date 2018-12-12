@@ -4,7 +4,7 @@ import { Product } from "./product";
 
 export class Order {
     id: string;
-    orderNo:number;
+    orderNo: number;
     orderDate: Date;
     firstName: string;
     lastName: string;
@@ -45,15 +45,18 @@ export class OrderItem {
 
 export class PaypalInformation {
     cartId: string;
-    createTime: Date;
     paypalId: string;
+    createTime: Date;
     intent: string;
+    state: string;
     total: string;
     currency: string;
     payerEmail: string;
     payerName: string;
     payerLastname: string;
     payerMiddleName: string;
+    payerCity: string;
+    payerAddress: string;
     payerId: string;
 }
 

@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 return event;
             }),
             catchError(error => {
-                const err = (typeof error.error) === 'string' ? error.error :
+                const err = (typeof error) === 'string' ? error :
                     'Σφάλμα εφαρμογής. Προσπάθησε πάλι σε λίγο.';
                 return throwError(err);
             }),

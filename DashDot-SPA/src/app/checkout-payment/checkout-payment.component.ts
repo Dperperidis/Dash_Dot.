@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
-import { CartItem, Order } from '../_models/shoppingcart';
+import { CartItem, Order, PaypalInformation } from '../_models/shoppingcart';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { count } from 'rxjs/operators';
@@ -30,6 +30,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngAfterViewInit() {
     if (this.order.paymentMethod === 1) {
+      const vm = this;
       paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -56,15 +57,15 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
           return actions.payment.create({
             payment: {
               transactions: [
-                { amount: { total: '0.01', currency: 'EUR' } }
+                { amount: { total: vm.order.total, currency: 'EUR' } }
               ]
             }
           });
         },
         onAuthorize: function (data, actions) {
           return actions.payment.execute()
-            .then(function (res) {
-              console.log(res);
+            .then((res) => {
+              vm.setPaypalInfo(res);
             });
         }
       }, '#paypal-button-container');
@@ -88,6 +89,26 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     return total;
   }
 
+  setPaypalInfo(info: any) {
+    const pp = new PaypalInformation();
+    pp.payerId = info.payer.payer_info.payer_id;
+    pp.payerEmail = info.payer.payer_info.email;
+    pp.payerName = info.payer.payer_info.first_name;
+    pp.payerMiddleName = info.payer.payer_info.middle_name;
+    pp.payerLastname = info.payer.payer_info.last_name;
+    pp.payerAddress = info.payer.payer_info.shipping_address.line1;
+    pp.payerCity = info.payer.payer_info.shipping_address.city;
+    pp.currency = info.transactions[0].amount.currency;
+    pp.paypalId = info.id;
+    pp.cartId = info.cart;
+    pp.createTime = info.create_time;
+    pp.intent = info.intent;
+    pp.state = info.state;
+    pp.total = info.transactions[0].amount.total;
+    this.order.paypalInformation = pp;
+    this.finalizeOrder();
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
@@ -97,6 +118,8 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.cartService.placeOrder(this.order).subscribe(res => {
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
       this.router.navigate(['/finalize']);
+      this.cartService.order = new Order();
+      this.cartService.clearcCartItemsFromLS();
     }, error => {
       this.toastr.error(error);
     });

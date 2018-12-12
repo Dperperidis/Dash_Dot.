@@ -221,6 +221,11 @@ namespace DashnDotApp.Controllers
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
 
+                if (order.PaypalInformation.State == "Approved")
+                {
+
+                }
+
                 var cart = _ctx.Cart.AsNoTracking().Include(i => i.Product).Where(x => x.UserId == userId).ToList();
                 if (cart.Count == 0)
                 {
@@ -228,7 +233,7 @@ namespace DashnDotApp.Controllers
                 }
                 order.UserId = userId;
                 order.OrderStatus = OrderStatus.Pending;
-                order.OrderDate = DateTime.UtcNow;               
+                order.OrderDate = DateTime.UtcNow;
                 var total = cart.GetTotal();
                 total = order.IsPickUp ? total : total + 3;
                 if (total != order.Total)
@@ -260,6 +265,41 @@ namespace DashnDotApp.Controllers
                 _ctx.SaveChanges();
 
                 return Ok(result.Entity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+        [Route("verify/order")]
+        [HttpPost]
+        public IActionResult VerifyOrder([FromBody] Order order)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                var cart = _ctx.Cart.AsNoTracking().Include(i => i.Product).Where(x => x.UserId == userId).ToList();
+                if (cart.Count == 0)
+                {
+                    return BadRequest("To καλάθι σας είναι άδειο");
+                }
+                order.UserId = userId;
+                order.OrderStatus = OrderStatus.Pending;
+                order.OrderDate = DateTime.UtcNow;
+                var total = cart.GetTotal();
+                total = order.IsPickUp ? total : total + 3;
+                if (total != order.Total)
+                {
+                    return BadRequest("Σφάλμα κατα την επαλήθευση των προιόντων σας.");
+                }
+                if (order.IsInValid())
+                {
+                    return BadRequest("Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία");
+                }
+                return Ok(true);
             }
             catch (Exception ex)
             {

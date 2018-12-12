@@ -14,7 +14,7 @@ export class MessageListResolver implements Resolve<Message[]>{
 
     constructor(private adminService: AdminProductService,
         private router: Router,
-        private toastr: ToastrService){}
+        private toastr: ToastrService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Message[]> {
         return this.adminService.getMessages(this.pageNumber, this.pageSize).pipe(

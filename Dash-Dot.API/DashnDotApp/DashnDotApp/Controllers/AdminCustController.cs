@@ -5,6 +5,7 @@ using DashnDotApp.Helpers;
 using DashnDotApp.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,6 +80,24 @@ namespace DashnDotApp.Controllers
          
           
                 return Ok(messages);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Υπήρξε πρόβλημα");
+            }
+        }
+
+        [Authorize]
+        [Route("order/{id}")]
+        [HttpGet]
+        public IActionResult GetOrder(string id)
+        {
+            try
+            {
+                var order = _ctx.Orders.Include(i => i.OrderItems).Include(i => i.PaypalInformation).FirstOrDefault(x => x.Id == id);
+                
+                return Ok(order);
 
             }
             catch (Exception ex)

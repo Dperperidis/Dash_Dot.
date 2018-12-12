@@ -204,8 +204,6 @@ namespace DashnDotApp.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
 
         [Route("place/order/")]

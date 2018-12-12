@@ -23,7 +23,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     }
     this.subscriptions.push(this.cartService.cart$.subscribe(value => {
       this.cart = value;
-      // if (this.cart.length === 0) { this.router.navigate(['/checkout']); }
+      if (this.cart.length === 0) { this.router.navigate(['/checkout']); }
     }));
     this.order = this.cartService.order;
   }

@@ -74,6 +74,7 @@ import { AuthInterceptor } from './_resolvers/auth.interceptor';
 import { AdminOrdersComponent } from './admin-main/admin-orders/admin-orders.component';
 import { AdminOrderDetailsComponent } from './admin-main/admin-order-details/admin-order-details.component';
 import { PaginationService } from './_services/pagination.service';
+import { MyOrdersComponent } from './user/my-orders/my-orders.component';
 
 registerLocaleData(localeDe);
 export function tokenGetter() {
@@ -123,6 +124,7 @@ export function tokenGetter() {
     CustomerServiceComponent,
     AdminOrdersComponent,
     AdminOrderDetailsComponent,
+    MyOrdersComponent,
 
   ],
   imports: [

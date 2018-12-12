@@ -33,6 +33,7 @@ import { CustomerServiceComponent } from "./footer/customer-service/customer-ser
 import { AuthGuard } from './_guards/auth.guard';
 import { AdminOrdersComponent } from "./admin-main/admin-orders/admin-orders.component";
 import { AdminOrderDetailsComponent } from "./admin-main/admin-order-details/admin-order-details.component";
+import { MyOrdersComponent } from './user/my-orders/my-orders.component';
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -48,6 +49,7 @@ export const routes: Routes = [
     { path: 'payment', component: CheckoutPaymentComponent, canActivate: [AuthGuard] },
     { path: 'finalize', component: CheckoutInvoiceComponent, canActivate: [AuthGuard] },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
+    { path: 'orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
     { path: 'company', component: CompanyComponent },
     { path: 'terms-of-use', component: UseTermsComponent },
     { path: 'gdrp', component: GdprComponent },
@@ -71,9 +73,7 @@ export const routes: Routes = [
                     }, { path: '', component: AdminChartsComponent },
                     { path: 'product-settings', component: ProductSettingsComponent, resolve: { color: ColorListResolver } },
                     { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, },
-                    { path: 'orders/:page/:pageSize/:status', component: AdminOrdersComponent },
                     { path: 'orders/:page/:pageSize/:status/:order', component: AdminOrdersComponent },
-                    { path: 'orders/:page/:pageSize/:status/:order/:search', component: AdminOrdersComponent },
                     { path: 'order/:id', component: AdminOrderDetailsComponent }
                 ]
             },

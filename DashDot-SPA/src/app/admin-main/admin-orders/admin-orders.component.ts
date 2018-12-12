@@ -37,7 +37,6 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
         this.pagedData.page = +params['page'];
         this.pagedData.order = params['order'];
         this.pagedData.status = params['status'].trim();
-        console.log(this.pagedData);
       }
     });
   }
@@ -51,7 +50,6 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     this.service.getOrders(this.pagedData.page, this.pagedData.pageSize, this.pagedData.order,
       this.pagedData.status, this.pagedData.search).subscribe((res) => {
         this.setUrl();
-        console.log('count me');
         this.pagedData = res;
         this.pagedData.page = searching ? 1 : this.pagedData.page;
         this.pagedData.totalPages = Math.ceil(res.totalRows / this.pagedData.pageSize);
@@ -94,10 +92,13 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   }
 
   setOrder(order: number) {
-    if (order === 0) {
-      this.pagedData.order = this.pagedData.order === 'title' ? 'title_desc' : 'title';
-    } else {
-      this.pagedData.order = this.pagedData.order === 'date' ? 'date_desc' : 'date';
+    switch (order) {
+      case 0:
+        this.pagedData.order = this.pagedData.order === 'lastname' ? 'lastname_desc' : 'lastname';
+        break;
+      case 1:
+        this.pagedData.order = this.pagedData.order === 'order_date' ? 'order_date_desc' : 'order_date';
+        break;
     }
     this.getOrders();
   }

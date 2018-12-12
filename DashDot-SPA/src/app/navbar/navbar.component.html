@@ -123,7 +123,7 @@
             Καλωσήρθες {{ authService.decodedToken?.firstName | titlecase}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="cursor: pointer">
-            <a class="dropdown-item">
+            <a class="dropdown-item" [routerLink]="['/orders']">
               <i class="fa fa-barcode mr-1"></i>Οι παραγγελίες μου</a>
             <a class="dropdown-item">
               <i class="fa fa-heart mr-1"></i>Τα αγαπημένα μου</a>

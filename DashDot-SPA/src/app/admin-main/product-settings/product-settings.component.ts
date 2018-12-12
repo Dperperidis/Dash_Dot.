@@ -31,7 +31,7 @@ export class ProductSettingsComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.filteredColors = data['color'].result;
       this.colorsTemp = data['color'].result;
-      this.pagination = data['color'].pagination
+      this.pagination = data['color'].pagination;
     })
     this.color = '#ffffff';
     this.prodSettings.getColors().subscribe(res => {
@@ -39,7 +39,6 @@ export class ProductSettingsComponent implements OnInit {
     })
     this.prodSettings.getMaterial().subscribe(res => {
       this.materialsArray = res;
-      console.log(res);
     })
   }
 
@@ -79,7 +78,6 @@ export class ProductSettingsComponent implements OnInit {
   addMaterial() {
     this.prodSettings.addMaterial(this.material).subscribe(res => {
       this.materialsArray.push(res);
-      console.log(res);
       this.toastr.success('Η εισαγωγή σύνθεσης έγινε επιτυχώς');
       this.material = new Material();
     }, error => {

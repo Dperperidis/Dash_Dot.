@@ -44,7 +44,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   clearCart() {
     if (this.cartService.cart.length > 0) {
-      console.log(this.authService.loggedIn());
       if (this.authService.loggedIn()) {
         this.cartService.clearCart().subscribe(res => {
           this.cartService.cart = new Array<CartItem>();

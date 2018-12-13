@@ -22,16 +22,16 @@ export class ProdSettingsService {
     }
 
     addMaterial(material: Material): Observable<Material> {
-          return this.http.post<Material>(this.baseUrl + '/sizescolors/addMaterial', material);
+        return this.http.post<Material>(this.baseUrl + '/sizescolors/addMaterial', material);
     }
 
-    getMaterial() : Observable<Material[]>{
-        return this.http.get<Material[]>(this.baseUrl+ '/sizescolors/getMaterial');
+    getMaterial(): Observable<Material[]> {
+        return this.http.get<Material[]>(this.baseUrl + '/sizescolors/getMaterial');
     }
 
 
     deleteMaterial(id: number): Observable<Material> {
-        return this.http.delete<Material>(this.baseUrl + '/sizescolors/deleteMaterial/'+ id);
+        return this.http.delete<Material>(this.baseUrl + '/sizescolors/deleteMaterial/' + id);
     }
     updateColor(color: Color): Observable<Color> {
         return this.http.post<Color>(this.baseUrl + '/sizescolors/updateColor', color);

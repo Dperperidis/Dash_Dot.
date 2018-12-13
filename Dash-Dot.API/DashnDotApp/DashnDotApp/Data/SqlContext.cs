@@ -31,7 +31,7 @@ namespace DashnDotApp.Data
             ppBuilder.Property(p => p.Total).IsRequired();
             ppBuilder.Property(p => p.PayerName).IsRequired();
             ppBuilder.Property(p => p.PayerLastname).IsRequired();
-            ppBuilder.Property(p => p.Amount).IsRequired();
+            ppBuilder.Property(p => p.Total).IsRequired();
 
             var orderBuilder = modelBuilder.Entity<Order>();
             orderBuilder.HasKey(k => k.Id);

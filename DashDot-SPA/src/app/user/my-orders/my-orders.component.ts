@@ -7,11 +7,11 @@ import { Order, OrderStatus } from 'src/app/_models/shoppingcart';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-admin-orders',
-  templateUrl: './admin-orders.component.html',
-  styleUrls: ['./admin-orders.component.css']
+  selector: 'app-my-orders',
+  templateUrl: './my-orders.component.html',
+  styleUrls: ['./my-orders.component.css']
 })
-export class AdminOrdersComponent implements OnInit, OnDestroy {
+export class MyOrdersComponent implements OnInit, OnDestroy {
   private sub: any;
   pagedData = new PagedData<Order>();
   prefs: any;
@@ -35,8 +35,6 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       if (params) {
         this.pagedData.pageSize = +params['pageSize'];
         this.pagedData.page = +params['page'];
-        this.pagedData.order = params['order'];
-        this.pagedData.status = params['status'].trim();
       }
     });
   }
@@ -47,24 +45,22 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
 
   getOrders(searching: boolean = false) {
     this.spinner.show();
-    this.service.getOrders(this.pagedData.page, this.pagedData.pageSize, this.pagedData.order,
-      this.pagedData.status, this.pagedData.search).subscribe((res) => {
-        this.setUrl();
-        this.pagedData = res;
-        this.pagedData.page = searching ? 1 : this.pagedData.page;
-        this.pagedData.totalPages = Math.ceil(res.totalRows / this.pagedData.pageSize);
-        this.pagedData.pages = this.pagerService.getPages(this.pagedData.totalPages, this.pagedData.page);
-        this.pagedData.search = '';
-        this.spinner.hide();
-      }, error => {
-        this.spinner.hide();
-        this.toastr.error(error);
-      });
+    this.service.getUserOrders(this.pagedData.page, this.pagedData.pageSize).subscribe((res) => {
+      this.setUrl();
+      this.pagedData = res;
+      this.pagedData.page = searching ? 1 : this.pagedData.page;
+      this.pagedData.totalPages = Math.ceil(res.totalRows / this.pagedData.pageSize);
+      this.pagedData.pages = this.pagerService.getPages(this.pagedData.totalPages, this.pagedData.page);
+      this.pagedData.search = '';
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      this.toastr.error(error);
+    });
   }
 
   setUrl() {
-    this.location.go(`/admin/main/orders/${this.pagedData.page}/${this.pagedData.pageSize}/` +
-      `${this.pagedData.status}/${this.pagedData.order}/${this.pagedData.search}`);
+    this.location.go(`/orders/${this.pagedData.page}/${this.pagedData.pageSize}`);
   }
 
   setPage(p: number) {
@@ -91,18 +87,6 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     this.getOrders();
   }
 
-  setOrder(order: number) {
-    switch (order) {
-      case 0:
-        this.pagedData.order = this.pagedData.order === 'lastname' ? 'lastname_desc' : 'lastname';
-        break;
-      case 1:
-        this.pagedData.order = this.pagedData.order === 'order_date' ? 'order_date_desc' : 'order_date';
-        break;
-    }
-    this.getOrders();
-  }
-
   firstPage() {
     if (this.pagedData.page === 1) {
       return;
@@ -124,6 +108,10 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       default:
         return 'badge-secondary';
     }
+  }
+
+  getTotalItems(o: Order) {
+    return o.orderItems.length;
   }
 
   getOrderStatus(s: number) {
@@ -148,5 +136,4 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     this.pagedData.page = this.pagedData.totalPages;
     this.getOrders();
   }
-
 }

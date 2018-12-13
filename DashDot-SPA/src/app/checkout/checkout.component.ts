@@ -69,12 +69,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   nextStep() {
+    this.order.total = this.totalOfItems();
     this.cartService.order = this.order;
     if (this.cart.length === 0) {
       this.toastr.warning('To καλάθι σας είναι άδειο');
       return;
     }
-    this.router.navigate(['/payment']);
+    this.cartService.verifyOrder(this.order).subscribe(res => {
+      if (res) {
+        this.router.navigate(['/payment']);
+      }
+    }, error => {
+      this.toastr.error(error);
+    });
+
   }
 
 

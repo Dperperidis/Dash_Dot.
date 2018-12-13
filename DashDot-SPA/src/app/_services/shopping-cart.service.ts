@@ -131,13 +131,13 @@ export class ShoppingCartService {
     if (this.cart.length > 0) {
       this.syncCarts(this.cart).subscribe(res => {
         this.cart = res;
+        this.localstorage.removeCartFromStorage();
       }, error => {
         this.toastr.error(error);
       });
     } else {
       this.getUserCart().subscribe(res => {
         this.cart = res;
-        console.log(res);
       }, error => {
         this.toastr.error(error);
       });
@@ -161,7 +161,7 @@ export class ShoppingCartService {
     return this.http.get<Array<CartItem>>(this.baseUrl + 'shoppingCart/get/cart');
   }
   // Remove the selected item from the cart
-  removeCartItem(itemId: number): Observable<any> {
+  private removeCartItem(itemId: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'shoppingCart/remove/cart/item/' + itemId);
   }
   // Delete All cart Items
@@ -172,6 +172,10 @@ export class ShoppingCartService {
   // ORDERS
   placeOrder(order: Order): Observable<string> {
     return this.http.post<string>(this.baseUrl + 'shoppingCart/place/order', order);
+  }
+
+  verifyOrder(order: Order): Observable<true> {
+    return this.http.post<true>(this.baseUrl + 'shoppingCart/verify/order', order);
   }
 
 }

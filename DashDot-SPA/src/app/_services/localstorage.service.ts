@@ -15,8 +15,13 @@ export class LocalStorageService {
         // if (shoppingcart.created) {  }
         return shoppingcart;
     }
+
     setShoppingCart(cart: Array<CartItem>) {
         localStorage.setItem('shoppingcart', JSON.stringify(cart));
+    }
+
+    removeCartFromStorage() {
+        localStorage.removeItem('shoppingcart');
     }
 
 

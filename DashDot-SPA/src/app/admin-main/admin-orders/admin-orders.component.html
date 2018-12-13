@@ -32,8 +32,23 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Ημ/νια</th>
-          <th>Ονοματεπώνυμο</th>
+          <th>
+            <a class="text-info pointer" (click)="setOrder(1)">
+              Ημ/νια
+              <span class="icon">
+                <i class="fa" [ngClass]="{'fa-caret-up': pagedData.order == 'order_date' , 'fa-caret-down': pagedData.order == 'order_date_desc'}"></i>
+              </span>
+            </a>
+          </th>
+          <th>
+            <a class="text-info pointer" (click)="setOrder(0)">
+              Επώνυμο
+              <span class="icon">
+                <i class="fa" [ngClass]="{'fa-caret-up': pagedData.order == 'lastname' , 'fa-caret-down': pagedData.order == 'lastname_desc'}"></i>
+              </span>
+            </a>
+          </th>
+          <th>Όνομα</th>
           <th>Τηλέφωνο</th>
           <th>Ποσό</th>
           <th>Τροπος Πληρωμής</th>
@@ -45,7 +60,8 @@
         <tr *ngFor="let order of pagedData.rows;let i = index">
           <th>{{i + 1}}</th>
           <td>{{order.orderDate | date :'dd-MM-yyyy'}}</td>
-          <td>{{order.lastName}} {{order.firstName}}</td>
+          <td>{{order.lastName}} </td>
+          <td> {{order.firstName}}</td>
           <td>{{order.mobile}}</td>
           <td>{{order.total}} &euro;</td>
           <td>
@@ -58,7 +74,6 @@
             </span>
           </td>
           <td>
-            <a class="btn btn-danger mr-2 btn-sm text-white" (click)="cancelOrder(i)">ακύρωση</a>
             <a class="btn btn-info btn-sm text-white" [routerLink]="['/admin','main','order',order.id]">προβολή</a>
           </td>
         </tr>

@@ -25,7 +25,6 @@ export class AdminpageComponent implements OnInit {
       if (this.authService.decodedToken.isAdmin == 'True') {
         this.router.navigate(["/admin/main"]);
       }
-      console.log(this.authService.decodedToken.isAdmin)
     }
   }
 

@@ -1,3 +1,180 @@
-<p>
-  admin-order-details works!
-</p>
+<div *ngIf="order">
+  <div class="row">
+    <div class="col-lg-{{order.paymentMethod == 0 ? '12' : '8'}}">
+      <h4 class="mt-4">Παραγγελία {{order.orderNo}}</h4>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{order.lastName}} {{order.firstName}}</h5>
+          <div class="row border-bottom">
+            <label class="col-sm-2 col-form-label pb-0">Ημ/νια:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.orderDate | date:'dd-MM-yyyy, HH:mm'}}</span>
+            </div>
+            <label class="col-sm-2 col-form-label pb-0">Κατάστημα:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.store}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-2 col-form-label pb-0">Email:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.email}}</span>
+            </div>
+            <label class="col-sm-2 col-form-label pb-0">Κινητό:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.mobile}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-2 col-form-label pb-0">Διεύθυνση:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.address}}</span>
+            </div>
+            <label class="col-sm-2 col-form-label pb-0">Παραλαβή:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext ">
+                <span class="badge  {{order.isPickUp ? 'badge-info':'badge-warning'}}">{{order.isPickUp ? 'Παραλαβή
+                  απο κατάστημα':'Παράδοση στην Διεύθυνση του'}}</span>
+              </span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-2 col-form-label pb-0">Περιοχή:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.area}} {{order.postalCode}}</span>
+            </div>
+            <label class="col-sm-2 col-form-label pb-0">Κατάσταση:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="">
+                <select class=" custom-select" [(ngModel)]="order.orderStatus">
+                  <option *ngFor="let os of orderStatus;" [value]="os.id">{{os.name}}</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-2 col-form-label pb-0">Πόλη:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.city}}</span>
+            </div>
+            <label class="col-sm-2 col-form-label pb-0">Πληρωμή:</label>
+            <div class="col-sm-4 pb-0">
+              <span class="form-control-plaintext ">
+                <span class="badge {{order.paymentMethod == 0 ? 'badge-info':'badge-warning'}}">{{order.paymentMethod
+                  == 0
+                  ? 'Αντικαταβολή' : 'Paypal'}}</span>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label pb-0">Σχολια:</label>
+            <div class="col-sm-10 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.comments}}</span>
+            </div>
+          </div><br>
+          <span class="pull-right">
+            <a class="btn btn-outline-dark mr-2" [routerLink]="['/admin','main','orders','1','10','All','lastname']">Πίσω
+              στις παρραγελίες</a>
+            <a class="btn btn-outline-success btn-outline" (click)="changeStatus()">Αποθήκευση</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4" *ngIf="order.paymentMethod == 1">
+      <h4 class="mt-4">PayPal Information</h4>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{order.paypalInformation.paypalId}}</h5>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Ημερομηνία:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.createTime|date:'medium'}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Όνομα:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.payerName}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Επίθετο:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.payerLastname}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Email:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.payerEmail}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Διεύθυνση:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.payerAddress}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Πόλη:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.payerCity}}</span>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <label class="col-sm-4 col-form-label pb-0">Ποσό:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext  text-info"> {{order.paypalInformation.total}} &euro;</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-4 col-form-label pb-0">Κατάσταση:</label>
+            <div class="col-sm-8 pb-0">
+              <span class="form-control-plaintext {{order.paypalInformation.state == 'approved' ? 'text-success':''}}">
+                {{order.paypalInformation.state}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <h4 class="mt-2">Προιόντα</h4>
+      <div class="card">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Τίτλος</th>
+              <th>Κωδικός</th>
+              <th>Χρώμα</th>
+              <th>Μέγεθος</th>
+              <th>Ποσότητα</th>
+              <th>Κόστος Μον</th>
+              <th>Κατηγορία</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of order.orderItems;let i = index">
+              <th>{{i + 1}}</th>
+              <td>{{item.title}}</td>
+              <td>{{item.code}}</td>
+              <td>{{item.color}}</td>
+              <td>{{item.size}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.price}} &euro;</td>
+              <td>{{item.category}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ctm-container" *ngIf="!order">
+  <div class="loader-ctm">
+    <div class="box-ctm"></div>
+    <div class="box-ctm"></div>
+    <div class="box-ctm"></div>
+    <div class="box-ctm"></div>
+  </div>
+</div>

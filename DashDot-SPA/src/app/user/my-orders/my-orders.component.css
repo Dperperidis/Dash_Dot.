@@ -1,3 +1,12 @@
+.is-active {
+    background-color: white!important;
+    color: #2b3e50!important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .badge {
     font-size: 100%
 }
@@ -11,13 +20,4 @@ a.page-link {
 a.page-link:hover {
     background-color: #222d34;
     color: white;
-}
-
-.is-active {
-    background-color: white!important;
-    color: #2b3e50!important;
-}
-
-.pointer {
-    cursor: pointer;
 }

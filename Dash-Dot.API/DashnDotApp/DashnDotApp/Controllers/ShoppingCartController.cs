@@ -219,7 +219,7 @@ namespace DashnDotApp.Controllers
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
 
-                if (order.PaymentMethod == PaymentMethod.Paypal &&  order.PaypalInformation.State != "Approved")
+                if (order.PaymentMethod == PaymentMethod.Paypal && order.PaypalInformation.State.ToLowerInvariant() != "approved")
                 {
                     return BadRequest("H Πληρωμή δεν εγκρίθηκε");
                 }
@@ -310,7 +310,7 @@ namespace DashnDotApp.Controllers
 
         [Route("orders/{page}/{pageSize}/{order?}/{status?}/{search?}")]
         [HttpGet]
-        public IActionResult PlaceOrder(int page, int pageSize, string order = "", string status = "", string search = "")
+        public IActionResult GetOrdersForAdmin(int page, int pageSize, string order = "", string status = "", string search = "")
         {
             try
             {
@@ -383,5 +383,60 @@ namespace DashnDotApp.Controllers
 
 
         }
+
+        [Route("user/orders/{page}/{pageSize}")]
+        [HttpGet]
+        public IActionResult GetOrdersForUser(int page, int pageSize)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                var query = from obj in _ctx.Orders.Include(i => i.OrderItems).Where(x => x.UserId == userId) select obj;
+
+                query = query.OrderByDescending(s => s.OrderDate);
+
+                var rows = query.Count();
+                var result = query.AsNoTracking()
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                var pages = new PagedData<Order>();
+                pages.Page = page;
+                pages.Rows = result;
+                pages.TotalRows = rows;
+                pages.PageSize = pageSize;
+
+                return Ok(pages);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
+        [Route("set/status/{id}/{status}")]
+        [HttpPost]
+        public IActionResult VerifyOrder(string id, OrderStatus status)
+        {
+            try
+            {
+                var order = _ctx.Orders.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                order.OrderStatus = status;
+                _ctx.Orders.Update(order);
+                _ctx.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
     }
+
 }

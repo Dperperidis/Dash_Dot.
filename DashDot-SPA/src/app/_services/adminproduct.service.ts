@@ -7,7 +7,7 @@ import { Message } from "../_models/message";
 import { PaginatedResult } from "../_models/pagination";
 import { map } from "rxjs/operators";
 import { Photo } from "../_models/photo";
-import { Order } from "../_models/shoppingcart";
+import { Order, OrderStatus } from "../_models/shoppingcart";
 
 @Injectable({
     providedIn: "root"
@@ -98,7 +98,15 @@ export class AdminProductService {
         return this.http.get<any>(`${this.baseUrl}shoppingcart/orders/${page}/${pageSize}/${order}/${status}/${search}`);
     }
 
+    getUserOrders(page: number, pageSize: number): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}shoppingcart/user/orders/${page}/${pageSize}`);
+    }
+
     getOrder(id: string): Observable<Order> {
         return this.http.get<Order>(`${this.baseUrl}admincust/order/${id}`);
+    }
+
+    changeOrderStatus(id: string, status: OrderStatus): Observable<any> {
+        return this.http.post<Order>(`${this.baseUrl}shoppingcart/set/status/${id}/${status}`, {});
     }
 }

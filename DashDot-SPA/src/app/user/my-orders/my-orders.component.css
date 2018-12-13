@@ -1,0 +1,23 @@
+.is-active {
+    background-color: white!important;
+    color: #2b3e50!important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.badge {
+    font-size: 100%
+}
+
+a.page-link {
+    background-color: #2C3E50;
+    color: white;
+    border: 1px solid #2C3E50;
+}
+
+a.page-link:hover {
+    background-color: #222d34;
+    color: white;
+}

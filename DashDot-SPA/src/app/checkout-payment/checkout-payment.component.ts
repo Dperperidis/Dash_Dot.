@@ -57,7 +57,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
           return actions.payment.create({
             payment: {
               transactions: [
-                { amount: { total: vm.order.total, currency: 'EUR' } }
+                { amount: { total: '0.01', currency: 'EUR' } }
               ]
             }
           });
@@ -106,6 +106,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     pp.state = info.state;
     pp.total = info.transactions[0].amount.total;
     this.order.paypalInformation = pp;
+    console.log(info);
     this.finalizeOrder();
   }
 

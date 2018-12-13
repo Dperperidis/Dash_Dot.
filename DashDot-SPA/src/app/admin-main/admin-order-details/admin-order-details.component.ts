@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdminProductService } from 'src/app/_services/adminproduct.service';
-import { Order } from 'src/app/_models/shoppingcart';
+import { Order, OrderStatus } from 'src/app/_models/shoppingcart';
 import { ToastrService } from 'ngx-toastr';
+import { PaginationService } from 'src/app/_services/pagination.service';
 
 @Component({
   selector: 'app-admin-order-details',
@@ -11,13 +12,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminOrderDetailsComponent implements OnInit {
   order: Order;
+  orderStatus: any;
   constructor(
     private route: ActivatedRoute,
+    private pagerService: PaginationService,
     private service: AdminProductService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit() {
+    this.orderStatus = this.pagerService.parseEnum(OrderStatus);
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.getOrder(params['id']);
@@ -31,6 +35,14 @@ export class AdminOrderDetailsComponent implements OnInit {
       this.order = res;
     }, error => {
 
+    });
+  }
+
+  changeStatus() {
+    this.service.changeOrderStatus(this.order.id, this.order.orderStatus).subscribe(res => {
+      this.toastr.success('H παραγγελία αποθηκεύτηκε επιτυχώς');
+    }, error => {
+      this.toastr.error(error);
     });
   }
 

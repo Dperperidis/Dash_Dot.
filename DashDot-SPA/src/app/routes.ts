@@ -49,7 +49,7 @@ export const routes: Routes = [
     { path: 'payment', component: CheckoutPaymentComponent, canActivate: [AuthGuard] },
     { path: 'finalize', component: CheckoutInvoiceComponent, canActivate: [AuthGuard] },
     { path: 'account', component: MainAccountComponent, resolve: { user: MemberEditResolver } },
-    { path: 'orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+    { path: 'orders/:page/:pageSize', component: MyOrdersComponent, canActivate: [AuthGuard] },
     { path: 'company', component: CompanyComponent },
     { path: 'terms-of-use', component: UseTermsComponent },
     { path: 'gdrp', component: GdprComponent },

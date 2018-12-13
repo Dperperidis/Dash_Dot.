@@ -89,10 +89,10 @@
     .mt-5 {
         margin-top: 0 !important;
     }
-    .row>.dropdown:hover .dropdown-menu {
+    /* .row>.dropdown:hover .dropdown-menu {
         margin-left: 0 !important;
         width: 500px;
-    }
+    } */
     .dropdown-menu>a {
         color: rgb(0, 0, 0);
         text-align: center;

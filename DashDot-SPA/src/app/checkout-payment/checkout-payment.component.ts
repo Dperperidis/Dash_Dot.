@@ -128,7 +128,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
 
   paypalText() {
     return 'Το PayPal αποτελεί έναν σύγχρονο και ασφαλή τρόπο συναλλαγών.' +
-      'Πατώντας το κουμπι της Paypal θα κατευθυνθείτε στο ασφαλές περιβάλλον του paypal για να ολοκληρώσετε τη συναλλαγή σας.';
+      'Πατώντας το κουμπί της Paypal θα κατευθυνθείτε στο ασφαλές περιβάλλον του paypal για να ολοκληρώσετε τη συναλλαγή σας.';
   }
 
   codText() {

@@ -19,7 +19,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   user: User;
   order = new Order();
   stores = [
-    { title: "Κατάστημα Ιλίον" },
+    { title: "" },
+    { title: "Κατάστημα Ιλίου" },
+    { title: "Κατάστημα Χαλανδρίου" },
+    { title: "Κατάστημα Παγκρατίου" },
+    { title: "Κατάστημα Κολωνακίου" },
+    { title: "Κατάστημα Πειραιά" },
+    { title: "Κατάστημα Νέας Σμύρνης" },
+    { title: "Κατάστημα Περιστερίου" },
     { title: "Κατάστημα Πάτρας" }
   ];
   constructor(private cartService: ShoppingCartService,

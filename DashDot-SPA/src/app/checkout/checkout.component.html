@@ -103,10 +103,10 @@
         <div class="custom-control custom-radio mb-2">
           <input [checked]="checkShippmanet(true)" type="radio" class="custom-control-input" required>
           <label class="custom-control-label" (click)="order.isPickUp = true;order.paymentMethod = 0" for="credit">Παραλαβή
-            απο το κατάστημα
+            από το κατάστημα
           </label>
         </div>
-        <div class="form-group input-group-sm col-md-6 pl-0" *ngIf="order.isPickUp">
+        <div class="form-group input-group-md col-md-6 pl-0" *ngIf="order.isPickUp">
           <select name="category" class="form-control" [(ngModel)]="order.store">
             <option [value]="item.title" *ngFor="let item of stores">{{item.title}}</option>
           </select>
@@ -135,9 +135,10 @@
         <div class="custom-control custom-radio" *ngIf="!order.isPickUp">
           <input [checked]="checkPaymentMethod(1)" type="radio" class="custom-control-input" required>
           <label class="custom-control-label" (click)="order.paymentMethod = 1" for="paypal">PayPal</label>
-          <p class="mb-0"><small>(H πληρωμή με Paypal δεν είναι διαθέσιμη για παραλαβή απο το κατάστημα) </small></p>
 
         </div>
+        <br>
+        <h6 class="mb-0" *ngIf="order.isPickUp">(H πληρωμή με Paypal δεν είναι διαθέσιμη για παραλαβή απο το κατάστημα) </h6>
       </div>
       <hr class="bg-white">
       <p>* Υποχρεωτικά πεδία</p>

@@ -11,7 +11,7 @@
               <span class="form-control-plaintext  text-info"> {{order.orderDate | date:'dd-MM-yyyy, HH:mm'}}</span>
             </div>
             <label class="col-sm-2 col-form-label pb-0">Κατάστημα:</label>
-            <div class="col-sm-4 pb-0">
+            <div class="col-sm-4 pb-0" *ngIf="order.isPickUp">
               <span class="form-control-plaintext  text-info"> {{order.store}}</span>
             </div>
           </div>
@@ -34,7 +34,7 @@
             <div class="col-sm-4 pb-0">
               <span class="form-control-plaintext ">
                 <span class="badge  {{order.isPickUp ? 'badge-info':'badge-warning'}}">{{order.isPickUp ? 'Παραλαβή
-                  απο κατάστημα':'Παράδοση στην Διεύθυνση του'}}</span>
+                  από κατάστημα':'Παράδοση στην διεύθυνση του'}}</span>
               </span>
             </div>
           </div>
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label pb-0">Σχολια:</label>
+            <label class="col-sm-2 col-form-label pb-0">Σχόλια:</label>
             <div class="col-sm-10 pb-0">
               <span class="form-control-plaintext  text-info"> {{order.comments}}</span>
             </div>

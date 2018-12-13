@@ -97,25 +97,25 @@
       </li>
       <li class="nav-item dropdown  mt-5">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
+          aria-expanded="false" >
           Χονδρική
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item " href="#"> Χονδρική</a>
+          <a class="dropdown-item" href="https://www.dashndotb2b.gr" target="_blank"> Χονδρική</a>
         </div>
       </li>
     </ul>
-    <div class="" style="list-style-type: none;">
-      <div class="row mr-5">
-        <li class="nav-item dropdown" *ngIf="!loggedIn()">
+    <div class="navbar-nav mr-5" style="list-style-type: none;">
+      <div class="row pull-right">
+        <div class="nav-item dropdown" *ngIf="!loggedIn()">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" [routerLink]="['/login']"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user mr-1"></i>Ο
             λογαριασμός
             μου
           </a>
-        </li>
-        <li class="nav-item dropdown" *ngIf="loggedIn()">
+        </div>
+        <div class="nav-item dropdown" *ngIf="loggedIn()">
 
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -125,8 +125,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="cursor: pointer">
             <a class="dropdown-item" [routerLink]="['/orders','1','10']">
               <i class="fa fa-barcode mr-1"></i>Οι παραγγελίες μου</a>
-            <a class="dropdown-item">
-              <i class="fa fa-heart mr-1"></i>Τα αγαπημένα μου</a>
+            <!-- <a class="dropdown-item">
+              <i class="fa fa-heart mr-1"></i>Τα αγαπημένα μου</a> -->
             <a class="dropdown-item" *ngIf="isAdmin && loggedIn()" [routerLink]="['/admin/main']">
               <i class="fa fa-user-secret mr-1" aria-hidden="true"></i>Admin Page</a>
             <a class="dropdown-item" [routerLink]="['/account']">
@@ -135,8 +135,8 @@
             <a class="dropdown-item" (click)="logout()">
               <i class="fa fa-sign-out"></i>Έξοδος</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
+        </div>
+        <div class="nav-item dropdown">
 
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -148,7 +148,7 @@
             <a class="dropdown-item" [routerLink]="['/cart']">Προβολή Καλαθιού</a>
             <a class="dropdown-item" (click)="clearCart()">Καθαρισμός Καλαθιού</a>          
           </div>
-        </li>
+        </div>
       </div>
     </div>
   </div>

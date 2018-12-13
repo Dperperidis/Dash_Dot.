@@ -120,3 +120,12 @@ h3{
   margin-top:8rem!important;
 }
 
+@media only screen and (max-width:375px) {
+  .caption {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+  }
+
+}

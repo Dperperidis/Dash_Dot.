@@ -31,8 +31,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const x = parseInt(sessionStorage.getItem('scroll'))
-    window.scrollTo(0, x);
+    // const x = parseInt(sessionStorage.getItem('scroll'))
+    // window.scrollTo(0, x);
     if (sessionStorage.getItem('page')) {
       this.pageSize = parseInt(sessionStorage.getItem('page'));
       sessionStorage.removeItem('page');
@@ -209,11 +209,11 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   }
 
-  @HostListener("window:scroll", ["$event"])
-  onWindowScroll() {
-    const y = window.pageYOffset.toString();
-    sessionStorage.setItem('scroll', y);
-  }
+  // @HostListener("window:scroll", ["$event"])
+  // onWindowScroll() {
+  //   const y = window.pageYOffset.toString();
+  //   sessionStorage.setItem('scroll', y);
+  // }
 
   sortByItems(item) {
     this.pageSize = item - 16;

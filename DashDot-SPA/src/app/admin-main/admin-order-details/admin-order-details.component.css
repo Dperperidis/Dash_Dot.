@@ -60,6 +60,10 @@
     animation-delay: -0.75s;
 }
 
+.badge {
+    font-size: 90%;
+}
+
 @-webkit-keyframes load {
     0% {
         opacity: 0;

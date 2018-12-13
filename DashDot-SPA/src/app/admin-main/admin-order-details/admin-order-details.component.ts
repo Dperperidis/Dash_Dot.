@@ -34,4 +34,34 @@ export class AdminOrderDetailsComponent implements OnInit {
     });
   }
 
+  styleForOrderStatus(s: number) {
+    switch (s) {
+      case 0:
+        return 'badge-warning';
+      case 1:
+        return 'badge-success';
+      case 2:
+        return 'badge-info';
+      case 3:
+        return 'badge-danger';
+      default:
+        return 'badge-secondary';
+    }
+  }
+
+  getOrderStatus(s: number) {
+    switch (s) {
+      case 0:
+        return 'Σε εξέλιξη';
+      case 1:
+        return 'Ολοκληρωμένο';
+      case 2:
+        return 'Απεστελμένο';
+      case 3:
+        return 'Ακυρωμένο';
+      default:
+        return 'Αγνωστο';
+    }
+  }
+
 }

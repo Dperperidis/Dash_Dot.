@@ -219,9 +219,9 @@ namespace DashnDotApp.Controllers
                     return BadRequest("Δεν βρέθηκε ο χρήστης");
                 }
 
-                if (order.PaypalInformation.State == "Approved")
+                if (order.PaymentMethod == PaymentMethod.Paypal &&  order.PaypalInformation.State != "Approved")
                 {
-
+                    return BadRequest("H Πληρωμή δεν εγκρίθηκε");
                 }
 
                 var cart = _ctx.Cart.AsNoTracking().Include(i => i.Product).Where(x => x.UserId == userId).ToList();

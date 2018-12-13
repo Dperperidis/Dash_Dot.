@@ -56,6 +56,9 @@ option>h5 {
     }
 }
 
+strong{
+    font-size:18px;
+}
 
 .price {
     font-size: 32px;

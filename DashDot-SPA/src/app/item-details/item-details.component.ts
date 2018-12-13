@@ -49,7 +49,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   addToCart() {
     if (this.color == '' || this.color == null || this.size == null && this.size == '') {
-      this.toastr.warning('Πρέπει να διαλέξετε μέγεθος και χρώμα για να γίνει η προσθήκη στο καλάθι_.');
+      this.toastr.warning('Πρέπει να διαλέξετε μέγεθος/χρώμα για να γίνει η προσθήκη στο καλάθι_.');
       return;
     } else {
       const id = this.colors.find(x => x.title === this.color).id;
@@ -85,7 +85,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         return 0.5 - Math.random();
       });
     });
-
     window.scrollTo(0, 0);
     this.product = new Product();
     this.route.data.subscribe(data => {
@@ -112,8 +111,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
           this.onChange('Default');
           break;
         case "Καζάκα":
-          this.checkProduct = false;
-          this.onChange('Default');
+          this.checkProduct = true;
+          this.sleeve = true;
           break;
         case "Φουλάρι":
           this.checkProduct = false;
@@ -138,6 +137,14 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         case "Clip Γραβάτας":
           this.checkProduct = false;
           this.onChange('Default');
+          break;
+        case "Ζακέτα":
+          break;
+        case "Γιλέκο":
+       
+          break;
+        case "Πουλόβερ":
+         
           break;
       }
       this.sizes = this.product.productSizes;

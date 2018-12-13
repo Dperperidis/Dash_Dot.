@@ -209,13 +209,11 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   }
 
-
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
     const y = window.pageYOffset.toString();
     sessionStorage.setItem('scroll', y);
   }
-
 
   sortByItems(item) {
     this.pageSize = item - 16;
@@ -223,7 +221,6 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
   }
 
   searchSleeve(value) {
@@ -234,7 +231,6 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     }
     this.sortBy(sessionStorage.getItem('order'));
     this.sortBySize(sessionStorage.getItem('size'));
-
   }
 
   loadMore() {
@@ -253,7 +249,6 @@ export class ItemsListComponent implements OnInit, OnDestroy {
         if (sessionStorage.getItem('value')) {
           this.searchSleeve(value);
         }
-
       });
     } else {
       this.productService.getProductsByCategory(id, this.pageNumber, this.pageSize).subscribe(res => {

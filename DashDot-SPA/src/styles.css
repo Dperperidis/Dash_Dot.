@@ -36,7 +36,7 @@ body {
     background-repeat: no-repeat;
     background-size:auto;
     background-attachment: fixed;
-
+    overflow-x: hidden;
 }
 
 /* Για ασπρο φοντο */

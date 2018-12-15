@@ -227,7 +227,25 @@ namespace DashnDotApp.Controllers
             }
         }
 
+        [Route("getOrderForAdmin")]
+        [HttpGet]
+        public IActionResult GetOrderForAdmin()
+        {
+            try
+            {
+
+                var result = _ctx.Orders.Where(x=>x.OrderDate >= DateTime.Now);
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
 
 
+            }
+        }
     }
+
 }

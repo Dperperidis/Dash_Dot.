@@ -31,7 +31,6 @@ export class AdminOrderDetailsComponent implements OnInit {
 
   getOrder(id: string) {
     this.service.getOrder(id).subscribe(res => {
-      console.log(res);
       this.order = res;
     }, error => {
 

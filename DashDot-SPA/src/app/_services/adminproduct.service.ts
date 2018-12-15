@@ -109,4 +109,8 @@ export class AdminProductService {
     changeOrderStatus(id: string, status: OrderStatus): Observable<any> {
         return this.http.post<Order>(`${this.baseUrl}shoppingcart/set/status/${id}/${status}`, {});
     }
+
+    getOrderForAdmin(): Observable<Order[]>{
+        return this.http.get<Order[]>(this.baseUrl +'products/getOrderForAdmin');
+    }
 }

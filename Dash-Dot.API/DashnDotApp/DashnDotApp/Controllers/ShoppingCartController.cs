@@ -46,7 +46,7 @@ namespace DashnDotApp.Controllers
                     if (exists == null)
                     {
                         cartItems[i].UserId = userId;
-                        cartItems[i].DateCreated = DateTime.UtcNow;
+                        cartItems[i].DateCreated = DateTime.Now;
                         cartItems[i].Product = null;
                         _ctx.Cart.Add(cartItems[i]);
 
@@ -286,7 +286,7 @@ namespace DashnDotApp.Controllers
                 }
                 order.UserId = userId;
                 order.OrderStatus = OrderStatus.Pending;
-                order.OrderDate = DateTime.UtcNow;
+                order.OrderDate = DateTime.Now;
                 var total = cart.GetTotal();
                 total = order.IsPickUp ? total : total + 3;
                 if (total != order.Total)

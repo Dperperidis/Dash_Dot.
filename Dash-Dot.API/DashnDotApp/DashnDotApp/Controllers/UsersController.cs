@@ -48,8 +48,10 @@ namespace DashnDotApp.Controllers
         {
             try
             {
+
                 var userFromRepo =  _repo.GetUser(userForUpdateDto.Id);
 
+               
               var temp =  _mapper.Map(userForUpdateDto, userFromRepo);
 
                 var result = _ctx.Users.Update(temp);

@@ -121,7 +121,7 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
       case 1:
         return 'Ολοκληρωμένο';
       case 2:
-        return 'Απεστελμένο';
+        return 'Απεσταλμένο';
       case 3:
         return 'Ακυρωμένο';
       default:

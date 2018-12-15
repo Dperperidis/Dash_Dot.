@@ -19,7 +19,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   user: User;
   order = new Order();
   stores = [
-    { title: "" },
     { title: "Κατάστημα Ιλίου" },
     { title: "Κατάστημα Χαλανδρίου" },
     { title: "Κατάστημα Παγκρατίου" },

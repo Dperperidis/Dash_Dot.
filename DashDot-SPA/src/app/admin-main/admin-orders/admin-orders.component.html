@@ -34,7 +34,7 @@
           <th>#</th>
           <th>
             <a class="text-info pointer" (click)="setOrder(1)">
-              Ημ/νια
+              Ημ/νία
               <span class="icon">
                 <i class="fa" [ngClass]="{'fa-caret-up': pagedData.order == 'order_date' , 'fa-caret-down': pagedData.order == 'order_date_desc'}"></i>
               </span>
@@ -49,9 +49,9 @@
             </a>
           </th>
           <th>Όνομα</th>
-          <th>Τηλέφωνο</th>
           <th>Ποσό</th>
           <th>Τρόπος Πληρωμής</th>
+          <th>Παράδοση</th>
           <th>Κατάσταση</th>
           <th>Ενέργειες</th>
         </tr>
@@ -62,12 +62,14 @@
           <td>{{order.orderDate | date :'dd-MM-yyyy'}}</td>
           <td>{{order.lastName}} </td>
           <td> {{order.firstName}}</td>
-          <td>{{order.mobile}}</td>
           <td>{{order.total}} &euro;</td>
           <td>
             <span class="badge {{order.paymentMethod == 0 ? 'badge-info':'badge-warning'}}">{{order.paymentMethod == 0
               ? 'Αντικαταβολή' : 'Paypal'}}</span>
           </td>
+          <td > 
+            <span class="badge {{order.isPickUp == true ? 'badge-primary':'badge-dark'}}">
+            {{order.isPickUp ? 'Κατάστημα': 'Courier'}}</span></td>
           <td>
             <span class="{{styleForOrderStatus(order.orderStatus)}} badge">
               {{getOrderStatus(order.orderStatus)}}

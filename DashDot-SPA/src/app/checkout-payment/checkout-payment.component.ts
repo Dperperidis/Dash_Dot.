@@ -15,6 +15,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   private subscriptions = new Array<Subscription>();
   cart = new Array<CartItem>();
   order = new Order();
+  gdp = false;
   constructor(private cartService: ShoppingCartService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {

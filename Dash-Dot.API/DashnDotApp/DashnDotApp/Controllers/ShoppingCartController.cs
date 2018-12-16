@@ -46,7 +46,7 @@ namespace DashnDotApp.Controllers
                     if (exists == null)
                     {
                         cartItems[i].UserId = userId;
-                        cartItems[i].DateCreated = DateTime.Now;
+                        cartItems[i].DateCreated = DateTime.UtcNow;
                         cartItems[i].Product = null;
                         _ctx.Cart.Add(cartItems[i]);
 

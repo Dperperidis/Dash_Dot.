@@ -53,12 +53,7 @@
     
       <button  class="btn btn-warning" (click)="finalizeOrder()" *ngIf="order.paymentMethod === 0" [disabled]="gdp==false">Επιβεβαίωση και
         ολοκλήρωση</button>
-        <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="gdp" (change)="gdp != gdp">
-              *( Πρέπει να συμφωνήσετε με τους <a [routerLink]="['/terms-of-use']">όρους χρήσης</a> για να συνεχίσετε_. )
-            </label>
-          </div>
+     
     </div>
     <div class="col-md-4">
       <h4 class="mb-3 text-dark">Στοιχεία Πληρωμής</h4>

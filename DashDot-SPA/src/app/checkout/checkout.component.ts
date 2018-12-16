@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   cart: Array<CartItem>;
   user: User;
   order = new Order();
+  gdp = false;
   stores = [
     { title: "Κατάστημα Ιλίου" },
     { title: "Κατάστημα Χαλανδρίου" },

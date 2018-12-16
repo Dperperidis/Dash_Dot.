@@ -15,7 +15,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   private subscriptions = new Array<Subscription>();
   cart = new Array<CartItem>();
   order = new Order();
-  gdp = false;
+
   constructor(private cartService: ShoppingCartService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
       const vm = this;
       paypal.Button.render({
         // Set your environment
-        env: 'sandbox', // sandbox | production
+        env: 'production', // sandbox | production
         style: {
           layout: 'horizontal',  // horizontal | vertical
           size: 'medium',    // medium | large | responsive
@@ -52,13 +52,13 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
         commit: true,
         client: {
           sandbox: 'AWpVYPhNs6uU0arnnioVy8viPalsSesYIKYMH9_gfgPGpkexulbvD5s4br9F_mKTXsP4BHiZG44EakYV',
-          production: '<insert production client id>'
+          production: 'AfNZkMqQlo2B7OvDX9kxal6gNDwTnC78gFgn-tWxmwdzPrZtbOFpYr1R5ScgFZ6N7BCYoHSPckMewutp'
         },
         payment: function (data, actions) {
           return actions.payment.create({
             payment: {
               transactions: [
-                { amount: { total: '0.01', currency: 'EUR' } }
+                { amount: { total: vm.order.total, currency: 'EUR' } }
               ]
             }
           });
@@ -119,9 +119,10 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.order.total = this.totalOfItems();
     this.cartService.placeOrder(this.order).subscribe(res => {
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
-      this.router.navigate(['/finalize']);
       this.cartService.order = new Order();
       this.cartService.clearcCartItemsFromLS();
+      this.cartService.cart = new Array<CartItem>();
+      this.router.navigate(['/finalize']);
     }, error => {
       this.toastr.error(error);
     });

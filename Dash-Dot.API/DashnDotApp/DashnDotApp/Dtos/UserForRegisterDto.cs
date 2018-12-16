@@ -25,7 +25,7 @@ namespace DashnDotApp.Dtos
 
         public UserForRegisterDto()
         {
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
         }
 
     }

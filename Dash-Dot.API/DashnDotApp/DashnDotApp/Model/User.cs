@@ -26,7 +26,7 @@ namespace DashnDotApp.Model
         public List<Order> Orders { get; set; }
         public User()
         {
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
             Cart = new List<CartItem>();
             Orders = new List<Order>();
         }

@@ -36,48 +36,45 @@
       <h4 class="mb-3">Διεύθυνση Χρέωσης</h4>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="firstName">Όνομα *</label>
-          <input type="text" class="form-control" id="firstName" [(ngModel)]="order.firstName" required>
-          <div class="invalid-feedback">
-            Valid first name is required.
-          </div>
+          <label for="firstName"  [ngClass]="{'text-danger': validShop}">Όνομα *</label>
+          <input type="text" class="form-control" id="firstName" [(ngModel)]="order.firstName" required (click)="validShop=false">
         </div>
         <div class="col-md-6 mb-3">
-          <label for="lastName">Επίθετο *</label>
-          <input type="text" class="form-control" id="lastName" [(ngModel)]="order.lastName" required>
+          <label for="lastName" [ngClass]="{'text-danger': validShop}">Επίθετο *</label>
+          <input type="text" class="form-control" id="lastName" [(ngModel)]="order.lastName" required (click)="validShop=false">
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row mb-3" >
         <div class="col-md-6">
-          <label for="email">Email *</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com">
+          <label for="email" [ngClass]="{'text-danger': validShop}">Email *</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com" (click)="validShop=false">
         </div>
         <div class="col-md-6">
-          <label for="email">Τηλέφωνο *</label>
-          <input type="text" class="form-control" id="mobile" [(ngModel)]="order.mobile">
+          <label for="email" [ngClass]="{'text-danger': validShop}">Τηλέφωνο *</label>
+          <input type="text" class="form-control" id="mobile" [(ngModel)]="order.mobile" (click)="validShop=false">
         </div>
       </div>
       <div class="mb-3">
-        <label for="address">Διεύθυνση *</label>
-        <input type="text" class="form-control" id="address" [(ngModel)]="order.address" required>
+        <label for="address" [ngClass]="{'text-danger': validShop}">Διεύθυνση *</label>
+        <input type="text" class="form-control" id="address" [(ngModel)]="order.address" required (click)="validShop=false">
       </div>
       <div class="row">
         <div class="col-md-5 mb-3">
-          <label for="country">Πόλη *</label>
-          <input type="text" class="form-control" id="city" [(ngModel)]="order.city" required>
+          <label for="country" [ngClass]="{'text-danger': validShop}">Πόλη *</label>
+          <input type="text" class="form-control" id="city" [(ngModel)]="order.city" required (click)="validShop=false">
         </div>
         <div class="col-md-4 mb-3">
-          <label for="state">Περιοχή *</label>
-          <input type="text" class="form-control" id="state" [(ngModel)]="order.area" required>
+          <label for="state" [ngClass]="{'text-danger': validShop}">Περιοχή *</label>
+          <input type="text" class="form-control" id="state" [(ngModel)]="order.area" required (click)="validShop=false">
         </div>
         <div class="col-md-3 mb-3">
-          <label for="zip">ΤΚ *</label>
-          <input type="text" class="form-control" id="zip" [(ngModel)]="order.postalCode" required>
+          <label for="zip" [ngClass]="{'text-danger': validShop}">ΤΚ *</label>
+          <input type="text" class="form-control" id="zip" [(ngModel)]="order.postalCode" required (click)="validShop=false">
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-lg-12 pb-3">
-          <span>* Υποχρεωτικά πεδία</span>
+          <span [ngClass]="{'text-danger': validShop}">* Υποχρεωτικά πεδία</span>
         </div>
       </div>
       <hr class="bg-white">
@@ -112,18 +109,36 @@
       <hr class="bg-white">
       <h4 class="mb-3">Πληρωμή</h4>
       <div class="d-block my-3">
-        <div class="custom-control custom-radio">
+        <div class="custom-control custom-radio" *ngIf="order.isPickUp">
+          <input [checked]="checkPaymentMethod(0)" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" (click)="order.paymentMethod = 0" for="credit">Πληρωμή στο κατάστημα</label>
+          <br>
+          <small>(Μπορείτε να πληρώσετε με μετρητά ή κάρτα)</small>
+        </div>
+        <div class="custom-control custom-radio" *ngIf="!order.isPickUp">
           <input [checked]="checkPaymentMethod(0)" type="radio" class="custom-control-input" required>
           <label class="custom-control-label" (click)="order.paymentMethod = 0" for="credit">Αντικαταβολή </label>
         </div>
+        <br>
         <div class="custom-control custom-radio" *ngIf="!order.isPickUp">
           <input [checked]="checkPaymentMethod(1)" type="radio" class="custom-control-input" required>
           <label class="custom-control-label" (click)="order.paymentMethod = 1" for="paypal">PayPal</label>
-
+          <span class="ml-1"><img src="http://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Paypal-icon.png"
+              alt="" style="max-width:30px"></span>
         </div>
         <br>
-        <h6 class="mb-0" *ngIf="order.isPickUp">(H πληρωμή με Paypal δεν είναι διαθέσιμη για παραλαβή από το κατάστημα)
-        </h6>
+        <div class="custom-control custom-radio" *ngIf="order.isPickUp">
+          <input [checked]="" type="radio" class="custom-control-input" disabled>
+          <label class="custom-control-label" for="paypal">PayPal</label>
+          <span class="ml-1"><img src="http://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Paypal-icon.png"
+              alt="" style="max-width:30px"></span>
+          <br>
+          <small class="mb-0" *ngIf="order.isPickUp">(H πληρωμή με Paypal δεν είναι διαθέσιμη για παραλαβή από το
+            κατάστημα) </small>
+        </div>
+        <br>
+
+
       </div>
       <hr class="bg-white">
       <div class="form-check">
@@ -135,7 +150,12 @@
       <br>
       <button class="btn btn-warning btn-lg btn-block mb-3" (click)="nextStep()" [disabled]="!gdp">Συνέχεια προς
         Πληρωμή</button>
+        <div class="alert alert-dismissible alert-danger" *ngIf="validShop">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+             *Συμπλήρωσε όλα τα υποχρεωτικά στοιχεία για να συνεχίσετε
+          </div>
     </div>
+    
   </div>
 </div>
 <app-footer></app-footer>

@@ -8,14 +8,18 @@
         <br>
         <form class="form my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="loginCustomer()">
           <h6 class="text-muted">Διεύθυνση ηλεκτρονικού ταχυδρομείου</h6>
-          <input type="text" class="form-control" required name="email" [(ngModel)]="customer.email">
+          <input type="text" class="form-control " required name="email" [(ngModel)]="customer.email" (click)="setSignIn()">
           <Br>
           <h6 class="text-muted">Κωδικός Πρόσβασης</h6>
-          <input class="form-control mr-sm-2" type="password" required name="password" [(ngModel)]="customer.password">
+          <input class="form-control mr-sm-2" type="password" required name="password" [(ngModel)]="customer.password" (click)="setSignIn()">
+          <div class="alert alert-dismissible alert-danger" *ngIf="signIn">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Το e-mail ή ο κωδικός πρόσβασης σας είναι λανθασμένοι
+          </div>
           <div class="modal-footer border-0">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="saveUser" name="saveUser" checked="" [(ngModel)]="customer.saveUser">
-              <label class="custom-control-label" for="saveUser">Θυμήσου με</label>
+              <label class="custom-control-label" for="saveUser">Θυμήσου με..</label>
             </div>
             <button type="submit" class="btn btn-outline-warning">Σύνδεση</button>
           </div>

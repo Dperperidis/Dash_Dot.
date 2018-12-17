@@ -123,7 +123,9 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
       this.cartService.cart = new Array<CartItem>();
       this.router.navigate(['/finalize']);
     }, error => {
-      this.toastr.error(error);
+      this.toastr.error(error,'',{
+        positionClass: 'bottom-center'
+      });
     });
   }
 
@@ -133,7 +135,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   codText() {
-    return 'Επιλέξατε να πληρώσετε με αντικαταβολή';
+    return 'Επιλέξατε να πληρώσετε με μετρητά/κάρτα';
   }
 
 }

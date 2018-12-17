@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-log-reg',
@@ -15,6 +16,7 @@ export class LogRegComponent implements OnInit {
   user: User;
   registerForm: FormGroup;
   customer: any = {};
+  signIn = false;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -72,6 +74,12 @@ export class LogRegComponent implements OnInit {
     }
   }
 
+setSignIn(){
+  this.signIn= false;
+}
+
+
+
   loginCustomer() {
     this.authService.login(this.customer).subscribe(res => {
       if (this.authService.decodedToken.isAdmin === 'True') {
@@ -84,10 +92,9 @@ export class LogRegComponent implements OnInit {
         return null;
       }
       this.cart.getCartOnDemand();
-      this.toastr.success("Καλωσήρθες");
       this.router.navigate(["/"]);
     }, error => {
-      this.toastr.error("Το e-mail ή ο κωδικός πρόσβασης σας είναι λανθασμένοι");
+      this.signIn = true;
     });
   }
 

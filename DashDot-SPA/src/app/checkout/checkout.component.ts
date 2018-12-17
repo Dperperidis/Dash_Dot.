@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   cart: Array<CartItem>;
   user: User;
   order = new Order();
+  validShop=false;
   gdp = false;
   stores = [
     { title: "Κατάστημα Ιλίου" },
@@ -87,7 +88,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.router.navigate(['/payment']);
       }
     }, error => {
-      this.toastr.error(error);
+      this.validShop = true;
     });
 
   }

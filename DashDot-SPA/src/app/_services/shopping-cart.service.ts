@@ -71,14 +71,18 @@ export class ShoppingCartService {
         this.addCartItem(item).subscribe(res => {
           this.cart.push(res);
           this.cart = this.cart;
-          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.');
+          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.','',{
+            positionClass: 'toast-top-center'
+          });
         }, error => {
           this.toastr.error(error);
         });
       } else {
         this.cart.push(item);
         this.cart = this.cart;
-        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.');
+        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.','',{
+          positionClass: 'toast-top-center'
+        });
         this.localstorage.setShoppingCart(this.cart);
       }
     }
@@ -93,7 +97,7 @@ export class ShoppingCartService {
           this.cart.splice(i, 1);
           this.cart = this.cart;
         }, error => {
-          this.toastr.error(error);
+          this.toastr.error('Το προϊόν έχει διαγραφτεί');
         });
         this.cart = this.cart;
       } else {

@@ -35,6 +35,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   cart: Array<CartItem>;
   modalRef: BsModalRef;
   sleeve = false;
+  checkSize = true;
+  checkColor = true;
   colors = [];
 
 
@@ -48,9 +50,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    if (this.color == '' || this.color == null || this.size == null && this.size == '') {
-      this.toastr.warning('Πρέπει να διαλέξετε μέγεθος/χρώμα για να γίνει η προσθήκη στο καλάθι_.');
+    if ((this.color == '' || this.color == null) && this.size == null) {
+      this.checkSize = false;
+      this.checkColor = false;
       return;
+    } else if(this.color == '' || this.color == null) {
+      this.checkColor = false;
+      this.checkSize= true;
     } else {
       const id = this.colors.find(x => x.title === this.color).id;
       this.cartService.addItemToCart(this.product, this.quantity, this.size, this.color, id);
@@ -71,6 +77,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       const y = this.colors.find(x => x.title == value);
       this.product.photoUrl = this.product.photos.find(x => x.colorPointer == y.id).url;
     }
+    this.checkColor = true;
   }
 
   ngOnInit() {
@@ -141,10 +148,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         case "Ζακέτα":
           break;
         case "Γιλέκο":
-       
           break;
-        case "Πουλόβερ":
-         
+        case "Πουλόβερ":   
           break;
       }
       this.sizes = this.product.productSizes;
@@ -166,6 +171,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     }, error => {
       this.toastr.error(error);
     });
+    this.checkSize = true;
   }
 
   onImgChange(imgUrl) {
@@ -180,7 +186,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   saveMessage() {
     this.message.code = this.product.code;
     this.productService.saveMessage(this.message).subscribe(res => {
-      this.toastr.show('Το μήνυμα στάλθηκε επιτυχώς');
+      this.toastr.show('Το μήνυμα στάλθηκε επιτυχώς','',{
+        positionClass: 'toast-bottom-left'
+      });
       this.message = new Message();
     }, error => {
       this.toastr.error(error);

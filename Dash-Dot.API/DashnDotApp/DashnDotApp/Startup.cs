@@ -82,26 +82,30 @@ namespace DashnDotApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            //else
-            //{
-            //    app.Use(async (context, next) =>
-            //    {
-            //        await next();
-
-            //        if (context.Response.StatusCode == 404)
-            //        {
-            //            await next();
-            //        }
-            //    });
-
-            //    //app.UseHsts();
-            //}
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            //app.UseHttpsRedirection();
+
+            if (env.IsProduction())
+            {
+                app.UseHsts();
+                app.Use(async (ctx, next) =>
+                {
+                    ctx.Response.Headers.Add("Content-Security-Policy", "default-src 'self' * 'unsafe-inline' 'unsafe-eval' data:");
+                    await next();
+                });
+            }
+            app.UseHttpsRedirection();
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
+
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

@@ -14,7 +14,6 @@
   padding: 1rem !important;
 }
 
-
 .px-0 {
   padding: 280px;
   margin: 0 auto;
@@ -27,13 +26,11 @@
 }
 
 .row > .col-6 > img {
-
   max-height: 40rem;
   float: right;
   margin-top:20px;
   max-width: 39rem;
 }
-
 
 .mid-banner {
   margin-top: 160px;
@@ -56,7 +53,6 @@
   transition-duration: 500ms;
   transition-timing-function: ease-out;
   opacity: 1;
-
 }
 
 .col-md-5{
@@ -121,7 +117,7 @@ h3{
   color:rgb(233, 143, 8);
   bottom:50%;
   left:32%;
-  background-color:rgba(255, 255, 255, 0.904);
+  background-color:rgba(255, 255, 255, 0.774);
   border-radius: 5px;
 }
 
@@ -135,6 +131,22 @@ h3{
     top: 10%;
     left: 0;
     width: 100%;
+  }
+
+  /* .caption1 {
+    position: absolute;
+    color:rgb(233, 143, 8);
+    background-color:rgba(255, 255, 255, 0.904);
+    border-radius: 5px;
+    margin-right:20px;
+   
+  } */
+  .caption1> h1{
+    font-size:20px!important;
+  } 
+
+  h3 {
+   margin-top:100px;
   }
 
 }

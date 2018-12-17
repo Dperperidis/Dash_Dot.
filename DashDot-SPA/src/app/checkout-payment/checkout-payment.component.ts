@@ -107,7 +107,6 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     pp.state = info.state;
     pp.total = info.transactions[0].amount.total;
     this.order.paypalInformation = pp;
-    console.log(info);
     this.finalizeOrder();
   }
 

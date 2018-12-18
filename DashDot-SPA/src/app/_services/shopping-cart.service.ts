@@ -48,7 +48,12 @@ export class ShoppingCartService {
   }
 
   addItemToCart(product: Product, q: number, s: string, c: string, cId: number) {
-    const i = this.cart.findIndex(x => x.productId === product.id && x.color === c && x.size === s);
+    let i = -1;
+    if (s) {
+      i = this.cart.findIndex(x => x.productId === product.id && x.color === c && x.size === s);
+    } else {
+      i = this.cart.findIndex(x => x.productId === product.id && x.color === c);
+    }
     if (i > -1) {
       if (this.auth.loggedIn()) {
         this.cart[i].quantity = this.cart[i].quantity + q;
@@ -71,7 +76,7 @@ export class ShoppingCartService {
         this.addCartItem(item).subscribe(res => {
           this.cart.push(res);
           this.cart = this.cart;
-          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.','',{
+          this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.', '', {
             positionClass: 'toast-top-center'
           });
         }, error => {
@@ -80,7 +85,7 @@ export class ShoppingCartService {
       } else {
         this.cart.push(item);
         this.cart = this.cart;
-        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.','',{
+        this.toastr.success('Το Προιόν προστέθηκε στο καλάθι σας.', '', {
           positionClass: 'toast-top-center'
         });
         this.localstorage.setShoppingCart(this.cart);

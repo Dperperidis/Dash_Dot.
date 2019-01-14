@@ -85,7 +85,7 @@ namespace DashnDotApp.Controllers
                                 _config.GetSection("Tokens:Issuer").Value,
                                _config.GetSection("Tokens:Issuer").Value,
                                   claims,
-                                  expires: DateTime.UtcNow.AddMinutes(560),
+                                  expires: DateTime.UtcNow.AddMinutes(1440),
                                   signingCredentials: creds);
 
                 var tokenHandler = new JwtSecurityTokenHandler();

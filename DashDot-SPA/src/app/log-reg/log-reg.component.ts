@@ -32,8 +32,11 @@ export class LogRegComponent implements OnInit {
     if (this.authService.decodedToken == null) {
       return;
     } else {
+      setTimeout(()=>{
+        window.location.reload();
+      },1500)
       this.router.navigate(['/']);
-      this.toastr.warning('Είσαι ήδη συνδεδεμένος/η');
+      this.toastr.warning('Έληξε η σύνδεσή σου, παρακαλώ συνδεθείτε ξανά.');
     }
   }
 

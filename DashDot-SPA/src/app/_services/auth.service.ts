@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
     providedIn: "root"
@@ -17,7 +18,7 @@ export class AuthService {
     decodedToken: any;
     currentUser: User;
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
         this.init();
     }
 
@@ -28,15 +29,28 @@ export class AuthService {
     set isAdmin(value: boolean) { this.isAdminInSubject$.next(value); }
 
     init() {
-        if (this.jwtHelper.isTokenExpired()) {
+        if (this.loggedIn()) {
+            return;
+        } else {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("user");
             this.decodedToken = null;
             this.currentUser = null;
-            this.router.navigate(['/']);
         }
+
+        // const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+        // if (this.jwtHelper.isTokenExpired(token)) {
+        //     console.log(token)
+        //     localStorage.removeItem("token");
+        //     localStorage.removeItem("user");
+        //     sessionStorage.removeItem("token");
+        //     sessionStorage.removeItem("user");
+        //     this.decodedToken = null;
+        //     this.currentUser = null;
+        //     this.router.navigate(['/']);
+        // } 
     }
     register(user: User) {
         return this.http.post(this.baseUrl + "auth/register", user);

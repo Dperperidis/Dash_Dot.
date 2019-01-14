@@ -17,15 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
         const authService = this.inj.get(AuthService);
         const token = authService.tokenGetter();
         if (token) {
-            if (authService.jwtHelper.isTokenExpired(token)) {
-                localStorage.removeItem("token");
-                localStorage.removeItem("user");
-                sessionStorage.removeItem("token");
-                sessionStorage.removeItem("user");
-                authService.decodedToken = null;
-                authService.currentUser = null;
-                this.router.navigate(['/login']);
-            }
             req = req.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`

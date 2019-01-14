@@ -41,6 +41,24 @@ namespace DashnDotApp.Controllers
             return Ok(userToReturn);
         }
 
+        [HttpGet("getUsers")]
+        public IActionResult GetUsers()
+        {
+            try
+            {
+
+                var users = _ctx.Users.ToList().OrderBy(x=>x.FirstName);
+
+                return Ok(users);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Δεν ήταν δυνατή η εμφάνιση των πελατών");
+            }
+
+        }
+
 
         [Route("updateUser")]
         [HttpPut]

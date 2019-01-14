@@ -4,6 +4,7 @@ import { User } from 'src/app/_models/User';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-main-account',
@@ -12,6 +13,9 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class MainAccountComponent implements OnInit {
   user: User;
+  save = false;
+  saveError = false
+
 
   constructor(private route: ActivatedRoute,
     private toastrService: ToastrService, private router: Router,
@@ -33,11 +37,12 @@ export class MainAccountComponent implements OnInit {
     }
   }
 
-  updateUser() {
-    this.userService.updateUser(this.user).subscribe(res => {
-      this.toastrService.success('Η αποθήκευση έγινε επιτυχώς');
+  updateUser(user) {
+    user.id = this.user.id;
+    this.userService.updateUser(user).subscribe(res => {
+      this.save = true;
     }, error => {
-      this.toastrService.error(error);
+      this.saveError = true;
     });
   }
 

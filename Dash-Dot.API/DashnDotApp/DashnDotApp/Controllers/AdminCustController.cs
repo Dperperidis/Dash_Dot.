@@ -107,7 +107,24 @@ namespace DashnDotApp.Controllers
         }
 
 
+        [Authorize]
+        [Route("getCoupons")]
+        [HttpGet]
+        public IActionResult GetCoupons()
+        {
+            try
+            {
+                var coupons = _ctx.Coupons.ToList();
 
+               
+                return Ok(coupons);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Υπήρξε πρόβλημα");
+            }
+        }
 
 
     }

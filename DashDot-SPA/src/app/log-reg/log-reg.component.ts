@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { User } from '../_models/User';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { Observable } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-log-reg',
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./log-reg.component.css']
 })
 export class LogRegComponent implements OnInit {
+  modalRef: BsModalRef;
   user: User;
   registerForm: FormGroup;
   customer: any = {};
@@ -22,7 +24,8 @@ export class LogRegComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private router: Router,
-    private cart: ShoppingCartService) { }
+    private cart: ShoppingCartService,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -74,9 +77,15 @@ export class LogRegComponent implements OnInit {
     }
   }
 
-setSignIn(){
-  this.signIn= false;
-}
+  openModal(template: TemplateRef<any>) {
+    setTimeout(() => {
+      this.modalRef = this.modalService.show(template);
+    },1500)
+  }
+
+  setSignIn() {
+    this.signIn = false;
+  }
 
 
 
@@ -97,6 +106,7 @@ setSignIn(){
       this.signIn = true;
     });
   }
+
 
 
 

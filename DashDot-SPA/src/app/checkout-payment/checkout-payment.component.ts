@@ -16,6 +16,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   cart = new Array<CartItem>();
   order = new Order();
 
+
   constructor(private cartService: ShoppingCartService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -27,6 +28,8 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
       if (this.cart.length === 0) { this.router.navigate(['/checkout']); }
     }));
     this.order = this.cartService.order;
+    //σβηνουμε αυτην την γραμμη για τιμη χωρις εκτπωση
+    this.order.total = this.totalOfItemsWithPer();
   }
 
   ngAfterViewInit() {
@@ -78,7 +81,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
-    total = this.order.isPickUp ? total : total + 3;
+    //total = this.order.isPickUp ? total : total + 3;
     return total;
   }
 
@@ -88,6 +91,15 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
       total = total + x.quantity;
     });
     return total;
+  }
+
+  totalOfItemsWithPer() {
+    let total = 0;
+    this.cart.forEach(x => {
+      total = total + (x.quantity * x.product.totalCost);
+    });
+    //total = this.order.isPickUp ? total : total + 3;
+    return total - (total / 100) * 20;
   }
 
   setPaypalInfo(info: any) {
@@ -114,8 +126,12 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+
+
   finalizeOrder() {
-    this.order.total = this.totalOfItems();
+    // τιμη χωρις εκπτψωση
+    // this.order.total = this.totalOfItemsWith()
+    this.order.total = this.totalOfItemsWithPer();
     this.cartService.placeOrder(this.order).subscribe(res => {
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
       this.cartService.order = new Order();
@@ -123,7 +139,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
       this.cartService.cart = new Array<CartItem>();
       this.router.navigate(['/finalize']);
     }, error => {
-      this.toastr.error(error,'',{
+      this.toastr.error(error, '', {
         positionClass: 'bottom-center'
       });
     });

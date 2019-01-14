@@ -34,6 +34,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AdminOrdersComponent } from "./admin-main/admin-orders/admin-orders.component";
 import { AdminOrderDetailsComponent } from "./admin-main/admin-order-details/admin-order-details.component";
 import { MyOrdersComponent } from './user/my-orders/my-orders.component';
+import { UserDetailsComponent } from "./admin-main/user-page/user-details/user-details.component";
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -73,6 +74,7 @@ export const routes: Routes = [
                     }, { path: '', component: AdminChartsComponent },
                     { path: 'product-settings', component: ProductSettingsComponent, resolve: { color: ColorListResolver } },
                     { path: 'user-page', component: UserPageComponent, resolve: { product: MessageListResolver }, },
+                    { path: 'user-page/user-details', component: UserDetailsComponent },
                     { path: 'orders/:page/:pageSize/:status/:order', component: AdminOrdersComponent },
                     { path: 'order/:id', component: AdminOrderDetailsComponent }
                 ]

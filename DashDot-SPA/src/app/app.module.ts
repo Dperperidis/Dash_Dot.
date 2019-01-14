@@ -75,6 +75,8 @@ import { AdminOrdersComponent } from './admin-main/admin-orders/admin-orders.com
 import { AdminOrderDetailsComponent } from './admin-main/admin-order-details/admin-order-details.component';
 import { PaginationService } from './_services/pagination.service';
 import { MyOrdersComponent } from './user/my-orders/my-orders.component';
+import { UserDetailsComponent } from './admin-main/user-page/user-details/user-details.component';
+import { FrontModalComponent } from './frontpage/front-modal/front-modal.component';
 
 registerLocaleData(localeDe);
 export function tokenGetter() {
@@ -125,6 +127,8 @@ export function tokenGetter() {
     AdminOrdersComponent,
     AdminOrderDetailsComponent,
     MyOrdersComponent,
+    UserDetailsComponent,
+    FrontModalComponent,
 
   ],
   imports: [

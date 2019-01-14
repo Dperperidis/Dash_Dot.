@@ -65,7 +65,7 @@ export class AuthService {
     loggedIn() {
         if (localStorage.getItem("token")) {
             const token = localStorage.getItem("token");
-            return !this.jwtHelper.isTokenExpired(token);
+            return !this.jwtHelper.isTokenExpired(token, 33600);
         } else {
             const token = sessionStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);

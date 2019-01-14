@@ -27,6 +27,11 @@ export class AppComponent implements OnInit {
       }
 
     }
-
+    
+    // console.log(this.jwtHelper.decodeToken(localStorage.getItem('token'))); 
+    // if (this.authService.decodedToken === ''||null){
+    //   localStorage.removeItem('token');
+    //   sessionStorage.removeItem('token');
+    // }
   }
 }

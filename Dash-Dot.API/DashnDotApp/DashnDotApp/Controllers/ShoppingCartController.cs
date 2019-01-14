@@ -233,7 +233,8 @@ namespace DashnDotApp.Controllers
                 order.OrderStatus = OrderStatus.Pending;
                 order.OrderDate = DateTime.UtcNow;
                 var total = cart.GetTotal();
-                total = order.IsPickUp ? total : total + 3;
+                // ενεργοποιηση για τα μεταφορικα
+                //total = order.IsPickUp ? total : total + 3;
                 if (total != order.Total)
                 {
                     return BadRequest("Σφάλμα κατα την επαλήθευση των προιόντων σας.");
@@ -288,7 +289,8 @@ namespace DashnDotApp.Controllers
                 order.OrderStatus = OrderStatus.Pending;
                 order.OrderDate = DateTime.Now;
                 var total = cart.GetTotal();
-                total = order.IsPickUp ? total : total + 3;
+                // ενεργοποιηση για τα μεταφορικα
+                //total = order.IsPickUp ? total : total + 3;
                 if (total != order.Total)
                 {
                     return BadRequest("Σφάλμα κατα την επαλήθευση των προιόντων σας.");

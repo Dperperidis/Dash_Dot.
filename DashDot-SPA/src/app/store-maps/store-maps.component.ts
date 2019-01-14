@@ -11,10 +11,7 @@ export class StoreMapsComponent implements OnInit {
   constructor() { }
   lat = 38.022689;
   lng = 23.684903;
-  // για να πέρνεις values απο arrays
-  // getKeys(obj){
-  //   return Object.keys(obj)
-  // }
+
 
   markers: Marker[] = [
     {

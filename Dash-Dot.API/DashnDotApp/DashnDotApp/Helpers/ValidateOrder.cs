@@ -22,6 +22,19 @@ namespace DashnDotApp.Helpers
                 string.IsNullOrEmpty(order.PostalCode);
         }
 
+
+        //για τιμή χωρίς έκπτωση
+        //public static double GetTotal(this List<CartItem> items)
+        //{
+        //    double total = 0;
+        //    items.ForEach(item =>
+        //    {
+        //        total = total + (item.Product.TotalCost * item.Quantity);
+        //    });
+        //    return total;
+        //}
+
+        //για τιμή με έκπτωση
         public static double GetTotal(this List<CartItem> items)
         {
             double total = 0;
@@ -29,7 +42,7 @@ namespace DashnDotApp.Helpers
             {
                 total = total + (item.Product.TotalCost * item.Quantity);
             });
-            return total;
+            return total - (total/100)*20;
         }
     }
 }

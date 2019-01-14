@@ -16,27 +16,33 @@
           </div>
           <span class="">{{it.quantity}} x {{it.product.totalCost}} &euro;</span>
         </li>
-        <li class="list-group-item  d-flex justify-content-between" *ngIf="!order.isPickUp">
+        <!-- <li class="list-group-item  d-flex justify-content-between" *ngIf="!order.isPickUp">
           <div>
             <p class="mb-0">Έξοδα αποστολής</p>
             <small class="text-muted">(χρέωση για όλη την ελλάδα)</small>
           </div>
           <strong>3 &euro;</strong>
+        </li> -->
+        <li class="list-group-item  d-flex justify-content-between text-warning">
+          <span>* Έκπτωση</span>
+          <strong>{{totalOfItems()}} &euro; (-20%)</strong>
         </li>
+
         <li class="list-group-item  d-flex justify-content-between">
           <span>Σύνολο (EURO)</span>
-          <strong>{{totalOfItems()}} &euro;</strong>
+          <strong>{{totalOfItemsWithPer()}} &euro; </strong>
         </li>
         <li class="list-group-item d-flex">
           <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
         </li>
+        <small class="text-muted text-center">* Έκπτωση -20% σε όλες τις επόμενες παραγγελίες σας μέχρι τέλος Φεβρουαρίου</small>
       </ul>
     </div>
     <div class="col-md-8 order-md-1 text-dark">
       <h4 class="mb-3">Διεύθυνση Χρέωσης</h4>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="firstName"  [ngClass]="{'text-danger': validShop}">Όνομα *</label>
+          <label for="firstName" [ngClass]="{'text-danger': validShop}">Όνομα *</label>
           <input type="text" class="form-control" id="firstName" [(ngModel)]="order.firstName" required (click)="validShop=false">
         </div>
         <div class="col-md-6 mb-3">
@@ -44,10 +50,11 @@
           <input type="text" class="form-control" id="lastName" [(ngModel)]="order.lastName" required (click)="validShop=false">
         </div>
       </div>
-      <div class="row mb-3" >
+      <div class="row mb-3">
         <div class="col-md-6">
           <label for="email" [ngClass]="{'text-danger': validShop}">Email *</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com" (click)="validShop=false">
+          <input type="email" class="form-control" id="email" [(ngModel)]="order.email" placeholder="you@example.com"
+            (click)="validShop=false">
         </div>
         <div class="col-md-6">
           <label for="email" [ngClass]="{'text-danger': validShop}">Τηλέφωνο *</label>
@@ -95,8 +102,10 @@
           <input [checked]="checkShippmanet(false)" type="radio" class="custom-control-input" required>
           <label class="custom-control-label" (click)="order.isPickUp = false" for="paypal">
             <p class="mb-0"> Αποστολή στην παραπάνω διεύθυνση</p>
-            <p class="mb-0" *ngIf="!order.isPickUp"><small>(Η παραγγελία σας θα επιβαρυνθεί με επιπλέον 3 &euro; για
-                αποστολή εντός ελλάδος)</small></p>
+            <!-- <p class="mb-0" *ngIf="!order.isPickUp"><small>(Η παραγγελία σας θα επιβαρυνθεί με επιπλέον 3 &euro; για
+                αποστολή εντός ελλάδος)</small></p> -->
+            <p class="mb-0" *ngIf="!order.isPickUp"><small>(Δωρεάν τα μεταφορικά σε όλη την Ελλάδα μέχρι μέχρι τέλους
+                Φεβρουαρίου)</small></p>
           </label>
         </div>
 
@@ -150,12 +159,12 @@
       <br>
       <button class="btn btn-warning btn-lg btn-block mb-3" (click)="nextStep()" [disabled]="!gdp">Συνέχεια προς
         Πληρωμή</button>
-        <div class="alert alert-dismissible alert-danger" *ngIf="validShop">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-             *Συμπλήρωσε όλα τα υποχρεωτικά στοιχεία για να συνεχίσετε
-          </div>
+      <div class="alert alert-dismissible alert-danger" *ngIf="validShop">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        *Συμπλήρωσε όλα τα υποχρεωτικά στοιχεία για να συνεχίσετε
+      </div>
     </div>
-    
+
   </div>
 </div>
 <app-footer></app-footer>

@@ -35,6 +35,12 @@
           </div>
           <span class="text-warning">{{order.area}} {{order.postalCode}}</span>
         </li>
+        <li class="list-group-item d-flex justify-content-between ">
+          <div>
+            <h6 class="text-dark">Τηλέφωνο</h6>
+          </div>
+          <span class="text-warning">{{order.mobile}}</span>
+        </li>
         <li class="list-group-item d-flex ">
           <button class="btn text-warning btn-link" [routerLink]="['/checkout']">Πίσω στα στοιχεία πληρωμής</button>
         </li>
@@ -65,20 +71,25 @@
             </div>
             <span class="">{{it.quantity}} x {{it.product.totalCost}} &euro;</span>
           </li>
-          <li class="list-group-item  d-flex justify-content-between" *ngIf="!order.isPickUp">
+          <!-- <li class="list-group-item  d-flex justify-content-between" *ngIf="!order.isPickUp">
             <div>
             <p class="mb-0">Έξοδα αποστολής</p>
             <small class="text-muted">(χρέωση για όλη την ελλάδα)</small>
           </div>
             <strong>3 &euro;</strong>
+          </li> -->
+          <li class="list-group-item  d-flex justify-content-between text-warning">
+            <span>* Έκπτωση</span>
+            <strong>{{totalOfItems()}} &euro; (-20%)</strong>
           </li>
           <li class="list-group-item  d-flex justify-content-between">
             <span>Σύνολο (EURO)</span>
-            <strong>{{totalOfItems()}} &euro;</strong>
+            <strong>{{totalOfItemsWithPer()}} &euro; </strong>
           </li>
           <li class="list-group-item d-flex">
             <button class="btn btn-warning btn-block" [routerLink]="['/cart']">Πίσω στο καλάθι</button>
           </li>
+          <small class="text-muted text-center">* Έκπτωση -20% σε όλες τις επόμενες παραγγελίες σας μέχρι τέλος Φεβρουαρίου</small>
         </ul>
 
       <!-- <ul class="list-group mb-3 bg-dark">

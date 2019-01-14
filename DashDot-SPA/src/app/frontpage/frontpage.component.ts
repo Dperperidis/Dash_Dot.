@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import { Component, OnInit, ElementRef, TemplateRef } from "@angular/core";
+import { BsModalRef, BsModalService } from "ngx-bootstrap";
 
 
 
@@ -42,9 +43,8 @@ export class FrontpageComponent implements OnInit {
 
   // }
 
-
-
   ngOnInit() {
 
   }
+
 }

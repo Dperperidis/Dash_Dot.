@@ -1,0 +1,25 @@
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Όνομα</th>
+      <th scope="col">Επιθέτο</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Κινητό</th>
+      <th scope="col">Έκπτωση</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <td>{{user.firstName | titlecase}}</td>
+      <td>{{user.lastName | titlecase}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.mobile}}</td>
+      <td>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="{{i}}">
+            <label class="custom-control-label" for="{{i}}">Ενεργοποιημένο</label>
+          </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

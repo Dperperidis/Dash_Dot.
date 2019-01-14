@@ -3,18 +3,29 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { AuthService } from '../_services/auth.service';
+import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
     constructor(
-        private inj: Injector
+        private inj: Injector,
+        private router: Router
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authService = this.inj.get(AuthService);
         const token = authService.tokenGetter();
         if (token) {
+            if (authService.jwtHelper.isTokenExpired(token)) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("user");
+                authService.decodedToken = null;
+                authService.currentUser = null;
+                this.router.navigate(['/login']);
+            }
             req = req.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`

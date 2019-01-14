@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: "root"
@@ -16,7 +17,9 @@ export class AuthService {
     decodedToken: any;
     currentUser: User;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) {
+        this.init();
+    }
 
     private isAdminInSubject$ = new BehaviorSubject<boolean>(false);
     isAdmin$ = this.isAdminInSubject$.asObservable();
@@ -24,6 +27,17 @@ export class AuthService {
     get isAdmin(): boolean { return this.isAdminInSubject$.getValue(); }
     set isAdmin(value: boolean) { this.isAdminInSubject$.next(value); }
 
+    init() {
+        if (this.jwtHelper.isTokenExpired()) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            this.decodedToken = null;
+            this.currentUser = null;
+            this.router.navigate(['/']);
+        }
+    }
     register(user: User) {
         return this.http.post(this.baseUrl + "auth/register", user);
     }

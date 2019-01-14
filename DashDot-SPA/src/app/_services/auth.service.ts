@@ -27,7 +27,6 @@ export class AuthService {
     register(user: User) {
         return this.http.post(this.baseUrl + "auth/register", user);
     }
-
     login(customer: any) {
         return this.http.post(this.baseUrl + "auth/login", customer).pipe(
             map((response: any) => {
@@ -65,7 +64,7 @@ export class AuthService {
     loggedIn() {
         if (localStorage.getItem("token")) {
             const token = localStorage.getItem("token");
-            return !this.jwtHelper.isTokenExpired(token, 33600);
+            return !this.jwtHelper.isTokenExpired(token);
         } else {
             const token = sessionStorage.getItem("token");
             return !this.jwtHelper.isTokenExpired(token);

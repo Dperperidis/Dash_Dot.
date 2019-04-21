@@ -4,6 +4,13 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+Dash-Dot.API/DashnDotApp/DashnDotApp/bin
+Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings.Development
+Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings
+Dash-Dot.API/DashnDotApp/DashnDotApp/Properties
+Dash-Dot.API/DashnDotApp/DashnDotApp/obj
+DashDot-SPA/src/environments
+DashDot-SPA/src/app/checkout-payment/checkout-payment.component.ts
 *.suo
 *.user
 *.userosscache

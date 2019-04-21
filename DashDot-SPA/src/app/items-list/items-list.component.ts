@@ -31,7 +31,6 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   window.scrollTo(0, 0);
     if (sessionStorage.getItem('page')) {
       this.pageSize = parseInt(sessionStorage.getItem('page'));
       sessionStorage.removeItem('page');

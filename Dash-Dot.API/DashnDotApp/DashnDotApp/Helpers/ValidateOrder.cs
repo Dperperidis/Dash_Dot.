@@ -24,17 +24,6 @@ namespace DashnDotApp.Helpers
 
 
         //για τιμή χωρίς έκπτωση
-        //public static double GetTotal(this List<CartItem> items)
-        //{
-        //    double total = 0;
-        //    items.ForEach(item =>
-        //    {
-        //        total = total + (item.Product.TotalCost * item.Quantity);
-        //    });
-        //    return total;
-        //}
-
-        //για τιμή με έκπτωση
         public static double GetTotal(this List<CartItem> items)
         {
             double total = 0;
@@ -42,8 +31,19 @@ namespace DashnDotApp.Helpers
             {
                 total = total + (item.Product.TotalCost * item.Quantity);
             });
-            return total - (total/100)*20;
+            return total;
         }
+
+        //για τιμή με έκπτωση
+        //public static double GetTotal(this List<CartItem> items)
+        //{
+        //    double total = 0;
+        //    items.ForEach(item =>
+        //    {
+        //        total = total + (item.Product.TotalCost * item.Quantity);
+        //    });
+        //    return total - (total/100)*20;
+        //}
     }
 }
 

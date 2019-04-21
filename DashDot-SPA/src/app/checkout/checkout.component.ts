@@ -20,6 +20,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   order = new Order();
   validShop = false;
   gdp = false;
+  errorText;
   stores = [
     { title: "Κατάστημα Ιλίου" },
     { title: "Κατάστημα Χαλανδρίου" },
@@ -73,24 +74,26 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
-    //total = this.order.isPickUp ? total : total + 3;
+    total = this.order.isPickUp ? total : total + 3;
     return total ;
   }
 
-  totalOfItemsWithPer() {
-    let total = 0;
-    this.cart.forEach(x => {
-      total = total + (x.quantity * x.product.totalCost);
-    });
-    //total = this.order.isPickUp ? total : total + 3;
-    return total - (total/100)*20 ;
-  }
 
-  // timh xwris ekptwsh
-  // this.order.total = this.totalOfItems();
+  // timh me ekptwsh
+  // totalOfItemsWithPer() {
+  //   let total = 0;
+  //   this.cart.forEach(x => {
+  //     total = total + (x.quantity * x.product.totalCost);
+  //   });
+  //   //total = this.order.isPickUp ? total : total + 3;
+  //   return total - (total/100)*20 ;
+  // }
+
+
+     // timh xwris ekptwsh
 
   nextStep() {
-    this.order.total = this.totalOfItemsWithPer();
+    this.order.total = this.totalOfItems();
     this.cartService.order = this.order;
     if (this.cart.length === 0) {
       this.toastr.warning('To καλάθι σας είναι άδειο');
@@ -102,6 +105,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       }
     }, error => {
       this.validShop = true;
+      this.errorText = error
+      
     });
     this.user.area = this.order.area;
     this.user.mobile = this.order.mobile;

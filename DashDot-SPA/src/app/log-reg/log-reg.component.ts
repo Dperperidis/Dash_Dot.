@@ -19,6 +19,8 @@ export class LogRegComponent implements OnInit {
   registerForm: FormGroup;
   customer: any = {};
   signIn = false;
+  checkModal = false;
+  template: TemplateRef<any>
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -32,9 +34,9 @@ export class LogRegComponent implements OnInit {
     if (this.authService.decodedToken == null) {
       return;
     } else {
-      setTimeout(()=>{
+      setTimeout(() => {
         window.location.reload();
-      },1500)
+      }, 1500)
       this.router.navigate(['/']);
       this.toastr.warning('Έληξε η σύνδεσή σου, παρακαλώ συνδεθείτε ξανά.');
     }
@@ -69,7 +71,9 @@ export class LogRegComponent implements OnInit {
       this.authService.register(this.user).subscribe(res => {
         this.toastr.success("Ο χρήστης δημιουργήθηκε");
         this.router.navigate(['/']);
+        //this.openModal(this.template);
       }, error => {
+
         this.toastr.error(error);
       }, () => {
         this.authService.login(this.user).subscribe(next => {
@@ -78,13 +82,21 @@ export class LogRegComponent implements OnInit {
         });
       });
     }
+
   }
 
-  openModal(template: TemplateRef<any>) {
-    setTimeout(() => {
-      this.modalRef = this.modalService.show(template);
-    },1500)
-  }
+
+  // setModal(modalTemp) {
+  //   this.template = modalTemp;
+  // }
+
+  // openModal(template: TemplateRef<any>) {
+  //   setTimeout(() => {
+  //     this.modalRef = this.modalService.show(template);
+  //   }, 1500)
+  // }
+
+
 
   setSignIn() {
     this.signIn = false;

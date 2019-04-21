@@ -29,7 +29,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     }));
     this.order = this.cartService.order;
     //σβηνουμε αυτην την γραμμη για τιμη χωρις εκτπωση
-    this.order.total = this.totalOfItemsWithPer();
+    this.order.total = this.totalOfItems();
   }
 
   ngAfterViewInit() {
@@ -81,7 +81,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     this.cart.forEach(x => {
       total = total + (x.quantity * x.product.totalCost);
     });
-    //total = this.order.isPickUp ? total : total + 3;
+    total = this.order.isPickUp ? total : total + 3;
     return total;
   }
 
@@ -93,14 +93,14 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
     return total;
   }
 
-  totalOfItemsWithPer() {
-    let total = 0;
-    this.cart.forEach(x => {
-      total = total + (x.quantity * x.product.totalCost);
-    });
-    //total = this.order.isPickUp ? total : total + 3;
-    return total - (total / 100) * 20;
-  }
+  // totalOfItemsWithPer() {
+  //   let total = 0;
+  //   this.cart.forEach(x => {
+  //     total = total + (x.quantity * x.product.totalCost);
+  //   });
+  //   //total = this.order.isPickUp ? total : total + 3;
+  //   return total - (total / 100) * 20;
+  // }
 
   setPaypalInfo(info: any) {
     const pp = new PaypalInformation();
@@ -131,7 +131,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   finalizeOrder() {
     // τιμη χωρις εκπτψωση
     // this.order.total = this.totalOfItemsWith()
-    this.order.total = this.totalOfItemsWithPer();
+    this.order.total = this.totalOfItems();
     this.cartService.placeOrder(this.order).subscribe(res => {
       this.toastr.success('Η παραγγελία σας καταχωρήθηκε με επιτυχία');
       this.cartService.order = new Order();
@@ -151,7 +151,7 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   codText() {
-    return 'Επιλέξατε να πληρώσετε με μετρητά/κάρτα';
+    return 'Επιλέξατε να πληρώσετε με μετρητά';
   }
 
 }

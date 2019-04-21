@@ -5,8 +5,8 @@
 
 # User-specific files
 Dash-Dot.API/DashnDotApp/DashnDotApp/bin
-Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings.Development
-Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings
+Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings.Development.json
+Dash-Dot.API/DashnDotApp/DashnDotApp/appsettings.json
 Dash-Dot.API/DashnDotApp/DashnDotApp/Properties
 Dash-Dot.API/DashnDotApp/DashnDotApp/obj
 DashDot-SPA/src/environments
